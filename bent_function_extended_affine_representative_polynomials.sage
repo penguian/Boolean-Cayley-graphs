@@ -3,6 +3,15 @@ Boolean polynomial representatives of extended affine equivalence classes
 of bent functions.
 """
 
+#*****************************************************************************
+#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#
+#  Distributed under the terms of the GNU General Public License (GPL)
+#  as published by the Free Software Foundation; either version 2 of
+#  the License, or (at your option) any later version.
+#                  http://www.gnu.org/licenses/
+#*****************************************************************************
+
 def bent_function_extended_affine_representative_polynomials_dimension_2():
     r"""
     The Boolean polynomial p2[1] is the representative of the single

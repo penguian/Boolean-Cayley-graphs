@@ -1,3 +1,13 @@
+
+#*****************************************************************************
+#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#
+#  Distributed under the terms of the GNU General Public License (GPL)
+#  as published by the Free Software Foundation; either version 2 of
+#  the License, or (at your option) any later version.
+#                  http://www.gnu.org/licenses/
+#*****************************************************************************
+
 def linear_mapf(boolf, A):
     """
     Given the `BooleanFunction` `boolf` and the `GF(2)` matrix $A$, the function `linear_mapf` returns the function $x \mapsto \mathtt{boolf}(A x)$, where $x$ is a positive integer, and its binary expansion is used in the `GF(2)` matrix multiplcation by $A$.
