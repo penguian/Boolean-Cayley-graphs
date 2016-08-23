@@ -25,8 +25,9 @@ def boolean_cayley_graph(m, f):
     result.add_edges([(i,j) for i in sxrange(v) for j in sxrange(i) if f(i ^^ j)])
     return result
 
-load("extended_translation_equivalent_function.sage")
+load("boolean_function_with_translate.sage")
 
 def boolean_function_cayley_graph(boolf):
     m = boolf.nvariables()
-    return boolean_cayley_graph(m, extended_translation_equivalent_function(boolf))
+    f = BooleanFunctionWithTranslate(boolf).extended_translate()
+    return boolean_cayley_graph(m, f)
