@@ -1,16 +1,11 @@
 r"""
 A subclass of BooleanFunction that includes information about relevant isomorphism classes of Cayley graphs.
 
-<Paragraph description>
-...
 
 AUTHORS:
 
 - Paul Leopardi (2016-08-02): initial version
 
-...
-
-Lots and lots of examples.
 """
 
 #*****************************************************************************
@@ -22,7 +17,7 @@ Lots and lots of examples.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load("integer_bits.sage")
+load("boolean_function_with_translate.sage")
 
 load("boolean_cayley_graph.sage")
 
@@ -32,24 +27,6 @@ load("graph_isomorphism_class.sage")
 
 from sage.crypto.boolean_function import BooleanFunction
 from datetime import datetime
-
-
-class BooleanFunctionWithTranslate(BooleanFunction):
-    r"""
-    """
-    def extended_translate(self, b=0, c=0, d=0):
-        r"""
-        Extended translation equivalent function of this `BooleanFunction`.
-
-        Given the non-negative numbers $b$, $c$ and $d$, the function
-        `extended_translate` returns the function
-
-        $x \mapsto \mathtt{self}(x + b) + \langle c, x \rangle + d$.
-        """
-        base2 = lambda length, num: num.digits(2, padto=length)
-
-        m = self.nvariables()
-        return lambda x: self(base2(m, x ^^ b)) ^^ (0 if c == 0 else inner(c, x)) ^^ d
 
 
 class BooleanFunctionCayleyGraphClassification(BooleanFunctionWithTranslate):
