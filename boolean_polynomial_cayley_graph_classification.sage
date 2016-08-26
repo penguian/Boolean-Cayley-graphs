@@ -16,7 +16,6 @@ load("cayley_graph_classification.sage")
 
 load("walsh_hadamard_dual.sage")
 
-from sage.rings.polynomial.pbori import BooleanPolynomial
 
 
 class BooleanPolynomialCayleyGraphClassification(SageObject):
@@ -28,57 +27,67 @@ class BooleanPolynomialCayleyGraphClassification(SageObject):
             debugging = cayley_graph_debugging
 
         self.boolean_polynomial = p
-        if debugging:
-            print "Boolean polynomial:   ", p
 
         f = BooleanFunction(p)
-        self.boolean_function = f
 
         n = f.algebraic_normal_form()
         self.algebraic_normal_form = n
-        if debugging:
-            print "Algebraic normal form:", n
-            print "Function", ("is" if f.is_bent() else "is not"), "bent."
-
-        dual_f = walsh_hadamard_dual(f)
-        self.dual_function = dual_f
-        if debugging:
-            print "Dual", ("is" if dual_f.is_bent() else "is not"), "bent."
 
         G, D, I = dillon_schatz_incidence_structure(f)
         self.cayley_incidence_structure = G
         self.dillon_schatz_design_matrix = D
         self.dillon_schatz_incidence_structure = I
-        if debugging:
-            print "Dillon Schatz design",
-            print ("is" if I.is_isomorphic(G) else "is not"),
-            print "isomorphic to Cayley graph incidence structure."
-            print "Incidence structure t-design parameters:",
-            print I.is_t_design(return_parameters=True)
 
         fcc, srgs = cayley_graph_classification(f)
         self.cayley_graph_class_list = srgs
         self.cayley_graph_index_matrix = fcc.cayley_graph_index_matrix
         if debugging:
-            print "Strongly regular parameters, rank, order",
-            print "and clique polynomial"
-            print "of each representative Cayley graph",
-            print "in the extended affine class:"
-            for s in srgs:
-                print s.strongly_regular_parameters,
-                print s.rank, s.group_order, s.clique_polynomial
+            self.__print__()
+
 
     def mangled_name(self, name):
         return self.__class__.__name__ + "__" + name
 
 
+    def __print__(self):
+        p = self.boolean_polynomial
+        print "Boolean polynomial:   ", p
+
+        f = BooleanFunction(p)
+
+        n = self.algebraic_normal_form
+        print "Algebraic normal form:", n
+        print "Function", ("is" if f.is_bent() else "is not"), "bent."
+
+        G = self.cayley_incidence_structure
+        D = self.dillon_schatz_design_matrix
+        I = self.dillon_schatz_incidence_structure
+        print "Dillon Schatz design",
+        print ("is" if I.is_isomorphic(G) else "is not"),
+        print "isomorphic to Cayley graph incidence structure."
+        print "Incidence structure t-design parameters:",
+        print I.is_t_design(return_parameters=True)
+
+        srgs = self.cayley_graph_class_list
+        print "Strongly regular parameters, rank, order",
+        print "and clique polynomial"
+        print "of each representative Cayley graph",
+        print "in the extended affine class:"
+        for s in srgs:
+            print s.strongly_regular_parameters,
+            print s.rank, s.group_order, s.clique_polynomial
+        print "Cayley graph representative index matrix:"
+        print self.cayley_graph_index_matrix
+
+
 def save_cayley_graph_classification(p, name):
     c = BooleanPolynomialCayleyGraphClassification(p)
-    save(c, c.mangled_name(name))
+    c._default_filename = c.mangled_name(name)
+    save(c, c._default_filename)
     return c
 
 
-def load_cayley_graph_classification(p, name):
+def load_cayley_graph_classification(name):
     mangled_name = "BooleanPolynomialCayleyGraphClassification" + "__" + name
-    load(mangled_name, c)
+    c = load(mangled_name)
     return c
