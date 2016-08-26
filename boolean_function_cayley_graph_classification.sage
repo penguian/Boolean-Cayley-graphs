@@ -23,8 +23,6 @@ load("boolean_cayley_graph.sage")
 
 load("index_append_list.sage")
 
-# load("graph_isomorphism_class.sage")
-
 from sage.crypto.boolean_function import BooleanFunction
 from datetime import datetime
 
