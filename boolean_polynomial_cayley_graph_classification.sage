@@ -60,9 +60,9 @@ class BooleanPolynomialCayleyGraphClassification(SageObject):
         self.cayley_graph_class_list = srgs
         self.cayley_graph_index_matrix = fcc.cayley_graph_index_matrix
         if debugging:
-            print "Strongly regular parameters, rank, order"
+            print "Strongly regular parameters, rank, order",
             print "and clique polynomial"
-            print "of each representative Cayley graph"
+            print "of each representative Cayley graph",
             print "in the extended affine class:"
             for s in srgs:
                 print s.strongly_regular_parameters,
