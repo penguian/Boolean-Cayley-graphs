@@ -23,7 +23,7 @@ load("boolean_cayley_graph.sage")
 
 load("index_append_list.sage")
 
-load("graph_isomorphism_class.sage")
+# load("graph_isomorphism_class.sage")
 
 from sage.crypto.boolean_function import BooleanFunction
 from datetime import datetime
@@ -34,7 +34,7 @@ class BooleanFunctionCayleyGraphClassification(BooleanFunctionWithTranslate):
     Given the `BooleanFunction` `boolf`,
     the class `BooleanFunctionCayleyGraphClassification`
     is initialized with `boolean_function` set to `boolf`,
-    `cayley_graph_class_list` set to an `IndexAppendList` of `GraphIsomorphismClass`
+    `cayley_graph_class_list` set to an `IndexAppendList` of `Graph`
     corresponding to the complete set of non-isomorphic Cayley graphs of the Boolean functions
     within the extended affine eqivalence class of `boolf`, and
     `cayley_graph_index_matrix` set to a matrix of indices into `cayley_graph_class_list`.
@@ -49,13 +49,13 @@ class BooleanFunctionCayleyGraphClassification(BooleanFunctionWithTranslate):
         r"""
         Initialize self as per the class description above.
         """
-        if not 'cayley_graph_debugging' in globals():
-            debugging = False
+        if not 'cayley_graph_timing' in globals():
+            timing = False
         else:
-            debugging = cayley_graph_debugging
+            timing = cayley_graph_timing
 
-        m = boolf.nvariables()
-        v = 2 ** m
+        dim = boolf.nvariables()
+        v = 2 ** dim
         self.boolean_function = BooleanFunctionWithTranslate(boolf)
         f = self.boolean_function
         equivalent_f = f.extended_translate()
@@ -63,10 +63,8 @@ class BooleanFunctionCayleyGraphClassification(BooleanFunctionWithTranslate):
         self.cayley_graph_index_matrix = matrix(v,v)
         for b in sxrange(v):
             fb = equivalent_f(b)
-            g = [GraphIsomorphismClass(boolean_cayley_graph(m, fbc)) for fbc in [f.extended_translate(b, c, fb) for c in sxrange(v)]]
+            g = [boolean_cayley_graph(dim, fbc).canonical_label() for fbc in [f.extended_translate(b, c, fb) for c in sxrange(v)]]
+            if timing:
+                print datetime.now(), b, len(self.cayley_graph_class_list)
             for c in sxrange(v):
-                if debugging:
-                    print datetime.now(), b, c,
                 self.cayley_graph_index_matrix[c, b] = self.cayley_graph_class_list.index_append(g[c])
-                if debugging:
-                    print len(self.cayley_graph_class_list)
