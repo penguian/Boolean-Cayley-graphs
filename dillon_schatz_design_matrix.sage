@@ -15,7 +15,7 @@ Paul Leopardi.
 
 load("walsh_hadamard_dual.sage")
 
-load("extended_translation_equivalent_function.sage")
+load("boolean_function_with_translate.sage")
 
 def dillon_schatz_design_matrix(boolf):
     """
@@ -27,7 +27,8 @@ def dillon_schatz_design_matrix(boolf):
     v = 2 ** m
     result = matrix(v,v)
     dual_boolf = walsh_hadamard_dual(boolf)
-    dual_f = extended_translation_equivalent_function(dual_boolf)
+    dual_f = BooleanFunctionWithTranslate(dual_boolf).extended_translate()
+    boolft = BooleanFunctionWithTranslate(boolf)
     for c in sxrange(v):
-        result[c,:] = matrix([extended_translation_equivalent_function(boolf,0,c,dual_f(c))(x) for x in sxrange(v)])
+        result[c,:] = matrix([boolft.extended_translate(0,c,dual_f(c))(x) for x in sxrange(v)])
     return result
