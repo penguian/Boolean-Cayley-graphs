@@ -80,14 +80,11 @@ class BooleanPolynomialCayleyGraphClassification(SageObject):
         print self.cayley_graph_index_matrix
 
 
-def save_cayley_graph_classification(p, name):
+def save_cayley_graph_classification(c, name):
     c = BooleanPolynomialCayleyGraphClassification(p)
-    c._default_filename = c.mangled_name(name)
-    save(c, c._default_filename)
-    return c
+    save(c, c.mangled_name(name))
 
 
 def load_cayley_graph_classification(name):
     mangled_name = "BooleanPolynomialCayleyGraphClassification" + "__" + name
-    c = load(mangled_name)
-    return c
+    return load(mangled_name)
