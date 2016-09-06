@@ -25,19 +25,25 @@ def classify_bent_function_extended_affine_cayley_graphs(dim):
 
 
 def classify_bent_function_cayley_graphs(dim):
+    if not 'cayley_graph_debugging' in globals():
+        debugging = False
+    else:
+        debugging = cayley_graph_debugging
     p = bent_function_extended_affine_representative_polynomials(dim)
-    class_indices = [None]*len(p)
+    classification = [None]*len(p)
     graph_classes = IndexAppendList([])
     for n in sxrange(1,len(p)):
-        print n, ':'
+        if debugging:
+            print n, ':'
         c = load_cayley_graph_classification('p'+str(dim)+'_'+str(n))
         cg_class_list = c.cayley_graph_class_list
         cg_index_matrix = c.cayley_graph_index_matrix
-        class_indices[n] = matrix(2,len(cg_class_list))
+        classification[n] = matrix(2,len(cg_class_list))
         class_counts = np.histogram(cg_index_matrix, range(len(cg_class_list) + 1))[0]
         for i in xrange(len(cg_class_list)):
             g = cg_class_list[i]
-            class_indices[n][0, i] = graph_classes.index_append(g)
-            class_indices[n][1, i] = class_counts[i]
-        print class_indices[n]
-    return class_indices
+            classification[n][0, i] = graph_classes.index_append(g)
+            classification[n][1, i] = class_counts[i]
+        if debugging:
+            print classification[n]
+    return classification
