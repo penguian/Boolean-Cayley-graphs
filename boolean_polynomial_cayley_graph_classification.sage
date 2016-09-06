@@ -81,7 +81,6 @@ class BooleanPolynomialCayleyGraphClassification(SageObject):
 
 
 def save_cayley_graph_classification(c, name):
-    c = BooleanPolynomialCayleyGraphClassification(p)
     save(c, c.mangled_name(name))
 
 
