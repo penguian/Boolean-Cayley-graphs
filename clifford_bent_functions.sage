@@ -13,6 +13,8 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from sage.crypto.boolean_function import BooleanFunction
+
 base4 = lambda length, num: num.digits(4, padto=length)
 
 def sigma_tau(which, m, x):
@@ -32,3 +34,14 @@ clifford_sign_of_square_sigma  = lambda m, x: sigma_tau(0, m, x)
 clifford_non_diag_symmetry_tau = lambda m, x: sigma_tau(1, m, x)
 
 power_4_truth_table = lambda m, f: [f(m, x) for x in sxrange(4 ** m)]
+
+sigma_list = lambda n: [BooleanFunction(power_4_truth_table(m, clifford_sign_of_square_sigma)) for m in sxrange(n)]
+"""
+The list `sigma_list(n)` contains each `BooleanFunction` corresponding to $\sigma_m$ for $m$ from 0 to n-1.
+"""
+
+tau_list = lambda n: [BooleanFunction(power_4_truth_table(m, clifford_non_diag_symmetry_tau)) for m in sxrange(n)]
+"""
+The list `tau_list(n)` contains each `BooleanFunction` corresponding to $\tau_m$ for $m$ from 0 to n-1.
+"""
+
