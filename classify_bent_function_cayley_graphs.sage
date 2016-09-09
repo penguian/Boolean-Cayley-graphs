@@ -8,9 +8,9 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load('bent_function_extended_affine_representative_polynomials.sage')
+load("bent_function_extended_affine_representative_polynomials.sage")
 
-load('boolean_polynomial_cayley_graph_classification.sage')
+load("boolean_polynomial_cayley_graph_classification.sage")
 
 import numpy as np
 
@@ -46,4 +46,4 @@ def classify_bent_function_cayley_graphs(dim):
             classification[n][1, i] = class_counts[i]
         if debugging:
             print classification[n]
-    return classification
+    return classification, graph_classes
