@@ -12,6 +12,8 @@ load("bent_function_extended_affine_representative_polynomials.sage")
 
 load("boolean_polynomial_cayley_graph_classification.sage")
 
+load("bent_function_weight_classification.sage")
+
 import numpy as np
 
 def classify_bent_function_extended_affine_cayley_graphs(dim):
@@ -36,14 +38,22 @@ def classify_bent_function_cayley_graphs(dim):
         if debugging:
             print n, ':'
         c = load_cayley_graph_classification('p'+str(dim)+'_'+str(n))
+        wc = BentFunctionWeightClassification(c)
+        if debugging:
+           wcm = wc.weight_class_matrix
+           dsm = c.dillon_schatz_design_matrix
+           print "Weight class matrix",
+           print "equals" if wcm == dsm else "does not equal",
+           print "Dillon Schatz design matrix."
         cg_class_list = c.cayley_graph_class_list
         cg_index_matrix = c.cayley_graph_index_matrix
-        classification[n] = matrix(2,len(cg_class_list))
+        classification[n] = matrix(3,len(cg_class_list))
         class_counts = np.histogram(cg_index_matrix, range(len(cg_class_list) + 1))[0]
         for i in xrange(len(cg_class_list)):
             g = cg_class_list[i]
             classification[n][0, i] = graph_classes.index_append(g)
-            classification[n][1, i] = class_counts[i]
+            classification[n][1, i] = wc.weight_class_list[i]
+            classification[n][2, i] = class_counts[i]
         if debugging:
             print classification[n]
     return classification, graph_classes
