@@ -27,7 +27,7 @@ from sage.crypto.boolean_function import BooleanFunction
 from datetime import datetime
 
 
-class BooleanFunctionCayleyGraphClassification(BooleanFunctionWithTranslate):
+class BooleanFunctionCayleyGraphClassification(SageObject):
     r"""
     Given the `BooleanFunction` `boolf`,
     the class `BooleanFunctionCayleyGraphClassification`
