@@ -10,8 +10,10 @@
 
 
 class StronglyRegularGraph(Graph):
-    """
-    The class `StronglyRegularGraph` is used to store a strongly regular graph and some of its computed properties: its clique polynomial and its strongly regular graph parameters.
+    r"""
+    The class `StronglyRegularGraph` is used to store a strongly regular graph
+    and some of its computed properties:
+    its clique polynomial and its strongly regular graph parameters.
     """
     def __init__(self, graph=None):
         Graph.__init__(self, graph)
