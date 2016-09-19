@@ -10,7 +10,7 @@
 
 from sage.crypto.boolean_function import BooleanFunction
 
-load("boolean_cayley_graph.sage")
+from boolean_cayley_graph import boolean_function_cayley_graph
 
 
 def check_bent_isomorphism(dim, k, certify=False):
