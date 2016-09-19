@@ -8,8 +8,10 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load("boolean_cayley_graph.sage")
-load("dillon_schatz_design_matrix.sage")
+from sage.combinat.designs.incidence_structures import IncidenceStructure
+from boolean_cayley_graph import *
+from dillon_schatz_design_matrix import *
+
 
 def dillon_schatz_incidence_structure(f):
     g = boolean_function_cayley_graph(f)

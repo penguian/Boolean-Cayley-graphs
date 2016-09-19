@@ -8,8 +8,8 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load("boolean_function_cayley_graph_classification.sage")
-load("strongly_regular_graph.sage")
+from boolean_function_cayley_graph_classification import *
+from strongly_regular_graph import *
 
 
 def cayley_graph_classification(f):

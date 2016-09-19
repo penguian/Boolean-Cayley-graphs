@@ -1,4 +1,4 @@
-"""
+r"""
 Incidence matrix of designs  of type $R(\mathtt{boolf})$ described by Dillon and Schatz.
 
 Paul Leopardi.
@@ -13,12 +13,15 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load("walsh_hadamard_dual.sage")
+from sage.arith.srange import xsrange
+from sage.matrix.constructor import matrix
 
-load("boolean_function_with_translate.sage")
+from walsh_hadamard_dual import *
+from boolean_function_with_translate import *
+
 
 def dillon_schatz_design_matrix(boolf):
-    """
+    r"""
     Given a `BooleanFunction` `boolf`, the function `Dillon_Schatz_design_matrix`
     returns the incidence matrix of the design of type $R(\mathtt{boolf})$,
     as described by Dillon and Schatz (1987).
@@ -29,6 +32,6 @@ def dillon_schatz_design_matrix(boolf):
     dual_boolf = walsh_hadamard_dual(boolf)
     dual_f = BooleanFunctionWithTranslate(dual_boolf).extended_translate()
     boolft = BooleanFunctionWithTranslate(boolf)
-    for c in sxrange(v):
-        result[c,:] = matrix([boolft.extended_translate(0,c,dual_f(c))(x) for x in sxrange(v)])
+    for c in xsrange(v):
+        result[c,:] = matrix([boolft.extended_translate(0,c,dual_f(c))(x) for x in xsrange(v)])
     return result

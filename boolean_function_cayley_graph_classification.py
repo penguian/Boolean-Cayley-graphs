@@ -17,14 +17,17 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load("boolean_function_with_translate.sage")
 
-load("boolean_cayley_graph.sage")
-
-load("index_append_list.sage")
-
-from sage.crypto.boolean_function import BooleanFunction
 from datetime import datetime
+
+from sage.arith.srange import xsrange
+from sage.crypto.boolean_function import BooleanFunction
+from sage.matrix.constructor import matrix
+from sage.structure.sage_object import SageObject
+
+from index_append_list import *
+from boolean_function_with_translate import *
+from boolean_cayley_graph import *
 
 
 class BooleanFunctionCayleyGraphClassification(SageObject):
@@ -59,10 +62,10 @@ class BooleanFunctionCayleyGraphClassification(SageObject):
         equivalent_f = f.extended_translate()
         self.cayley_graph_class_list = IndexAppendList([])
         self.cayley_graph_index_matrix = matrix(v,v)
-        for b in sxrange(v):
+        for b in xsrange(v):
             fb = equivalent_f(b)
-            g = [boolean_cayley_graph(dim, fbc).canonical_label() for fbc in [f.extended_translate(b, c, fb) for c in sxrange(v)]]
+            g = [boolean_cayley_graph(dim, fbc).canonical_label() for fbc in [f.extended_translate(b, c, fb) for c in xsrange(v)]]
             if timing:
                 print datetime.now(), b, len(self.cayley_graph_class_list)
-            for c in sxrange(v):
+            for c in xsrange(v):
                 self.cayley_graph_index_matrix[c, b] = self.cayley_graph_class_list.index_append(g[c])

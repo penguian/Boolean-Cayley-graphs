@@ -13,8 +13,14 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from sage.arith.srange import xsrange
+from sage.graphs.graph import Graph
+
+from boolean_function_with_translate import *
+
+
 def boolean_cayley_graph(m, f):
-    """
+    r"""
     Given the non-negative number $m$ and the function `f`,
     a Boolean function that takes a non-negative integer argument,
     the function `Boolean_Cayley_graph` constructs the Cayley graph of
@@ -22,10 +28,8 @@ def boolean_cayley_graph(m, f):
     """
     v = 2 ** m
     result = Graph(v)
-    result.add_edges([(i,j) for i in sxrange(v) for j in sxrange(i) if f(i ^^ j)])
+    result.add_edges([(i,j) for i in xsrange(v) for j in xsrange(i) if f(i ^ j)])
     return result
-
-load("boolean_function_with_translate.sage")
 
 def boolean_function_cayley_graph(boolf):
     m = boolf.nvariables()

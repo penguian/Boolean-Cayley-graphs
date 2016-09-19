@@ -9,12 +9,11 @@
 #*****************************************************************************
 
 from sage.crypto.boolean_function import BooleanFunction
+from sage.structure.sage_object import SageObject, load
 
-load("dillon_schatz_incidence_structure.sage")
-
-load("cayley_graph_classification.sage")
-
-load("walsh_hadamard_dual.sage")
+from dillon_schatz_incidence_structure import *
+from cayley_graph_classification import *
+from walsh_hadamard_dual import *
 
 
 
@@ -81,7 +80,7 @@ class BooleanPolynomialCayleyGraphClassification(SageObject):
 
 
 def save_cayley_graph_classification(c, name):
-    save(c, c.mangled_name(name))
+    c.save(c.mangled_name(name))
 
 
 def load_cayley_graph_classification(name):

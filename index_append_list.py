@@ -1,4 +1,4 @@
-"""
+r"""
 List with added index_append method.
 
 Paul Leopardi.
@@ -14,7 +14,7 @@ Paul Leopardi.
 #*****************************************************************************
 
 class IndexAppendList(list):
-    """
+    r"""
     Subclass of list with an added index_append method.
     """
     def index_append(self,item):

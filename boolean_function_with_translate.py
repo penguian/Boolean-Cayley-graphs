@@ -1,4 +1,4 @@
-r"""
+"""
 A subclass of BooleanFunction that adds a method to produce an extended
 translation equivalent function.
 
@@ -18,16 +18,15 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load("integer_bits.sage")
-
 from sage.crypto.boolean_function import BooleanFunction
+from integer_bits import *
 
 
 class BooleanFunctionWithTranslate(BooleanFunction):
-    r"""
+    """
     """
     def extended_translate(self, b=0, c=0, d=0):
-        r"""
+        """
         Extended translation equivalent function of this `BooleanFunction`.
 
         Given the non-negative numbers $b$, $c$ and $d$, the function
@@ -38,4 +37,4 @@ class BooleanFunctionWithTranslate(BooleanFunction):
         base2 = lambda length, num: num.digits(2, padto=length)
 
         m = self.nvariables()
-        return lambda x: self(base2(m, x ^^ b)) ^^ (0 if c == 0 else inner(c, x)) ^^ d
+        return lambda x: self(base2(m, x ^ b)) ^ (0 if c == 0 else inner(c, x)) ^ d

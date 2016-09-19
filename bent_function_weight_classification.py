@@ -8,7 +8,8 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-load("index_append_list.sage")
+from sage.structure.sage_object import SageObject
+from index_append_list import *
 
 
 class BentFunctionWeightClassification(SageObject):

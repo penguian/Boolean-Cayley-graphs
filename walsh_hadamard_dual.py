@@ -1,4 +1,4 @@
-"""
+r"""
 Walsh Hadamard dual of a Boolean function.
 
 Paul Leopardi.
@@ -13,9 +13,11 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from sage.crypto.boolean_function import BooleanFunction
+
 
 def walsh_hadamard_dual(boolf):
-    """
+    r"""
     Given a `BooleanFunction` `boolf`, the function `walsh_hadamard_dual`
     returns a `BooleanFunction` based on the Walsh Hadamard transform of `boolf`.
     If `boolf` is a bent function, then the returned `BooleanFunction` is
