@@ -8,13 +8,13 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+import numpy as np
+
+from boolean_polynomial_cayley_graph_classification import *
+from bent_function_weight_classification import *
+
 load("bent_function_extended_affine_representative_polynomials.sage")
 
-load("boolean_polynomial_cayley_graph_classification.sage")
-
-load("bent_function_weight_classification.sage")
-
-import numpy as np
 
 def classify_bent_function_extended_affine_cayley_graphs(dim):
     p = bent_function_extended_affine_representative_polynomials(dim)
