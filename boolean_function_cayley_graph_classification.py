@@ -29,6 +29,8 @@ from index_append_list import *
 from boolean_function_with_translate import *
 from boolean_cayley_graph import *
 
+import cayley_graph_controls as controls
+
 
 class BooleanFunctionCayleyGraphClassification(SageObject):
     r"""
@@ -50,10 +52,7 @@ class BooleanFunctionCayleyGraphClassification(SageObject):
         r"""
         Initialize self as per the class description above.
         """
-        if not 'cayley_graph_timing' in globals():
-            timing = False
-        else:
-            timing = cayley_graph_timing
+        timing = controls.timing
 
         dim = boolf.nvariables()
         v = 2 ** dim

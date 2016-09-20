@@ -15,15 +15,13 @@ from dillon_schatz_incidence_structure import *
 from cayley_graph_classification import *
 from walsh_hadamard_dual import *
 
+import cayley_graph_controls as controls
 
 
 class BooleanPolynomialCayleyGraphClassification(SageObject):
 
     def __init__(self, p):
-        if not 'cayley_graph_debugging' in globals():
-            debugging = False
-        else:
-            debugging = cayley_graph_debugging
+        verbose = controls.verbose
 
         self.boolean_polynomial = p
 
@@ -40,7 +38,7 @@ class BooleanPolynomialCayleyGraphClassification(SageObject):
         fcc, srgs = cayley_graph_classification(f)
         self.cayley_graph_class_list = srgs
         self.cayley_graph_index_matrix = fcc.cayley_graph_index_matrix
-        if debugging:
+        if verbose:
             self.__print__()
 
 

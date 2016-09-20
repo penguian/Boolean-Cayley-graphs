@@ -13,6 +13,8 @@ import numpy as np
 from boolean_polynomial_cayley_graph_classification import *
 from bent_function_weight_classification import *
 
+import cayley_graph_controls as controls
+
 load("bent_function_extended_affine_representative_polynomials.sage")
 
 
@@ -27,19 +29,17 @@ def classify_bent_function_extended_affine_cayley_graphs(dim):
 
 
 def classify_bent_function_cayley_graphs(dim):
-    if not 'cayley_graph_debugging' in globals():
-        debugging = False
-    else:
-        debugging = cayley_graph_debugging
+    verbose = controls.verbose
+
     p = bent_function_extended_affine_representative_polynomials(dim)
     classification = [None]*len(p)
     graph_classes = IndexAppendList([])
     for n in sxrange(1,len(p)):
-        if debugging:
+        if verbose:
             print n, ':'
         c = load_cayley_graph_classification('p'+str(dim)+'_'+str(n))
         wc = BentFunctionWeightClassification(c)
-        if debugging:
+        if verbose:
            wcm = wc.weight_class_matrix
            dsm = c.dillon_schatz_design_matrix
            print "Weight class matrix",
@@ -54,6 +54,6 @@ def classify_bent_function_cayley_graphs(dim):
             classification[n][0, i] = graph_classes.index_append(g)
             classification[n][1, i] = wc.weight_class_list[i]
             classification[n][2, i] = class_counts[i]
-        if debugging:
+        if verbose:
             print classification[n]
     return classification, graph_classes
