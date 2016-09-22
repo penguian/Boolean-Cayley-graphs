@@ -10,8 +10,11 @@
 
 import numpy as np
 
-from boolean_polynomial_cayley_graph_classification import *
-from bent_function_weight_classification import *
+from bent_function_weight_classification import BentFunctionWeightClassification
+from boolean_polynomial_cayley_graph_classification import BooleanPolynomialCayleyGraphClassification
+from boolean_polynomial_cayley_graph_classification import load_cayley_graph_classification
+from boolean_polynomial_cayley_graph_classification import save_cayley_graph_classification
+from index_append_list import IndexAppendList
 
 import cayley_graph_controls as controls
 
@@ -19,10 +22,13 @@ load("bent_function_extended_affine_representative_polynomials.sage")
 
 
 def classify_bent_function_extended_affine_cayley_graphs(dim):
+    verbose = controls.verbose
+
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    for n in range(1,len(c)):
-        print n
+    for n in range(1, len(c)):
+        if verbose:
+            print n, ':'
         c[n] = BooleanPolynomialCayleyGraphClassification(p[n])
         save_cayley_graph_classification(c[n], 'p'+str(dim)+'_'+str(n))
     return c
@@ -34,7 +40,7 @@ def classify_bent_function_cayley_graphs(dim):
     p = bent_function_extended_affine_representative_polynomials(dim)
     classification = [None]*len(p)
     graph_classes = IndexAppendList([])
-    for n in sxrange(1,len(p)):
+    for n in sxrange(1, len(p)):
         if verbose:
             print n, ':'
         c = load_cayley_graph_classification('p'+str(dim)+'_'+str(n))
