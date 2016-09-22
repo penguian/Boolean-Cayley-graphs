@@ -19,7 +19,7 @@ AUTHORS:
 #*****************************************************************************
 
 from sage.crypto.boolean_function import BooleanFunction
-from integer_bits import *
+from integer_bits import inner
 
 
 class BooleanFunctionWithTranslate(BooleanFunction):
