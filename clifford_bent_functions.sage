@@ -15,6 +15,7 @@ Paul Leopardi.
 
 from sage.crypto.boolean_function import BooleanFunction
 
+
 base4 = lambda length, num: num.digits(4, padto=length)
 
 
