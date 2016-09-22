@@ -9,7 +9,7 @@
 #*****************************************************************************
 
 from sage.structure.sage_object import SageObject
-from index_append_list import *
+from index_append_list import IndexAppendList
 
 
 class BentFunctionWeightClassification(SageObject):

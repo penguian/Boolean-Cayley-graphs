@@ -16,8 +16,8 @@ Paul Leopardi.
 from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
 
-from walsh_hadamard_dual import *
-from boolean_function_with_translate import *
+from boolean_function_with_translate import BooleanFunctionWithTranslate
+from walsh_hadamard_dual import walsh_hadamard_dual
 
 
 def dillon_schatz_design_matrix(boolf):

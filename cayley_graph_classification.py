@@ -8,8 +8,8 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from boolean_function_cayley_graph_classification import *
-from strongly_regular_graph import *
+from boolean_function_cayley_graph_classification import BooleanFunctionCayleyGraphClassification
+from strongly_regular_graph import StronglyRegularGraph
 
 
 def cayley_graph_classification(f):

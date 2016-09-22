@@ -25,9 +25,9 @@ from sage.crypto.boolean_function import BooleanFunction
 from sage.matrix.constructor import matrix
 from sage.structure.sage_object import SageObject
 
-from index_append_list import *
-from boolean_function_with_translate import *
-from boolean_cayley_graph import *
+from boolean_cayley_graph import boolean_cayley_graph
+from boolean_function_with_translate import BooleanFunctionWithTranslate
+from index_append_list import IndexAppendList
 
 import cayley_graph_controls as controls
 

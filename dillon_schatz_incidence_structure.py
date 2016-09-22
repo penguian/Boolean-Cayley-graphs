@@ -9,8 +9,8 @@
 #*****************************************************************************
 
 from sage.combinat.designs.incidence_structures import IncidenceStructure
-from boolean_cayley_graph import *
-from dillon_schatz_design_matrix import *
+from boolean_cayley_graph import boolean_function_cayley_graph
+from dillon_schatz_design_matrix import dillon_schatz_design_matrix
 
 
 def dillon_schatz_incidence_structure(f):

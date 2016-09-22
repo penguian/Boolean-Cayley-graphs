@@ -11,9 +11,9 @@
 from sage.crypto.boolean_function import BooleanFunction
 from sage.structure.sage_object import SageObject, load
 
-from dillon_schatz_incidence_structure import *
-from cayley_graph_classification import *
-from walsh_hadamard_dual import *
+from cayley_graph_classification import cayley_graph_classification
+from dillon_schatz_incidence_structure import dillon_schatz_incidence_structure
+from strongly_regular_graph import StronglyRegularGraph
 
 import cayley_graph_controls as controls
 

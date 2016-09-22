@@ -16,7 +16,7 @@ Paul Leopardi.
 from sage.arith.srange import xsrange
 from sage.graphs.graph import Graph
 
-from boolean_function_with_translate import *
+from boolean_function_with_translate import BooleanFunctionWithTranslate
 
 
 def boolean_cayley_graph(m, f):
