@@ -12,6 +12,7 @@ from sage.graphs.graph import Graph
 from sage.matrix.constructor import matrix
 from sage.rings.finite_rings.finite_field_constructor import GF
 
+
 class StronglyRegularGraph(Graph):
     r"""
     The class `StronglyRegularGraph` is used to store a strongly regular graph

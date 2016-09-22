@@ -10,6 +10,7 @@
 
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 
+
 def linear_code_from_code_gens(c):
     M = matrix(GF(2), [list(s) for s in c])
     return LinearCode(M)
