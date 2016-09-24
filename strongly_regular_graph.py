@@ -10,6 +10,7 @@
 
 from sage.graphs.graph import Graph
 from sage.matrix.constructor import matrix
+from sage.misc.lazy_attribute import lazy_attribute
 from sage.rings.finite_rings.finite_field_constructor import GF
 
 
@@ -21,9 +22,25 @@ class StronglyRegularGraph(Graph):
     """
     def __init__(self, graph=None):
         Graph.__init__(self, graph)
-        self.clique_polynomial   = graph.clique_polynomial()
-        self.strongly_regular_parameters = graph.is_strongly_regular(parameters=True)
-        self.matrix_GF2 = matrix(GF(2),self)
-        self.rank = self.matrix_GF2.rank()
-        self.group = self.automorphism_group()
-        self.group_order = self.group.order()
+        self.clique_polynomial = graph.clique_polynomial()
+
+    @lazy_attribute
+    def strongly_regular_parameters(self):
+        return self.is_strongly_regular(parameters=True)
+
+    @lazy_attribute
+    def matrix_GF2(self):
+        return matrix(GF(2), self)
+
+    @lazy_attribute
+    def rank(self):
+        return self.matrix_GF2.rank()
+
+    @lazy_attribute
+    def group(self):
+        return self.automorphism_group()
+
+    @lazy_attribute
+    def group_order(self):
+        return self.group.order()
+
