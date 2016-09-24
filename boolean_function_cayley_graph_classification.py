@@ -63,7 +63,8 @@ class BooleanFunctionCayleyGraphClassification(SageObject):
         self.cayley_graph_index_matrix = matrix(v,v)
         for b in xsrange(v):
             fb = equivalent_f(b)
-            g = [boolean_cayley_graph(dim, fbc).canonical_label() for fbc in [f.extended_translate(b, c, fb) for c in xsrange(v)]]
+            g = [boolean_cayley_graph(dim, fbc).canonical_label()
+                 for fbc in [f.extended_translate(b, c, fb) for c in xsrange(v)]]
             if timing:
                 print datetime.now(), b, len(self.cayley_graph_class_list)
             for c in xsrange(v):
