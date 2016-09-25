@@ -13,6 +13,7 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+
 def parity(n):
     r"""
     Given the non-negative number $n$, the function `parity` returns 1
@@ -23,6 +24,7 @@ def parity(n):
         n &= n - 1
         result = not result
     return 1 if result else 0
+
 
 def inner(a, b):
     """
