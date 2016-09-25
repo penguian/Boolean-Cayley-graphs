@@ -13,14 +13,15 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-class IndexAppendList(list):
+
+class ListWithIndexAppend(list):
     r"""
     Subclass of list with an added index_append method.
     """
     def index_append(self,item):
         """
         If the usual list index method for self yields a ValueError,
-        the append item to self.
+        then append item to self.
         """
         try:
             result = self.index(item)
