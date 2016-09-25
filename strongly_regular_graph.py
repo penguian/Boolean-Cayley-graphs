@@ -38,7 +38,7 @@ class StronglyRegularGraph(Graph):
 
     @lazy_attribute
     def automorphism_group(self):
-        return self.automorphism_group()
+        return Graph.automorphism_group(self)
 
     @lazy_attribute
     def group_order(self):
