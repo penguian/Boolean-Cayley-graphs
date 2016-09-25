@@ -60,7 +60,7 @@ class BentFunctionCayleyGraphClassification(SageObject):
 
         self.bent_function = bentf
         self.cayley_graph_index_matrix = matrix(v,v)
-        self.weight_class_matrix = matrix(v,v)
+        self.weight_class_matrix       = matrix(v,v)
 
         cayley_graph_class_list = ListWithIndexAppend([])
         f = bentf.extended_translate()
