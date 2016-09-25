@@ -1,6 +1,5 @@
 """
-A subclass of BooleanFunction that adds a method to produce an extended
-translation equivalent function.
+A subclass of BooleanFunction that adds extra methods.
 
 
 AUTHORS:
@@ -19,22 +18,38 @@ AUTHORS:
 #*****************************************************************************
 
 from sage.crypto.boolean_function import BooleanFunction
+
+from boolean_cayley_graph import boolean_cayley_graph
 from integer_bits import inner
 
 
-class BooleanFunctionWithTranslate(BooleanFunction):
+class BooleanFunctionImproved(BooleanFunction):
+    r"""
     """
-    """
-    def extended_translate(self, b=0, c=0, d=0):
+    def cayley_graph(self):
+        r"""
         """
-        Extended translation equivalent function of this `BooleanFunction`.
+        dim = self.nvariables()
+        f = self.extended_translate()
+        return boolean_cayley_graph(dim, f)
+
+
+    def extended_translate(self, b=0, c=0, d=0):
+        r"""
+        Extended translation equivalent function.
 
         Given the non-negative numbers $b$, $c$ and $d$, the function
         `extended_translate` returns the function
 
         $x \mapsto \mathtt{self}(x + b) + \langle c, x \rangle + d$.
         """
-        base2 = lambda length, num: num.digits(2, padto=length)
+        base2 = lambda dim, num: num.digits(2, padto=dim)
 
-        m = self.nvariables()
-        return lambda x: self(base2(m, x ^ b)) ^ (0 if c == 0 else inner(c, x)) ^ d
+        dim = self.nvariables()
+        return lambda x: self(base2(dim, x ^ b)) ^ (0 if c == 0 else inner(c, x)) ^ d
+
+
+    def weight(self):
+        r"""
+        """
+        return sum(self.truth_table(format='int'))
