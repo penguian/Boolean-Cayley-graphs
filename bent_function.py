@@ -13,13 +13,36 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-import weight_class as wc
+
+from sage.arith.srange import xsrange
+from sage.matrix.constructor import matrix
+
 from boolean_function_improved import BooleanFunctionImproved
+from walsh_hadamard_dual import walsh_hadamard_dual
+
+import weight_class as wc
 
 
 class BentFunction(BooleanFunctionImproved):
     r"""
     """
+
+
+    def dillon_schatz_design_matrix(self):
+        r"""
+        The function `Dillon_Schatz_design_matrix` returns
+        the incidence matrix of the design of type $R(\mathtt{self})$,
+        as described by Dillon and Schatz (1987).
+        """
+        dim = self.nvariables()
+        v = 2 ** dim
+        result = matrix(v, v)
+        dual_self = self.walsh_hadamard_dual()
+        dual_f = dual_self.extended_translate()
+        for c in xsrange(v):
+            result[c,:] = matrix([self.extended_translate(0, c, dual_f(c))(x)
+                                for x in xsrange(v)])
+        return result
 
 
     def walsh_hadamard_dual(self):
@@ -34,8 +57,8 @@ class BentFunction(BooleanFunctionImproved):
         an incorrect sign in BooleanFunction.walsh_hadamard_transform(self).
         If this is ever fixed, then this must be changed to `1 - x/scale`.
         """
-        m = self.nvariables()
-        scale = 2 ** (m/2)
+        dim = self.nvariables()
+        scale = 2 ** (dim/2)
         return BentFunction([(1 + x/scale)/2 for x in self.walsh_hadamard_transform()])
 
 
