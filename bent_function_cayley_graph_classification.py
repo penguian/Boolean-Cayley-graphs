@@ -1,5 +1,5 @@
 r"""
-A subclass of BooleanFunction that includes information about relevant isomorphism classes of Cayley graphs.
+A subclass of BentFunction that includes information about relevant isomorphism classes of Cayley graphs.
 
 
 AUTHORS:
@@ -21,51 +21,63 @@ AUTHORS:
 from datetime import datetime
 
 from sage.arith.srange import xsrange
-from sage.crypto.boolean_function import BooleanFunction
 from sage.matrix.constructor import matrix
 from sage.structure.sage_object import SageObject
 
+from bent_function import BentFunction
 from boolean_cayley_graph import boolean_cayley_graph
-from boolean_function_with_translate import BooleanFunctionWithTranslate
-from index_append_list import IndexAppendList
+from list_with_index_append import ListWithIndexAppend
+from strongly_regular_graph import StronglyRegularGraph
+from weight_class import weight_class
 
 import cayley_graph_controls as controls
 
 
-class BooleanFunctionCayleyGraphClassification(SageObject):
+class BentFunctionCayleyGraphClassification(SageObject):
     r"""
-    Given the `BooleanFunction` `boolf`,
-    the class `BooleanFunctionCayleyGraphClassification`
-    is initialized with `boolean_function` set to `boolf`,
-    `cayley_graph_class_list` set to an `IndexAppendList` of `Graph`
+    Given the `BentFunction` `bentf`,
+    the class `BentFunctionCayleyGraphClassification`
+    is initialized with `bent_function` set to `bentf`,
+    `cayley_graph_class_list` set to a `ListWithIndexAppend` of `Graph`
     corresponding to the complete set of non-isomorphic Cayley graphs of the Boolean functions
-    within the extended affine eqivalence class of `boolf`, and
+    within the extended affine eqivalence class of `bentf`, and
     `cayley_graph_index_matrix` set to a matrix of indices into `cayley_graph_class_list`.
 
     Each entry `cayley_graph_index_matrix[c,b]` corresponds to
     the Cayley graph of the Boolean function
-    $x \mapsto \mathtt{boolf}(x+b) + \langle c, x \rangle + \mathtt{boolf}(b)$.
-    This enumerates all of the extended translates of `boolf`.
+    $x \mapsto \mathtt{bentf}(x+b) + \langle c, x \rangle + \mathtt{bentf}(b)$.
+    This enumerates all of the extended translates of `bentf`.
     """
 
-    def __init__(self, boolf):
+    def __init__(self, bentf):
         r"""
         Initialize self as per the class description above.
         """
         timing = controls.timing
 
-        dim = boolf.nvariables()
+        dim = bentf.nvariables()
         v = 2 ** dim
-        self.boolean_function = BooleanFunctionWithTranslate(boolf)
-        f = self.boolean_function
-        equivalent_f = f.extended_translate()
-        self.cayley_graph_class_list = IndexAppendList([])
+
+        self.bent_function = bentf
         self.cayley_graph_index_matrix = matrix(v,v)
+        self.weight_class_matrix = matrix(v,v)
+
+        cayley_graph_class_list = ListWithIndexAppend([])
+        f = bentf.extended_translate()
         for b in xsrange(v):
-            fb = equivalent_f(b)
-            g = [boolean_cayley_graph(dim, fbc).canonical_label()
-                 for fbc in [f.extended_translate(b, c, fb) for c in xsrange(v)]]
             if timing:
-                print datetime.now(), b, len(self.cayley_graph_class_list)
+                print datetime.now(), b, len(cayley_graph_class_list)
+
+            fb = f(b)
+            fbc_list = [bentf.extended_translate(b, c, fb)
+                        for c in xsrange(v)]
+            g_list = [boolean_cayley_graph(dim, fbc).canonical_label()
+                      for fbc in fbc_list]
             for c in xsrange(v):
-                self.cayley_graph_index_matrix[c, b] = self.cayley_graph_class_list.index_append(g[c])
+                self.cayley_graph_index_matrix[c, b] = cayley_graph_class_list.index_append(g_list[c])
+                fbc = fbc_list[c]
+                weight = sum(fbc(x) for x in xsrange(v))
+                self.weight_class_matrix[c, b] = weight_class(v, weight)
+        self.cayley_graph_class_list = [StronglyRegularGraph(g) for g in cayley_graph_class_list]
+        if timing:
+            print datetime.now()
