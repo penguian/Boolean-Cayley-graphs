@@ -16,22 +16,16 @@ Paul Leopardi.
 from sage.arith.srange import xsrange
 from sage.graphs.graph import Graph
 
-from boolean_function_with_translate import BooleanFunctionWithTranslate
 
-
-def boolean_cayley_graph(m, f):
+def boolean_cayley_graph(dim, f):
     r"""
     Given the non-negative number $m$ and the function `f`,
     a Boolean function that takes a non-negative integer argument,
     the function `Boolean_Cayley_graph` constructs the Cayley graph of
-    `f` as a Boolean function on $\mathbb{Z}_2^m$, with the canonical ordering.
+    `f` as a Boolean function on $\mathbb{Z}_2^d$, with the canonical ordering.
+    The value `f(0)` is assumed to be 0, so the graph is always simple.
     """
-    v = 2 ** m
+    v = 2 ** dim
     result = Graph(v)
     result.add_edges([(i,j) for i in xsrange(v) for j in xsrange(i) if f(i ^ j)])
     return result
-
-def boolean_function_cayley_graph(boolf):
-    m = boolf.nvariables()
-    f = BooleanFunctionWithTranslate(boolf).extended_translate()
-    return boolean_cayley_graph(m, f)
