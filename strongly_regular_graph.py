@@ -37,10 +37,10 @@ class StronglyRegularGraph(Graph):
         return self.matrix_GF2.rank()
 
     @lazy_attribute
-    def group(self):
+    def automorphism_group(self):
         return self.automorphism_group()
 
     @lazy_attribute
     def group_order(self):
-        return self.group.order()
+        return self.automorphism_group.order()
 
