@@ -1,5 +1,5 @@
 r"""
-Incidence matrix of designs  of type $R(\mathtt{boolf})$ described by Dillon and Schatz.
+Incidence matrix of designs  of type $R(\mathtt{bentf})$ described by Dillon and Schatz.
 
 Paul Leopardi.
 """
@@ -16,22 +16,22 @@ Paul Leopardi.
 from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
 
-from boolean_function_with_translate import BooleanFunctionWithTranslate
+from bent_function import BentFunction
 from walsh_hadamard_dual import walsh_hadamard_dual
 
 
-def dillon_schatz_design_matrix(boolf):
+def dillon_schatz_design_matrix(bentf):
     r"""
-    Given a `BooleanFunction` `boolf`, the function `Dillon_Schatz_design_matrix`
-    returns the incidence matrix of the design of type $R(\mathtt{boolf})$,
+    Given a `BentFunction` `bentf`, the function `Dillon_Schatz_design_matrix`
+    returns the incidence matrix of the design of type $R(\mathtt{bentf})$,
     as described by Dillon and Schatz (1987).
     """
-    m = boolf.nvariables()
-    v = 2 ** m
-    result = matrix(v,v)
-    dual_boolf = walsh_hadamard_dual(boolf)
-    dual_f = BooleanFunctionWithTranslate(dual_boolf).extended_translate()
-    boolft = BooleanFunctionWithTranslate(boolf)
+    dim = bentf.nvariables()
+    v = 2 ** dim
+    result = matrix(v, v)
+    dual_bentf = bentf.walsh_hadamard_dual()
+    dual_f = dual_bentf.extended_translate()
     for c in xsrange(v):
-        result[c,:] = matrix([boolft.extended_translate(0,c,dual_f(c))(x) for x in xsrange(v)])
+        result[c,:] = matrix([bentf.extended_translate(0, c, dual_f(c))(x)
+                              for x in xsrange(v)])
     return result
