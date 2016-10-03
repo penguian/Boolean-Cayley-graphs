@@ -10,9 +10,8 @@
 
 import numpy as np
 
-from boolean_polynomial_cayley_graph_classification import BooleanPolynomialCayleyGraphClassification
-from boolean_polynomial_cayley_graph_classification import load_cayley_graph_classification
-from boolean_polynomial_cayley_graph_classification import save_cayley_graph_classification
+
+from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
 from list_with_index_append import ListWithIndexAppend
 
 import cayley_graph_controls as controls
@@ -28,8 +27,10 @@ def save_boolean_dimension_cayley_graph_classifications(dim):
     for n in range(1, len(c)):
         if verbose:
             print n, ':'
-        c[n] = BooleanPolynomialCayleyGraphClassification(p[n])
-        save_cayley_graph_classification(c[n], 'p'+str(dim)+'_'+str(n))
+        f = BentFunction(p[n])
+        c[n] = BentFunctionCayleyGraphClassification(f)
+        name_n = 'p'+str(dim)+'_'+str(n)
+        c[n].save_mangled(name_n)
     return c
 
 
@@ -42,7 +43,8 @@ def load_boolean_dimension_cayley_graph_classifications(dim):
     for n in sxrange(1, len(p)):
         if verbose:
             print n, ':'
-        c = load_cayley_graph_classification('p'+str(dim)+'_'+str(n))
+        name_n = 'p'+str(dim)+'_'+str(n)
+        c = BentFunctionCayleyGraphClassification.load_mangled(name_n)
         cg_class_list   = c.cayley_graph_class_list
         cg_index_matrix = c.cayley_graph_index_matrix
         classification[n] = matrix(2,len(cg_class_list))

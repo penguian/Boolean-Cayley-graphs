@@ -22,7 +22,7 @@ from datetime import datetime
 
 from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
-from sage.structure.sage_object import SageObject
+from sage.structure.sage_object import load, SageObject
 
 from bent_function import BentFunction
 from boolean_cayley_graph import boolean_cayley_graph
@@ -39,9 +39,12 @@ class BentFunctionCayleyGraphClassification(SageObject):
     the class `BentFunctionCayleyGraphClassification`
     is initialized with `bent_function` set to `bentf`,
     `cayley_graph_class_list` set to a `ListWithIndexAppend` of `Graph`
-    corresponding to the complete set of non-isomorphic Cayley graphs of the Boolean functions
-    within the extended affine eqivalence class of `bentf`, and
-    `cayley_graph_index_matrix` set to a matrix of indices into `cayley_graph_class_list`.
+    corresponding to the complete set of non-isomorphic Cayley graphs
+    of the Boolean functions within the extended affine eqivalence class
+    of `bentf`, `cayley_graph_index_matrix` set to a matrix of indices
+    into `cayley_graph_class_list`, and `weight_class_matrix` set to
+    the 0-1 matrix of weight classes corresponding to
+    `cayley_graph_index_matrix`.
 
     Each entry `cayley_graph_index_matrix[c,b]` corresponds to
     the Cayley graph of the Boolean function
@@ -54,11 +57,12 @@ class BentFunctionCayleyGraphClassification(SageObject):
         Initialize self as per the class description above.
         """
         timing = controls.timing
+        verbose = controls.verbose
 
         dim = bentf.nvariables()
         v = 2 ** dim
 
-        self.bent_function = bentf
+        self.algebraic_normal_form = bentf.algebraic_normal_form()
         self.cayley_graph_index_matrix = matrix(v,v)
         self.weight_class_matrix       = matrix(v,v)
 
@@ -78,6 +82,36 @@ class BentFunctionCayleyGraphClassification(SageObject):
                 fbc = fbc_list[c]
                 weight = sum(fbc(x) for x in xsrange(v))
                 self.weight_class_matrix[c, b] = weight_class(v, weight)
+
         self.cayley_graph_class_list = [StronglyRegularGraph(g) for g in cayley_graph_class_list]
+
+        dillon_schatz_design_matrix = bentf.dillon_schatz_design_matrix()
+        if self.weight_class_matrix != dillon_schatz_design_matrix:
+            raise ValueError, ("self.weight_class_matrix != dillon_schatz_design_matrix" + "\n"
+                               + str(self.weight_class_matrix) + "\n"
+                               + str(dillon_schatz_design_matrix))
+
         if timing:
             print datetime.now()
+
+
+    @classmethod
+    def mangled_name(cls, name):
+        r"""
+        """
+        return cls.__name__ + "__" + name
+
+
+    @classmethod
+    def load_mangled(cls, name):
+        r"""
+        """
+        return load(cls.mangled_name(name))
+
+
+    def save_mangled(self, name):
+        r"""
+        """
+        self.save(self.__class__.mangled_name(name))
+
+
