@@ -11,6 +11,7 @@
 import numpy as np
 
 
+from bent_function import BentFunction
 from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
 from list_with_index_append import ListWithIndexAppend
 
