@@ -21,9 +21,10 @@ from sage.crypto.boolean_function import BooleanFunction
 
 from boolean_cayley_graph import boolean_cayley_graph
 from integer_bits import inner
+from persistent import Persistent
 
 
-class BooleanFunctionImproved(BooleanFunction):
+class BooleanFunctionImproved(BooleanFunction, Persistent):
     r"""
     """
     def cayley_graph(self):

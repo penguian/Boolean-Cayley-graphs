@@ -27,13 +27,14 @@ from sage.structure.sage_object import load, SageObject
 from bent_function import BentFunction
 from boolean_cayley_graph import boolean_cayley_graph
 from list_with_index_append import ListWithIndexAppend
+from persistent import Persistent
 from strongly_regular_graph import StronglyRegularGraph
 from weight_class import weight_class
 
 import cayley_graph_controls as controls
 
 
-class BentFunctionCayleyGraphClassification(SageObject):
+class BentFunctionCayleyGraphClassification(SageObject, Persistent):
     r"""
     Given the `BentFunction` `bentf`,
     the class `BentFunctionCayleyGraphClassification`
@@ -93,25 +94,5 @@ class BentFunctionCayleyGraphClassification(SageObject):
 
         if timing:
             print datetime.now()
-
-
-    @classmethod
-    def mangled_name(cls, name):
-        r"""
-        """
-        return cls.__name__ + "__" + name
-
-
-    @classmethod
-    def load_mangled(cls, name):
-        r"""
-        """
-        return load(cls.mangled_name(name))
-
-
-    def save_mangled(self, name):
-        r"""
-        """
-        self.save(self.__class__.mangled_name(name))
 
 
