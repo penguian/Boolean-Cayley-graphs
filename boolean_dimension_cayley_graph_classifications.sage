@@ -13,7 +13,7 @@ import numpy as np
 
 from bent_function import BentFunction
 from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
-from list_with_index_append import ListWithIndexAppend
+from containers import List
 
 import cayley_graph_controls as controls
 
@@ -32,6 +32,8 @@ def save_boolean_dimension_cayley_graph_classifications(dim):
         c[n] = BentFunctionCayleyGraphClassification(f)
         name_n = 'p'+str(dim)+'_'+str(n)
         c[n].save_mangled(name_n)
+        if verbose:
+            c[n].report()
     return c
 
 
@@ -40,7 +42,7 @@ def load_boolean_dimension_cayley_graph_classifications(dim):
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     classification = [None]*len(p)
-    graph_classes = ListWithIndexAppend([])
+    graph_classes = List([])
     for n in sxrange(1, len(p)):
         if verbose:
             print n, ':'
@@ -56,4 +58,5 @@ def load_boolean_dimension_cayley_graph_classifications(dim):
             classification[n][1, i] = class_counts[i]
         if verbose:
             print classification[n]
+            c.report()
     return classification, graph_classes
