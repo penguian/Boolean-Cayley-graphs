@@ -99,6 +99,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
     def report(self):
         r"""
+        Print a report on the attributes of `self`.
+        This includes various computed quantities.
         """
         p = self.algebraic_normal_form
         print "Algebraic normal form:", p
