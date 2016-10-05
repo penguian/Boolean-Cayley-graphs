@@ -21,12 +21,14 @@ AUTHORS:
 from datetime import datetime
 
 from sage.arith.srange import xsrange
+from sage.combinat.designs.incidence_structures import IncidenceStructure
 from sage.matrix.constructor import matrix
 from sage.structure.sage_object import load, SageObject
 
 from bent_function import BentFunction
 from boolean_cayley_graph import boolean_cayley_graph
-from list_with_index_append import ListWithIndexAppend
+from containers import List
+from graph_improved import GraphImproved
 from persistent import Persistent
 from strongly_regular_graph import StronglyRegularGraph
 from weight_class import weight_class
@@ -39,7 +41,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
     Given the `BentFunction` `bentf`,
     the class `BentFunctionCayleyGraphClassification`
     is initialized with `bent_function` set to `bentf`,
-    `cayley_graph_class_list` set to a `ListWithIndexAppend` of `Graph`
+    `cayley_graph_class_list` set to a `List` of `GraphImproved`
     corresponding to the complete set of non-isomorphic Cayley graphs
     of the Boolean functions within the extended affine eqivalence class
     of `bentf`, `cayley_graph_index_matrix` set to a matrix of indices
@@ -58,7 +60,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         Initialize self as per the class description above.
         """
         timing = controls.timing
-        verbose = controls.verbose
 
         dim = bentf.nvariables()
         v = 2 ** dim
@@ -67,7 +68,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         self.cayley_graph_index_matrix = matrix(v,v)
         self.weight_class_matrix       = matrix(v,v)
 
-        cayley_graph_class_list = ListWithIndexAppend([])
+        cayley_graph_class_list = List([])
         f = bentf.extended_translate()
         for b in xsrange(v):
             if timing:
@@ -84,7 +85,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                 weight = sum(fbc(x) for x in xsrange(v))
                 self.weight_class_matrix[c, b] = weight_class(v, weight)
 
-        self.cayley_graph_class_list = [StronglyRegularGraph(g) for g in cayley_graph_class_list]
+        self.cayley_graph_class_list = [GraphImproved(g) for g in cayley_graph_class_list]
 
         dillon_schatz_design_matrix = bentf.dillon_schatz_design_matrix()
         if self.weight_class_matrix != dillon_schatz_design_matrix:
@@ -96,3 +97,30 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             print datetime.now()
 
 
+    def report(self):
+        r"""
+        """
+        p = self.algebraic_normal_form
+        print "Algebraic normal form:", p
+        f = BentFunction(p)
+
+        print "Function", ("is" if f.is_bent() else "is not"), "bent."
+
+        D = self.weight_class_matrix
+        I = IncidenceStructure(D)
+        print "Dillon-Schatz incidence structure t-design parameters:",
+        print I.is_t_design(return_parameters=True)
+
+        gs = self.cayley_graph_class_list
+        print "Clique polynomial,",
+        print "strongly regular parameters, rank, and order",
+        print "of each representative Cayley graph",
+        print "in the extended affine class:"
+        for g in gs:
+            s = StronglyRegularGraph(g)
+            print "Polynomial", s.clique_polynomial
+            print "Parameters", s.strongly_regular_parameters
+            print "Rank", s.rank, "Order", s.group_order
+            print ""
+        print "Cayley graph index matrix:"
+        print self.cayley_graph_index_matrix
