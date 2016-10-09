@@ -1,11 +1,30 @@
 r"""
-A subclass of BentFunction that includes information about relevant isomorphism classes of Cayley graphs.
-
+The Cayley graphs within the extended translation equivalence class of a bent function.
 
 AUTHORS:
 
 - Paul Leopardi (2016-08-02): initial version
 
+EXAMPLES::
+
+    The classification of the bent function defined by the polynomial x1 + x1*x2.
+
+    sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+    sage: p=x1+x1*x2
+    sage: f=BentFunction(p)
+    sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+    sage: c=BentFunctionCayleyGraphClassification(f)
+    sage: c.__dict__
+    {'algebraic_normal_form': x0*x1 + x0,
+    'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
+    'cayley_graph_index_matrix': [0 1 0 0]
+    [0 0 0 1]
+    [1 0 0 0]
+    [0 0 1 0],
+    'weight_class_matrix': [0 1 0 0]
+    [0 0 0 1]
+    [1 0 0 0]
+    [0 0 1 0]}
 """
 
 #*****************************************************************************
@@ -38,26 +57,63 @@ import cayley_graph_controls as controls
 
 class BentFunctionCayleyGraphClassification(SageObject, Persistent):
     r"""
-    Given the `BentFunction` `bentf`,
-    the class `BentFunctionCayleyGraphClassification`
-    is initialized with `bent_function` set to `bentf`,
-    `cayley_graph_class_list` set to a `List` of `GraphImproved`
-    corresponding to the complete set of non-isomorphic Cayley graphs
-    of the Boolean functions within the extended affine eqivalence class
-    of `bentf`, `cayley_graph_index_matrix` set to a matrix of indices
-    into `cayley_graph_class_list`, and `weight_class_matrix` set to
-    the 0-1 matrix of weight classes corresponding to
-    `cayley_graph_index_matrix`.
+    Attributes of the Cayley graphs within the extended translation equivalence class of a bent function.
 
-    Each entry `cayley_graph_index_matrix[c,b]` corresponds to
-    the Cayley graph of the Boolean function
-    $x \mapsto \mathtt{bentf}(x+b) + \langle c, x \rangle + \mathtt{bentf}(b)$.
-    This enumerates all of the extended translates of `bentf`.
     """
 
     def __init__(self, bentf):
         r"""
-        Initialize self as per the class description above.
+        Initialize `self` from the `BentFunction` `bentf`.
+
+        INPUT:
+
+        - `self`: the current object. Uninitialized.
+        - `bentf`: an object of class `BentFunction`.
+
+        OUTPUT:
+
+        None.
+
+        EFFECT:
+
+        The current object `self` is initialized as follows.
+
+        - `algebraic_normal_form` is set to `bentf.algebraic_normal_form()`,
+        - `cayley_graph_index_matrix` is set to a matrix of indices
+          into `cayley_graph_class_list`,
+        - `weight_class_matrix` is set to the 0-1 matrix of weight classes
+          corresponding to `cayley_graph_index_matrix`, and
+        - `cayley_graph_class_list` is set to a `List` of `GraphImproved`
+          corresponding to the complete set of non-isomorphic Cayley graphs
+          of the bent functions within the extended translation equivalence
+          class of `bentf`.
+
+        Each entry `cayley_graph_index_matrix[c,b]` corresponds to
+        the Cayley graph of the bent function
+        $x \mapsto \mathtt{bentf}(x+b) + \langle c, x \rangle + \mathtt{bentf}(b)$.
+        This enumerates all of the extended translates of `bentf`.
+
+        EXAMPLES::
+
+            The classification of the bent function defined by the polynomial x1 + x1*x2.
+
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p=x1+x1*x2
+            sage: f=BentFunction(p)
+            sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: c=BentFunctionCayleyGraphClassification(f)
+            sage: c.__dict__
+            {'algebraic_normal_form': x0*x1 + x0,
+            'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
+            'cayley_graph_index_matrix': [0 1 0 0]
+            [0 0 0 1]
+            [1 0 0 0]
+            [0 0 1 0],
+            'weight_class_matrix': [0 1 0 0]
+            [0 0 0 1]
+            [1 0 0 0]
+            [0 0 1 0]}
+
         """
         timing = controls.timing
 
@@ -85,12 +141,15 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                 weight = sum(fbc(x) for x in xsrange(v))
                 self.weight_class_matrix[c, b] = weight_class(v, weight)
 
-        self.cayley_graph_class_list = [GraphImproved(g) for g in cayley_graph_class_list]
+        self.cayley_graph_class_list = [GraphImproved(g)
+                                        for g in cayley_graph_class_list]
 
         dillon_schatz_design_matrix = bentf.dillon_schatz_design_matrix()
         if self.weight_class_matrix != dillon_schatz_design_matrix:
-            raise ValueError, ("self.weight_class_matrix != dillon_schatz_design_matrix" + "\n"
-                               + str(self.weight_class_matrix) + "\n"
+            raise ValueError, ("self.weight_class_matrix != dillon_schatz_design_matrix"
+                               + "\n"
+                               + str(self.weight_class_matrix)
+                               + "\n"
                                + str(dillon_schatz_design_matrix))
 
         if timing:
@@ -100,7 +159,65 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
     def report(self):
         r"""
         Print a report on the attributes of `self`.
+
         This includes various computed quantities.
+
+        INPUT:
+
+        `self`: the current object.
+
+        OUTPUT:
+
+        (To standard output)
+        A report on the following attributes of `self`:
+        - algebraic_normal_form
+        - cayley_graph_class_list
+        - cayley_graph_index_matrix
+        - weight_class_matrix
+
+        Each Cayley graph in cayley_graph_class_list is converted to
+        a StronglyRegularGraph, and the following attributes are used in the report:
+        - clique_polynomial, strongly_regular_parameters, rank, group_order.
+
+        EXAMPLES::
+
+        Report on the classification of the bent function defined by the polynomial x1 + x1*x2.
+
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p=x1+x1*x2
+            sage: from bent_function import BentFunction
+            sage: f=BentFunction(p)
+            sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: c=BentFunctionCayleyGraphClassification(f)
+            sage: c.report()
+            Algebraic normal form: x0*x1 + x0
+            Function is bent.
+            Dillon-Schatz incidence structure t-design parameters: (True, (1, 4, 1, 1))
+            Clique polynomial, strongly regular parameters, rank, and order of each
+            representative Cayley graph in the extended affine class:
+            Polynomial 2*t^2 + 4*t + 1
+            Parameters (4, 1, 0, 0)
+            Rank 4 Order 8
+
+            Polynomial t^4 + 4*t^3 + 6*t^2 + 4*t + 1
+            Parameters False
+            Rank 4 Order 24
+
+            Cayley graph index matrix:
+            [0 1 0 0]
+            [0 0 0 1]
+            [1 0 0 0]
+            [0 0 1 0]
+            Weight class matrix:
+            [0 1 0 0]
+            [0 0 0 1]
+            [1 0 0 0]
+            [0 0 1 0]
+
+        REFERENCES:
+
+        .. [Leo2017] "Classifying bent functions by their Cayley graphs", in preparation.
+
         """
         p = self.algebraic_normal_form
         print "Algebraic normal form:", p
@@ -126,3 +243,5 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             print ""
         print "Cayley graph index matrix:"
         print self.cayley_graph_index_matrix
+        print "Weight class matrix:"
+        print D
