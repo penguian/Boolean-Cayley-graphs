@@ -20,14 +20,14 @@ import cayley_graph_controls as controls
 load("bent_function_extended_affine_representative_polynomials.sage")
 
 
-def save_boolean_dimension_cayley_graph_classifications(dim):
+def save_boolean_dimension_cayley_graph_classifications(dim, start=1):
     r"""
     """
     verbose = controls.verbose
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    for n in xrange(1, len(p)):
+    for n in xrange(start, len(p)):
         if verbose:
             print n, ':'
         f = BentFunction(p[n])
