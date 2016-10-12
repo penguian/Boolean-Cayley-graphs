@@ -18,6 +18,6 @@ class GraphImproved(Graph, Persistent):
     and some of its computed properties, including
     its clique polynomial.
     """
-    def __init__(self, graph=None):
-        Graph.__init__(self, graph)
+    def __init__(self, graph=None, **kwargs):
+        Graph.__init__(self, graph, **kwargs)
         self.clique_polynomial = graph.clique_polynomial()
