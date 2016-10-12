@@ -45,13 +45,14 @@ from sage.matrix.constructor import matrix
 from sage.structure.sage_object import load, SageObject
 
 from bent_function import BentFunction
-from cayley_graph_controls import checking, timing
 from boolean_cayley_graph import boolean_cayley_graph
 from containers import List
 from graph_improved import GraphImproved
 from persistent import Persistent
 from strongly_regular_graph import StronglyRegularGraph
 from weight_class import weight_class
+
+import cayley_graph_controls as controls
 
 
 
@@ -115,6 +116,9 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             [0 0 1 0]}
 
         """
+        checking = controls.checking
+        timing   = controls.timing
+
         dim = bentf.nvariables()
         v = 2 ** dim
 
