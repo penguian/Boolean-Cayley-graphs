@@ -45,6 +45,7 @@ from sage.matrix.constructor import matrix
 from sage.structure.sage_object import load, SageObject
 
 from bent_function import BentFunction
+from cayley_graph_controls import checking, timing
 from boolean_cayley_graph import boolean_cayley_graph
 from containers import List
 from graph_improved import GraphImproved
@@ -52,7 +53,6 @@ from persistent import Persistent
 from strongly_regular_graph import StronglyRegularGraph
 from weight_class import weight_class
 
-import cayley_graph_controls as controls
 
 
 class BentFunctionCayleyGraphClassification(SageObject, Persistent):
@@ -115,8 +115,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             [0 0 1 0]}
 
         """
-        timing = controls.timing
-
         dim = bentf.nvariables()
         v = 2 ** dim
 
@@ -126,6 +124,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
         cayley_graph_class_list = List([])
         f = bentf.extended_translate()
+        max_index = -1
         for b in xsrange(v):
             if timing:
                 print datetime.now(), b, len(cayley_graph_class_list)
@@ -136,21 +135,65 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             g_list = [boolean_cayley_graph(dim, fbc).canonical_label()
                       for fbc in fbc_list]
             for c in xsrange(v):
-                self.cayley_graph_index_matrix[c, b] = cayley_graph_class_list.index_append(g_list[c])
+                gc = g_list[c]
+                index = cayley_graph_class_list.index_append(gc)
+                self.cayley_graph_index_matrix[c, b] = index
                 fbc = fbc_list[c]
                 weight = sum(fbc(x) for x in xsrange(v))
-                self.weight_class_matrix[c, b] = weight_class(v, weight)
+                wc = weight_class(v, weight)
+                self.weight_class_matrix[c, b] = wc
+                if checking and dim > 2 and index > max_index:
+                    max_index = index
+                    bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
+                    srg = bent_fbc.strongly_regular_graph()
+                    if wc == 0:
+                        if not srg.is_isomorphic(gc):
+                            srg_gc = StronglyRegularGraph(gc)
+                            raise ValueError, (
+                                "Weight class is 0"
+                                + " but cayley_graph is not isomorphic to"
+                                + " strongly_regular_graph:"
+                                + "\n"
+                                + str(srg.strongly_regular_parameters)
+                                + "\n"
+                                + str(srg.clique_polynomial)
+                                + "\n"
+                                + str(srg_gc.strongly_regular_parameters)
+                                + "\n"
+                                + str(srg_gc.clique_polynomial))
+                    elif wc == 1:
+                        srgc = GraphImproved(srg).complement()
+                        if not srgc.is_isomorphic(gc):
+                            srg_gc = StronglyRegularGraph(gc)
+                            raise ValueError, (
+                                "Weight class is 1"
+                                + " but cayley_graph is not isomorphic to"
+                                + " complement of strongly_regular_graph:"
+                                + "\n"
+                                + str(srgc.strongly_regular_parameters)
+                                + "\n"
+                                + str(srgc.clique_polynomial)
+                                + "\n"
+                                + str(srg_gc.strongly_regular_parameters)
+                                + "\n"
+                                + str(srg_gc.clique_polynomial))
+                    else:
+                        raise ValueError, (
+                            "Weight class is "
+                            + str(wc))
 
         self.cayley_graph_class_list = [GraphImproved(g)
                                         for g in cayley_graph_class_list]
 
-        dillon_schatz_design_matrix = bentf.dillon_schatz_design_matrix()
-        if self.weight_class_matrix != dillon_schatz_design_matrix:
-            raise ValueError, ("self.weight_class_matrix != dillon_schatz_design_matrix"
-                               + "\n"
-                               + str(self.weight_class_matrix)
-                               + "\n"
-                               + str(dillon_schatz_design_matrix))
+        if checking:
+            dillon_schatz_design_matrix = bentf.dillon_schatz_design_matrix()
+            if self.weight_class_matrix != dillon_schatz_design_matrix:
+                raise ValueError, (
+                    "weight_class_matrix != dillon_schatz_design_matrix"
+                    + "\n"
+                    + str(self.weight_class_matrix)
+                    + "\n"
+                    + str(dillon_schatz_design_matrix))
 
         if timing:
             print datetime.now()
