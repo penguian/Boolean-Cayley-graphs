@@ -15,9 +15,11 @@ Paul Leopardi.
 
 
 from sage.arith.srange import xsrange
+from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.matrix.constructor import matrix
 
 from boolean_function_improved import BooleanFunctionImproved
+from strongly_regular_graph import StronglyRegularGraph
 from walsh_hadamard_dual import walsh_hadamard_dual
 
 import weight_class as wc
@@ -43,6 +45,13 @@ class BentFunction(BooleanFunctionImproved):
             result[c,:] = matrix([self.extended_translate(0, c, dual_f(c))(x)
                                 for x in xsrange(v)])
         return result
+
+
+    def strongly_regular_graph(self):
+        r"""
+        """
+        L = self.linear_code()
+        return StronglyRegularGraph(strongly_regular_from_two_weight_code(L))
 
 
     def walsh_hadamard_dual(self):
