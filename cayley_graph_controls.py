@@ -8,7 +8,11 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-verbose = False
 
-timing = False
+checking = False
 
+
+timing   = False
+
+
+verbose  = False
