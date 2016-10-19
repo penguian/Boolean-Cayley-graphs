@@ -22,6 +22,8 @@ class StronglyRegularGraph(GraphImproved):
     and some of its computed properties, including
     its clique polynomial and its strongly regular graph parameters.
     """
+    def __init__(self, graph=None, **kwargs):
+        GraphImproved.__init__(self, graph, **kwargs)
 
     @lazy_attribute
     def strongly_regular_parameters(self):
