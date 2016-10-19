@@ -7,28 +7,28 @@ AUTHORS:
 
 EXAMPLES::
 
-    The classification of the bent function defined by the polynomial x1 + x2 + x1*x2.
+    The classification of the bent function defined by the polynomial x2 + x1*x2.
 
     sage: from bent_function import BentFunction
     sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
     sage: R2.<x1,x2> = BooleanPolynomialRing(2)
-    sage: p=x1+x2+x1*x2
-    sage: f=BentFunction(p)
+    sage: p = x2+x1*x2
+    sage: f = BentFunction(p)
     sage: f.is_bent()
     True
-    sage: c=BentFunctionCayleyGraphClassification(f)
+    sage: c = BentFunctionCayleyGraphClassification(f)
     sage: c.__dict__
-    {'algebraic_normal_form': x0*x1 + x0 + x1,
+    {'algebraic_normal_form': x0*x1 + x1,
     'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
-    'cayley_graph_index_matrix': [0 1 1 1]
-    [1 1 0 1]
-    [1 0 1 1]
-    [1 1 1 0],
+    'cayley_graph_index_matrix': [0 0 1 0]
+    [1 0 0 0]
+    [0 0 0 1]
+    [0 1 0 0],
     'pair_c_b_list': [(0, 0), (1, 0)],
-    'weight_class_matrix': [1 0 0 0]
-    [0 0 1 0]
-    [0 1 0 0]
-    [0 0 0 1]}
+    'weight_class_matrix': [0 0 1 0]
+    [1 0 0 0]
+    [0 0 0 1]
+    [0 1 0 0]}
 """
 
 #*****************************************************************************
@@ -110,11 +110,11 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             sage: from bent_function import BentFunction
             sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
-            sage: p=x1+x2+x1*x2
-            sage: f=BentFunction(p)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
             sage: f.is_bent()
             True
-            sage: c=BentFunctionCayleyGraphClassification(f)
+            sage: c = BentFunctionCayleyGraphClassification(f)
             sage: c.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
@@ -129,22 +129,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             [0 0 0 1]}
 
         """
-        def raise_value_error_not_isomorphic(wc, description, srg, cg):
-            raise ValueError, (
-                "Weight class is "
-                + str(wc)
-                + " but cayley_graph is not isomorphic to"
-                + description
-                + "\n"
-                + str(srg.strongly_regular_parameters)
-                + "\n"
-                + str(srg.clique_polynomial)
-                + "\n"
-                + str(cg.strongly_regular_parameters)
-                + "\n"
-                + str(cg.clique_polynomial))
-            return None
-
         checking = controls.checking
         timing   = controls.timing
 
@@ -169,8 +153,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             g_list = [boolean_cayley_graph(dim, fbc).canonical_label()
                       for fbc in fbc_list]
             for c in xsrange(v):
-                gc = g_list[c]
-                index = cayley_graph_class_list.index_append(gc)
+                g = g_list[c]
+                index = cayley_graph_class_list.index_append(g)
                 self.cayley_graph_index_matrix[c, b] = index
                 fbc = fbc_list[c]
                 weight = sum(fbc(x) for x in xsrange(v))
@@ -179,25 +163,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                 if index > max_index:
                     max_index = index
                     self.pair_c_b_list.append((c, b))
-                    if checking and dim > 2:
-                        bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
-                        srg = bent_fbc.strongly_regular_graph()
-                        if wc == 0:
-                            if not srg.is_isomorphic(gc):
-                                raise_value_error_not_isomorphic(
-                                    wc,
-                                    " strongly_regular_graph:",
-                                    srg,
-                                    StronglyRegularGraph(gc))
-                        elif wc == 1:
-                            srgc = GraphImproved(srg).complement()
-                            if not srgc.is_isomorphic(gc):
-                                raise_value_error_not_isomorphic(
-                                    wc,
-                                    " complement of strongly_regular_graph:",
-                                    srg,
-                                    StronglyRegularGraph(gc))
-                        else:
+                    if checking:
+                        if wc != 0 and wc != 1:
                             raise ValueError, (
                                 "Weight class is "
                                 + str(wc))
@@ -247,47 +214,50 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
         EXAMPLES::
 
-        Report on the classification of the bent function defined by the polynomial x1 + x1*x2.
+            Report on the classification of the bent function defined by the polynomial x1 + x1*x2.
 
-        sage: from bent_function import BentFunction
-        sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
-        sage: R2.<x1,x2> = BooleanPolynomialRing(2)
-        sage: p=x1+x1*x2
-        sage: f=BentFunction(p)
-        sage: c=BentFunctionCayleyGraphClassification(f)
-        sage: c.report()
-        Algebraic normal form: x0*x1 + x0
-        Function is bent.
-        Dillon-Schatz incidence structure t-design parameters: (True, (1, 4, 1, 1))
+            sage: from bent_function import BentFunction
+            sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p=x1+x1*x2
+            sage: f=BentFunction(p)
+            sage: c=BentFunctionCayleyGraphClassification(f)
+            sage: c.report()
+            Algebraic normal form: x0*x1 + x0
+            Function is bent.
+            Dillon-Schatz incidence structure t-design parameters: (True, (1, 4, 1, 1))
 
-        Clique polynomial, strongly regular parameters, rank, order linear code and generator matrix
-        of each representative Cayley graph in the extended affine class:
+            Clique polynomial, strongly regular parameters, rank, and order of each representative Cayley graph in the extended affine class;
+            linear code and generator matrix for one of the bent functions in the Cayley class:
+            Polynomial 2*t^2 + 4*t + 1
+            Parameters (4, 1, 0, 0)
+            Rank 4 Order 8
+            Linear code of length 1, dimension 1 over Finite Field of size 2
+            Generator matrix:
+            [1]
+            Linear code is projective.
+            Weight distribution {0: 1, 1: 1}
 
-        Polynomial 2*t^2 + 4*t + 1
-        Parameters (4, 1, 0, 0)
-        Rank 4 Order 8
-        Linear code of length 1, dimension 1 over Finite Field of size 2
-        Generator matrix:
-        [1]
+            Polynomial t^4 + 4*t^3 + 6*t^2 + 4*t + 1
+            Parameters False
+            Rank 4 Order 24
+            Linear code of length 3, dimension 2 over Finite Field of size 2
+            Generator matrix:
+            [1 0 1]
+            [0 1 1]
+            Linear code is projective.
+            Weight distribution {0: 1, 2: 3}
 
-        Polynomial t^4 + 4*t^3 + 6*t^2 + 4*t + 1
-        Parameters False
-        Rank 4 Order 24
-        Linear code of length 3, dimension 2 over Finite Field of size 2
-        Generator matrix:
-        [1 0 1]
-        [0 1 1]
-
-        Cayley graph index matrix:
-        [0 1 0 0]
-        [0 0 0 1]
-        [1 0 0 0]
-        [0 0 1 0]
-        Weight class matrix:
-        [0 1 0 0]
-        [0 0 0 1]
-        [1 0 0 0]
-        [0 0 1 0]
+            Cayley graph index matrix:
+            [0 1 0 0]
+            [0 0 0 1]
+            [1 0 0 0]
+            [0 0 1 0]
+            Weight class matrix:
+            [0 1 0 0]
+            [0 0 0 1]
+            [1 0 0 0]
+            [0 0 1 0]
 
         REFERENCES:
 
@@ -309,31 +279,54 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         print "Dillon-Schatz incidence structure t-design parameters:",
         print I.is_t_design(return_parameters=True)
 
-        gs = self.cayley_graph_class_list
-        cbs = self.pair_c_b_list
+        g_list = self.cayley_graph_class_list
+        cb_list = self.pair_c_b_list
         print ""
         print "Clique polynomial,",
-        print "strongly regular parameters, rank, order",
-        print "linear code and generator matrix"
+        print "strongly regular parameters, rank, and order",
         print "of each representative Cayley graph",
-        print "in the extended affine class:"
-        print ""
-        for index in xsrange(len(gs)):
-            g = gs[index]
+        print "in the extended affine class;"
+        if dim > 2:
+            print "linear code, generator matrix, and corresponding",
+            print "clique polynomial,",
+            print "strongly regular parameters, rank, and order",
+        else:
+            print "linear code and generator matrix",
+        print "for one of the bent functions in the Cayley class:"
+        for index in xsrange(len(g_list)):
+            g = g_list[index]
             s = StronglyRegularGraph(g)
-            print "Polynomial", s.clique_polynomial
+            print "Polynomial", s.stored_clique_polynomial
             print "Parameters", s.strongly_regular_parameters
             print "Rank", s.rank, "Order", s.group_order
-            c_b = cbs[index]
+            c_b = cb_list[index]
             c = c_b[0]
             b = c_b[1]
             fb = f(b)
             fbc = bentf.extended_translate(b, c, fb)
             bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
+            if dim > 2:
+                h = (    bent_fbc.strongly_regular_graph()
+                    if   bent_fbc.weight_class() == 0
+                    else bent_fbc.strongly_regular_graph().complement())
+                t = StronglyRegularGraph(h.canonical_label())
+                if s == t:
+                    print "Strongly regular graph from code",
+                    print "is isomorphic to Cayley graph."
+                else:
+                    print "Polynomial", t.stored_clique_polynomial
+                    print "Parameters", t.strongly_regular_parameters
+                    print "Rank", t.rank, "Order", t.group_order
             lc = bent_fbc.linear_code()
             print lc
             print "Generator matrix:"
             print lc.generator_matrix()
+            print "Linear code",
+            print "is" if lc.is_projective() else "is not",
+            print "projective."
+            print "Weight distribution",
+            wd = lc.weight_distribution()
+            print dict([(w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
             print ""
 
         print "Cayley graph index matrix:"
