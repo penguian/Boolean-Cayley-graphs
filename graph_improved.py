@@ -20,4 +20,4 @@ class GraphImproved(Graph, Persistent):
     """
     def __init__(self, graph=None, **kwargs):
         Graph.__init__(self, graph, **kwargs)
-        self.clique_polynomial = graph.clique_polynomial()
+        self.stored_clique_polynomial = graph.clique_polynomial()
