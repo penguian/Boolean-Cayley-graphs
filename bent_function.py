@@ -19,7 +19,6 @@ from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_cod
 from sage.matrix.constructor import matrix
 
 from boolean_function_improved import BooleanFunctionImproved
-from strongly_regular_graph import StronglyRegularGraph
 from walsh_hadamard_dual import walsh_hadamard_dual
 
 import weight_class as wc
@@ -47,11 +46,11 @@ class BentFunction(BooleanFunctionImproved):
         return result
 
 
-    def strongly_regular_graph(self):
+    def linear_code_graph(self):
         r"""
         """
         L = self.linear_code()
-        return StronglyRegularGraph(strongly_regular_from_two_weight_code(L))
+        return strongly_regular_from_two_weight_code(L)
 
 
     def walsh_hadamard_dual(self):
