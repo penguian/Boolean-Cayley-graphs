@@ -218,46 +218,77 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
             sage: from bent_function import BentFunction
             sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
-            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
-            sage: p=x1+x1*x2
+            sage: R4.<x1,x2,x3,x4> = BooleanPolynomialRing(4)
+            sage: p=x1+x1*x2+x3*x4
             sage: f=BentFunction(p)
             sage: c=BentFunctionCayleyGraphClassification(f)
             sage: c.report()
-            Algebraic normal form: x0*x1 + x0
+            Algebraic normal form: x0*x1 + x0 + x2*x3
             Function is bent.
-            Dillon-Schatz incidence structure t-design parameters: (True, (1, 4, 1, 1))
+            Dillon-Schatz incidence structure t-design parameters: (True, (2, 16, 6, 2))
 
             Clique polynomial, strongly regular parameters, rank, and order of each representative Cayley graph in the extended affine class;
-            linear code and generator matrix for one of the bent functions in the Cayley class:
-            Polynomial 2*t^2 + 4*t + 1
-            Parameters (4, 1, 0, 0)
-            Rank 4 Order 8
-            Linear code of length 1, dimension 1 over Finite Field of size 2
+            linear code, generator matrix, and corresponding clique polynomial, strongly regular parameters, rank, and order for one of the bent functions in the Cayley class:
+            Polynomial 8*t^4 + 32*t^3 + 48*t^2 + 16*t + 1
+            Parameters (16, 6, 2, 2)
+            Rank 6 Order 1152
+            Linear code of length 6, dimension 4 over Finite Field of size 2
             Generator matrix:
-            [1]
+            [1 0 0 0 0 1]
+            [0 1 0 1 0 0]
+            [0 0 1 1 0 0]
+            [0 0 0 0 1 1]
             Linear code is projective.
-            Weight distribution {0: 1, 1: 1}
+            Weight distribution {0: 1, 2: 6, 4: 9}
+            Strongly regular graph from linear code is isomorphic to Cayley graph.
 
-            Polynomial t^4 + 4*t^3 + 6*t^2 + 4*t + 1
-            Parameters False
-            Rank 4 Order 24
-            Linear code of length 3, dimension 2 over Finite Field of size 2
+            Polynomial 16*t^5 + 120*t^4 + 160*t^3 + 80*t^2 + 16*t + 1
+            Parameters (16, 10, 6, 6)
+            Rank 6 Order 1920
+            Linear code of length 10, dimension 4 over Finite Field of size 2
             Generator matrix:
-            [1 0 1]
-            [0 1 1]
+            [1 0 1 0 1 0 0 1 0 0]
+            [0 1 1 0 1 1 0 1 1 0]
+            [0 0 0 1 1 1 0 0 0 1]
+            [0 0 0 0 0 0 1 1 1 1]
             Linear code is projective.
-            Weight distribution {0: 1, 2: 3}
+            Weight distribution {0: 1, 4: 5, 6: 10}
+            Strongly regular graph from linear code is isomorphic to Cayley graph.
 
             Cayley graph index matrix:
-            [0 1 0 0]
-            [0 0 0 1]
-            [1 0 0 0]
-            [0 0 1 0]
+            [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
+            [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
+            [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
+            [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
+            [0 1 0 0 1 0 1 1 0 1 0 0 0 1 0 0]
+            [0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1]
+            [1 0 0 0 0 1 1 1 1 0 0 0 1 0 0 0]
+            [0 0 1 0 1 1 0 1 0 0 1 0 0 0 1 0]
+            [0 1 0 0 0 1 0 0 1 0 1 1 0 1 0 0]
+            [0 0 0 1 0 0 0 1 1 1 1 0 0 0 0 1]
+            [1 0 0 0 1 0 0 0 0 1 1 1 1 0 0 0]
+            [0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 0]
+            [1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 0]
+            [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
+            [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
+            [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
             Weight class matrix:
-            [0 1 0 0]
-            [0 0 0 1]
-            [1 0 0 0]
-            [0 0 1 0]
+            [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
+            [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
+            [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
+            [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
+            [0 1 0 0 1 0 1 1 0 1 0 0 0 1 0 0]
+            [0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1]
+            [1 0 0 0 0 1 1 1 1 0 0 0 1 0 0 0]
+            [0 0 1 0 1 1 0 1 0 0 1 0 0 0 1 0]
+            [0 1 0 0 0 1 0 0 1 0 1 1 0 1 0 0]
+            [0 0 0 1 0 0 0 1 1 1 1 0 0 0 0 1]
+            [1 0 0 0 1 0 0 0 0 1 1 1 1 0 0 0]
+            [0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 0]
+            [1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 0]
+            [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
+            [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
+            [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
 
         REFERENCES:
 
@@ -305,18 +336,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             fb = f(b)
             fbc = bentf.extended_translate(b, c, fb)
             bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
-            if dim > 2:
-                h = (    bent_fbc.strongly_regular_graph()
-                    if   bent_fbc.weight_class() == 0
-                    else bent_fbc.strongly_regular_graph().complement())
-                t = StronglyRegularGraph(h.canonical_label())
-                if s == t:
-                    print "Strongly regular graph from code",
-                    print "is isomorphic to Cayley graph."
-                else:
-                    print "Polynomial", t.stored_clique_polynomial
-                    print "Parameters", t.strongly_regular_parameters
-                    print "Rank", t.rank, "Order", t.group_order
             lc = bent_fbc.linear_code()
             print lc
             print "Generator matrix:"
@@ -327,6 +346,19 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             print "Weight distribution",
             wd = lc.weight_distribution()
             print dict([(w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
+            if dim > 2:
+                h = (    bent_fbc.linear_code_graph()
+                    if   bent_fbc.weight_class() == 0
+                    else bent_fbc.linear_code_graph().complement())
+                t = StronglyRegularGraph(h.canonical_label())
+                print "Strongly regular graph from linear code",
+                if s == t:
+                    print "is isomorphic to Cayley graph."
+                else:
+                    print "is NOT isomorphic to Cayley graph."
+                    print "Polynomial", t.stored_clique_polynomial
+                    print "Parameters", t.strongly_regular_parameters
+                    print "Rank", t.rank, "Order", t.group_order
             print ""
 
         print "Cayley graph index matrix:"
