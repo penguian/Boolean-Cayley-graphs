@@ -18,12 +18,10 @@ AUTHORS:
 #*****************************************************************************
 
 from sage.arith.srange import xsrange
-from sage.coding.linear_code import LinearCode
 from sage.crypto.boolean_function import BooleanFunction
-from sage.matrix.constructor import matrix
-from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
 
 from boolean_cayley_graph import boolean_cayley_graph
+from boolean_linear_code import boolean_linear_code
 from integer_bits import inner
 from persistent import Persistent
 
@@ -61,15 +59,8 @@ class BooleanFunctionImproved(BooleanFunction, Persistent):
         r"""
         """
         dim = self.nvariables()
-        n = 2 ** dim
         f = self.extended_translate()
-        support = [y
-                   for y in xsrange(n)
-                   if f(y)==1]
-        M = matrix(GF(2), [[inner(x, y)
-                            for y in support]
-                            for x in xsrange(n)])
-        return LinearCode(M)
+        return boolean_linear_code(dim, f)
 
 
     def weight(self):
