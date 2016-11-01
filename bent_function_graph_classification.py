@@ -10,12 +10,10 @@ EXAMPLES::
     The classification of the bent function defined by the polynomial x2 + x1*x2.
 
     sage: from bent_function import BentFunction
-    sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+    sage: from bent_function_graph_classification import BentFunctionGraphClassification
     sage: R2.<x1,x2> = BooleanPolynomialRing(2)
     sage: p = x2+x1*x2
     sage: f = BentFunction(p)
-    sage: f.is_bent()
-    True
     sage: c = BentFunctionGraphClassification(f)
     sage: c.__dict__
     {'algebraic_normal_form': x0*x1 + x1,
@@ -115,12 +113,10 @@ class BentFunctionGraphClassification(SageObject, Persistent):
             The classification of the bent function defined by the polynomial x1 + x2 + x1*x2.
 
             sage: from bent_function import BentFunction
-            sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from bent_function_graph_classification import BentFunctionGraphClassification
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: f.is_bent()
-            True
             sage: c = BentFunctionGraphClassification(f)
             sage: c.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
@@ -256,7 +252,7 @@ class BentFunctionGraphClassification(SageObject, Persistent):
             Report on the classification of the bent function defined by the polynomial x1 + x1*x2.
 
             sage: from bent_function import BentFunction
-            sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from bent_function_graph_classification import BentFunctionGraphClassification
             sage: R4.<x1,x2,x3,x4> = BooleanPolynomialRing(4)
             sage: p = x1+x1*x2+x3*x4
             sage: f = BentFunction(p)
@@ -268,10 +264,14 @@ class BentFunctionGraphClassification(SageObject, Persistent):
             Classification of Cayley graphs and classification of graphs from linear codes are the same:
 
             Clique polynomial, strongly regular parameters, rank, and order of each representative graph in the extended translation class;
-            linear code and generator matrix for one of the bent functions in each graph class:
-            Polynomial 8*t^4 + 32*t^3 + 48*t^2 + 16*t + 1
-            Parameters (16, 6, 2, 2)
+            linear code and generator matrix for a representative bent function from each graph class:
+            0 :
+            Algebraic normal form of representative: x0*x1 + x0 + x2*x3
+            Clique polynomial 8*t^4 + 32*t^3 + 48*t^2 + 16*t + 1
+            Strongly regular parameters (16, 6, 2, 2)
             Rank 6 Order 1152
+
+            Linear code from representative:
             Linear code of length 6, dimension 4 over Finite Field of size 2
             Generator matrix:
             [1 0 0 0 0 1]
@@ -279,11 +279,15 @@ class BentFunctionGraphClassification(SageObject, Persistent):
             [0 0 1 1 0 0]
             [0 0 0 0 1 1]
             Linear code is projective.
-            Weight distribution {0: 1, 2: 6, 4: 9}
+            Weight distribution: {0: 1, 2: 6, 4: 9}
 
-            Polynomial 16*t^5 + 120*t^4 + 160*t^3 + 80*t^2 + 16*t + 1
-            Parameters (16, 10, 6, 6)
+            1 :
+            Algebraic normal form of representative: x0*x1 + x0 + x1 + x2*x3
+            Clique polynomial 16*t^5 + 120*t^4 + 160*t^3 + 80*t^2 + 16*t + 1
+            Strongly regular parameters (16, 10, 6, 6)
             Rank 6 Order 1920
+
+            Linear code from representative:
             Linear code of length 10, dimension 4 over Finite Field of size 2
             Generator matrix:
             [1 0 1 0 1 0 0 1 0 0]
@@ -291,7 +295,7 @@ class BentFunctionGraphClassification(SageObject, Persistent):
             [0 0 0 1 1 1 0 0 0 1]
             [0 0 0 0 0 0 1 1 1 1]
             Linear code is projective.
-            Weight distribution {0: 1, 4: 5, 6: 10}
+            Weight distribution: {0: 1, 4: 5, 6: 10}
 
             Graph index matrix:
             [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
@@ -330,7 +334,7 @@ class BentFunctionGraphClassification(SageObject, Persistent):
 
         REFERENCES:
 
-        .. [Leo2017] "Classifying bent functions by their strongly regular graphs", in preparation.
+        .. [Leo2017] "Classifying bent functions by their Cayley graphs", in preparation.
 
         """
         def graph_and_linear_code_report(
