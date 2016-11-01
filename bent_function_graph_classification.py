@@ -334,9 +334,11 @@ class BentFunctionGraphClassification(SageObject, Persistent):
 
         """
         def graph_and_linear_code_report(
+            bentf,
             graph_class_list,
             pair_c_b_list,
-            graph_index_matrix):
+            graph_index_matrix,
+            l_graph_class_list=None):
 
             print ""
             print "Clique polynomial,",
@@ -344,20 +346,51 @@ class BentFunctionGraphClassification(SageObject, Persistent):
             print "of each representative graph",
             print "in the extended translation class;"
             print "linear code and generator matrix",
-            print "for one of the bent functions in each graph class:"
+            print "for a representative bent function from each graph class:"
             for index in xsrange(len(graph_class_list)):
-                g = graph_class_list[index]
-                s = StronglyRegularGraph(g)
-                print "Polynomial", s.stored_clique_polynomial
-                print "Parameters", s.strongly_regular_parameters
-                print "Rank", s.rank,
-                print "Order", s.group_order
+                print index, ":"
                 c_b = pair_c_b_list[index]
                 c = c_b[0]
                 b = c_b[1]
                 fb = f(b)
                 fbc = bentf.extended_translate(b, c, fb)
                 bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
+                p = bent_fbc.algebraic_normal_form()
+                print "Algebraic normal form of representative:", p
+                g = graph_class_list[index]
+                s = StronglyRegularGraph(g)
+                print "Clique polynomial", s.stored_clique_polynomial
+                print "Strongly regular parameters", s.strongly_regular_parameters
+                print "Rank", s.rank,
+                print "Order", s.group_order
+                if (l_graph_class_list != None
+                    and graph_class_list[index] != l_graph_class_list[index]):
+                    print "Graph from linear code is different:"
+                    lg = l_graph_class_list[index]
+                    ls = StronglyRegularGraph(lg)
+                    print "Clique polynomial",
+                    print (
+                        "is the same."
+                        if ls.stored_clique_polynomial == s.stored_clique_polynomial
+                        else ls.stored_clique_polynomial)
+                    print "Strongly regular parameters",
+                    print (
+                        "are the same."
+                        if ls.strongly_regular_parameters == s.strongly_regular_parameters
+                        else ls.strongly_regular_parameters)
+                    print "Rank",
+                    print (
+                        "is the same."
+                        if ls.rank == s.rank
+                        else ls.rank),
+                    print "Order",
+                    print (
+                        "is the same."
+                        if ls.group_order == s.group_order
+                        else ls.group_order)
+
+                print ""
+                print "Linear code from representative:"
                 lc = bent_fbc.linear_code()
                 print lc
                 print "Generator matrix:"
@@ -365,7 +398,7 @@ class BentFunctionGraphClassification(SageObject, Persistent):
                 print "Linear code",
                 print "is" if lc.is_projective() else "is not",
                 print "projective."
-                print "Weight distribution",
+                print "Weight distribution:",
                 wd = lc.weight_distribution()
                 print dict([(w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
                 print ""
@@ -399,31 +432,39 @@ class BentFunctionGraphClassification(SageObject, Persistent):
         print "classification of graphs from linear codes",
         if (
             cg_list == lg_list and
-            ccb_list == lcb_list and
             ci_matrix == li_matrix):
             print "are the same:"
-            graph_and_linear_code_report(cg_list, ccb_list, ci_matrix)
+            graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix)
         elif dim <= 2:
             print ""
             print "are in the case where graphs from linear codes are not well defined."
             print ""
             print "Cayley graphs:"
-            graph_and_linear_code_report(cg_list, ccb_list, ci_matrix)
+            graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix)
         else:
+            g_lists_differ = cg_list != lg_list
+            cb_lists_differ = ccb_list != lcb_list
+            i_matrices_differ = ci_matrix != li_matrix
             print "differ in",
-            if cg_list != lg_list:
+            if g_lists_differ:
                 print "lists of graphs;",
-            if ccb_list != lcb_list:
+            if cb_lists_differ:
                 print "lists of first (c,b) pairs;",
-            if ci_matrix != li_matrix:
+            if i_matrices_differ:
                 print "matrices of indexes;",
             print ""
-            print ""
-            print "Cayley graphs:"
-            graph_and_linear_code_report(cg_list, ccb_list, ci_matrix)
-            print ""
-            print "Graphs from linear codes:"
-            graph_and_linear_code_report(lg_list, lcb_list, li_matrix)
+            if i_matrices_differ:
+                print ""
+                print "Cayley graphs:"
+                graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix)
+                print ""
+                print "Graphs from linear codes:"
+                graph_and_linear_code_report(bentf, lg_list, lcb_list, li_matrix)
+            else:
+                print ""
+                print "Cayley graphs and differing graphs from linear codes:"
+                graph_and_linear_code_report(
+                    bentf, cg_list, ccb_list, ci_matrix, lg_list)
 
         print "Weight class matrix:"
         print D
