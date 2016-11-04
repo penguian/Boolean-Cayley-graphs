@@ -39,7 +39,7 @@ def save_boolean_dimension_graph_classifications(dim, start=1):
     return c
 
 
-def load_boolean_dimension_graph_classifications(dim):
+def load_boolean_dimension_graph_classifications(dim, start=1):
     r"""
     """
     verbose = controls.verbose
@@ -48,19 +48,29 @@ def load_boolean_dimension_graph_classifications(dim):
     c = [None]*len(p)
     reclassification = [None]*len(p)
     cayley_graph_classes = List([])
-    for n in xrange(1, len(p)):
+    linear_graph_classes = List([])
+    for n in xrange(start, len(p)):
         if verbose:
             print n, ':'
         name_n = 'p'+str(dim)+'_'+str(n)
         c[n] = BentFunctionGraphClassification.load_mangled(name_n)
         cg_class_list   = c[n].cayley_graph_class_list
         cg_index_matrix = c[n].cayley_graph_index_matrix
-        reclassification[n] = matrix(2,len(cg_class_list))
-        class_counts = np.histogram(cg_index_matrix, range(len(cg_class_list) + 1))[0]
+        lg_class_list   = c[n].linear_graph_class_list
+        lg_index_matrix = c[n].linear_graph_index_matrix
+        reclassification[n] = matrix(4, max(len(cg_class_list), len(lg_class_list)))
+
+        c_class_counts = np.histogram(cg_index_matrix, range(len(cg_class_list) + 1))[0]
         for i in xrange(len(cg_class_list)):
             g = cg_class_list[i]
             reclassification[n][0, i] = cayley_graph_classes.index_append(g)
-            reclassification[n][1, i] = class_counts[i]
+            reclassification[n][1, i] = c_class_counts[i]
+
+        l_class_counts = np.histogram(lg_index_matrix, range(len(lg_class_list) + 1))[0]
+        for i in xrange(len(lg_class_list)):
+            g = lg_class_list[i]
+            reclassification[n][2, i] = linear_graph_classes.index_append(g)
+            reclassification[n][3, i] = l_class_counts[i]
         if verbose:
             print reclassification[n]
             c[n].report()
