@@ -49,7 +49,9 @@ from datetime import datetime
 
 from sage.arith.srange import xsrange
 from sage.combinat.designs.incidence_structures import IncidenceStructure
+from sage.functions.log import log
 from sage.matrix.constructor import matrix
+from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
 
 from bent_function import BentFunction
@@ -346,7 +348,7 @@ class BentFunctionGraphClassification(SageObject, Persistent):
 
             print ""
             print "Clique polynomial,",
-            print "strongly regular parameters, rank, and order",
+            print "strongly regular parameters, rank, and order"
             print "of each representative graph",
             print "in the extended translation class;"
             print "linear code and generator matrix",
@@ -391,7 +393,17 @@ class BentFunctionGraphClassification(SageObject, Persistent):
                     print (
                         "is the same."
                         if ls.group_order == s.group_order
-                        else ls.group_order)
+                        else ls.group_order),
+                    if log(s.group_order, Integer(2)).is_integer():
+                        print "Order is a power of 2."
+                    else:
+                        print ""
+                        print "Automorphism group",
+                        print (
+                            "is"
+                            if ls.automorphism_group.is_isomorphic(s.automorphism_group)
+                            else "is not"),
+                        print "isomorphic."
 
                 print ""
                 print "Linear code from representative:"
