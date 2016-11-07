@@ -14,21 +14,24 @@ EXAMPLES::
     sage: R2.<x1,x2> = BooleanPolynomialRing(2)
     sage: p = x2+x1*x2
     sage: f = BentFunction(p)
-    sage: f.is_bent()
-    True
     sage: c = BentFunctionCayleyGraphClassification(f)
     sage: c.__dict__
     {'algebraic_normal_form': x0*x1 + x1,
-    'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
-    'cayley_graph_index_matrix': [0 0 1 0]
-    [1 0 0 0]
-    [0 0 0 1]
-    [0 1 0 0],
-    'pair_c_b_list': [(0, 0), (1, 0)],
-    'weight_class_matrix': [0 0 1 0]
-    [1 0 0 0]
-    [0 0 0 1]
-    [0 1 0 0]}
+     'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
+     'cayley_graph_index_matrix': [0 0 1 0]
+     [1 0 0 0]
+     [0 0 0 1]
+     [0 1 0 0],
+     'cayley_pair_c_b_list': [(0, 0), (1, 0)],
+     'dual_c_graph_index_matrix': [0 0 1 0]
+     [1 0 0 0]
+     [0 0 0 1]
+     [0 1 0 0],
+     'dual_c_pair_c_b_list': [(0, 0), (1, 0)],
+     'weight_class_matrix': [0 0 1 0]
+     [1 0 0 0]
+     [0 0 0 1]
+     [0 1 0 0]}
 """
 
 #*****************************************************************************
@@ -50,6 +53,7 @@ from sage.structure.sage_object import load, SageObject
 
 from bent_function import BentFunction
 from boolean_cayley_graph import boolean_cayley_graph
+from boolean_linear_code_graph import boolean_linear_code_graph
 from containers import List
 from graph_improved import GraphImproved
 from persistent import Persistent
@@ -92,11 +96,11 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
           corresponding to the complete set of non-isomorphic Cayley graphs
           of the bent functions within the extended translation equivalence
           class of `bentf`, and
-        - `pair_c_b_list` is set to a `list` of each of the first
+        - `cayley_pair_c_b_list` is set to a `list` of each of the first
           2-tuples (c, b) found such that if
           `index == cayley_graph_index_matrix[c, b]` then
           `cayley_graph_class_list[index]` is not isomorphic to any Cayley
-          graph previously generated, and `pair_c_b_list[index] == (c,b)`.
+          graph previously generated, and `cayley_pair_c_b_list[index] == (c,b)`.
 
         Each entry `cayley_graph_index_matrix[c,b]` corresponds to
         the Cayley graph of the bent function
@@ -112,22 +116,24 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: f.is_bent()
-            True
             sage: c = BentFunctionCayleyGraphClassification(f)
             sage: c.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
-            'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
-            'cayley_graph_index_matrix': [0 1 1 1]
-            [1 1 0 1]
-            [1 0 1 1]
-            [1 1 1 0],
-            'pair_c_b_list': [(0, 0), (1, 0)],
-            'weight_class_matrix': [1 0 0 0]
-            [0 0 1 0]
-            [0 1 0 0]
-            [0 0 0 1]}
-
+             'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
+             'cayley_graph_index_matrix': [0 1 1 1]
+             [1 1 0 1]
+             [1 0 1 1]
+             [1 1 1 0],
+             'cayley_pair_c_b_list': [(0, 0), (1, 0)],
+             'dual_c_graph_index_matrix': [0 1 1 1]
+             [1 1 0 1]
+             [1 0 1 1]
+             [1 1 1 0],
+             'dual_c_pair_c_b_list': [(0, 0), (1, 0)],
+             'weight_class_matrix': [1 0 0 0]
+             [0 0 1 0]
+             [0 1 0 0]
+             [0 0 0 1]}
         """
         checking = controls.checking
         timing   = controls.timing
@@ -136,41 +142,72 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         v = 2 ** dim
 
         self.algebraic_normal_form = bentf.algebraic_normal_form()
+
+        self.cayley_graph_class_list = List([])
+
+        self.cayley_pair_c_b_list = []
+        self.dual_c_pair_c_b_list = []
+
         self.cayley_graph_index_matrix = matrix(v,v)
+        self.dual_c_graph_index_matrix = matrix(v,v)
+
         self.weight_class_matrix       = matrix(v,v)
 
-        cayley_graph_class_list = List([])
-        self.pair_c_b_list = []
         f = bentf.extended_translate()
-        max_index = -1
+        dual_bentf = bentf.walsh_hadamard_dual()
+        dual_f = dual_bentf.extended_translate()
+
+        max_cg_index = -1
+        max_dg_index = -1
         for b in xsrange(v):
             if timing:
-                print datetime.now(), b, len(cayley_graph_class_list)
+                print datetime.now(), b,
+                print len(self.cayley_graph_class_list)
 
             fb = f(b)
-            fbc_list = [bentf.extended_translate(b, c, fb)
-                        for c in xsrange(v)]
-            g_list = [boolean_cayley_graph(dim, fbc).canonical_label()
-                      for fbc in fbc_list]
             for c in xsrange(v):
-                g = g_list[c]
-                index = cayley_graph_class_list.index_append(g)
-                self.cayley_graph_index_matrix[c, b] = index
-                fbc = fbc_list[c]
+                fbc = bentf.extended_translate(b, c, fb)
+                cg = boolean_cayley_graph(dim, fbc).canonical_label()
+                cg_index = self.cayley_graph_class_list.index_append(cg)
+                self.cayley_graph_index_matrix[c, b] = cg_index
+
+                if cg_index > max_cg_index:
+                    max_cg_index = cg_index
+                    self.cayley_pair_c_b_list.append((c, b))
+
                 weight = sum(fbc(x) for x in xsrange(v))
                 wc = weight_class(v, weight)
                 self.weight_class_matrix[c, b] = wc
-                if index > max_index:
-                    max_index = index
-                    self.pair_c_b_list.append((c, b))
-                    if checking:
-                        if wc != 0 and wc != 1:
-                            raise ValueError, (
-                                "Weight class is "
-                                + str(wc))
 
-        self.cayley_graph_class_list = [GraphImproved(g)
-                                        for g in cayley_graph_class_list]
+                if checking:
+                    if wc != 0 and wc != 1:
+                        raise ValueError, (
+                            "Weight class is "
+                            + str(wc))
+
+                bentfbc = BentFunction([fbc(x) for x in xsrange(v)])
+
+                dual_fbc = bentfbc.walsh_hadamard_dual().extended_translate(
+                    d=wc)
+                dg = boolean_cayley_graph(dim, dual_fbc).canonical_label()
+                dg_index = self.cayley_graph_class_list.index_append(dg)
+                self.dual_c_graph_index_matrix[c, b] = dg_index
+
+                if dg_index > max_dg_index:
+                    max_dg_index = dg_index
+                    self.dual_c_pair_c_b_list.append((c, b))
+
+                if checking and dim > 2:
+                    blcg = boolean_linear_code_graph(dim, fbc)
+                    lg = (
+                        blcg.canonical_label()
+                        if wc == 0
+                        else blcg.complement().canonical_label())
+                    if cg != lg:
+                        raise ValueError, (
+                            "Cayley graph does not match graph from linear code at "
+                            + str(b) + ","
+                            + str(c))
 
         if checking:
             dillon_schatz_design_matrix = bentf.dillon_schatz_design_matrix()
@@ -208,7 +245,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         Each Cayley graph in cayley_graph_class_list is converted to
         a StronglyRegularGraph, and the following attributes are reported:
         - clique_polynomial, strongly_regular_parameters, rank, group_order.
-        Each corresponding (c, b) pair in pair_c_b_list is converted to
+        Each corresponding (c, b) pair in cayley_pair_c_b_list is converted to
         a BentFunction, and the corresponding LinearCode and generator matrix
         are reported.
 
@@ -219,19 +256,25 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             sage: from bent_function import BentFunction
             sage: from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
             sage: R4.<x1,x2,x3,x4> = BooleanPolynomialRing(4)
-            sage: p=x1+x1*x2+x3*x4
-            sage: f=BentFunction(p)
-            sage: c=BentFunctionCayleyGraphClassification(f)
+            sage: p = x1+x1*x2+x3*x4
+            sage: f = BentFunction(p)
+            sage: c = BentFunctionCayleyGraphClassification(f)
             sage: c.report()
             Algebraic normal form: x0*x1 + x0 + x2*x3
             Function is bent.
             Dillon-Schatz incidence structure t-design parameters: (True, (2, 16, 6, 2))
+            Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
 
-            Clique polynomial, strongly regular parameters, rank, and order of each representative Cayley graph in the extended affine class;
-            linear code, generator matrix, and corresponding clique polynomial, strongly regular parameters, rank, and order for one of the bent functions in the Cayley class:
-            Polynomial 8*t^4 + 32*t^3 + 48*t^2 + 16*t + 1
-            Parameters (16, 6, 2, 2)
+            Clique polynomial, strongly regular parameters, rank, and order
+            of each representative graph in the extended translation class;
+            linear code and generator matrix for a representative bent function from each graph class:
+            0 :
+            Algebraic normal form of representative: x0*x1 + x0 + x2*x3
+            Clique polynomial 8*t^4 + 32*t^3 + 48*t^2 + 16*t + 1
+            Strongly regular parameters (16, 6, 2, 2)
             Rank 6 Order 1152
+
+            Linear code from representative:
             Linear code of length 6, dimension 4 over Finite Field of size 2
             Generator matrix:
             [1 0 0 0 0 1]
@@ -239,12 +282,15 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             [0 0 1 1 0 0]
             [0 0 0 0 1 1]
             Linear code is projective.
-            Weight distribution {0: 1, 2: 6, 4: 9}
-            Strongly regular graph from linear code is isomorphic to Cayley graph.
+            Weight distribution: {0: 1, 2: 6, 4: 9}
 
-            Polynomial 16*t^5 + 120*t^4 + 160*t^3 + 80*t^2 + 16*t + 1
-            Parameters (16, 10, 6, 6)
+            1 :
+            Algebraic normal form of representative: x0*x1 + x0 + x1 + x2*x3
+            Clique polynomial 16*t^5 + 120*t^4 + 160*t^3 + 80*t^2 + 16*t + 1
+            Strongly regular parameters (16, 10, 6, 6)
             Rank 6 Order 1920
+
+            Linear code from representative:
             Linear code of length 10, dimension 4 over Finite Field of size 2
             Generator matrix:
             [1 0 1 0 1 0 0 1 0 0]
@@ -252,10 +298,9 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             [0 0 0 1 1 1 0 0 0 1]
             [0 0 0 0 0 0 1 1 1 1]
             Linear code is projective.
-            Weight distribution {0: 1, 4: 5, 6: 10}
-            Strongly regular graph from linear code is isomorphic to Cayley graph.
+            Weight distribution: {0: 1, 4: 5, 6: 10}
 
-            Cayley graph index matrix:
+            Graph index matrix:
             [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
             [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
             [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
@@ -295,6 +340,56 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         .. [Leo2017] "Classifying bent functions by their Cayley graphs", in preparation.
 
         """
+        def graph_and_linear_code_report(
+            bentf,
+            graph_class_list,
+            pair_c_b_list,
+            graph_index_matrix):
+            r"""
+            """
+            verbose = controls.verbose
+
+            print ""
+            print "Clique polynomial,",
+            print "strongly regular parameters, rank, and order"
+            print "of each representative graph",
+            print "in the extended translation class;"
+            print "linear code and generator matrix",
+            print "for a representative bent function from each graph class:"
+            for index in xsrange(len(graph_class_list)):
+                print index, ":"
+                c_b = pair_c_b_list[index]
+                c = c_b[0]
+                b = c_b[1]
+                fb = f(b)
+                fbc = bentf.extended_translate(b, c, fb)
+                bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
+                p = bent_fbc.algebraic_normal_form()
+                print "Algebraic normal form of representative:", p
+                g = graph_class_list[index]
+                s = StronglyRegularGraph(g)
+                print "Clique polynomial", s.stored_clique_polynomial
+                print "Strongly regular parameters", s.strongly_regular_parameters
+                print "Rank", s.rank,
+                print "Order", s.group_order
+
+                print ""
+                print "Linear code from representative:"
+                lc = bent_fbc.linear_code()
+                print lc
+                print "Generator matrix:"
+                print lc.generator_matrix()
+                print "Linear code",
+                print "is" if lc.is_projective() else "is not",
+                print "projective."
+                print "Weight distribution:",
+                wd = lc.weight_distribution()
+                print dict([(w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
+                print ""
+            print "Graph index matrix:"
+            print graph_index_matrix
+
+
         p = self.algebraic_normal_form
         print "Algebraic normal form:", p
         bentf = BentFunction(p)
@@ -310,58 +405,33 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         print "Dillon-Schatz incidence structure t-design parameters:",
         print I.is_t_design(return_parameters=True)
 
-        g_list = self.cayley_graph_class_list
-        cb_list = self.pair_c_b_list
-        print ""
-        print "Clique polynomial,",
-        print "strongly regular parameters, rank, and order",
-        print "of each representative Cayley graph",
-        print "in the extended affine class;"
-        if dim > 2:
-            print "linear code, generator matrix, and corresponding",
-            print "clique polynomial,",
-            print "strongly regular parameters, rank, and order",
-        else:
-            print "linear code and generator matrix",
-        print "for one of the bent functions in the Cayley class:"
-        for index in xsrange(len(g_list)):
-            g = g_list[index]
-            s = StronglyRegularGraph(g)
-            print "Polynomial", s.stored_clique_polynomial
-            print "Parameters", s.strongly_regular_parameters
-            print "Rank", s.rank, "Order", s.group_order
-            c_b = cb_list[index]
-            c = c_b[0]
-            b = c_b[1]
-            fb = f(b)
-            fbc = bentf.extended_translate(b, c, fb)
-            bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
-            lc = bent_fbc.linear_code()
-            print lc
-            print "Generator matrix:"
-            print lc.generator_matrix()
-            print "Linear code",
-            print "is" if lc.is_projective() else "is not",
-            print "projective."
-            print "Weight distribution",
-            wd = lc.weight_distribution()
-            print dict([(w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
-            if dim > 2:
-                h = (    bent_fbc.linear_code_graph()
-                    if   bent_fbc.weight_class() == 0
-                    else bent_fbc.linear_code_graph().complement())
-                t = StronglyRegularGraph(h.canonical_label())
-                print "Strongly regular graph from linear code",
-                if s == t:
-                    print "is isomorphic to Cayley graph."
-                else:
-                    print "is NOT isomorphic to Cayley graph."
-                    print "Polynomial", t.stored_clique_polynomial
-                    print "Parameters", t.strongly_regular_parameters
-                    print "Rank", t.rank, "Order", t.group_order
-            print ""
+        cg_list   = self.cayley_graph_class_list
+        ccb_list  = self.cayley_pair_c_b_list
+        ci_matrix = self.cayley_graph_index_matrix
+        dcb_list  = self.dual_c_pair_c_b_list
+        di_matrix = self.dual_c_graph_index_matrix
 
-        print "Cayley graph index matrix:"
-        print self.cayley_graph_index_matrix
+        print "Classification of Cayley graphs and",
+        print "classification of Cayley graphs of duals",
+        if ci_matrix == di_matrix:
+            print "are the same:"
+            graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix)
+        else:
+            cb_lists_differ = ccb_list != dcb_list
+            i_matrices_differ = ci_matrix != di_matrix
+            print "differ in",
+            if cb_lists_differ:
+                print "lists of first (c,b) pairs;",
+            if i_matrices_differ:
+                print "matrices of indexes;",
+            print ""
+            if i_matrices_differ:
+                print ""
+                print "Cayley graphs:"
+                graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix)
+                print ""
+                print "Graphs from linear codes:"
+                graph_and_linear_code_report(bentf, cg_list, dcb_list, di_matrix)
+
         print "Weight class matrix:"
         print D
