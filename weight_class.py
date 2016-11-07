@@ -15,4 +15,4 @@ def weight_class(length, weight):
     r"""
     """
     sqrtlength = sqrt(length)
-    return ((weight*2)/sqrtlength - sqrtlength + 1) / 2
+    return int(((weight*2)/sqrtlength - sqrtlength + 1) / 2)
