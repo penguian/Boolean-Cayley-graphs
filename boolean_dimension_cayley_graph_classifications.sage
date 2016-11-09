@@ -54,8 +54,8 @@ def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
         name_n = 'p'+str(dim)+'_'+str(n)
         c[n] = BentFunctionCayleyGraphClassification.load_mangled(name_n)
         cg_class_list   = c[n].cayley_graph_class_list
-        cg_index_matrix = c[n].cayley_graph_index_matrix
-        dg_index_matrix = c[n].dual_c_graph_index_matrix
+        cg_index_matrix = c[n].bent_cayley_graph_index_matrix
+        dg_index_matrix = c[n].dual_cayley_graph_index_matrix
         reclassification[n] = matrix(3, len(cg_class_list))
 
         c_class_counts = np.histogram(cg_index_matrix, range(len(cg_class_list) + 1))[0]
