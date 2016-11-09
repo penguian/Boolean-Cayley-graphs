@@ -11,7 +11,7 @@
 gap.load_package('grape')
 gap.eval('GRAPE_NAUTY := true;')
 
-def check_graphs(g_0, g_1):
+def graphs_are_isomorphic(g_0, g_1):
     r"""
     Check that two graphs are isomorphic.
     """
@@ -36,5 +36,5 @@ def check_graph_class_list(g_list):
     n = len(g_list)
     for i in xrange(n):
         for j in xrange(i + 1, n):
-            result &= not check_graphs(g_list[i], g_list[j])
+            result &= not graphs_are_isomorphic(g_list[i], g_list[j])
     return result
