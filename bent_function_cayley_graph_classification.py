@@ -366,7 +366,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                         dual_index = dual_cayley_graph_index_matrix[c, b]
                         if dual_index != index:
                             print "Cayley graph of dual of representative differs:"
-                            print "Index is", index
+                            print "Index is", dual_index
                             dual_g = cayley_graph_class_list[dual_index]
                             dual_s = StronglyRegularGraph(dual_g)
                             print "Clique polynomial",
