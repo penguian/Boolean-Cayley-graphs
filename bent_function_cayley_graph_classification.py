@@ -242,11 +242,50 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             sage: c.report()
             Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3
             Function is bent.
+
+            Weight class matrix:
+            [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
+            [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
+            [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
+            [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
+            [0 1 0 0 1 0 1 1 0 1 0 0 0 1 0 0]
+            [0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1]
+            [1 0 0 0 0 1 1 1 1 0 0 0 1 0 0 0]
+            [0 0 1 0 1 1 0 1 0 0 1 0 0 0 1 0]
+            [0 1 0 0 0 1 0 0 1 0 1 1 0 1 0 0]
+            [0 0 0 1 0 0 0 1 1 1 1 0 0 0 0 1]
+            [1 0 0 0 1 0 0 0 0 1 1 1 1 0 0 0]
+            [0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 0]
+            [1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 0]
+            [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
+            [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
+            [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
+
+            Dillon-Schatz incidence structure t-design parameters: (True, (2, 16, 6, 2))
+
             Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
 
+            Matrix of indices of Cayley graphs:
+            [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
+            [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
+            [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
+            [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
+            [0 1 0 0 1 0 1 1 0 1 0 0 0 1 0 0]
+            [0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1]
+            [1 0 0 0 0 1 1 1 1 0 0 0 1 0 0 0]
+            [0 0 1 0 1 1 0 1 0 0 1 0 0 0 1 0]
+            [0 1 0 0 0 1 0 0 1 0 1 1 0 1 0 0]
+            [0 0 0 1 0 0 0 1 1 1 1 0 0 0 0 1]
+            [1 0 0 0 1 0 0 0 0 1 1 1 1 0 0 0]
+            [0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 0]
+            [1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 0]
+            [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
+            [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
+            [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
+
             Clique polynomial, strongly regular parameters, rank, and order
-            of each representative graph in the extended translation class;
-            linear code and generator matrix for a representative bent function from each graph class:
+            of each representative graph in the extended translation class:
+            Linear code and generator matrix for a representative bent function from each graph class:
 
             0 :
             Algebraic normal form of representative: x0*x1 + x0 + x2*x3
@@ -280,44 +319,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             Linear code is projective.
             Weight distribution: {0: 1, 4: 5, 6: 10}
 
-            Matrix of indices of Cayley graphs:
-            [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
-            [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
-            [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
-            [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
-            [0 1 0 0 1 0 1 1 0 1 0 0 0 1 0 0]
-            [0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1]
-            [1 0 0 0 0 1 1 1 1 0 0 0 1 0 0 0]
-            [0 0 1 0 1 1 0 1 0 0 1 0 0 0 1 0]
-            [0 1 0 0 0 1 0 0 1 0 1 1 0 1 0 0]
-            [0 0 0 1 0 0 0 1 1 1 1 0 0 0 0 1]
-            [1 0 0 0 1 0 0 0 0 1 1 1 1 0 0 0]
-            [0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 0]
-            [1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 0]
-            [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
-            [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
-            [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
-
-            Weight class matrix:
-            [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
-            [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
-            [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
-            [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
-            [0 1 0 0 1 0 1 1 0 1 0 0 0 1 0 0]
-            [0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1]
-            [1 0 0 0 0 1 1 1 1 0 0 0 1 0 0 0]
-            [0 0 1 0 1 1 0 1 0 0 1 0 0 0 1 0]
-            [0 1 0 0 0 1 0 0 1 0 1 1 0 1 0 0]
-            [0 0 0 1 0 0 0 1 1 1 1 0 0 0 0 1]
-            [1 0 0 0 1 0 0 0 0 1 1 1 1 0 0 0]
-            [0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 0]
-            [1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 0]
-            [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
-            [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
-            [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
-
-            Dillon-Schatz incidence structure t-design parameters: (True, (2, 16, 6, 2))
-
         REFERENCES:
 
         .. [Leo2017] "Classifying bent functions by their Cayley graphs", in preparation.
@@ -342,11 +343,19 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             verbose = controls.verbose
 
             print ""
+            print "Matrix of indices of Cayley graphs:"
+            print bent_cayley_graph_index_matrix
+            if dual_cayley_graph_index_matrix != None:
+                print "Matrix of indices of Cayley graphs",
+                print "of dual bent functions:"
+                print dual_cayley_graph_index_matrix
+
+            print ""
             print "Clique polynomial,",
             print "strongly regular parameters, rank, and order"
             print "of each representative graph",
-            print "in the extended translation class;"
-            print "linear code and generator matrix",
+            print "in the extended translation class:"
+            print "Linear code and generator matrix",
             print "for a representative bent function from each graph class:"
             for index in xsrange(len(cayley_graph_class_list)):
                 print ""
@@ -408,7 +417,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                                         else "is not"),
                                     print "isomorphic."
 
-
                     print ""
                     print "Linear code from representative:"
                     lc = bent_fbc.linear_code()
@@ -423,13 +431,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                     print dict([
                         (w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
 
-            print ""
-            print "Matrix of indices of Cayley graphs:"
-            print bent_cayley_graph_index_matrix
-            if dual_cayley_graph_index_matrix != None:
-                print "Matrix of indices of Cayley graphs",
-                print "of dual bent functions:"
-                print dual_cayley_graph_index_matrix
 
 
         p = self.algebraic_normal_form
@@ -441,6 +442,15 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         v = 2 ** dim
 
         print "Function", ("is" if bentf.is_bent() else "is not"), "bent."
+        print ""
+        print "Weight class matrix:"
+        D = self.weight_class_matrix
+        print D
+
+        print ""
+        print "Dillon-Schatz incidence structure t-design parameters:",
+        I = IncidenceStructure(D)
+        print I.is_t_design(return_parameters=True)
 
         cg_list   = self.cayley_graph_class_list
         ci_matrix = self.bent_cayley_graph_index_matrix
@@ -456,6 +466,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             else tuple(ci_where[index][0,:]))
             for index in xsrange(len(cg_list))]
 
+        print ""
         print "Classification of Cayley graphs and",
         print "classification of Cayley graphs of duals",
         if ci_matrix == di_matrix:
@@ -476,14 +487,3 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
             graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix,
                                          di_matrix)
-
-        print ""
-        print "Weight class matrix:"
-        D = self.weight_class_matrix
-        print D
-
-        print ""
-        print "Dillon-Schatz incidence structure t-design parameters:",
-        I = IncidenceStructure(D)
-        print I.is_t_design(return_parameters=True)
-
