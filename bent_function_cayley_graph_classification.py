@@ -47,6 +47,7 @@ from datetime import datetime
 from numpy import array, argwhere
 from sage.arith.srange import xsrange
 from sage.combinat.designs.incidence_structures import IncidenceStructure
+from sage.functions.log import log
 from sage.matrix.constructor import matrix
 from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
@@ -239,7 +240,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             sage: f = BentFunction(p)
             sage: c = BentFunctionCayleyGraphClassification(f)
             sage: c.report()
-            Algebraic normal form: x0*x1 + x0 + x2*x3
+            Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3
             Function is bent.
             Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
 
@@ -330,6 +331,14 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             dual_cayley_graph_index_matrix=None):
             r"""
             """
+            def print_compare(verb, a, b):
+
+                print (
+                    verb + " the same."
+                    if a == b
+                    else a),
+
+
             verbose = controls.verbose
 
             print ""
@@ -370,11 +379,34 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                             dual_g = cayley_graph_class_list[dual_index]
                             dual_s = StronglyRegularGraph(dual_g)
                             print "Clique polynomial",
-                            print dual_s.stored_clique_polynomial
+                            print_compare(
+                                "is",
+                                dual_s.stored_clique_polynomial,
+                                s.stored_clique_polynomial)
+                            print ""
                             print "Strongly regular parameters",
-                            print dual_s.strongly_regular_parameters
-                            print "Rank", dual_s.rank,
-                            print "Order", dual_s.group_order
+                            print_compare (
+                                "are",
+                                dual_s.strongly_regular_parameters,
+                                s.strongly_regular_parameters)
+                            print ""
+                            print "Rank",
+                            print_compare ("is", dual_s.rank, s.rank)
+                            print "Order",
+                            print_compare (
+                                "is", dual_s.group_order, s.group_order)
+                            if verbose:
+                                if log(s.group_order, Integer(2)).is_integer():
+                                    print "Order is a power of 2."
+                                else:
+                                    print ""
+                                    print "Automorphism group",
+                                    dual_a = dual_s.automorphism_group
+                                    print (
+                                        "is"
+                                        if dual_a.is_isomorphic(s.automorphism_group)
+                                        else "is not"),
+                                    print "isomorphic."
 
 
                     print ""
@@ -401,7 +433,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
 
         p = self.algebraic_normal_form
-        print "Algebraic normal form:", p
+        print "Algebraic normal form of Boolean function:", p
         bentf = BentFunction(p)
         f = bentf.extended_translate()
 
@@ -431,7 +463,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
             graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix)
         else:
-            print "differ in matrices of indexes",
+            print "differ in matrices of indexes:"
             di_array  = array(di_matrix)
             di_where  = [
                 argwhere(di_array==index)
@@ -442,9 +474,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                 else tuple(di_where[index][0,:]))
                 for index in xsrange(len(cg_list))]
 
-            graph_and_linear_code_report(bentf,
-                                         cg_list, ccb_list,
-                                         ci_matrix, di_matrix)
+            graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix,
+                                         di_matrix)
 
         print ""
         print "Weight class matrix:"
