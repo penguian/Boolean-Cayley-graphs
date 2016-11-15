@@ -49,6 +49,7 @@ from sage.arith.srange import xsrange
 from sage.combinat.designs.incidence_structures import IncidenceStructure
 from sage.functions.log import log
 from sage.matrix.constructor import matrix
+from sage.plot.matrix_plot import matrix_plot
 from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
 
@@ -283,9 +284,10 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
             [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
 
-            Clique polynomial, strongly regular parameters, rank, and order
-            of each representative graph in the extended translation class:
-            Linear code and generator matrix for a representative bent function from each graph class:
+            There are 2 extended Cayley classes in the extended translation class:
+            Clique polynomial, strongly regular parameters, rank, and order of a representative graph
+            from each extended Cayley class in the extended translation class:
+            Linear code and generator matrix for a representative bent function from each extended Cayley class:
 
             0 :
             Algebraic normal form of representative: x0*x1 + x0 + x2*x3
@@ -350,14 +352,18 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                 print "of dual bent functions:"
                 print dual_cayley_graph_index_matrix
 
+            nbr_cayley_graph_classes = len(cayley_graph_class_list)
+
             print ""
-            print "Clique polynomial,",
-            print "strongly regular parameters, rank, and order"
-            print "of each representative graph",
+            print "There are", nbr_cayley_graph_classes,
+            print "extended Cayley classes in the extended translation class:"
+            print "Clique polynomial, strongly regular parameters,",
+            print "rank, and order of a representative graph"
+            print "from each extended Cayley class",
             print "in the extended translation class:"
-            print "Linear code and generator matrix",
-            print "for a representative bent function from each graph class:"
-            for index in xsrange(len(cayley_graph_class_list)):
+            print "Linear code and generator matrix for a representative",
+            print "bent function from each extended Cayley class:"
+            for index in xsrange(nbr_cayley_graph_classes):
                 print ""
                 print index, ":"
                 c_b = pair_c_b_list[index]
@@ -487,3 +493,17 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
             graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix,
                                          di_matrix)
+
+
+    def save_matrix_plots(self, figure_name, cmap='gist_stern'):
+        r"""
+        """
+        matrix_names = (
+            "bent_cayley_graph_index_matrix",
+            "dual_cayley_graph_index_matrix",
+            "weight_class_matrix")
+
+        attributes = self.__dict__
+        for name in matrix_names:
+            graphic = matrix_plot(matrix(attributes[name]),cmap='gist_stern')
+            graphic.save(figure_name + "_" + name + ".png")
