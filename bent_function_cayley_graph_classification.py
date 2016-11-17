@@ -209,6 +209,24 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             print datetime.now()
 
 
+    def first_matrix_index_list(self):
+        r"""
+        """
+        cg_list   = self.cayley_graph_class_list
+        ci_matrix = self.bent_cayley_graph_index_matrix
+
+        ci_array  = array(ci_matrix)
+        ci_where  = [
+            argwhere(ci_array==index)
+            for index in xsrange(len(cg_list))]
+        cb_list = [
+            (None
+            if ci_where[index].shape[0] == 0
+            else tuple(ci_where[index][0,:]))
+            for index in xsrange(len(cg_list))]
+        return cb_list
+
+
     def report(self):
         r"""
         Print a report on the attributes of `self`.
@@ -410,6 +428,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                             print "Order",
                             print_compare (
                                 "is", dual_s.group_order, s.group_order)
+                            print ""
                             if verbose:
                                 if log(s.group_order, Integer(2)).is_integer():
                                     print "Order is a power of 2."
@@ -461,16 +480,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         cg_list   = self.cayley_graph_class_list
         ci_matrix = self.bent_cayley_graph_index_matrix
         di_matrix = self.dual_cayley_graph_index_matrix
-
-        ci_array  = array(ci_matrix)
-        ci_where  = [
-            argwhere(ci_array==index)
-            for index in xsrange(len(cg_list))]
-        ccb_list  = [
-            (None
-            if ci_where[index].shape[0] == 0
-            else tuple(ci_where[index][0,:]))
-            for index in xsrange(len(cg_list))]
+        cb_list   = self.first_matrix_index_list()
 
         print ""
         print "Classification of Cayley graphs and",
@@ -478,20 +488,11 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
         if ci_matrix == di_matrix:
             print "are the same:"
 
-            graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix)
+            graph_and_linear_code_report(bentf, cg_list, cb_list, ci_matrix)
         else:
             print "differ in matrices of indexes:"
-            di_array  = array(di_matrix)
-            di_where  = [
-                argwhere(di_array==index)
-                for index in xsrange(len(cg_list))]
-            dcb_list  = [
-                (None
-                if di_where[index].shape[0] == 0
-                else tuple(di_where[index][0,:]))
-                for index in xsrange(len(cg_list))]
 
-            graph_and_linear_code_report(bentf, cg_list, ccb_list, ci_matrix,
+            graph_and_linear_code_report(bentf, cg_list, cb_list, ci_matrix,
                                          di_matrix)
 
 
@@ -505,5 +506,5 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
         attributes = self.__dict__
         for name in matrix_names:
-            graphic = matrix_plot(matrix(attributes[name]),cmap='gist_stern')
+            graphic = matrix_plot(matrix(attributes[name]),cmap=cmap)
             graphic.save(figure_name + "_" + name + ".png")

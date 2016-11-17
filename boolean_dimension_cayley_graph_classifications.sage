@@ -56,15 +56,23 @@ def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
         cg_class_list   = c[n].cayley_graph_class_list
         cg_index_matrix = c[n].bent_cayley_graph_index_matrix
         dg_index_matrix = c[n].dual_cayley_graph_index_matrix
-        reclassification[n] = matrix(3, len(cg_class_list))
+        cb_index_list   = c[n].first_matrix_index_list()
+        reclassification[n] = matrix(5, len(cg_class_list))
 
         c_class_counts = np.histogram(cg_index_matrix, range(len(cg_class_list) + 1))[0]
         d_class_counts = np.histogram(dg_index_matrix, range(len(cg_class_list) + 1))[0]
         for i in xrange(len(cg_class_list)):
             g = cg_class_list[i]
             reclassification[n][0, i] = cayley_graph_classes.index_append(g)
-            reclassification[n][1, i] = c_class_counts[i]
-            reclassification[n][2, i] = d_class_counts[i]
+            cb_index = cb_index_list[i]
+            c_index = cb_index[0]
+            b_index = cb_index[1]
+            assert cg_index_matrix[c_index, b_index] == i
+            j = dg_index_matrix[c_index, b_index]
+            reclassification[n][1, i] = i
+            reclassification[n][2, i] = c_class_counts[i]
+            reclassification[n][3, i] = j
+            reclassification[n][4, i] = d_class_counts[j]
         if verbose:
             print reclassification[n]
             c[n].report()
