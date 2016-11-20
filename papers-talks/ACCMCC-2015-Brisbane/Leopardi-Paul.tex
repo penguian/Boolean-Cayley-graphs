@@ -1,0 +1,69 @@
+%This is an Abstract template for the 39ACCMCC.
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\usepackage{amsmath, amssymb}
+% BEGIN EXTRA PACKAGES (if needed, one per line)
+
+% END EXTRA PACKAGES
+
+% any definitions needed, put them here
+% \newcommand{\iso}{\cong}
+
+% Abstract environment, for automagic parsing.
+\newenvironment{TalkAbstract}{\noindent\ignorespaces}{}
+
+% Please fill in your identification details and title in the lines below. If you have co-authors, uncomment and fill in after \TalkJoint.
+\newcommand{\FirstName}{Paul}
+\newcommand{\LastName}{Leopardi}
+\newcommand{\Uni}{University of Newcastle} % e.g. The University of Melbourne
+\newcommand{\email}{paul.leopardi@gmail.com}
+\newcommand{\TalkTitle}{Classifying bent functions by their Cayley graphs}
+%\newcommand{\TalkJoint}{insert your co-authors, if any}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\mf}[1]{\mathbf{#1}}
+\newcommand{\Cay}{\operatorname{Cay}}
+\newcommand{\oE}{\mf{\operatorname{E}}}
+\newcommand{\G}{\mb{G}}
+\newcommand{\R}{\mb{R}}
+\newcommand{\Z}{\mb{Z}}
+\newcommand{\Rep}{P}
+\newcommand{\V}[1]{\underline{#1}}
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\isomorphic}{\simeq}
+\newcommand{\To}{\rightarrow}
+
+\begin{document}
+\begin{center}
+% DO NOT EDIT ANY OF THE NEXT 12 LINES.
+% YOUR TITLE, NAME, EMAIL ADDRESS, AND INSTITUTION
+% SHOULD ALL BE ENTERED ABOVE.
+ {\Large \scshape  \TalkTitle} \\[3mm]
+ \textbf{\FirstName~\LastName} \\
+ \texttt{\email} \\[3mm]
+ \Uni \\[3mm]
+\ifx\TalkJoint\emtpy
+\relax
+\else
+(Joint work with \TalkJoint)\\[3mm]
+\fi
+\end{center}
+
+\begin{TalkAbstract}
+It is well known~\cite{BerC99} that if a bent function $f: \Z_2^{2m} \To \Z_2$ has $f(0)=0$, then it has a strongly regular Cayley graph whose parameters $(v_m,k_m,\lambda_m,\lambda_m)$ depend only on $m$:
+\begin{align*}
+(v_m,k_m,\lambda_m) &= (4^m, 2^{2 m - 1} \pm 2^{m-1}, 2^{2 m - 2} \pm 2^{m-1}).
+\end{align*}
+It is perhaps less well known that even if two such Cayley graphs have the same strongly regular graph parameters, they are not necessarily isomorphic.
+This talk examines the concepts of \emph{Cayley equivalence} and \emph{extended Cayley equivalence} of bent functions, and compares these equivalence relations to the
+better known concepts of affine equivalence and extended affine equivalence.
+The relationship between two-weight codes, bent functions and strongly regular graphs is also touched on.
+\end{TalkAbstract}
+
+\begin{thebibliography}{1}
+\bibitem{BerC99}
+A.~Bernasconi and B.~Codenotti.
+\newblock Spectral analysis of {Boolean} functions as a graph eigenvalue
+  problem.
+\newblock {\em IEEE Transactions on Computers}, 48(3):345--351, (1999).
+\end{thebibliography}
+\end{document}
