@@ -529,6 +529,7 @@ Then for all $c \in Z_2^{2 m}$ with $q(c)=0$, there exists $A \in \Z_2^{2 m \tim
 \begin{align*}
 q(A x) &= q(x) + \langle c, x \rangle.
 \end{align*}
+TBD: should be $GL(2 m, 2)$.
 \end{Lemma}
 
 \begin{proof}
@@ -859,6 +860,31 @@ Finally, given $c$ with $q(c)=0$, the matrix $A$ as defined by \eqref{eq-a-s-def
 $q(A x) = q(x) + \langle c, x \rangle$.
 \end{proof}
 % \end{frame}
+\begin{Lemma}
+\label{lm-notes-6}
+For $k \in \{0,\ldots,m-1\}$ define $e^{(k)}$ by
+\begin{align}
+e_i^{(k)} &:= \delta_{i,k} + \delta_{i,m+k}
+\label{eq-e-def} 
+\end{align}
+for $i \in \{0,\ldots,2 m - 1\}$.
+
+Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-4}.
+Then for any $c'$ such that $q(c')=1$, there exists $B \in \Z_2^{2 m \times 2 m}$ such that
+\begin{align}
+h(B x) &= q(x) + \langle c',x \rangle.
+\label{eq-h-B-x}
+\end{align}
+TBD: should be $GL(2 m, 2)$.
+\end{Lemma}
+
+\begin{proof}
+Let $K'=\{k \mid c'_k c'_{m+k} = 1\}$. Since $q(c')=1$, $\abs{K'}$ is odd.
+Choose any $\ell \in K'$, and let $c := c' + e^{(\ell)}$.
+Then $c_{\ell} = c_{m+\ell}$ and $q(c)=0$.
+
+\end{proof}
+
 
 % \begin{frame}
 \subsection*{Dual functions}
