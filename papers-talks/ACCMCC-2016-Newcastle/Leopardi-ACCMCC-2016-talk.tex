@@ -1,0 +1,1154 @@
+\documentclass[pdf,sprung,slideColor,nocolorBG]{beamer}
+%
+%\documentclass[hyperref={pdfpagelabels=false}]{beamer}
+\mode<presentation>
+
+\let\Tiny=\tiny
+\usetheme{Adelaide}
+\usefonttheme[stillsansseriftext]{serif}
+\setbeamerfont{structure}{series=\bfseries}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage[figurename={}]{caption}
+\usepackage[latin1]{inputenc}
+%\usepackage{amsmath}   %needed for \begin{align}... \end{align} environment
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage[all]{xy}
+\usepackage{xcolor}
+\usepackage{enumerate}
+%
+\newcommand{\slidecite}[1]{\tiny{(#1)}\normalsize{}}
+\newcommand{\smallcite}[1]{\small{(#1)}\normalsize{}}
+
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\mf}[1]{\mathbf{#1}}
+\newcommand{\Emph}[1]{\emph{\textcolor{blue}{#1}}}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\To}{\rightarrow}
+
+\newcommand{\Cay}[1]{\operatorname{Cay}\left(#1\right)}
+\newcommand{\Clique}[1]{\omega\left(#1\right)}
+\newcommand{\dual}[1]{\widetilde{#1}}
+\newcommand{\support}[1]{\operatorname{supp}\left(#1\right)}
+\newcommand{\weight}[1]{\operatorname{wt}\left(#1\right)}
+\newcommand{\weightclass}[1]{\operatorname{wc}\left(#1\right)}
+
+\newcommand{\G}{\mb{G}}
+\newcommand{\R}{\mb{R}}
+\newcommand{\Z}{\mb{Z}}
+%\newtheorem{Definition}{Definition}
+\newtheorem{Question}{Question}
+\newtheorem{Conjecture}{Conjecture}
+
+\title{Classifying bent functions by their Cayley graphs, using Sage}
+\author{Paul Leopardi}
+
+\date{DRAFT}
+
+\institute{Australian Government - Bureau of Meteorology.}
+\titlegraphic{
+%\includegraphics[angle=0,width=10mm]{../../common/beamer-anu-colourlogo.png}
+%\includegraphics[angle=0,width=20mm]{../../common/carma_logo.jpg}
+}
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}
+\frametitle{Acknowledgements}
+\begin{center}
+~
+ 
+Robert Craigen, William Martin,
+Padraig {\'O} Cath{\'a}in and 
+
+Judy-anne Osborn.
+
+~
+
+Australian National University.
+
+~
+
+SageMathCloud.
+
+~
+
+Australian Government - Bureau of Meteorology.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+%\begin{center}
+\begin{itemize}
+\item
+Key concepts.
+
+~
+
+\item
+Equivalence.
+
+~
+
+\item
+Some results.
+
+~
+
+\item
+Observations for small dimensions.
+
+~
+
+\item
+Some questions.
+
+~
+
+\item
+SageMathCloud worksheet.
+\end{itemize}
+ 
+%\end{center}
+\end{frame}
+
+\section{Key concepts}
+
+\begin{frame}
+\frametitle{The Cayley graph of a binary function}
+%\begin{center}
+The \Emph{Cayley graph} $\Cay{f}$ of a binary function 
+
+~
+
+\begin{align*}
+%
+f : \Z_2^n \To \Z_2 \quad \text{where} \quad f(0) = 0 
+% 
+\end{align*}
+
+~
+
+is 
+an undirected graph with 
+
+\begin{align*}
+V(\Cay{f}) &:= \Z_2^n, \quad (x,y) \in E(\Cay{f}) \Leftrightarrow f(x+y) = 1.
+\end{align*}
+
+~
+
+\slidecite{Bernasconi and Codenotti 1999}
+\end{frame}
+\begin{frame}
+\frametitle{Bent functions}
+
+A binary function  $f : \Z_2^{2m} \To \Z_2$ is \Emph{bent} if and only if the function $\dual{f}$, defined by
+\begin{align*}
+(-1)^{\dual{f}(x)} &:= 2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
+\end{align*}
+is a binary function on $\Z_2^{2m}$.
+
+~
+
+The function $\dual{f}$ is also bent and is called the \Emph{dual} of $f$.
+
+~
+
+\slidecite{Dillon 1974; Rothaus 1976; Tokareva 2011}
+\end{frame}
+
+\begin{frame}
+\frametitle{Strongly regular graphs}
+%\begin{center}
+A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} with parameters 
+$(v,k,\lambda,\mu)$ if 
+
+~
+
+\begin{itemize}
+ \item 
+each vertex has degree $k,$ 
+
+~
+ \item 
+each adjacent pair of vertices has $\lambda$ common neighbours, and
+
+~
+\item
+each nonadjacent pair of vertices has $\mu$ common neighbours.
+\end{itemize}
+
+~
+
+\slidecite{Brouwer, Cohen and Neumaier 1989}
+
+%\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bent functions and strongly regular graphs}
+
+\begin{Theorem}
+\smallcite{Bernasconi and Codenotti 1999}
+
+The Cayley graph $\Cay{f}$ of a bent function $f$ on $\Z_2^{2m}$ 
+
+with $f(0)=0$ is a strongly regular graph with $\lambda = \mu.$ 
+\end{Theorem}
+
+The parameters of $\Cay{f}$ are
+\begin{align*}
+(v,k,\lambda) = &(4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}) 
+\\
+  \text{or} \quad &(4^m, 2^{2 m - 1} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}).
+\end{align*}
+
+~
+
+\slidecite{Menon 1962; Dillon 1974; Bernasconi and Codenotti 1999}
+%\end{center}
+\end{frame}
+\begin{frame}
+\frametitle{Weights and weight classes}
+\begin{Definition}
+The \Emph{weight} of a binary function is the cardinality of its \Emph{support}.
+For $f$ on $\Z_2^{2m}$
+\begin{align*}
+\support{f} &:= \{x \in \Z_2^{2m} \mid f(x)=1 \}.  
+\end{align*}
+
+A bent function $f$ on $\Z_2^{2m}$ has weight
+\begin{align*}
+\weight{f} &= 2^{2 m - 1} - 2^{m-1} \quad (\text{weight class~} \weightclass{f}=0), \text{~or}
+\\
+\weight{f} &= 2^{2 m - 1} + 2^{m-1} \quad (\text{weight class~} \weightclass{f}=1).
+\end{align*}
+If $f(0)=0$ then $\weightclass{\Cay{f}} := \weightclass{f}$.
+\end{Definition}
+\end{frame}
+\begin{frame}
+\frametitle{The two block designs of a bent function}
+
+The adjacency matrix of $\Cay{f}$ can also be interpreted as the incidence matrix of a block design.
+
+~
+
+In this case we do not need $f(0)=0$.
+
+~
+\begin{Definition}
+A second block design described by Dillon and Schatz can be defined by the incidence matrix $D(f)$ where
+\begin{align*}
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).   
+\end{align*}
+This is a symmetric block design with the \Emph{symmetric difference property}.
+\end{Definition}
+
+~
+
+\slidecite{Dillon and Schatz 1987; Neumann 2006}
+\end{frame}
+\begin{frame}
+\frametitle{Projective two-weight binary codes}
+
+\begin{Definition}
+A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with 
+minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size 2.
+
+~
+
+``A \Emph{generator matrix} $G$ of a linear code $[n, k]$ code $C$ is any matrix
+of rank $k$ (over $\Z_2$) with rows from $C.$''
+
+~
+
+``A linear $[n, k]$ code is called \Emph{projective} if no two columns of a generator matrix
+$G$ are linearly dependent, i.e., if the columns of $G$ are pairwise different points in a
+projective $(k-1)$-dimensional space.''
+In the case of $\Z_2$, no two columns are equal.
+
+~
+
+\slidecite{Bouyukliev, Fack, Willems and Winne 2006}
+
+\end{Definition}
+
+\end{frame}
+\section{Equivalence}
+
+\begin{frame}
+\frametitle{Extended translation equivalence}
+
+\begin{Definition}
+For bent functions $f,g : \Z_2^{2m} \To \Z_2$, 
+
+$f$ is \Emph{extended translation equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(x + b) + \langle c, x \rangle + \delta 
+\end{align*}
+for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
+\end{Definition}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extended affine equivalence}
+
+\begin{Definition}
+For bent functions $f,g : \Z_2^{2m} \To \Z_2$, 
+
+$f$ is \Emph{extended affine equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(A x + b) + \langle c, x \rangle + \delta 
+\end{align*}
+for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
+\end{Definition}
+~
+
+\slidecite{Tokareva 2014}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cayley equivalence}
+\begin{Definition}
+%
+For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent, 
+
+we call $f$ and $g$ \Emph{Cayley equivalent},
+and write $f \equiv g$, 
+
+if and only if $f(0)=g(0)=0$ and $\Cay{f} \equiv \Cay{g}$ as graphs.
+
+~
+
+Equivalently, $f \equiv g$ if and only if $f(0)=g(0)=0$ and 
+
+there exists a bijection $\pi : \Z_2^{2m} \To \Z_2^{2m}$ such that
+\begin{align*}
+g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}. 
+\end{align*}
+\end{Definition}
+\end{frame}
+\begin{frame}
+\frametitle{Extended Cayley equivalence}
+\begin{Definition}
+For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
+
+if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$, 
+
+we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$. 
+\end{Definition}
+Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\Z_2^{2m}$.
+\end{frame}
+\section{Some results}
+
+\begin{frame}
+\frametitle{Linear equivalence implies Cayley equivalence}
+
+\begin{Theorem}
+If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
+then $g$ is bent with $g(0)=0$ and $f \equiv g$.
+\end{Theorem}
+\begin{proof}
+\begin{align*}
+g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m}. 
+\end{align*}
+\end{proof}
+ 
+\end{frame}
+
+\begin{frame}
+\frametitle{Extended affine, translation and Cayley equivalence (1)}
+
+\begin{Theorem}
+For $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$,
+$f : \Z_2^{2m} \To \Z_2$, 
+
+the function
+\begin{align*}
+h(x) &:= f(A x + b) + \langle c, x \rangle + \delta
+\intertext{can be expressed as $h(x) = g(A x)$ where}
+g(x) &:= f(x+b) + \langle (A^{-1})^T c, x \rangle + \delta,
+\end{align*}
+and therefore if $f$ is bent and $h(0)=0$ then $h \equiv g$.
+\end{Theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extended affine, translation and Cayley equivalence (2)}
+
+Therefore, to determine the extended Cayley equivalence classes within the extended affine equivalence class of
+a bent function $f : \Z_2^{2m} \To \Z_2$, for which $f(0)=0$, we need only examine 
+the extended translation equivalent functions of the form
+\begin{align*}
+f(x+b) + \langle c, x \rangle + f(b),
+\end{align*}
+for each $b, c \in \Z_2^{2m}$.
+\end{frame}
+\begin{frame}
+\frametitle{Quadratic bent functions have 2 EC classes}
+\begin{Theorem}
+For each $m>0$, the extended affine equivalence class of quadratic bent functions
+$q : \Z_2^{2m} \To \Z_2$ contains exactly two extended Cayley equivalence classes,
+corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$. 
+\end{Theorem}
+
+\end{frame}
+\begin{frame}
+\frametitle{The Dillon-Schatz design matrix}
+\begin{Theorem}
+For every bent function $f$, the \Emph{weight class matrix} of $f$ 
+equals the incidence matrix of the Dillon-Schatz design of $f$.
+
+~
+
+Specifically,
+\begin{align*}
+\weightclass{\Cay{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}}
+&=
+f(b) + \langle c, b \rangle + \dual{f}(c)
+\\
+&=
+D(f)_{c,b}.
+\end{align*}
+ 
+\end{Theorem}
+
+\end{frame}
+\begin{frame}
+\frametitle{From bent function to linear code (1)}
+\begin{Definition}
+
+\smallcite{Ding 2015, Corollary 10} 
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$, 
+define the linear code $C(f)$ by the generator matrix
+\begin{align*}
+M C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
+\\
+M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+\end{align*}
+with $x$ in lexicographic order of $\Z_2^{2m}$ 
+and $\support{f}(y)$ in lexicographic order of $\support{f}$.
+
+The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
+\end{Definition}
+
+\slidecite{Ding 2015, Corollary 10} 
+ 
+\end{frame}
+\begin{frame}
+\frametitle{From bent function to linear code (2)}
+\begin{Theorem}
+\smallcite{Ding 2015, Corollary 10} 
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
+is a two-weight projective binary code.
+
+~
+
+The possible weights of non-zero code words are:
+\begin{align*}
+\begin{cases}
+2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
+\\
+2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
+\end{cases}
+\end{align*}
+
+\end{Theorem}
+
+\slidecite{Ding 2015, Corollary 10} 
+ 
+\end{frame}
+\begin{frame}
+\frametitle{From linear code to strongly regular graph}
+\begin{Definition}
+
+Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
+
+The graph $R(f)$ is defined as:
+
+Vertices of $R(f)$ are code words of $C(f)$.
+
+For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
+\begin{align*}
+\begin{cases}
+\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\weightclass{f}=0).
+\\
+\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
+\end{cases}
+\end{align*}
+ 
+\end{Definition}
+Since $C(f)$ is a two-weight binary projective code, 
+$R(f)$ is a strongly regular graph.
+ 
+\slidecite{Delsarte 1972, Theorem 2}
+\end{frame}
+\begin{frame}
+\frametitle{The graph $R(f)$ is the Cayley graph of the dual}
+
+\begin{Theorem}
+For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
+\begin{align*}
+R(f) \equiv 
+\begin{cases}
+\Cay{\dual{f}} & \text{if~} \weightclass{f}=0,
+\\
+\Cay{\dual{f}+1} & \text{if~} \weightclass{f}=1.
+\end{cases}
+\end{align*}
+ 
+\end{Theorem}
+\end{frame}
+\section{Observations}
+\begin{frame}
+\frametitle{For $m=1$}
+
+One extended affine class: $[f_{2,1}]$ 
+
+where $f_{2,1}(x) := x_0 x_1$ is self dual.
+
+~
+
+Two extended Cayley classes:
+\begin{align*}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} & 
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(4, 1, 0, 0) & 4 & 
+2t^{2} + 4t + 1
+\\
+2 &
+K_4 & 4 & 
+t^{4} + 4t^{3} + 6t^{2} + 4t + 1
+\\
+\hline
+\end{array}
+\end{align*}
+
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{2,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c2_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{2,1}]$: weight classes}
+  \label{fig:c2_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c2_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{2,1}]$: extended Cayley classes}
+  \label{fig:c2_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For $m=2$: classes}
+
+One extended affine class: $[f_{4,1}]$ where 
+
+$f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
+
+~
+
+Two extended Cayley classes:
+\begin{align*}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} & 
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(16, 6, 2, 2) & 
+6 &
+8t^{4} + 32t^{3} + 48t^{2} + 16t + 1
+\\
+2 &
+(16, 10, 6, 6) & 
+6 &
+\begin{array}{l}
+16t^{5} + 120t^{4} + 160t^{3} + 
+\\
+80t^{2} + 16t + 1
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{4,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c4_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{4,1}]$: weight classes}
+  \label{fig:c4_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c4_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{4,1}]$: extended Cayley classes}
+  \label{fig:c4_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For $m=3$: extended translation classes}
+
+Four extended affine classes:
+
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cl|}
+\hline
+\text{Class} &
+\text{Representative}
+\\
+\hline
+\,[f_{6,1}] & f_{6,1} := 
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5}
+\end{array}
+\\
+\,[f_{6,2}] & f_{6,2} := 
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}
+\end{array}
+\\
+\,[f_{6,3}] & f_{6,3} := 
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + 
+\\
+x_{2} x_{4} + x_{3} x_{4}
+\end{array}
+\\
+\,[f_{6,4}] & f_{6,4} := 
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + 
+\\
+x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\end{frame}
+% \begin{frame}
+% \frametitle{For ET class $[f_{6,1}]$: classes}
+% 
+% Bent function
+% $f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
+% 
+% ~
+% 
+% Two extended Cayley classes:
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} & 
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
+% 1 &
+% (64, 28, 12, 12) & 8 & 
+% \begin{array}{l}
+% 64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
+% \\
+% 5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+% \end{array}
+% \\
+% 2 &
+% (64, 36, 20, 20) & 8 & 
+% \begin{array}{l}
+% 2304t^{6} + 13824t^{5} + 19200t^{4} + 
+% \\
+% 7680t^{3} + 1152t^{2} + 64t + 1
+% \end{array}
+% \\
+% \hline
+% \end{array}
+% \end{align*}
+% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,1}]$: weight classes}
+  \label{fig:6_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,1}]$: 2 extended Cayley classes}
+  \label{fig:6_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+% \begin{frame}
+% \frametitle{For ET class $[f_{6,2}]$: classes}
+% 
+% Bent function
+% $f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
+% 
+% ~
+% 
+% Three extended Cayley classes:
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} & 
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
+% 1 &
+% (64, 28, 12, 12) & 8 &
+% \begin{array}{l}
+% 64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} + 
+% \\
+% 5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+% \end{array}
+% \\
+% 2 &
+% (64, 28, 12, 12) & 8 & 
+% \begin{array}{l}
+% 256t^{6} + 1536t^{5} + 4352t^{4} + 
+% \\
+% 3584t^{3} + 896t^{2} + 64t + 1
+% \end{array}
+% \\
+% 3 &
+% (64, 36, 20, 20) & 8 &
+% \begin{array}{l}
+% 192t^{8} + 1536t^{7} + 8960t^{6} + 19968t^{5} +
+% \\
+% 20224t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+% \end{array}
+% \\
+% \hline
+% \end{array}
+% \end{align*}
+% Graph 1 is isomorphic to graph 1 of EA class $[f_{6,1}]$.
+% 
+% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,2}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_2_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,2}]$: weight classes}
+  \label{fig:6_2_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,2}]$: 3 extended Cayley classes}
+  \label{fig:6_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+% \begin{frame}
+% \frametitle{For ET class $[f_{6,3}]$: classes}
+% 
+% Bent function
+% \begin{align*}
+% f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} 
+% \\
+%            &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
+% \end{align*}
+% 
+% Four extended Cayley classes:
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} & 
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
+% 1 &
+% (64, 28, 12, 12) & 12 & 
+% \begin{array}{l}
+% 32t^{8} + 256t^{7} + 896t^{6} + 2048t^{5} +
+% \\
+% 4608t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+% \end{array}
+% \\
+% 2 &
+% (64, 28, 12, 12) & 12 & 
+% \begin{array}{l}
+% 64t^{6} + 1024t^{5} + 4096t^{4} + 
+% \\
+% 3584t^{3} + 896t^{2} + 64t + 1
+% \end{array}
+% \\
+% 3 &
+% (64, 36, 20, 20) & 12 & 
+% \begin{array}{l}
+% 160t^{8} + 1280t^{7} + 9344t^{6} + 21504t^{5} +
+% \\
+% 20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+% \end{array}
+% \\
+% 4 &
+% (64, 36, 20, 20) & 12 & 
+% \begin{array}{l}
+% 160t^{8} + 1664t^{7} + 9792t^{6} + 21504t^{5} +
+% \\
+% 20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+% \end{array}
+% \\
+% \hline
+% \end{array}
+% \end{align*}
+% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,3}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_3_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,3}]$: weight classes}
+  \label{fig:6_3_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,3}]$: 4 extended Cayley classes}
+  \label{fig:6_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+% \begin{frame}
+% \frametitle{For ET class $[f_{6,4}]$: classes}
+% 
+% Bent function
+% \begin{align*}
+% f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} 
+% \\
+%            &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
+% \end{align*}
+% 
+% Three extended Cayley classes:
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} & 
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
+% 1 &
+% (64, 28, 12, 12) & 14 &
+% \begin{array}{l}
+% 32t^{8} + 256t^{7} + 896t^{6} + 1792t^{5} +
+% \\
+% 4480t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+% \end{array}
+% \\
+% 2 &
+% (64, 28, 12, 12) & 14 &
+% \begin{array}{l}
+% 16t^{8} + 128t^{7} + 448t^{6} + 1280t^{5} +
+% \\
+% 4224t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+% \end{array}
+% \\
+% 3 &
+% (64, 36, 20, 20) & 14 &
+% \begin{array}{l}
+% 176t^{8} + 1408t^{7} + 9664t^{6} + 22272t^{5} +
+% \\
+% 20608t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+% \end{array}
+% \\
+% \hline
+% \end{array}
+% \end{align*}
+% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,4}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_4_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,4}]$: weight classes}
+  \label{fig:6_4_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,4}]$: 3 extended Cayley classes}
+  \label{fig:6_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: weight classes}
+  \label{fig:8_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: 2 extended Cayley classes}
+  \label{fig:8_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,2}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_2_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: weight classes}
+  \label{fig:8_2_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: 4 extended Cayley classes}
+  \label{fig:8_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,3}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_3_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: weight classes}
+  \label{fig:8_3_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: 6 extended Cayley classes}
+  \label{fig:8_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,4}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_4_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: weight classes}
+  \label{fig:8_4_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: 5 extended Cayley classes}
+  \label{fig:8_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,5}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_5_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: weight classes}
+  \label{fig:8_5_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_5_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: 9 extended Cayley classes}
+  \label{fig:8_5_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,6}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_6_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: weight classes}
+  \label{fig:8_6_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_6_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: 9 extended Cayley classes}
+  \label{fig:8_6_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,7}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_7_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: weight classes}
+  \label{fig:8_7_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_7_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: 5 extended Cayley classes}
+  \label{fig:8_7_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,8}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_8_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: weight classes}
+  \label{fig:8_8_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_8_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: 6 extended Cayley classes}
+  \label{fig:8_8_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,9}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_9_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_9_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_9_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes of dual bent functions}
+  \label{fig:c8_9_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,10}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_10_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_10_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_10_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes of dual bent functions}
+  \label{fig:c8_10_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\end{frame}
+\section{Questions}
+\begin{frame}
+\frametitle{Open problems}
+Settled only for $m \leqslant 3$:
+\begin{enumerate}
+\item
+How many EC classes are there for each $m$? 
+Are there ``Exponential numbers'' of classes? 
+\item
+Is the number of EC classes within an EA class bounded? 
+What is the bound?
+\item
+Which EC classes overlap more than one EA class?
+\item
+Which bent functions are Cayley equivalent to their dual?
+\item
+Which EC classes contain a self-dual bent function?
+\end{enumerate}
+~
+
+Also, what are the remaining EA classes for $m=4$, 
+i.e. the EA classes of binary bent functions of dimension 8 and degree 4?
+
+~
+
+\slidecite{Kantor 1983; Jungnickel and Tonchev 1991}
+\end{frame}
+\section{Source code}
+\begin{frame}[fragile]
+\frametitle{Source code on GitHub and SageMathCloud}
+~
+
+GitHub: Sage and Python source code
+
+\begin{verbatim}
+https://github.com/penguian/Boolean-Cayley-graphs
+\end{verbatim}
+
+~
+
+SageMathCloud: Public worksheet
+
+\begin{verbatim}
+http://tinyurl.com/jnchhev
+\end{verbatim}
+ 
+\end{frame}
+
+\end{document}
