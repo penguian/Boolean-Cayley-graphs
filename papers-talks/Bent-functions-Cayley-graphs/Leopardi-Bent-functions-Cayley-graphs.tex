@@ -867,7 +867,6 @@ I & 0
 \right].
 \end{align*}
 
-
 We have therefore shown that
 \begin{align}
 A 
@@ -891,7 +890,7 @@ T + C_{0,0} & 0
 \right]
 \label{eq-a-s-def}
 \end{align}
-is a solution to $A^T L A = L + S$.
+is a solution to $A^T L A = L + S$ with $A \in GL(2 m, 2)$.
 
 Finally, given $c$ with $q(c)=0$, the matrix $A$ as defined by \eqref{eq-a-s-def} is such that
 $q(A x) = q(x) + \langle c, x \rangle$.
@@ -907,18 +906,56 @@ e_i^{(k)} &:= \delta_{i,k} + \delta_{i,m+k}
 for $i \in \{0,\ldots,2 m - 1\}$.
 
 Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-4}.
-Then for any $c'$ such that $q(c')=1$, there exists $B \in \Z_2^{2 m \times 2 m}$ such that
+Then for any $c'$ such that $q(c')=1$, there exists $B \in GL(2 m, 2)$ such that
 \begin{align}
 h(B x) &= q(x) + \langle c',x \rangle.
 \label{eq-h-B-x}
 \end{align}
-TBD: should be $GL(2 m, 2)$.
 \end{Lemma}
 
 \begin{proof}
 Let $K'=\{k \mid c'_k c'_{m+k} = 1\}$. Since $q(c')=1$, $\abs{K'}$ is odd.
 Choose any $\ell \in K'$, and let $c := c' + e^{(\ell)}$.
-Then $c_{\ell} = c_{m+\ell}$ and $q(c)=0$.
+Then $c_{\ell} = c_{m+\ell} = 0$ and $q(c)=0$.
+
+Now let $h^{(\ell)}(x) := q(x) + \langle e^{(\ell)}, x \rangle$.
+We calculate
+\begin{align*}
+h^{(\ell)}(A x) 
+&= 
+q(A x) + \langle e^{(\ell)}, A x \rangle
+=
+q(x) + \langle c, x \rangle + \langle A^T e^{(\ell)}, x \rangle
+\\
+&=
+q(x) + \langle c + A^T e^{(\ell)}, x \rangle
+\end{align*}
+for $A$ given by the proof of Lemma \ref{lm-notes-4}.
+ 
+If we let $K := \{ k \mid c_k c_{m+k} = 1 \}$, we see that $K = K' \setminus \{\ell\}$.
+Applying the other definitions and techniques used in the proof of Lemma \ref{lm-notes-4},
+we see that since $c_{\ell} = c_{m+\ell} = 0$ and $K$ does not contain $\ell$, 
+column $\ell$ of each of $S_{0,0} := T + C_{0,0}$
+and $S_{1,1} := T + C_{1,1}$ is $0$, and therefore columns $\ell$ and $m + \ell$ of
+\begin{align*}
+A^T + I
+&:=
+\left[
+\begin{array}{cc}
+I & T + C_{0,0}
+\\
+T + C_{1,1} & I
+\end{array}
+\right]
+\end{align*}
+are both $0$.
+Therefore $A^T e^{(\ell)} = e^{(\ell)}$, and therefore
+\begin{align*}
+h^{(\ell)}(A x) 
+&= 
+q(x) + \langle c', x \rangle.
+\end{align*}
+
 
 \end{proof}
 
