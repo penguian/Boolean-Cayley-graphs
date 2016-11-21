@@ -525,11 +525,10 @@ L
 \intertext{so that}
 q(x) &= \sum_{k=0}^{m-1} x_k x_{m+k}.
 \end{align*}
-Then for all $c \in Z_2^{2 m}$ with $q(c)=0$, there exists $A \in \Z_2^{2 m \times 2 m}$ such that
+Then for all $c \in Z_2^{2 m}$ with $q(c)=0$, there exists $A \in GL(2 m, 2)$ such that
 \begin{align*}
 q(A x) &= q(x) + \langle c, x \rangle.
 \end{align*}
-TBD: should be $GL(2 m, 2)$.
 \end{Lemma}
 
 \begin{proof}
@@ -626,7 +625,7 @@ A_{1,0} & A_{1,1}
 \end{array}
 \right],
 \end{align*}
-we must have
+we require that
 \begin{align*}
 A^T L A
 &=
@@ -685,8 +684,8 @@ S_{1,1}.
 \end{align*}
 If $S_{0,1}=0$ and $A_{0,0}=I$ then
 $A_{1,0}=S_{0,0}$, $A_{1,1}=I$ and $A_{0,1}=S_{1,1}$.
-In this case, we must also have $A_{0,1}^T A_{1,0} = S_{0,1}^T = 0$,
-i.e. $S_{1,1} S_{0,0} = 0$, and then
+In this case, we have $A_{0,1}^T A_{1,0} = S_{0,1}^T = 0$,
+i.e. $S_{1,1} S_{0,0} = 0$, and 
 \begin{align*}
 A 
 &= 
@@ -829,9 +828,47 @@ for some $p \in \{0,\ldots,r-1\}$, but in all those cases $c_j=c_{m+j}=1$.
 
 Therefore
 \begin{align*}
-S_{1,1} S_{0,0} &= T C_{0,0} + C_{1,1} T = 0,
+S_{1,1} S_{0,0} &= T C_{0,0} + C_{1,1} T = 0.
 \end{align*}
-and therefore
+Similarly, $S_{0,0} S_{1,1} = 0$, and therefore
+\begin{align*}
+A^2
+&=
+\left[
+\begin{array}{cc}
+I & S_{1,1}
+\\
+S_{0,0} & I
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+I & S_{1,1}
+\\
+S_{0,0} & I
+\end{array}
+\right]
+\\
+&=
+\left[
+\begin{array}{cc}
+I + S_{1,1} S_{0,0} & S_{1,1} + S_{1,1}
+\\
+S_{0,0} + S_{0,0} & I + S_{0,0} S_{1,1}
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cc}
+I & 0
+\\
+0 & I
+\end{array}
+\right].
+\end{align*}
+
+
+We have therefore shown that
 \begin{align}
 A 
 &:= 
