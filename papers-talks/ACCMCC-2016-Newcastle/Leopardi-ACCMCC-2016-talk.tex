@@ -362,7 +362,7 @@ g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m
 \end{frame}
 
 \begin{frame}
-\frametitle{Extended affine, translation and Cayley equivalence (1)}
+\frametitle{Extended affine, extended translation and extended Cayley equivalence (1)}
 
 \begin{Theorem}
 For $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$,
@@ -379,7 +379,7 @@ and therefore if $f$ is bent and $h(0)=0$ then $h \equiv g$.
 \end{frame}
 
 \begin{frame}
-\frametitle{Extended affine, translation and Cayley equivalence (2)}
+\frametitle{Extended affine, extended translation and extended Cayley equivalence (2)}
 
 Therefore, to determine the extended Cayley equivalence classes within the extended affine equivalence class of
 a bent function $f : \Z_2^{2m} \To \Z_2$, for which $f(0)=0$, we need only examine 
@@ -510,8 +510,7 @@ R(f) \equiv
 \begin{frame}
 \frametitle{For $m=1$}
 
-One extended affine class: $[f_{2,1}]$ 
-
+One extended affine class, containing the extended translation class $[f_{2,1}]$,
 where $f_{2,1}(x) := x_0 x_1$ is self dual.
 
 ~
@@ -560,8 +559,7 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 \begin{frame}
 \frametitle{For $m=2$: classes}
 
-One extended affine class: $[f_{4,1}]$ where 
-
+One extended affine class, containing the extended translation class $[f_{4,1}]$, where 
 $f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
 
 ~
@@ -615,7 +613,7 @@ Two extended Cayley classes:
 \begin{frame}
 \frametitle{For $m=3$: extended translation classes}
 
-Four extended affine classes:
+Four extended affine classes, containing the following extended translation classes:
 
 \begin{align*}
 \def\arraystretch{1.2}
@@ -637,16 +635,16 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}
 \\
 \,[f_{6,3}] & f_{6,3} := 
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + 
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5}
 \\
-x_{2} x_{4} + x_{3} x_{4}
+ +\, x_{2} x_{4} + x_{3} x_{4}
 \end{array}
 \\
 \,[f_{6,4}] & f_{6,4} := 
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + 
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
 \\
-x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
+ +\, x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 \end{array}
 \\
 \hline
@@ -924,6 +922,82 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 \end{figure}
 \end{frame}
 \begin{frame}
+\frametitle{For $m=4$: extended translation classes}
+
+Up to degree 3:
+Ten extended affine classes, 
+
+containing the following extended translation classes:
+
+\tiny{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cl|}
+\hline
+\text{Class} &
+\text{Representative}
+\\
+\hline
+\,[f_{ 8 , 1 }] & f_{ 8 , 1 } :=
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 2 }] & f_{ 8 , 2 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 3 }] & f_{ 8 , 3 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{4} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 4 }] & f_{ 8 , 4 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 5 }] & f_{ 8 , 5 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 6 }] & f_{ 8 , 6 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 7 }] & f_{ 8 , 7 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} 
+\\
++\,  x_{2} x_{4} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 8 }] & f_{ 8 , 8 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 9 }] & f_{ 8 , 9 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} + x_{4} x_{5} x_{6} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 10 }] & f_{ 8 , 10 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} 
+\\
++\,  x_{3} x_{7}
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\normalsize{}
+\end{frame}
+\begin{frame}
 \frametitle{For ET class $[f_{8,1}]$: matrices}
 \begin{figure}
 \centering
@@ -940,6 +1014,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+~
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,2}]$: matrices}
@@ -958,6 +1033,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_2_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+~
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,3}]$: matrices}
@@ -976,6 +1052,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_3_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+~
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,4}]$: matrices}
@@ -994,6 +1071,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_4_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+~
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,5}]$: matrices}
@@ -1012,6 +1090,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_5_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+~
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,6}]$: matrices}
@@ -1030,6 +1109,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_6_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,7}]$: matrices}
@@ -1048,6 +1128,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_7_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+~
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,8}]$: matrices}
@@ -1066,6 +1147,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:8_8_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+~
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,9}]$: matrices}
@@ -1084,6 +1166,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:c8_9_dual_cayley_graph_index_matrix}
 \end{minipage}%
 \end{figure}
+4 of the 8 classes form 2 dual pairs of classes.
 \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{8,10}]$: matrices}
@@ -1102,6 +1185,7 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
   \label{fig:c8_10_dual_cayley_graph_index_matrix}
 \end{minipage}%
 \end{figure}
+6 of the 10 classes form 3 dual pairs of classes.
 \end{frame}
 \section{Questions}
 \begin{frame}
@@ -1123,8 +1207,8 @@ Which EC classes contain a self-dual bent function?
 \end{enumerate}
 ~
 
-Also, what are the remaining EA classes for $m=4$, 
-i.e. the EA classes of binary bent functions of dimension 8 and degree 4?
+Also, what are the remaining EA and EC classes for $m=4$, 
+i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4?
 
 ~
 
