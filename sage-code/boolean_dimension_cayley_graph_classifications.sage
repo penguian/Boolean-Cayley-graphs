@@ -11,11 +11,12 @@
 import numpy as np
 
 
-from bent_function import BentFunction
-from bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
-from containers import List
+from boolean_cayley_graphs.bent_function import BentFunction
+from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+from boolean_cayley_graphs.containers import List
+from sage.structure.sage_object import register_unpickle_override
 
-import cayley_graph_controls as controls
+import boolean_cayley_graphs.cayley_graph_controls as controls
 
 load("bent_function_extended_affine_representative_polynomials.sage")
 
@@ -44,15 +45,34 @@ def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
     """
     verbose = controls.verbose
 
+    register_unpickle_override(
+        'bent_function_cayley_graph_classification',
+        'BentFunctionCayleyGraphClassification',
+        BentFunctionCayleyGraphClassification)
+    register_unpickle_override('containers', 'List', List)
+
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    reclassification = [None]*len(p)
-    cayley_graph_classes = List([])
     for n in xrange(start, len(p)):
         if verbose:
             print n, ':'
         name_n = 'p'+str(dim)+'_'+str(n)
         c[n] = BentFunctionCayleyGraphClassification.load_mangled(name_n)
+        if verbose:
+            c[n].report()
+    return c
+
+
+def reclassify_cayley_graph_classifications(c, start=1):
+    r"""
+    """
+    verbose = controls.verbose
+
+    reclassification = [None]*len(c)
+    cayley_graph_classes = List([])
+    for n in xrange(start, len(c)):
+        if verbose:
+            print n, ':'
         cg_class_list   = c[n].cayley_graph_class_list
         cg_index_matrix = c[n].bent_cayley_graph_index_matrix
         dg_index_matrix = c[n].dual_cayley_graph_index_matrix
@@ -75,5 +95,4 @@ def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
             reclassification[n][4, i] = d_class_counts[j]
         if verbose:
             print reclassification[n]
-            c[n].report()
-    return c, reclassification, cayley_graph_classes
+    return reclassification, cayley_graph_classes
