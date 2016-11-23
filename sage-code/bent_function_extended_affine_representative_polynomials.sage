@@ -12,6 +12,9 @@ of bent functions.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from sage.crypto.boolean_function import BooleanFunction
+
+
 def bent_function_extended_affine_representative_polynomials_dimension_2():
     r"""
     The Boolean polynomial p2[1] is the representative of the single
@@ -87,3 +90,60 @@ def bent_function_extended_affine_representative_polynomials(dimension):
     }
     return dispatcher[dimension]()
 
+
+def print_latex_table_of_representative_polynomials(
+    dimension, start=1, width=140):
+    r"""
+    For given dimension, print, in LaTeX format, the table
+    of algebraic normal forms of bent functions given by
+    the representative polynomials for that dimension.
+
+    Example:
+
+    sage: print_latex_table_of_representative_polynomials(4)
+    \def\arraystretch{1.2}
+    \begin{array}{|cl|}
+    \hline
+    \text{Class} &
+    \text{Representative}
+    \\
+    \hline
+    \,[f_{ 4 , 1 }] & f_{ 4 , 1 } :=
+    \begin{array}{l}
+    x_{0} x_{1} + x_{2} x_{3}
+    \end{array}
+    \\
+    \hline
+    \end{array}
+
+    """
+    print "\\def\\arraystretch{1.2}"
+    print "\\begin{array}{|cl|}"
+    print "\\hline"
+    print "\\text{Class} &"
+    print "\\text{Representative}"
+    print "\\\\"
+    print "\\hline"
+
+    p = bent_function_extended_affine_representative_polynomials(dimension)
+
+    for n in xrange(start, len(p)):
+        boolf = BooleanFunction(p[n])
+        f = boolf.algebraic_normal_form()
+        print "\\,[f_{",dimension,",",n,"}] & f_{",dimension,",",n,"} :="
+        print "\\begin{array}{l}"
+        lf = latex(f)
+        cut = 0
+        while cut >= 0 and len(lf) > width:
+            cut = lf.rfind('+', 0, width)
+            if cut > 0:
+                print lf[:cut]
+            if cut >= 0 and cut < len(lf):
+                print "\\\\"
+                print "+\\,",
+            lf = lf[cut + 1:]
+        print lf
+        print "\\end{array}"
+        print "\\\\"
+    print "\\hline"
+    print "\\end{array}"
