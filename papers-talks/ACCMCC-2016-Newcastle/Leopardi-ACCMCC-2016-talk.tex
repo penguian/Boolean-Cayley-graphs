@@ -61,13 +61,17 @@
 \begin{center}
 ~
  
-Robert Craigen, David Joyner, William Martin,
+Robert Craigen, David Joyner, Philippe Langevin, William Martin,
 Padraig {\'O} Cath{\'a}in,
 Judy-anne Osborn and Dima Pasechnik.
 
 ~
 
-Australian National University.
+kodlu on MathOverflow.
+
+~
+
+Australian National University. University of Newcastle, Australia.
 
 ~
 
@@ -1186,6 +1190,54 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \end{figure}
 6 of the 10 classes form 3 dual pairs of classes.
 \end{frame}
+\begin{frame}
+\frametitle{For $m=4$: number of bent functions and EA classes}
+
+According to Langevin and Leander (2011)
+there are $99270589265934370305785861242880 \approx 2^{106}$ bent functions in dimension 8.
+
+~
+
+The number of EA classes has not yet been published, let alone a list of representatives.
+
+\slidecite{Langevin and Leander 2011}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{For $m=4$: number of partial spread bent functions and EA classes}
+
+According to Langevin and Hou (2011)
+there are $70576747237594114392064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in dimension 8,
+contained in $14758$ EA classes, of which $14756$ have degree 4.
+
+~
+
+The EA class representatives are listed at Langevin's web site
+
+\begin{verbatim}
+http://langevin.univ-tln.fr/project/spread/psp.html
+\end{verbatim}
+
+\slidecite{Langevin and Hou 2011}
+\end{frame}
+\begin{frame}
+\frametitle{Example partial spread ET class $[psf_{9,5438}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:psf_9_5438_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes of dual bent functions}
+  \label{fig:psf_9_5438_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+6 of the 16 classes form 3 dual pairs of classes.
+\end{frame}
 \section{Questions}
 \begin{frame}
 \frametitle{Open problems}
@@ -1195,10 +1247,9 @@ Settled only for $m \leqslant 3$:
 How many EC classes are there for each $m$? 
 Are there ``Exponential numbers'' of classes? 
 \item
-Is the number of EC classes within an EA class bounded? 
-What is the bound?
+Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
 \item
-Which EC classes overlap more than one EA class?
+Which EC classes overlap more than one ET class?
 \item
 Which bent functions are Cayley equivalent to their dual?
 \end{enumerate}
