@@ -3,6 +3,14 @@
 %\documentclass[hyperref={pdfpagelabels=false}]{beamer}
 \mode<presentation>
 
+\newenvironment{colortheme}[1]{
+\def\ProvidesPackageRCS $##1${\relax}
+\renewcommand{\ProcessOptions}{\relax}
+\makeatletter
+\input beamercolortheme#1.sty
+\makeatother
+}{}
+
 \let\Tiny=\tiny
 \usetheme{Adelaide}
 \usefonttheme[stillsansseriftext]{serif}
@@ -46,7 +54,7 @@
 \title{Classifying bent functions by their Cayley graphs, using Sage}
 \author{Paul Leopardi}
 
-\date{DRAFT for ACCMCC 40 Newcastle 2016}
+\date{For ACCMCC 40 Newcastle 2016}
 
 \institute{Australian Government - Bureau of Meteorology.}
 \titlegraphic{
@@ -68,6 +76,10 @@ Judy-anne Osborn and Dima Pasechnik.
 ~
 
 kodlu on MathOverflow.
+
+~
+
+Matthew Leingang for Beamer colour themes.
 
 ~
 
@@ -120,7 +132,7 @@ SageMath code.
 \end{frame}
 
 \section{Key concepts}
-
+\begin{colortheme}{seagull}
 \begin{frame}
 \frametitle{The Cayley graph of a binary function}
 %\begin{center}
@@ -216,6 +228,8 @@ The parameters of $\Cay{f}$ are
 \slidecite{Menon 1962; Dillon 1974; Bernasconi and Codenotti 1999}
 %\end{center}
 \end{frame}
+\end{colortheme}
+\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Weights and weight classes}
 \begin{Definition}
@@ -234,6 +248,8 @@ A bent function $f$ on $\Z_2^{2m}$ has weight
 If $f(0)=0$ then $\weightclass{\Cay{f}} := \weightclass{f}$.
 \end{Definition}
 \end{frame}
+\end{colortheme}
+\begin{colortheme}{seagull}
 \begin{frame}
 \frametitle{The two block designs of a bent function}
 
@@ -282,8 +298,10 @@ In the case of $\Z_2$, no two columns are equal.
 \end{Definition}
 
 \end{frame}
+\end{colortheme}
 \section{Equivalence}
 
+\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Extended translation equivalence}
 
@@ -297,7 +315,9 @@ g(x) &= f(x + b) + \langle c, x \rangle + \delta
 for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \end{Definition}
 \end{frame}
+\end{colortheme}
 
+\begin{colortheme}{seagull}
 \begin{frame}
 \frametitle{Extended affine equivalence}
 
@@ -314,7 +334,9 @@ for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 
 \slidecite{Tokareva 2014}
 \end{frame}
+\end{colortheme}
 
+\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Cayley equivalence}
 \begin{Definition}
@@ -422,6 +444,9 @@ D(f)_{c,b}.
 \end{Theorem}
 
 \end{frame}
+\end{colortheme}
+
+\begin{colortheme}{seagull}
 \begin{frame}
 \frametitle{From bent function to linear code (1)}
 \begin{Definition}
@@ -493,6 +518,9 @@ $R(f)$ is a strongly regular graph.
  
 \slidecite{Delsarte 1972, Theorem 2}
 \end{frame}
+\end{colortheme}
+
+\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{The graph $R(f)$ is the Cayley graph of the dual}
 
@@ -509,7 +537,9 @@ R(f) \equiv
  
 \end{Theorem}
 \end{frame}
+\end{colortheme}
 \section{Observations}
+\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{For $m=1$}
 
@@ -1190,6 +1220,8 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \end{figure}
 6 of the 10 classes form 3 dual pairs of classes.
 \end{frame}
+\end{colortheme}
+\begin{colortheme}{seagull}
 \begin{frame}
 \frametitle{For $m=4$: number of bent functions and EA classes}
 
@@ -1219,6 +1251,8 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 
 \slidecite{Langevin and Hou 2011}
 \end{frame}
+\end{colortheme}
+\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Example partial spread ET class $[psf_{9,5438}]$}
 \begin{figure}
@@ -1262,7 +1296,9 @@ i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4?
 
 \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
 \end{frame}
+\end{colortheme}
 \section{Source code}
+\begin{colortheme}{jubata}
 \begin{frame}[fragile]
 \frametitle{Source code on GitHub and SageMathCloud}
 ~
@@ -1282,5 +1318,28 @@ http://tinyurl.com/jnchhev
 \end{verbatim}
  
 \end{frame}
+\end{colortheme}
+\section{Last}
+\begin{colortheme}{jubata}
+\begin{frame}
+\frametitle{Thank you.}
 
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_3]$: 3 extended Cayley classes}
+  \label{fig:tau_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_4]$: 5 extended Cayley classes}
+  \label{fig:tau_4_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\end{frame}
+
+\end{colortheme}
 \end{document}
