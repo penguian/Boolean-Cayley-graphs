@@ -1010,16 +1010,17 @@ There are many other self dual bent functions.
 \slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} % FeuSSW2013
 % \end{frame}
 % \begin{frame}
-\subsection*{The Dillon-Schatz design matrix}
+\subsection*{The Dillon-Schatz SDP design matrix}
 \begin{Theorem}
+\label{th-Dillon-Schatz}
 For every bent function $f$, the \Emph{weight class matrix} of $f$ 
-equals the incidence matrix of the Dillon-Schatz design of $f$.
+equals the incidence matrix of the Dillon-Schatz SDP design of $f$.
 
 ~
 
 Specifically,
 \begin{align*}
-\weightclass{\Cay{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}}
+\weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
 &=
 f(b) + \langle c, b \rangle + \dual{f}(c)
 \\
@@ -1028,6 +1029,29 @@ D(f)_{c,b}.
 \end{align*}
  
 \end{Theorem}
+
+\begin{Lemma}
+\begin{align*}
+\weightclass{y \mapsto f(y) + \langle x, y \rangle}
+&=
+\dual{f}(y). 
+\end{align*}
+ 
+\end{Lemma}
+
+\begin{proofof}{Theorem \ref{th-Dillon-Schatz}}
+Let $g(x) := f(x+b) + \langle c, x \rangle + f(b)$.
+Then by change of variable $y:=x+b$,
+\begin{align*}
+\weightclass{g}
+&=
+\weightclass{y \mapsto f(y) + \langle c, y \rangle + \langle c, b \rangle + f(b)}
+\\
+&=
+\weightclass{y \mapsto f(y) + \langle c, y \rangle} + \langle c, b \rangle + f(b).
+\end{align*}
+
+\end{proofof}
 
 % \end{frame}
 % \begin{frame}
