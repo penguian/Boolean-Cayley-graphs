@@ -476,6 +476,48 @@ corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle 
 \end{Theorem}
 
 The proof relies on a number of supporting lemmas.
+\begin{Lemma}
+\label{lm-notes-5}
+Let $q(x) := x^T L x$ where $L \in \Z_2^{2 m \times 2 m}$,
+\begin{align*}
+L 
+&:= 
+\left[
+\begin{array}{cc}
+0 & I
+\\
+0 & 0
+\end{array}
+\right],
+\intertext{so that}
+q(x) &= \sum_{k=0}^{m-1} x_k x_{m+k}.
+\end{align*}
+
+Let $f(x) := q(x+b) + \langle c,x \rangle + q(b)$.
+Then there exists $c' \in \Z_2^{2m}$ such that
+\begin{align*}
+f(x)
+&=
+q(x) = \langle c',x \rangle.
+\end{align*}
+\end{Lemma}
+\begin{proof}
+\begin{align*}
+q(x) = x^T L x, \quad \text{so~}
+q(x+b)
+&=
+(x^T+b^T) L (x+b)
+\\
+&= q(x) + x^T L b + b^T L x + q(b)
+\\
+&= q(x) + \langle (L + L^T) b, x \rangle + q(b),
+\intertext{and therefore}
+q(x+b) + \langle c, x \rangle + q(b)
+&=
+q(x) + \langle (L+L^T) b + c, x \rangle.
+\end{align*}
+
+\end{proof}
 
 \begin{Lemma}
 \label{lm-notes-3}
@@ -511,20 +553,7 @@ x^T (M + Z) x  &= x^T M x + x^T Z x = x^T M x.
 
 \begin{Lemma}
 \label{lm-notes-4}
-Let $q(x) := x^T L x$ where $L \in \Z_2^{2 m \times 2 m}$,
-\begin{align*}
-L 
-&:= 
-\left[
-\begin{array}{cc}
-0 & I
-\\
-0 & 0
-\end{array}
-\right],
-\intertext{so that}
-q(x) &= \sum_{k=0}^{m-1} x_k x_{m+k}.
-\end{align*}
+Let $q$ be defined as per Lemma \ref{lm-notes-5}.
 Then for all $c \in Z_2^{2 m}$ with $q(c)=0$, there exists $A \in GL(2 m, 2)$ such that
 \begin{align*}
 q(A x) &= q(x) + \langle c, x \rangle.
@@ -896,6 +925,7 @@ Finally, given $c$ with $q(c)=0$, the matrix $A$ as defined by \eqref{eq-a-s-def
 $q(A x) = q(x) + \langle c, x \rangle$.
 \end{proof}
 % \end{frame}
+
 \begin{Lemma}
 \label{lm-notes-6}
 For $k \in \{0,\ldots,m-1\}$ define $e^{(k)}$ by
@@ -905,7 +935,7 @@ e_i^{(k)} &:= \delta_{i,k} + \delta_{i,m+k}
 \end{align}
 for $i \in \{0,\ldots,2 m - 1\}$.
 
-Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-4}.
+Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
 Then for any $c'$ such that $q(c')=1$, there exists $B \in GL(2 m, 2)$ such that
 \begin{align}
 h(B x) &= q(x) + \langle c',x \rangle.
@@ -956,9 +986,45 @@ h^{(\ell)}(A x)
 q(x) + \langle c', x \rangle.
 \end{align*}
 
-
 \end{proof}
 
+\begin{Lemma}
+\label{lm-notes-6-b}
+For distinct $k,\ell \in \{0,\ldots,m-1\}$ let $e^{(k)}, e^{(\ell)}$ be defined as per Lemma \ref{lm-notes-6}.
+Let $h(x) := q(x) + \langle e^{(k)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
+Then there exists $A \in GL(2 m, 2)$ such that
+\begin{align}
+h(A x)
+&=
+q(x) + \langle e^{(\ell)},x \rangle.
+\end{align}
+\end{Lemma}
+
+\begin{proof}
+The matrix $A$ is the permutation matrix for the the permutation $(k\ \ell)(m+k\ m+\ell)$ (defined using cycle notation.)
+\end{proof}
+
+\begin{Lemma}
+\label{lm-notes-7}
+Let $q$ be defined as per Lemma \ref{lm-notes-5}.
+Then for all $c, c' \in Z_2^{2 m}$ with $q(c)=q(c')=1$, there exists $A \in GL(2 m, 2)$ such that
+if $h(x) := q(x) + \langle c, x \rangle$, then
+\begin{align*}
+h(A x) &= q(x) + \langle c', x \rangle.
+\end{align*}
+\end{Lemma}
+
+\begin{proof}
+This is a consequence of Lemmas \ref{lm-notes-6} and \ref{lm-notes-6-b}.
+\end{proof}
+
+\begin{proofof}{Theorem \ref{th-Quadratic-Classes}}
+It is well known that all quadratic bent functions are contained in one Extended Affine equivalence class.
+As a consequence of Theorem \ref{th-Affine-Translate-Cayley}, without loss of generality, we need only examine
+the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma \ref{lm-notes-5}.
+
+TBD     
+\end{proofof}
 
 % \begin{frame}
 \subsection*{Dual functions}
