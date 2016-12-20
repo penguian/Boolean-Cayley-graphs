@@ -1276,21 +1276,112 @@ $R(f)$ is a strongly regular graph.
 \slidecite{Delsarte 1972, Theorem 2}
 % \end{frame}
 % \begin{frame}
-\subsection*{The graph $R(f)$ is the Cayley graph of the dual}
+\subsection*{The graph $R(f)$ is the Cayley graph of the extended dual}
 
 \begin{Theorem}
 For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
 \begin{align*}
-R(f) \equiv
-\begin{cases}
-\Cay{\dual{f}} & \text{if~} \weightclass{f}=0,
-\\
-\Cay{\dual{f}+1} & \text{if~} \weightclass{f}=1.
-\end{cases}
+R(f) \equiv \Cay{\dual{f} + \weightclass{f}}.
 \end{align*}
 
 \end{Theorem}
 % \end{frame}
+\begin{proof}
+We examine $W_f$, the Walsh Hadamard transform of $f$.
+\begin{align*}
+W_f(y)
+&=
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle} + f(x)
+=
+\sum_{f(x)=0} (-1)^{\langle x, y \rangle} + f(x)
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
+\\
+&=
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}.
+\end{align*}
+But
+\begin{align*}
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
+&=
+\begin{cases}
+4^m &(y=0)
+\\
+0 & \text{otherwise},
+\end{cases}
+\end{align*}
+as per the Sylvester Hadamard matrices.
+
+So, for $y \neq 0$,
+\begin{align*}
+W_f(y)
+&=
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle},
+\intertext{so}
+\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
+&=
+\weight{f} - 2 \sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
+=
+- W_f(y)/2.
+\intertext{But}
+\sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
+&=
+\weight{C(f)[y]},
+\end{align*}
+the weight of code $C(f)$ at the point $y$.
+So
+\begin{align*}
+\weight{f} - 2 \weight{C(f)[y]}
+&=
+- W_f(y)/2,
+\intertext{and therefore}
+\weight{C(f)[y]}
+&=
+\weight{f}/2 + W_f(y)/4.
+\end{align*}
+We now examine the two possible weight classes of $f$.
+
+If $\weightclass{f} = 0$ then $\weight{f} = 2^{2m-1}-2^{m-1}$.
+For $y \neq 0$ there are two cases, depending on $\dual{f}(y)$:
+
+If $\dual{f}(y) = 0$ then $W_f(y) = 2^m$, so
+\begin{align*}
+\weight{C(f)[y]}
+&=
+2^{2m-2}-2^{m-2} + 2^{m-2}
+=
+2^{2m-2}
+=
+4^{m-1}.
+\end{align*}
+
+If $\dual{f}(y) = 1$ then $W_f(y) = -2^m$, so
+\begin{align*}
+\weight{C(f)[y]}
+&=
+2^{2m-2}-2^{m-2} - 2^{m-2}
+=
+2^{2m-2} - 2^{m-1}
+=
+4^{m-1} - 2^{m-1}.
+\end{align*}
+
+Similarly, if $\weightclass{f} = 1$ then $\weight{f} = 2^{2m-1}+2^{m-1}$,
+and so for $y \neq 0$
+\begin{align*}
+\weight{C(f)[y]}
+&=
+\begin{cases}
+4^{m-1} + 2^{m-1} & (\dual{f}(y)=0)
+\\
+4^{m-1}           & (\dual{f}(y)=1).
+\end{cases}
+\end{align*}
+Also, as a consequence of Lemma \ref{lm-notes-9b}, $\weightclass{f} = \dual{f}(0)$,
+so if $g(y) := \dual{f}(y) + \weightclass{f}$ then $g(0)=0$ and therefore the Cayley graph of $g$
+is well defined.
+\end{proof}
+
 
 \section{Observations}
 % \begin{frame}
