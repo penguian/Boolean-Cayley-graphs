@@ -58,7 +58,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{DRAFT ONLY: 4 December 2016}
+\date{DRAFT ONLY: 20 December 2016}
 
 \begin{document}
 
@@ -498,7 +498,7 @@ Then there exists $c' \in \Z_2^{2m}$ such that
 \begin{align*}
 f(x)
 &=
-q(x) = \langle c',x \rangle.
+q(x) + \langle c',x \rangle.
 \end{align*}
 \end{Lemma}
 \begin{proof}
@@ -1023,7 +1023,22 @@ It is well known that all quadratic bent functions are contained in one Extended
 As a consequence of Theorem \ref{th-Affine-Translate-Cayley}, without loss of generality, we need only examine
 the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma \ref{lm-notes-5}.
 
-TBD     
+As a result of Lemma \ref{lm-notes-5}, we actually need only examine functions of the form
+$f(x) = q(x) + \langle c,x \rangle$
+for some $c \in \Z_2^{2m}$.
+Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to $q$.
+Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x) + \langle c', x \rangle$
+with $q(c)=q(c')=1$ are Cayley equivalent to each other.
+
+The functions where $q(c)=0$ are not Cayley equivalent to the functions where $q(c)=1$ because
+\begin{align*}
+\weightclass{x \mapsto q(x) + \langle c,x \rangle}
+&=
+\dual{q}(c) = q(c),
+\end{align*}
+since $q$ is self-dual.
+
+NOTE: Need weight class lemma.
 \end{proofof}
 
 % \begin{frame}
