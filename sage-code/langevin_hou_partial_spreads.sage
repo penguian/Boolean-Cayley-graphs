@@ -13,7 +13,7 @@ r"""
 import re
 
 
-def read_langevin_hou_anf_list(fname):
+def read_langevin_hou_anf_list(file):
     r"""
 
     Classification of partial spread functions in eight variables
@@ -28,10 +28,9 @@ def read_langevin_hou_anf_list(fname):
     R8.<x1,x2,x3,x4,x5,x6,x7,x8> = BooleanPolynomialRing(8)
 
     anf_list = []
-    f = open(fname)
     line = None
     while line != '':
-        line = f.readline()
+        line = file.readline()
         match = re.match('anf=(.*)', line)
 
         if match != None:
