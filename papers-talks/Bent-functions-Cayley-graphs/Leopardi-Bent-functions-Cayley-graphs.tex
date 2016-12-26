@@ -58,7 +58,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{DRAFT ONLY: 4 December 2016}
+\date{DRAFT ONLY: 20 December 2016}
 
 \begin{document}
 
@@ -72,7 +72,7 @@ Paul~C.~Leopardi
 % \section{Introduction}
 % \label{sec-Introduction}
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
-% The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on 
+% The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on
 % generalizations of Williamson's construction for Hada\-mard matrices.
 % The bent function $\tau_m$ on $\Z_2^{2 m}$ is described in the second paper \cite{Leo15Twin},
 % which investigates some of the properties of the two sequences of bent functions.
@@ -81,63 +81,63 @@ Paul~C.~Leopardi
 % (v_m,k_m,\lambda_m,n_m) &= (4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}, 2^{2 m - 2}),
 % \end{align*}
 % and that their corresponding Cayley graphs are both strongly regular with the same parameters $(v_m,k_m,\lambda_m,\lambda_m)$.
-% 
+%
 % The main result of the current paper is the following.
 % \begin{Theorem}\label{HR-non-imomorphic-theorem}
-% The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic only when $m=1, 2,$ or $3.$ 
+% The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic only when $m=1, 2,$ or $3.$
 % \end{Theorem}
-% 
+%
 % The remainder of the paper is organized as follows.
 % Section \ref{sec-Background} outlines some of the background of this investigation.
 % Section \ref{sec-Preliminaries} repeats some of the definitions and properties used in the previous papers \cite{Leo14Constructions, Leo15Twin},
 % and includes further definitions used in the subsequent sections.
 % Section~\ref{sec-Results} proves the main result, and resolves the conjectures and the question raised by the previous papers.
 % Section~\ref{sec-Discussion} puts these results in context, and suggests future research.
-% 
+%
 % \section{Background}\label{sec-Background}
 % A recent paper of the author \cite{Leo14Constructions} describes a generalization of
 % Williamson's construction for Hada\-mard matrices \cite{Wil44}
 % using the real monomial representation of the basis elements of the Clifford algebras $\R_{m,m}$.
 % In that paper, the following three conjectures appear:
-% 
+%
 % \begin{Conjecture}\label{conjecture-1}
 % %
 % For all $m \geqslant 0$ there is a permutation $\pi$ of the set of $4^m$ canonical basis matrices,
 % that sends an amicable pair of basis matrices with disjoint support to an anti-amicable pair, and vice-versa.
 % %
 % \end{Conjecture}
-% 
+%
 % \begin{Conjecture}\label{conjecture-2}
 % %
-% For all $m \geqslant 0,$ 
-% for the Clifford algebra $\R_{m,m},$ the subset of transversal graphs that are 
+% For all $m \geqslant 0,$
+% for the Clifford algebra $\R_{m,m},$ the subset of transversal graphs that are
 % not self-edge-colour complementary
-% can be arranged into a set of pairs of graphs with each member of the pair 
+% can be arranged into a set of pairs of graphs with each member of the pair
 % being edge-colour complementary to the other member.
 % %
 % \end{Conjecture}
-% 
+%
 % \begin{Conjecture}\label{conjecture-3}
 % %
-% For all $m \geqslant 0,$ 
+% For all $m \geqslant 0,$
 % for the Clifford algebra $\R_{m,m},$ if a graph $T$ exists amongst the transversal graphs,
 % then so does at least one graph with edge colours complementary to those of $T$.
 % %
 % \end{Conjecture}
-% 
-% The author's subsequent paper on bent functions \cite{Leo15Twin} 
+%
+% The author's subsequent paper on bent functions \cite{Leo15Twin}
 % refines Conjecture~\ref{conjecture-1} into the following question.
 % \begin{Question}
 % \label{Question-1}
 % Consider the sequence of edge-coloured graphs $\varDelta_m$ for $m \geqslant 1$,
 % each with red subgraph $\varDelta_m[-1],$ and blue subgraph $\varDelta_m[1].$
-% For which $m \geqslant 1$ is there an automorphism of $\varDelta_m$ 
+% For which $m \geqslant 1$ is there an automorphism of $\varDelta_m$
 % that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$?
 % \end{Question}
-%  
-% (The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and $\varDelta_m[1]$ 
+%
+% (The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and $\varDelta_m[1]$
 % are given in the relevant papers and are repeated in the next section.)
-% 
+%
 % The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem} leads to the resolution of these conjectures and this question.
 
 % \begin{frame}
@@ -172,7 +172,7 @@ Some questions.
 \item
 SageMathCloud worksheet.
 \end{itemize}
- 
+
 %\end{center}
 % \end{frame}
 
@@ -181,20 +181,20 @@ SageMathCloud worksheet.
 % \begin{frame}
 \subsection*{The Cayley graph of a binary function}
 %\begin{center}
-The \Emph{Cayley graph} $\Cay{f}$ of a binary function 
+The \Emph{Cayley graph} $\Cay{f}$ of a binary function
 
 ~
 
 \begin{align*}
 %
-f : \Z_2^n \To \Z_2 \quad \text{where} \quad f(0) = 0 
-% 
+f : \Z_2^n \To \Z_2 \quad \text{where} \quad f(0) = 0
+%
 \end{align*}
 
 ~
 
-is 
-an undirected graph with 
+is
+an undirected graph with
 
 \begin{align*}
 V(\Cay{f}) &:= \Z_2^n, \quad (x,y) \in E(\Cay{f}) \Leftrightarrow f(x+y) = 1.
@@ -225,17 +225,17 @@ The function $\dual{f}$ is also bent and is called the \Emph{dual} of $f$.
 % \begin{frame}
 \subsection*{Strongly regular graphs}
 %\begin{center}
-A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} with parameters 
-$(v,k,\lambda,\mu)$ if 
+A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} with parameters
+$(v,k,\lambda,\mu)$ if
 
 ~
 
 \begin{itemize}
- \item 
-each vertex has degree $k,$ 
+ \item
+each vertex has degree $k,$
 
 ~
- \item 
+ \item
 each adjacent pair of vertices has $\lambda$ common neighbours, and
 
 ~
@@ -256,14 +256,14 @@ each nonadjacent pair of vertices has $\mu$ common neighbours.
 \begin{Theorem}
 \smallcite{Bernasconi and Codenotti 1999}
 
-The Cayley graph $\Cay{f}$ of a bent function $f$ on $\Z_2^{2m}$ 
+The Cayley graph $\Cay{f}$ of a bent function $f$ on $\Z_2^{2m}$
 
-(with $f(0)=0$) is a strongly regular graph with $\lambda = \mu.$ 
+(with $f(0)=0$) is a strongly regular graph with $\lambda = \mu.$
 \end{Theorem}
 
 The parameters of $\Cay{f}$ are
 \begin{align*}
-(v,k,\lambda) = &(4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}) 
+(v,k,\lambda) = &(4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1})
 \\
   \text{or} \quad &(4^m, 2^{2 m - 1} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}).
 \end{align*}
@@ -279,7 +279,7 @@ The parameters of $\Cay{f}$ are
 The \Emph{weight} of a binary function is the cardinality of its \Emph{support}.
 For $f$ on $\Z_2^{2m}$
 \begin{align*}
-\support{f} &:= \{x \in \Z_2^{2m} \mid f(x)=1 \}.  
+\support{f} &:= \{x \in \Z_2^{2m} \mid f(x)=1 \}.
 \end{align*}
 
 A bent function $f$ on $\Z_2^{2m}$ has weight
@@ -291,6 +291,81 @@ A bent function $f$ on $\Z_2^{2m}$ has weight
 If $f(0)=0$ then $\weightclass{\Cay{f}} := \weightclass{f}$.
 \end{Definition}
 % \end{frame}
+
+\begin{Lemma}
+\label{lm-notes-9a}
+For a bent function $f : \Z_2^{2m} \To \Z_2$,
+\begin{align*}
+\weightclass{f}
+&=
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1},
+\intertext{so that}
+\weight{f}
+&=
+2^{m} \weightclass{f} + 2^{2m-1} - 2^{m-1}.
+\end{align*}
+
+\end{Lemma}
+
+\begin{proof}
+If $\weight{f} = 2^{2 m - 1} - 2^{m-1}$ then
+\begin{align*}
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
+&=
+2^{-m} (2^{2 m - 1} - 2^{m-1}) - 2^{m-1} + 2^{-1}
+\\
+&=
+2^{m-1} - 2^{-1}  - 2^{m-1} + 2^{-1} = 0.
+\end{align*}
+If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
+\begin{align*}
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
+&=
+2^{-m} (2^{2 m - 1} + 2^{m-1}) - 2^{m-1} + 2^{-1}
+\\
+&=
+2^{m-1} + 2^{-1}  - 2^{m-1} + 2^{-1} = 1.
+\end{align*}
+\end{proof}
+
+\begin{Lemma}
+\label{lm-notes-9b}
+For a bent function $f : \Z_2^{2m} \To \Z_2$, and $x \in \Z_2^{2m}$,
+\begin{align*}
+\dual{f}(x)
+&=
+\weightclass{y \mapsto f(y) + \langle x, y \rangle}
+\end{align*}
+
+\end{Lemma}
+
+\begin{proof}
+Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
+Then
+\begin{align*}
+(-1)^{\dual{f}(x)}
+&=
+2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
+\\
+&=
+2^{-m} \left( \sum_{f(y) + \langle x, y \rangle = 0} 1 - \sum_{f(y) + \langle x, y \rangle = 1} 1 \right)
+\\
+&=
+2^{-m} \left( 2^{2m} - 2 \weight{h} \right)
+\\
+&=
+2^m - 2^{1-m} \weight{h}
+\\
+&=
+2^m - 2^{1-m} (2^{m} \weightclass{h} + 2^{2m-1} - 2^{m-1})
+\\
+&=
+2^m - 2 \weightclass{h} - 2^m + 1
+\\
+&=
+1 - 2 \weightclass{h} = (-1)^{\weightclass{h}}.
+\end{align*}
+\end{proof}
 
 % \begin{frame}
 \subsection*{The two block designs of a bent function}
@@ -305,7 +380,7 @@ In this case we do not need $f(0)=0$.
 \begin{Definition}
 A second block design described by Dillon and Schatz can be defined by the incidence matrix $D(f)$ where
 \begin{align*}
-D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).   
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
 \end{align*}
 This is a symmetric block design with the \Emph{symmetric difference property}.
 \end{Definition}
@@ -318,7 +393,7 @@ This is a symmetric block design with the \Emph{symmetric difference property}.
 \subsection*{Projective two-weight binary codes}
 
 \begin{Definition}
-A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with 
+A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with
 minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size 2.
 
 ~
@@ -346,11 +421,11 @@ In the case of $\Z_2$, no two columns are equal.
 \subsection*{Extended translation equivalence}
 
 \begin{Definition}
-For bent functions $f,g : \Z_2^{2m} \To \Z_2$, 
+For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
 
 $f$ is \Emph{extended translation equivalent} to $g$ if and only if
 \begin{align*}
-g(x) &= f(x + b) + \langle c, x \rangle + \delta 
+g(x) &= f(x + b) + \langle c, x \rangle + \delta
 \end{align*}
 for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \end{Definition}
@@ -360,11 +435,11 @@ for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \subsection*{Extended affine equivalence}
 
 \begin{Definition}
-For bent functions $f,g : \Z_2^{2m} \To \Z_2$, 
+For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
 
 $f$ is \Emph{extended affine equivalent} to $g$ if and only if
 \begin{align*}
-g(x) &= f(A x + b) + \langle c, x \rangle + \delta 
+g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 \end{align*}
 for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \end{Definition}
@@ -376,20 +451,20 @@ for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \subsection*{Cayley equivalence}
 \begin{Definition}
 %
-For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent, 
+For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
 
 we call $f$ and $g$ \Emph{Cayley equivalent},
-and write $f \equiv g$, 
+and write $f \equiv g$,
 
 if and only if $f(0)=g(0)=0$ and $\Cay{f} \equiv \Cay{g}$ as graphs.
 
 ~
 
-Equivalently, $f \equiv g$ if and only if $f(0)=g(0)=0$ and 
+Equivalently, $f \equiv g$ if and only if $f(0)=g(0)=0$ and
 
 there exists a bijection $\pi : \Z_2^{2m} \To \Z_2^{2m}$ such that
 \begin{align*}
-g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}. 
+g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}.
 \end{align*}
 \end{Definition}
 % \end{frame}
@@ -398,9 +473,9 @@ g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}.
 \begin{Definition}
 For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
 
-if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$, 
+if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
 
-we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$. 
+we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
 \end{Definition}
 Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\Z_2^{2m}$.
 % \end{frame}
@@ -417,10 +492,10 @@ then $g$ is bent with $g(0)=0$ and $f \equiv g$.
 \end{Theorem}
 \begin{proof}
 \begin{align*}
-g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m}. 
+g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m}.
 \end{align*}
 \end{proof}
- 
+
 % \end{frame}
 
 % \begin{frame}
@@ -429,7 +504,7 @@ g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m
 \begin{Theorem}
 \label{th-Affine-Translate-Cayley}
 For $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$,
-$f : \Z_2^{2m} \To \Z_2$, 
+$f : \Z_2^{2m} \To \Z_2$,
 
 the function
 \begin{align*}
@@ -459,7 +534,7 @@ if $h(0)=0$ then $h \equiv g$.
 % \subsection*{Extended affine equivalence}
 
 Therefore, to determine the extended Cayley equivalence classes within the extended affine equivalence class of
-a bent function $f : \Z_2^{2m} \To \Z_2$, for which $f(0)=0$, we need only examine 
+a bent function $f : \Z_2^{2m} \To \Z_2$, for which $f(0)=0$, we need only examine
 the extended translation equivalent functions of the form
 \begin{align*}
 f(x+b) + \langle c, x \rangle + f(b),
@@ -472,7 +547,7 @@ for each $b, c \in \Z_2^{2m}$.
 \label{th-Quadratic-Classes}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
 $q : \Z_2^{2m} \To \Z_2$ contains exactly two extended Cayley equivalence classes,
-corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$. 
+corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
 \end{Theorem}
 
 The proof relies on a number of supporting lemmas.
@@ -480,8 +555,8 @@ The proof relies on a number of supporting lemmas.
 \label{lm-notes-5}
 Let $q(x) := x^T L x$ where $L \in \Z_2^{2 m \times 2 m}$,
 \begin{align*}
-L 
-&:= 
+L
+&:=
 \left[
 \begin{array}{cc}
 0 & I
@@ -498,7 +573,7 @@ Then there exists $c' \in \Z_2^{2m}$ such that
 \begin{align*}
 f(x)
 &=
-q(x) = \langle c',x \rangle.
+q(x) + \langle c',x \rangle.
 \end{align*}
 \end{Lemma}
 \begin{proof}
@@ -562,17 +637,17 @@ q(A x) &= q(x) + \langle c, x \rangle.
 
 \begin{proof}
 Let $C \in \Z_2^{2 m \times 2 m}$ be such that $C_{i,j} = \delta_{i,j} c_i$, where $\delta$ is the
-\Emph{Dirac delta}: $\delta_{i,j}=1$ if $i=j$ and $0$ otherwise. 
+\Emph{Dirac delta}: $\delta_{i,j}=1$ if $i=j$ and $0$ otherwise.
 In other words $\diag{C} = c$.
 Then
 \begin{align*}
-\langle c, x \rangle 
-&= 
+\langle c, x \rangle
+&=
 \sum_{i=0}^{2m-1} c_i x_i
 \\
-&= 
+&=
 \sum_{i=0}^{2m-1} x_i c_i x_i
-= 
+=
 x^T C x.
 \end{align*}
 Therefore, by Lemma \ref{lm-notes-3},
@@ -583,24 +658,24 @@ x^T (L + Z + C) x,
 \end{align*}
 where $Z \in \Z_2^{2 m \times 2 m}$ is symmetric with zero diagonal.
 
-For such $Z$, let $S := Z + C$. 
+For such $Z$, let $S := Z + C$.
 We want to find $A \in \Z_2^{2 m \times 2 m}$ such that $q(A x) = q(x) + \langle c, x \rangle.$
 In other words,
 \begin{align*}
-q(A x) 
-&= 
-(A x)^T L (A x) 
-= 
-x^T A^T L A x 
-= 
+q(A x)
+&=
+(A x)^T L (A x)
+=
+x^T A^T L A x
+=
 x^T (L + S) x.
 \end{align*}
 This will be true if $A^T L A = L + S.$
 
 Let
 \begin{align*}
-A 
-&:= 
+A
+&:=
 \left[
 \begin{array}{cc}
 A_{0,0} & A_{0,1}
@@ -609,8 +684,8 @@ A_{1,0} & A_{1,1}
 \end{array}
 \right],
 \quad
-S 
-&:= 
+S
+&:=
 \left[
 \begin{array}{cc}
 S_{0,0} & S_{0,1}
@@ -629,7 +704,7 @@ Z_{0,1}^T & Z_{1,1} + C_{1,1}
 \end{align*}
 Since
 \begin{align*}
-L A 
+L A
 &=
 \left[
 \begin{array}{cc}
@@ -682,7 +757,7 @@ A_{0,1}^T A_{1,0} & A_{0,1}^T A_{1,1}
 \end{array}
 \right]
 \\
-&= 
+&=
 L + S
 =
 \left[
@@ -714,10 +789,10 @@ S_{1,1}.
 If $S_{0,1}=0$ and $A_{0,0}=I$ then
 $A_{1,0}=S_{0,0}$, $A_{1,1}=I$ and $A_{0,1}=S_{1,1}$.
 In this case, we have $A_{0,1}^T A_{1,0} = S_{0,1}^T = 0$,
-i.e. $S_{1,1} S_{0,0} = 0$, and 
+i.e. $S_{1,1} S_{0,0} = 0$, and
 \begin{align*}
-A 
-&= 
+A
+&=
 \left[
 \begin{array}{cc}
 I & S_{1,1}
@@ -752,14 +827,14 @@ S_{0,0} & I
 \end{array}
 \right]
 \\
-&= 
+&=
 L + S.
 \end{align*}
 
 Also
 \begin{align*}
-S 
-&= 
+S
+&=
 \left[
 \begin{array}{cc}
 Z_{0,0} + C_{0,0} & 0
@@ -775,7 +850,7 @@ q(c)
 &=
 \sum_{k=0}^{m-1} c_k c_{m+k}
 =
-0. 
+0.
 \end{align*}
 Let $K := \{ k \mid c_k c_{m+k} = 1 \}$.
 Then we must have $\abs{K} = 2 r$ for some integer $r \geqslant 0$, i.e. $\abs{K}$ is even.
@@ -797,10 +872,10 @@ T_{j_p,i_p}
 &\text{for~} p \in \{0,\ldots,r-1\},
 \\
 T_{i,j} = 0
-&\text{otherwise.} 
+&\text{otherwise.}
 \end{cases}
 \end{align*}
-Since the $r$ pairs $(i_p, j_p)$ partition the set $K$, 
+Since the $r$ pairs $(i_p, j_p)$ partition the set $K$,
 the matrix $T$ has at most one non-zero in each row and column.
 
 Recalling that
@@ -821,7 +896,7 @@ for some $p \in \{0,\ldots,r-1\}$, with all $2r$ of these cases being mutually e
 So $T^2$ is diagonal with $2r$ non-zeros at the elements of $K$.
 
 But $C_{1,1} C_{0,0}$ is diagonal, and $(C_{1,1} C_{0,0})_{i,i} = c_{m+i} c_i$.
-Therefore 
+Therefore
 \begin{align}
 T^2 &= C_{1,1} C_{0,0}.
 \label{eq-t-2}
@@ -829,10 +904,10 @@ T^2 &= C_{1,1} C_{0,0}.
 
 Now, let $Z_{0,0}=Z_{1,1}=T$. Then $S_{0,0} = T + C_{0,0}$, $S_{1,1} = T + C_{1,1}$, and
 \begin{align*}
-S_{1,1} S_{0,0} 
-&= 
-(T + C_{1,1})(T + C_{0,0}) 
-= 
+S_{1,1} S_{0,0}
+&=
+(T + C_{1,1})(T + C_{0,0})
+=
 T^2 + T C_{0,0} + C_{1,1} T + C_{1,1} C_{0,0}
 \\
 &=
@@ -842,14 +917,14 @@ where in the last step, we have used \eqref{eq-t-2}.
 
 Now,
 \begin{align*}
-(T C_{0,0} + C_{1,1} T)_{i,j} 
-&= 
+(T C_{0,0} + C_{1,1} T)_{i,j}
+&=
 \sum_{k=0}^{m-1} T_{i,k} (C_{0,0})_{k,j} + (C_{1,1})_{i,k} T_{k,j}
 \\
 &=
 T_{i,j} (C_{0,0})_{j,j} + (C_{1,1})_{i,i} T_{i,j}
 \\
-&= 
+&=
 T_{i,j} \left( c_j + c_{m+i} \right).
 \end{align*}
 As above, $T_{i,j}$ is non-zero only when $(i,j)=(i_p,j_p)$ or $(i,j)=(j_p,i_p)$
@@ -898,8 +973,8 @@ I & 0
 
 We have therefore shown that
 \begin{align}
-A 
-&:= 
+A
+&:=
 \left[
 \begin{array}{cc}
 I & T + C_{1,1}
@@ -908,8 +983,8 @@ T + C_{0,0} & I
 \end{array}
 \right],
 \quad
-S 
-:= 
+S
+:=
 \left[
 \begin{array}{cc}
 T + C_{0,0} & 0
@@ -931,7 +1006,7 @@ $q(A x) = q(x) + \langle c, x \rangle$.
 For $k \in \{0,\ldots,m-1\}$ define $e^{(k)}$ by
 \begin{align}
 e_i^{(k)} &:= \delta_{i,k} + \delta_{i,m+k}
-\label{eq-e-def} 
+\label{eq-e-def}
 \end{align}
 for $i \in \{0,\ldots,2 m - 1\}$.
 
@@ -951,8 +1026,8 @@ Then $c_{\ell} = c_{m+\ell} = 0$ and $q(c)=0$.
 Now let $h^{(\ell)}(x) := q(x) + \langle e^{(\ell)}, x \rangle$.
 We calculate
 \begin{align*}
-h^{(\ell)}(A x) 
-&= 
+h^{(\ell)}(A x)
+&=
 q(A x) + \langle e^{(\ell)}, A x \rangle
 =
 q(x) + \langle c, x \rangle + \langle A^T e^{(\ell)}, x \rangle
@@ -961,10 +1036,10 @@ q(x) + \langle c, x \rangle + \langle A^T e^{(\ell)}, x \rangle
 q(x) + \langle c + A^T e^{(\ell)}, x \rangle
 \end{align*}
 for $A$ given by the proof of Lemma \ref{lm-notes-4}.
- 
+
 If we let $K := \{ k \mid c_k c_{m+k} = 1 \}$, we see that $K = K' \setminus \{\ell\}$.
 Applying the other definitions and techniques used in the proof of Lemma \ref{lm-notes-4},
-we see that since $c_{\ell} = c_{m+\ell} = 0$ and $K$ does not contain $\ell$, 
+we see that since $c_{\ell} = c_{m+\ell} = 0$ and $K$ does not contain $\ell$,
 column $\ell$ of each of $S_{0,0} := T + C_{0,0}$
 and $S_{1,1} := T + C_{1,1}$ is $0$, and therefore columns $\ell$ and $m + \ell$ of
 \begin{align*}
@@ -981,8 +1056,8 @@ T + C_{1,1} & I
 are both $0$.
 Therefore $A^T e^{(\ell)} = e^{(\ell)}$, and therefore
 \begin{align*}
-h^{(\ell)}(A x) 
-&= 
+h^{(\ell)}(A x)
+&=
 q(x) + \langle c', x \rangle.
 \end{align*}
 
@@ -1023,13 +1098,27 @@ It is well known that all quadratic bent functions are contained in one Extended
 As a consequence of Theorem \ref{th-Affine-Translate-Cayley}, without loss of generality, we need only examine
 the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma \ref{lm-notes-5}.
 
-TBD     
+As a result of Lemma \ref{lm-notes-5}, we actually need only examine functions of the form
+$f(x) = q(x) + \langle c,x \rangle$
+for some $c \in \Z_2^{2m}$.
+Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to $q$.
+Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x) + \langle c', x \rangle$
+with $q(c)=q(c')=1$ are Cayley equivalent to each other.
+
+The functions where $q(c)=0$ are not Cayley equivalent to the functions where $q(c)=1$ because
+Lemma \ref{lm-notes-9b} implies that
+\begin{align*}
+\weightclass{x \mapsto q(x) + \langle c,x \rangle}
+&=
+\dual{q}(c) = q(c),
+\end{align*}
+since $q$ is self-dual.
 \end{proofof}
 
 % \begin{frame}
 \subsection*{Dual functions}
 \begin{Theorem}
-\smallcite{Carlet 2007, Proposition 4} 
+\smallcite{Carlet 2007, Proposition 4}
 
 ~
 
@@ -1038,10 +1127,10 @@ if
 \begin{align*}
 g(x) &:= f(x+b) + \langle c, x \rangle
 \intertext{then}
-\dual{g}(x) &= \dual{f}(x+c) + \langle b, x \rangle + \langle b, c \rangle. 
+\dual{g}(x) &= \dual{f}(x+c) + \langle b, x \rangle + \langle b, c \rangle.
 \end{align*}
 \end{Theorem}
- 
+
 % \end{frame}
 % \begin{frame}
 %\subsection*{Dual functions}
@@ -1055,13 +1144,13 @@ g(x) &:= f(A x)
 \end{align*}
 \end{Theorem}
 and therefore $\dual{g} \equiv \dual{f}$.
-If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$. 
- 
+If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
+
 % \end{frame}
 % \begin{frame}
 %\subsection*{Dual functions}
 
-Functions of the form 
+Functions of the form
 \begin{align*}
 f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
 \end{align*}
@@ -1079,7 +1168,7 @@ There are many other self dual bent functions.
 \subsection*{The Dillon-Schatz SDP design matrix}
 \begin{Theorem}
 \label{th-Dillon-Schatz}
-For every bent function $f$, the \Emph{weight class matrix} of $f$ 
+For every bent function $f$, the \Emph{weight class matrix} of $f$
 equals the incidence matrix of the Dillon-Schatz SDP design of $f$.
 
 ~
@@ -1094,83 +1183,10 @@ f(b) + \langle c, b \rangle + \dual{f}(c)
 &=
 D(f)_{c,b}.
 \end{align*}
- 
+
 \end{Theorem}
 
-\begin{Lemma}
-For a bent function $f : \Z_2^{2m} \To \Z_2$,
-\begin{align*}
-\weightclass{f}
-&=
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1},
-\intertext{so that}
-\weight{f}
-&=
-2^{m} \weightclass{f} + 2^{2m-1} - 2^{m-1}.
-\end{align*}
- 
-\end{Lemma}
-
 \begin{proof}
-If $\weight{f} = 2^{2 m - 1} - 2^{m-1}$ then
-\begin{align*}
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
-&=
-2^{-m} (2^{2 m - 1} - 2^{m-1}) - 2^{m-1} + 2^{-1}
-\\
-&=
-2^{m-1} - 2^{-1}  - 2^{m-1} + 2^{-1} = 0.
-\end{align*}
-If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
-\begin{align*}
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
-&=
-2^{-m} (2^{2 m - 1} + 2^{m-1}) - 2^{m-1} + 2^{-1}
-\\
-&=
-2^{m-1} + 2^{-1}  - 2^{m-1} + 2^{-1} = 1.
-\end{align*}
-\end{proof}
-
-\begin{Lemma}
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $x \in \Z_2^{2m}$,
-\begin{align*}
-\dual{f}(x)
-&=
-\weightclass{y \mapsto f(y) + \langle x, y \rangle}
-\end{align*}
- 
-\end{Lemma}
-
-\begin{proof}
-Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
-Then
-\begin{align*}
-(-1)^{\dual{f}(x)}
-&=
-2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
-\\
-&=
-2^{-m} \left( \sum_{f(y) + \langle x, y \rangle = 0} 1 - \sum_{f(y) + \langle x, y \rangle = 1} 1 \right)
-\\
-&=
-2^{-m} \left( 2^{2m} - 2 \weight{h} \right)
-\\
-&=
-2^m - 2^{1-m} \weight{h}
-\\
-&=
-2^m - 2^{1-m} (2^{m} \weightclass{h} + 2^{2m-1} - 2^{m-1})
-\\
-&=
-2^m - 2 \weightclass{h} - 2^m + 1
-\\
-&= 
-1 - 2 \weightclass{h} = (-1)^{\weightclass{h}}.
-\end{align*}
-\end{proof}
-
-\begin{proofof}{Theorem \ref{th-Dillon-Schatz}}
 Let $g(x) := f(x+b) + \langle c, x \rangle + f(b)$.
 Then by change of variable $y:=x+b$,
 \begin{align*}
@@ -1182,38 +1198,38 @@ Then by change of variable $y:=x+b$,
 \weightclass{y \mapsto f(y) + \langle c, y \rangle} + \langle c, b \rangle + f(b)
 \\
 &=
-\dual{f}(c) + \langle c, b \rangle + f(b).
+\dual{f}(c) + \langle c, b \rangle + f(b),
 \end{align*}
-
-\end{proofof}
+as a consequence of Lemma \ref{lm-notes-9b}.
+\end{proof}
 
 % \end{frame}
 % \begin{frame}
 \subsection*{From bent function to linear code}
 \begin{Definition}
 
-\smallcite{Ding 2015, Corollary 10} 
+\smallcite{Ding 2015, Corollary 10}
 
-For a bent function $f : \Z_2^{2m} \To \Z_2$, 
+For a bent function $f : \Z_2^{2m} \To \Z_2$,
 define the linear code $C(f)$ by the generator matrix
 \begin{align*}
 M C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
 \\
 M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
 \end{align*}
-with $x$ in lexicographic order of $\Z_2^{2m}$ 
+with $x$ in lexicographic order of $\Z_2^{2m}$
 and $\support{f}(y)$ in lexicographic order of $\support{f}$.
 
 The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
 \end{Definition}
 
-\slidecite{Ding 2015, Corollary 10} 
- 
+\slidecite{Ding 2015, Corollary 10}
+
 % \end{frame}
 % \begin{frame}
 %\frametitle{From bent function to linear code (2)}
 \begin{Theorem}
-\smallcite{Ding 2015, Corollary 10} 
+\smallcite{Ding 2015, Corollary 10}
 
 For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
 is a two-weight projective binary code.
@@ -1231,8 +1247,8 @@ The possible weights of non-zero code words are:
 
 \end{Theorem}
 
-\slidecite{Ding 2015, Corollary 10} 
- 
+\slidecite{Ding 2015, Corollary 10}
+
 % \end{frame}
 % \begin{frame}
 \subsection*{From linear code to strongly regular graph}
@@ -1252,35 +1268,126 @@ For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
 \weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
 \end{cases}
 \end{align*}
- 
+
 \end{Definition}
-Since $C(f)$ is a two-weight binary projective code, 
+Since $C(f)$ is a two-weight binary projective code,
 $R(f)$ is a strongly regular graph.
- 
+
 \slidecite{Delsarte 1972, Theorem 2}
 % \end{frame}
 % \begin{frame}
-\subsection*{The graph $R(f)$ is the Cayley graph of the dual}
+\subsection*{The graph $R(f)$ is the Cayley graph of the extended dual}
 
 \begin{Theorem}
 For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
 \begin{align*}
-R(f) \equiv 
-\begin{cases}
-\Cay{\dual{f}} & \text{if~} \weightclass{f}=0,
-\\
-\Cay{\dual{f}+1} & \text{if~} \weightclass{f}=1.
-\end{cases}
+R(f) \equiv \Cay{\dual{f} + \weightclass{f}}.
 \end{align*}
- 
+
 \end{Theorem}
 % \end{frame}
+\begin{proof}
+We examine $W_f$, the Walsh Hadamard transform of $f$.
+\begin{align*}
+W_f(y)
+&=
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle} + f(x)
+=
+\sum_{f(x)=0} (-1)^{\langle x, y \rangle} + f(x)
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
+\\
+&=
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}.
+\end{align*}
+But
+\begin{align*}
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
+&=
+\begin{cases}
+4^m &(y=0)
+\\
+0 & \text{otherwise},
+\end{cases}
+\end{align*}
+as per the Sylvester Hadamard matrices.
+
+So, for $y \neq 0$,
+\begin{align*}
+W_f(y)
+&=
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle},
+\intertext{so}
+\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
+&=
+\weight{f} - 2 \sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
+=
+- W_f(y)/2.
+\intertext{But}
+\sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
+&=
+\weight{C(f)[y]},
+\end{align*}
+the weight of code $C(f)$ at the point $y$.
+So
+\begin{align*}
+\weight{f} - 2 \weight{C(f)[y]}
+&=
+- W_f(y)/2,
+\intertext{and therefore}
+\weight{C(f)[y]}
+&=
+\weight{f}/2 + W_f(y)/4.
+\end{align*}
+We now examine the two possible weight classes of $f$.
+
+If $\weightclass{f} = 0$ then $\weight{f} = 2^{2m-1}-2^{m-1}$.
+For $y \neq 0$ there are two cases, depending on $\dual{f}(y)$:
+
+If $\dual{f}(y) = 0$ then $W_f(y) = 2^m$, so
+\begin{align*}
+\weight{C(f)[y]}
+&=
+2^{2m-2}-2^{m-2} + 2^{m-2}
+=
+2^{2m-2}
+=
+4^{m-1}.
+\end{align*}
+
+If $\dual{f}(y) = 1$ then $W_f(y) = -2^m$, so
+\begin{align*}
+\weight{C(f)[y]}
+&=
+2^{2m-2}-2^{m-2} - 2^{m-2}
+=
+2^{2m-2} - 2^{m-1}
+=
+4^{m-1} - 2^{m-1}.
+\end{align*}
+
+Similarly, if $\weightclass{f} = 1$ then $\weight{f} = 2^{2m-1}+2^{m-1}$,
+and so for $y \neq 0$
+\begin{align*}
+\weight{C(f)[y]}
+&=
+\begin{cases}
+4^{m-1} + 2^{m-1} & (\dual{f}(y)=0)
+\\
+4^{m-1}           & (\dual{f}(y)=1).
+\end{cases}
+\end{align*}
+Also, as a consequence of Lemma \ref{lm-notes-9b}, $\weightclass{f} = \dual{f}(0)$,
+so if $g(y) := \dual{f}(y) + \weightclass{f}$ then $g(0)=0$ and therefore the Cayley graph of $g$
+is well defined.
+\end{proof}
+
 
 \section{Observations}
 % \begin{frame}
 \subsection*{For $m=1$}
 
-One extended affine class: $[f_{2,1}]$ 
+One extended affine class: $[f_{2,1}]$
 
 where $f_{2,1}(x) := x_0 x_1$ is self dual.
 
@@ -1291,17 +1398,17 @@ Two extended Cayley classes:
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
-\text{Parameters} & 
+\text{Parameters} &
 \text{2-rank} &
 \text{Clique polynomial}
 \\
 \hline
 1 &
-(4, 1, 0, 0) & 4 & 
+(4, 1, 0, 0) & 4 &
 2t^{2} + 4t + 1
 \\
 2 &
-K_4 & 4 & 
+K_4 & 4 &
 t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 \\
 \hline
@@ -1312,7 +1419,7 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 % \begin{frame}
 \subsection*{For $m=2$}
 
-One extended affine class: $[f_{4,1}]$ where 
+One extended affine class: $[f_{4,1}]$ where
 
 $f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
 
@@ -1323,21 +1430,21 @@ Two extended Cayley classes:
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
-\text{Parameters} & 
+\text{Parameters} &
 \text{2-rank} &
 \text{Clique polynomial}
 \\
 \hline
 1 &
-(16, 6, 2, 2) & 
+(16, 6, 2, 2) &
 6 &
 8t^{4} + 32t^{3} + 48t^{2} + 16t + 1
 \\
 2 &
-(16, 10, 6, 6) & 
+(16, 10, 6, 6) &
 6 &
 \begin{array}{l}
-16t^{5} + 120t^{4} + 160t^{3} + 
+16t^{5} + 120t^{4} + 160t^{3} +
 \\
 80t^{2} + 16t + 1
 \end{array}
@@ -1360,7 +1467,7 @@ codes:
 \\
 \hline
 1 &
-[6, 4, 2] & 
+[6, 4, 2] &
 \left[
 \begin{array}{cccccc}
 0 & 0 & 1 & 1 & 1 & 1
@@ -1374,7 +1481,7 @@ codes:
 \right]
 \\
 2 &
-[5, 4, 2] & 
+[5, 4, 2] &
 \left[
 \begin{array}{ccccc}
 1 & 1 & 0 & 0 & 0
@@ -1405,26 +1512,26 @@ Four extended affine classes:
 \text{Representative}
 \\
 \hline
-\,[f_{6,1}] & f_{6,1} := 
+\,[f_{6,1}] & f_{6,1} :=
 \begin{array}{l}
 x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5}
 \end{array}
 \\
-\,[f_{6,2}] & f_{6,2} := 
+\,[f_{6,2}] & f_{6,2} :=
 \begin{array}{l}
 x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}
 \end{array}
 \\
-\,[f_{6,3}] & f_{6,3} := 
+\,[f_{6,3}] & f_{6,3} :=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + 
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} +
 \\
 x_{2} x_{4} + x_{3} x_{4}
 \end{array}
 \\
-\,[f_{6,4}] & f_{6,4} := 
+\,[f_{6,4}] & f_{6,4} :=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + 
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} +
 \\
 x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 \end{array}
@@ -1448,13 +1555,13 @@ Two extended Cayley classes:
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
-\text{Parameters} & 
+\text{Parameters} &
 \text{2-rank} &
 \text{Clique polynomial}
 \\
 \hline
 1 &
-(64, 28, 12, 12) & 8 & 
+(64, 28, 12, 12) & 8 &
 \begin{array}{l}
 64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
 \\
@@ -1462,9 +1569,9 @@ Two extended Cayley classes:
 \end{array}
 \\
 2 &
-(64, 36, 20, 20) & 8 & 
+(64, 36, 20, 20) & 8 &
 \begin{array}{l}
-2304t^{6} + 13824t^{5} + 19200t^{4} + 
+2304t^{6} + 13824t^{5} + 19200t^{4} +
 \\
 7680t^{3} + 1152t^{2} + 64t + 1
 \end{array}
@@ -1511,7 +1618,7 @@ Three extended Cayley classes:
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
-\text{Parameters} & 
+\text{Parameters} &
 \text{2-rank} &
 \text{Clique polynomial}
 \\
@@ -1519,15 +1626,15 @@ Three extended Cayley classes:
 1 &
 (64, 28, 12, 12) & 8 &
 \begin{array}{l}
-64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} + 
+64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
 \\
 5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 2 &
-(64, 28, 12, 12) & 8 & 
+(64, 28, 12, 12) & 8 &
 \begin{array}{l}
-256t^{6} + 1536t^{5} + 4352t^{4} + 
+256t^{6} + 1536t^{5} + 4352t^{4} +
 \\
 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
@@ -1579,7 +1686,7 @@ codes as listed by Tonchev (2006):
 
 The function
 \begin{align*}
-f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} 
+f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
 \\
            &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
 \end{align*}
@@ -1591,13 +1698,13 @@ Four extended Cayley classes:
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
-\text{Parameters} & 
+\text{Parameters} &
 \text{2-rank} &
 \text{Clique polynomial}
 \\
 \hline
 1 &
-(64, 28, 12, 12) & 12 & 
+(64, 28, 12, 12) & 12 &
 \begin{array}{l}
 32t^{8} + 256t^{7} + 896t^{6} + 2048t^{5} +
 \\
@@ -1605,15 +1712,15 @@ Four extended Cayley classes:
 \end{array}
 \\
 2 &
-(64, 28, 12, 12) & 12 & 
+(64, 28, 12, 12) & 12 &
 \begin{array}{l}
-64t^{6} + 1024t^{5} + 4096t^{4} + 
+64t^{6} + 1024t^{5} + 4096t^{4} +
 \\
 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 3 &
-(64, 36, 20, 20) & 12 & 
+(64, 36, 20, 20) & 12 &
 \begin{array}{l}
 160t^{8} + 1280t^{7} + 9344t^{6} + 21504t^{5} +
 \\
@@ -1621,7 +1728,7 @@ Four extended Cayley classes:
 \end{array}
 \\
 4 &
-(64, 36, 20, 20) & 12 & 
+(64, 36, 20, 20) & 12 &
 \begin{array}{l}
 160t^{8} + 1664t^{7} + 9792t^{6} + 21504t^{5} +
 \\
@@ -1664,7 +1771,7 @@ codes as listed by Tonchev (2006):
 
 The function
 \begin{align*}
-f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} 
+f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
 \\
            &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
 \end{align*}
@@ -1676,7 +1783,7 @@ Three extended Cayley classes:
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
-\text{Parameters} & 
+\text{Parameters} &
 \text{2-rank} &
 \text{Clique polynomial}
 \\
@@ -1738,10 +1845,10 @@ codes as listed by Tonchev (2006):
 % \begin{frame}
 %\subsection*{Questions (1)}
 (Preceded by the values of $m$ for which the question is settled.)
- 
+
 \begin{description}
 \item[1-3]
-How many EC classes are there for each $m$? ``Exponential numbers'' of classes? 
+How many EC classes are there for each $m$? ``Exponential numbers'' of classes?
 \item[1-3]
 Is the number of EC classes within an EA class bounded? What is the bound?
 \item[1-4]
@@ -1753,7 +1860,7 @@ Which EC classes overlap more than one EA class?
 \slidecite{Kantor 1983; Jungnickel and Tonchev 1991}
 % \end{frame}
 % \begin{frame}
-%\subsection*{Questions (2)} 
+%\subsection*{Questions (2)}
 
 \begin{description}
 \item[1-3]
@@ -1780,7 +1887,7 @@ See
 \begin{verbatim}
 http://tinyurl.com/jnchhev
 \end{verbatim}
- 
+
 % \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1789,7 +1896,7 @@ http://tinyurl.com/jnchhev
 Thanks to Christine Leopardi for her hospitality at Long Beach.
 Thanks to Robert Craigen, Joanne Hall, William Martin,
 Padraig {\'O} Cath{\'a}in and Judy-anne Osborn for valuable discussions.
-This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University, 
+This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University,
 and concluded while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia.
 %Thanks also to the anonymous reviewer of the previous draft of this paper.
 
