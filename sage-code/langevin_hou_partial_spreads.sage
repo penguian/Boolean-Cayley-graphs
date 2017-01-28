@@ -13,7 +13,7 @@ r"""
 import re
 
 
-def read_langevin_hou_anf_list(file):
+def read_langevin_hou_anf_list(anf_file):
     r"""
 
     Classification of partial spread functions in eight variables
@@ -30,7 +30,7 @@ def read_langevin_hou_anf_list(file):
     anf_list = []
     line = None
     while line != '':
-        line = file.readline()
+        line = anf_file.readline()
         match = re.match('anf=(.*)', line)
 
         if match != None:
@@ -38,5 +38,8 @@ def read_langevin_hou_anf_list(file):
             anf_pass1 = re.sub('([1-8])', 'x\\1', anf_abbr)
             anf = eval(re.sub('([1-8])x', '\\1*x', anf_pass1))
             anf_list.append(anf)
+
+    anf_file.close()
+
     return anf_list
 
