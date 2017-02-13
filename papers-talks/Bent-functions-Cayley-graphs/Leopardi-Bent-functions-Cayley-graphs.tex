@@ -58,7 +58,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{DRAFT ONLY: 20 December 2016}
+\date{DRAFT ONLY: 13 February 2017}
 
 \begin{document}
 
@@ -181,41 +181,37 @@ SageMathCloud worksheet.
 % \begin{frame}
 \subsection*{The Cayley graph of a binary function}
 %\begin{center}
-The \Emph{Cayley graph} $\Cay{f}$ of a binary function
+For a binary function $f : \Z_2^{2 m} \To \Z_2$, with $f(0)=0$ we consider the simple undirected \emph{Cayley graph} $\Cay(f)$  \cite[3.1]{BerC99}
+where the vertex set $V(\Cay(f)) = \Z_2^{2 m}$ and for $i,j \in \Z_2^{2 m}$, the edge $(i,j)$ is in the edge set $E(\Cay(f))$ if and only if $f(i+j)=1$.
 
-~
-
-\begin{align*}
-%
-f : \Z_2^n \To \Z_2 \quad \text{where} \quad f(0) = 0
-%
-\end{align*}
-
-~
-
-is
-an undirected graph with
-
-\begin{align*}
-V(\Cay{f}) &:= \Z_2^n, \quad (x,y) \in E(\Cay{f}) \Leftrightarrow f(x+y) = 1.
-\end{align*}
-
-~
-
-\slidecite{Bernasconi and Codenotti 1999} % BerC99
+%\slidecite{Bernasconi and Codenotti 1999} % BerC99
 % \end{frame}
 % \begin{frame}
 \subsection*{Bent functions}
 
-A binary function  $f : \Z_2^{2m} \To \Z_2$ is \Emph{bent} if and only if the function $\dual{f}$, defined by
+\begin{Definition}
+\label{def-Walsh-Hadamard-transform}
+The Walsh Hadamard (a.k.a. Fourier) transform of
+a Boolean function $f : \Z_2^m \To \Z_2$ is
+\begin{align*}
+W_f(y)
+&:=
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle} + f(x)
+\end{align*}
+\end{Definition}
+
+\begin{Definition}
+\label{def-Bent-function-dual}
+A Boolean function $f : \Z_2^m \To \Z_2$ is \Emph{bent}
+if and only if its Walsh Hada\-mard transform has constant magnitude $2^{-m}$ \cite[p. 74]{Dil74}.
+
+In this case, the function $\dual{f}$, defined by
 \begin{align*}
 (-1)^{\dual{f}(x)} &:= 2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
 \end{align*}
 is a binary function on $\Z_2^{2m}$.
-
-~
-
 The function $\dual{f}$ is also bent and is called the \Emph{dual} of $f$.
+\end{Definition}
 
 ~
 
@@ -225,27 +221,20 @@ The function $\dual{f}$ is also bent and is called the \Emph{dual} of $f$.
 % \begin{frame}
 \subsection*{Strongly regular graphs}
 %\begin{center}
-A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} with parameters
+A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} \cite{Bos63,BroCN89,Sei79} with parameters
 $(v,k,\lambda,\mu)$ if
-
-~
-
 \begin{itemize}
  \item
 each vertex has degree $k,$
-
-~
  \item
 each adjacent pair of vertices has $\lambda$ common neighbours, and
-
-~
 \item
 each nonadjacent pair of vertices has $\mu$ common neighbours.
 \end{itemize}
-
-~
-
-\slidecite{Brouwer, Cohen and Neumaier 1989} % BroCN89
+%
+%~
+%
+%\slidecite{Brouwer, Cohen and Neumaier 1989} % BroCN89
 
 %\end{center}
 % \end{frame}
@@ -254,10 +243,9 @@ each nonadjacent pair of vertices has $\mu$ common neighbours.
 \subsection*{Bent functions and strongly regular graphs}
 
 \begin{Theorem}
-\smallcite{Bernasconi and Codenotti 1999}
-
+\label{Theorem-Cayley-bent-strongly-regular}
+\cite[Lemma 12]{BerC99}.
 The Cayley graph $\Cay{f}$ of a bent function $f$ on $\Z_2^{2m}$
-
 (with $f(0)=0$) is a strongly regular graph with $\lambda = \mu.$
 \end{Theorem}
 
@@ -371,9 +359,6 @@ Then
 \subsection*{The two block designs of a bent function}
 
 The adjacency matrix of $\Cay{f}$ can also be interpreted as the incidence matrix of a block design.
-
-~
-
 In this case we do not need $f(0)=0$.
 
 ~
@@ -396,12 +381,8 @@ This is a symmetric block design with the \Emph{symmetric difference property}.
 A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with
 minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size 2.
 
-~
-
 ``A \Emph{generator matrix} $G$ of a linear code $[n, k]$ code $C$ is any matrix
 of rank $k$ (over $\Z_2$) with rows from $C.$''
-
-~
 
 ``A linear $[n, k]$ code is called \Emph{projective} if no two columns of a generator matrix
 $G$ are linearly dependent, i.e., if the columns of $G$ are pairwise different points in a
@@ -1906,9 +1887,9 @@ and concluded while the author was a Visiting Fellow and a Casual Academic at th
 
 %\newpage
 
-%\bibliographystyle{abbrv-par}
+\bibliographystyle{abbrv-par}
 
-%\bibliography{bib}
+\bibliography{bib}
 
 %\input{AJC-2015-Leopardi-Twin-bent-Hurwitz-Radon-revised.bbl}
 
