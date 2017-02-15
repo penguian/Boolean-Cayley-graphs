@@ -210,12 +210,12 @@ In this case, the function $\dual{f}$, defined by
 (-1)^{\dual{f}(x)} &:= 2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
 \end{align*}
 is a binary function on $\Z_2^{2m}$.
-The function $\dual{f}$ is also bent and is called the \Emph{dual} of $f$.
+The function $\dual{f}$ is also bent \cite[p. 301]{Rot76} and is called the \Emph{dual} of $f$ \cite{Tok11number}.
 \end{Definition}
-
-~
-
-\slidecite{Dillon 1974; Rothaus 1976; Tokareva 2011}
+%
+%~
+%
+%\slidecite{Dillon 1974; Rothaus 1976; Tokareva 2011}
 % \end{frame}
 
 % \begin{frame}
@@ -256,9 +256,9 @@ The parameters of $\Cay{f}$ are
   \text{or} \quad &(4^m, 2^{2 m - 1} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}).
 \end{align*}
 
-~
-
-\slidecite{Menon 1962; Dillon 1974; Bernasconi and Codenotti 1999}
+%~
+%
+%\slidecite{Menon 1962; Dillon 1974; Bernasconi and Codenotti 1999}
 %\end{center}
 % \end{frame}
 % \begin{frame}
@@ -269,15 +269,15 @@ For $f$ on $\Z_2^{2m}$
 \begin{align*}
 \support{f} &:= \{x \in \Z_2^{2m} \mid f(x)=1 \}.
 \end{align*}
+\end{Definition}
 
-A bent function $f$ on $\Z_2^{2m}$ has weight
+A bent function $f$ on $\Z_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74} \cite{Rot76}
 \begin{align*}
 \weight{f} &= 2^{2 m - 1} - 2^{m-1} \quad (\text{weight class~} \weightclass{f}=0), \text{~or}
 \\
 \weight{f} &= 2^{2 m - 1} + 2^{m-1} \quad (\text{weight class~} \weightclass{f}=1).
 \end{align*}
 If $f(0)=0$ then $\weightclass{\Cay{f}} := \weightclass{f}$.
-\end{Definition}
 % \end{frame}
 
 \begin{Lemma}
@@ -363,21 +363,23 @@ In this case we do not need $f(0)=0$.
 
 ~
 \begin{Definition}
-A second block design described by Dillon and Schatz can be defined by the incidence matrix $D(f)$ where
+A second block design described by Dillon and Schatz \cite{DilS87block} \cite[Theorem 3.29]{Neu06bent} can be defined by the incidence matrix $D(f)$ where
 \begin{align*}
 D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
 \end{align*}
 This is a symmetric block design with the \Emph{symmetric difference property}.
 \end{Definition}
-
-~
-
-\slidecite{Dillon and Schatz 1987; Neumann 2006}
+%
+%~
+%
+%\slidecite{Dillon and Schatz 1987; Neumann 2006}
 % \end{frame}
 % \begin{frame}
 \subsection*{Projective two-weight binary codes}
 
 \begin{Definition}
+\cite{BouFFWW2006}
+
 A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with
 minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size 2.
 
@@ -388,11 +390,11 @@ of rank $k$ (over $\Z_2$) with rows from $C.$''
 $G$ are linearly dependent, i.e., if the columns of $G$ are pairwise different points in a
 projective $(k-1)$-dimensional space.''
 In the case of $\Z_2$, no two columns are equal.
-
-~
-
-\slidecite{Bouyukliev, Fack, Willems and Winne 2006} % BouFFWW2006
-
+%
+%~
+%
+%\slidecite{Bouyukliev, Fack, Willems and Winne 2006} % BouFFWW2006
+%
 \end{Definition}
 
 % \end{frame}
@@ -418,7 +420,7 @@ for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \begin{Definition}
 For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
 
-$f$ is \Emph{extended affine equivalent} to $g$ if and only if
+$f$ is \Emph{extended affine equivalent} \cite[Section 1.4]{Tok15bent} to $g$ if and only if
 \begin{align*}
 g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 \end{align*}
@@ -426,7 +428,7 @@ for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \end{Definition}
 ~
 
-\slidecite{Tokareva 2014}
+%\slidecite{Tokareva 2014}
 % \end{frame}
 % \begin{frame}
 \subsection*{Cayley equivalence}
@@ -1099,10 +1101,11 @@ since $q$ is self-dual.
 % \begin{frame}
 \subsection*{Dual functions}
 \begin{Theorem}
-\smallcite{Carlet 2007, Proposition 4}
-
-~
-
+\cite[Remark 6.2.7]{Dil74} \cite[Proposition 8.7]{Car10boolean}
+%\smallcite{Carlet 2007, Proposition 4}
+%
+%~
+%
 For a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
 if
 \begin{align*}
@@ -1136,14 +1139,14 @@ Functions of the form
 f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
 \end{align*}
 are self dual bent functions, $f=\dual{f}$.
+%
+%~
+%
+There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
 
-~
-
-There are many other self dual bent functions.
-
-~
-
-\slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} % FeuSSW2013
+%~
+%
+%\slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} % FeuSSW2013
 % \end{frame}
 % \begin{frame}
 \subsection*{The Dillon-Schatz SDP design matrix}
