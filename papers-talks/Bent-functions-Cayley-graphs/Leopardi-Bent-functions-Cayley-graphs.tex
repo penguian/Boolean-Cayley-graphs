@@ -363,11 +363,13 @@ In this case we do not need $f(0)=0$.
 
 ~
 \begin{Definition}
-A second block design described by Dillon and Schatz \cite{DilS87block} \cite[Theorem 3.29]{Neu06bent} can be defined by the incidence matrix $D(f)$ where
+A second block design described by Kantor \cite[Section 5]{Kan75symplectic}, and further investigated by
+Dillon and Schatz \cite{DilS87block} \cite[Theorem 3.29]{Neu06bent}, can be defined by the incidence matrix $D(f)$ where
 \begin{align*}
 D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
 \end{align*}
-This is a symmetric block design with the \Emph{symmetric difference property}.
+This is a symmetric block design with the \Emph{symmetric difference property},
+which we call the \emph{SDP design} of $f$.
 \end{Definition}
 %
 %~
@@ -1149,11 +1151,11 @@ There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
 %\slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} % FeuSSW2013
 % \end{frame}
 % \begin{frame}
-\subsection*{The Dillon-Schatz SDP design matrix}
+\subsection*{The SDP design matrix}
 \begin{Theorem}
 \label{th-Dillon-Schatz}
 For every bent function $f$, the \Emph{weight class matrix} of $f$
-equals the incidence matrix of the Dillon-Schatz SDP design of $f$.
+equals the incidence matrix of the SDP design of $f$.
 
 ~
 
@@ -1191,8 +1193,8 @@ as a consequence of Lemma \ref{lm-notes-9b}.
 % \begin{frame}
 \subsection*{From bent function to linear code}
 \begin{Definition}
-
-\smallcite{Ding 2015, Corollary 10}
+\cite[Corollary 10]{DinD15class}
+%\smallcite{Ding 2015, Corollary 10}
 
 For a bent function $f : \Z_2^{2m} \To \Z_2$,
 define the linear code $C(f)$ by the generator matrix
@@ -1207,19 +1209,20 @@ and $\support{f}(y)$ in lexicographic order of $\support{f}$.
 The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
 \end{Definition}
 
-\slidecite{Ding 2015, Corollary 10}
-
+%\slidecite{Ding 2015, Corollary 10}
+%
 % \end{frame}
 % \begin{frame}
 %\frametitle{From bent function to linear code (2)}
 \begin{Theorem}
-\smallcite{Ding 2015, Corollary 10}
+\cite[Corollary 10]{DinD15class}
+%\smallcite{Ding 2015, Corollary 10}
 
 For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
 is a two-weight projective binary code.
-
-~
-
+%
+%~
+%
 The possible weights of non-zero code words are:
 \begin{align*}
 \begin{cases}
@@ -1228,11 +1231,11 @@ The possible weights of non-zero code words are:
 2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
 \end{cases}
 \end{align*}
-
+%
 \end{Theorem}
-
-\slidecite{Ding 2015, Corollary 10}
-
+%
+%\slidecite{Ding 2015, Corollary 10}
+%
 % \end{frame}
 % \begin{frame}
 \subsection*{From linear code to strongly regular graph}
@@ -1255,9 +1258,9 @@ For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
 
 \end{Definition}
 Since $C(f)$ is a two-weight binary projective code,
-$R(f)$ is a strongly regular graph.
+$R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
 
-\slidecite{Delsarte 1972, Theorem 2}
+%\slidecite{Delsarte 1972, Theorem 2}
 % \end{frame}
 % \begin{frame}
 \subsection*{The graph $R(f)$ is the Cayley graph of the extended dual}
@@ -1577,9 +1580,9 @@ codes as listed by Tonchev (2006):
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Tonchev Table 1.56 1, 2 }
+1 & [35,6,16] & \text{Tonchev Table 1.156 1, 2 }
 \\
-2 & [27,6,12] & \text{Tonchev Table 1.55 1 }
+2 & [27,6,12] & \text{Tonchev Table 1.155 1 }
 \\
 \hline
 \end{array}
@@ -1653,11 +1656,11 @@ codes as listed by Tonchev (2006):
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Tonchev Table 1.56 1, 2 }
+1 & [35,6,16] & \text{Tonchev Table 1.156 1, 2 }
 \\
-2 & [35,6,16] & \text{Tonchev Table 1.56 3 }
+2 & [35,6,16] & \text{Tonchev Table 1.156 3 }
 \\
-3 & [27,6,12] & \text{Tonchev Table 1.55 2 }
+3 & [27,6,12] & \text{Tonchev Table 1.155 2 }
 \\
 \hline
 \end{array}
@@ -1736,11 +1739,11 @@ codes as listed by Tonchev (2006):
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Tonchev Table 1.56 4 }
+1 & [35,6,16] & \text{Tonchev Table 1.156 4 }
 \\
-2 & [35,6,16] & \text{Tonchev Table 1.56 5 }
+2 & [35,6,16] & \text{Tonchev Table 1.156 5 }
 \\
-3 & [27,6,12] & \text{Tonchev Table 1.55 3 }
+3 & [27,6,12] & \text{Tonchev Table 1.155 3 }
 \\
 4 & [27,6,12] & \text{Tonchev Table 1.55 4 }
 \\
@@ -1813,11 +1816,11 @@ codes as listed by Tonchev (2006):
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Tonchev Table 1.56 7 }
+1 & [35,6,16] & \text{Tonchev Table 1.156 7 }
 \\
-2 & [35,6,16] & \text{Tonchev Table 1.56 6 }
+2 & [35,6,16] & \text{Tonchev Table 1.156 6 }
 \\
-3 & [27,6,12] & \text{Tonchev Table 1.55 5 }
+3 & [27,6,12] & \text{Tonchev Table 1.155 5 }
 \\
 \hline
 \end{array}
@@ -1832,7 +1835,7 @@ codes as listed by Tonchev (2006):
 
 \begin{description}
 \item[1-3]
-How many EC classes are there for each $m$? ``Exponential numbers'' of classes?
+How many EC classes are there for each $m$? ``Exponential numbers'' of classes \cite{Kan83exponential}?
 \item[1-3]
 Is the number of EC classes within an EA class bounded? What is the bound?
 \item[1-4]
@@ -1841,7 +1844,7 @@ Is the number of EC classes within the quadratic EA class always 2?
 Which EC classes overlap more than one EA class?
 \end{description}
 
-\slidecite{Kantor 1983; Jungnickel and Tonchev 1991}
+%\slidecite{Kantor 1983; Jungnickel and Tonchev 1991}
 % \end{frame}
 % \begin{frame}
 %\subsection*{Questions (2)}
@@ -1854,7 +1857,7 @@ Which EC classes contain a self-dual bent function?
 \item[2-3]
 Which EC classes correspond to projective two-weight codes?
 \item[1-3]
-For each EA representative $f$, what is the relationship between the Dillon-Schatz SDP incidence matrix
+For each EA representative $f$, what is the relationship between the SDP design incidence matrix
 \begin{align*}
 D(f)_{c,x} &= f(x) + \langle c, x \rangle + \dual{f}(c)
 \intertext{and the matrix of EC classes}
