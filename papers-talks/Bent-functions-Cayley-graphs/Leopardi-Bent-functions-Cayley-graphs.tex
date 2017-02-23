@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 %
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage[figurename={Figure}]{caption}
 %\usepackage{url}
 %
 \newcommand{\mb}[1]{\mathbb{#1}}
@@ -19,8 +20,8 @@
 \newcommand{\To}{\rightarrow}
 %
 %
-\newcommand{\slidecite}[1]{\tiny{(#1)}\normalsize{}}
-\newcommand{\smallcite}[1]{\small{(#1)}\normalsize{}}
+%\newcommand{\slidecite}[1]{\tiny{(#1)}\normalsize{}}
+%\newcommand{\smallcite}[1]{\small{(#1)}\normalsize{}}
 
 \newcommand{\Emph}[1]{\emph{\textcolor{blue}{#1}}}
 
@@ -1834,42 +1835,346 @@ codes as listed by Tonchev \cite{Ton07codes}:
 
 %\slidecite{Tonchev 1996, 2006}
 % \end{frame}
+% \begin{frame}
+\subsection*{For $m=4$: extended translation classes}
+
+Up to degree 3:
+Ten extended affine classes,
+
+containing the following extended translation classes:
+
+\tiny{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cl|}
+\hline
+\text{Class} &
+\text{Representative}
+\\
+\hline
+\,[f_{ 8 , 1 }] & f_{ 8 , 1 } :=
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 2 }] & f_{ 8 , 2 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 3 }] & f_{ 8 , 3 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{4} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 4 }] & f_{ 8 , 4 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 5 }] & f_{ 8 , 5 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 6 }] & f_{ 8 , 6 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 7 }] & f_{ 8 , 7 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
++\,  x_{2} x_{4} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 8 }] & f_{ 8 , 8 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 9 }] & f_{ 8 , 9 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} + x_{4} x_{5} x_{6} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 10 }] & f_{ 8 , 10 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4}
+\\
++\,  x_{3} x_{7}
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\normalsize{}
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: weight classes}
+  \label{fig:8_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: 2 extended Cayley classes}
+  \label{fig:8_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,2}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: weight classes}
+  \label{fig:8_2_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: 4 extended Cayley classes}
+  \label{fig:8_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,3}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: weight classes}
+  \label{fig:8_3_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: 6 extended Cayley classes}
+  \label{fig:8_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,4}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: weight classes}
+  \label{fig:8_4_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: 5 extended Cayley classes}
+  \label{fig:8_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,5}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: weight classes}
+  \label{fig:8_5_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: 9 extended Cayley classes}
+  \label{fig:8_5_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,6}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: weight classes}
+  \label{fig:8_6_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: 9 extended Cayley classes}
+  \label{fig:8_6_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+The same 9 classes as $[f_{8,5}]$, with the same frequencies!
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,7}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: weight classes}
+  \label{fig:8_7_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: 5 extended Cayley classes}
+  \label{fig:8_7_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,8}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: weight classes}
+  \label{fig:8_8_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: 6 extended Cayley classes}
+  \label{fig:8_8_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,9}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_9_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_9_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_9_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes of dual bent functions}
+  \label{fig:c8_9_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+4 of the 8 classes form 2 dual pairs of classes.
+% \end{frame}
+% \begin{frame}
+\subsection*{For ET class $[f_{8,10}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_10_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_10_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_10_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes of dual bent functions}
+  \label{fig:c8_10_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+6 of the 10 classes form 3 dual pairs of classes.
+% \end{frame}
+% \end{colortheme}
+% \begin{colortheme}{seagull}
+% \begin{frame}
+\subsection*{For $m=4$: number of bent functions and EA classes}
+
+According to Langevin and Leander \cite{LanL11counting}
+there are $99270589265934370305785861242880 \approx 2^{106}$ bent functions in dimension 8.
+%
+%~
+%
+The number of EA classes has not yet been published, let alone a list of representatives.
+
+%\slidecite{Langevin and Leander 2011}
+% \end{frame}
+% \begin{frame}[fragile]
+\subsection*{For $m=4$: number of partial spread bent functions and EA classes}
+
+According to Langevin and Hou \cite{LanH11counting}
+there are $70576747237594114392064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in dimension 8,
+contained in $14758$ EA classes, of which $14756$ have degree 4.
+%
+%~
+%
+The EA class representatives are listed at Langevin's web site
+%
+\begin{verbatim}
+http://langevin.univ-tln.fr/project/spread/psp.html
+\end{verbatim}
+
+%\slidecite{Langevin and Hou 2011}
+% \end{frame}
+% \end{colortheme}
+% \begin{colortheme}{jubata}
+% \begin{frame}
+\subsection*{Example partial spread ET class $[psf_{9,5438}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:psf_9_5438_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes of dual bent functions}
+  \label{fig:psf_9_5438_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+6 of the 16 classes form 3 dual pairs of classes.
+% \end{frame}
+
 \section{Questions}
 % \begin{frame}
 %\subsection*{Questions (1)}
-(Preceded by the values of $m$ for which the question is settled.)
-
-\begin{description}
-\item[1-3]
-How many EC classes are there for each $m$? ``Exponential numbers'' of classes \cite{Kan83exponential}?
-\item[1-3]
-Is the number of EC classes within an EA class bounded? What is the bound?
-\item[1-4]
-Is the number of EC classes within the quadratic EA class always 2?
-\item[1-3]
-Which EC classes overlap more than one EA class?
-\end{description}
-
-%\slidecite{Kantor 1983; Jungnickel and Tonchev 1991}
-% \end{frame}
-% \begin{frame}
-%\subsection*{Questions (2)}
-
-\begin{description}
-\item[1-3]
+Settled only for $m \leqslant 3$:
+\begin{enumerate}
+\item
+How many EC classes are there for each $m$?
+Are there ``Exponential numbers'' of classes?
+\item
+Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
+\item
+Which EC classes overlap more than one ET class?
+\item
 Which bent functions are Cayley equivalent to their dual?
-\item[1-3]
-Which EC classes contain a self-dual bent function?
-\item[2-3]
-Which EC classes correspond to projective two-weight codes?
-\item[1-3]
-For each EA representative $f$, what is the relationship between the SDP design incidence matrix
-\begin{align*}
-D(f)_{c,x} &= f(x) + \langle c, x \rangle + \dual{f}(c)
-\intertext{and the matrix of EC classes}
-M_{c,b} &= \big[\Cay{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}\big] ?
-\end{align*}
-\end{description}
+\end{enumerate}
+~
+
+Also, what are the remaining EA and EC classes for $m=4$,
+i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4?
+
+% \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
 % \end{frame}
 \section{SageMathCloud}
 % \begin{frame}[fragile]
