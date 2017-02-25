@@ -59,7 +59,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{DRAFT ONLY: 13 February 2017}
+\date{DRAFT ONLY: 25 February 2017}
 
 \begin{document}
 
@@ -70,8 +70,32 @@ Paul~C.~Leopardi
 %
 \end{abstract}
 
-% \section{Introduction}
-% \label{sec-Introduction}
+\section{Introduction}
+\label{sec-Introduction}
+Binary bent functions are important combinatorial objects.
+Besides the well-known application of bent functions and their generalizations to cryptography,
+bent functions have well-studied connections to Hadamard difference sets \cite{Dil74},
+symmetric designs with the symmetric difference property \cite{DilS87block,Kan75symplectic},
+projective two-weight codes and strongly-regular graphs.
+
+In two papers, Bernasconi and Codenotti \cite{BerC99}, and then Bernasconi, Codenotti and Vanderkam \cite{BerCV01} explored some of the connections
+between bent functions and strongly regular graphs.
+While these papers established that the Cayley graph of a binary bent function (whose value at 0 is 0) is a strongly regular graph
+with certain parameters, they leave open the question of which strongly regular graphs with these parameters  be so obtained.
+Kantor, in 1983 \cite{Kan83exponential}, showed that the number of non-isomorphic projective linear two weight codes with certain parameters,
+Hadamard difference sets, and symmetric designs with certain properties grows at exponentially with dimension.
+This result suggests that the number of strongly regular graphs obtained as Cayley graphs of bent functions also increases at least exponentially with dimension.
+
+In a recent paper, the author found an example of two infinite series of bent functions whose Cayley graphs have the same strongly regular parameters,
+but are not isomorphic if the dimension 8 or more [TBD].
+
+The goal of the current paper is to further explore the connections between bent functions, their Cayley graphs, and related combinatorial objects,
+and in particular to examine the relationship between various equivalence classes of bent functions, in particular, the relationship between the extended affine
+equivalence classes and equivalence classes defined by isomorphism of Cayley graphs.
+Besides a theoretical study of bent functions of all dimensions, an empirical study is conducted into bent functions of dimension at most 8,
+using SageMath and SageMathCloud.
+
+
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
 % The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on
 % generalizations of Williamson's construction for Hada\-mard matrices.
@@ -88,13 +112,52 @@ Paul~C.~Leopardi
 % The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic only when $m=1, 2,$ or $3.$
 % \end{Theorem}
 %
-% The remainder of the paper is organized as follows.
+The remainder of the paper is organized as follows.
 % Section \ref{sec-Background} outlines some of the background of this investigation.
-% Section \ref{sec-Preliminaries} repeats some of the definitions and properties used in the previous papers \cite{Leo14Constructions, Leo15Twin},
-% and includes further definitions used in the subsequent sections.
-% Section~\ref{sec-Results} proves the main result, and resolves the conjectures and the question raised by the previous papers.
-% Section~\ref{sec-Discussion} puts these results in context, and suggests future research.
+Section \ref{sec-Preliminaries} covers the concepts, definitions and known results used later in the paper.
+Some of these concepts and definitions are novel.
+Section \ref{sec-Equivalence} introduces various concepts of equivalence of bent functions.
+Section \ref{sec-Results} contains the main theoretical results of the paper.
+Section \ref{sec-Empirical} lists some of the properties of the equivalence classes of bent functions for dimension up to 8.
+Section \ref{sec-Code} outlines the SageMath and SageMathCloud code that has been used to obtain and display these empirical results.
+Section~\ref{sec-Discussion} puts these results in the context of questions that are still open.
 %
+% % \begin{frame}
+% \subsection*{Overview}
+% %\begin{center}
+% \begin{itemize}
+% \item
+% Key concepts.
+%
+% ~
+%
+% \item
+% Equivalence.
+%
+% ~
+%
+% \item
+% Some results.
+%
+% ~
+%
+% \item
+% Observations for small dimensions.
+%
+% ~
+%
+% \item
+% Some questions.
+%
+% ~
+%
+% \item
+% SageMathCloud worksheet.
+% \end{itemize}
+
+%\end{center}
+% \end{frame}
+
 % \section{Background}\label{sec-Background}
 % A recent paper of the author \cite{Leo14Constructions} describes a generalization of
 % Williamson's construction for Hada\-mard matrices \cite{Wil44}
@@ -141,44 +204,8 @@ Paul~C.~Leopardi
 %
 % The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem} leads to the resolution of these conjectures and this question.
 
-% \begin{frame}
-\subsection*{Overview}
-%\begin{center}
-\begin{itemize}
-\item
-Key concepts.
-
-~
-
-\item
-Equivalence.
-
-~
-
-\item
-Some results.
-
-~
-
-\item
-Observations for small dimensions.
-
-~
-
-\item
-Some questions.
-
-~
-
-\item
-SageMathCloud worksheet.
-\end{itemize}
-
-%\end{center}
-% \end{frame}
-
 \section{Key concepts}
-
+\label{sec-Preliminaries}
 % \begin{frame}
 \subsection*{The Cayley graph of a binary function}
 %\begin{center}
@@ -402,6 +429,7 @@ In the case of $\Z_2$, no two columns are equal.
 
 % \end{frame}
 \section{Equivalence}
+\label{sec-Equivalence}
 
 % \begin{frame}
 \subsection*{Extended translation equivalence}
@@ -465,7 +493,8 @@ we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$
 \end{Definition}
 Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\Z_2^{2m}$.
 % \end{frame}
-\section{Some results}
+\section{Theoretical results}
+\label{sec-Results}
 % \begin{frame}
 
 % \begin{frame}
@@ -1371,7 +1400,8 @@ is well defined.
 \end{proof}
 
 
-\section{Observations}
+\section{Empirical Observations}
+\label{sec-Empirical}
 % \begin{frame}
 \subsection*{For $m=1$}
 
@@ -2154,29 +2184,8 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 6 of the 16 classes form 3 dual pairs of classes.
 % \end{frame}
 
-\section{Questions}
-% \begin{frame}
-%\subsection*{Questions (1)}
-Settled only for $m \leqslant 3$:
-\begin{enumerate}
-\item
-How many EC classes are there for each $m$?
-Are there ``Exponential numbers'' of classes?
-\item
-Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
-\item
-Which EC classes overlap more than one ET class?
-\item
-Which bent functions are Cayley equivalent to their dual?
-\end{enumerate}
-~
-
-Also, what are the remaining EA and EC classes for $m=4$,
-i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4?
-
-% \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
-% \end{frame}
-\section{SageMathCloud}
+\section{SageMath and SageMathCloud code}
+\label{sec-Code}
 % \begin{frame}[fragile]
 %\subsection*{Public worksheet on SageMathCloud}
 ~
@@ -2186,6 +2195,30 @@ See
 http://tinyurl.com/jnchhev
 \end{verbatim}
 
+% \end{frame}
+
+
+\section{Discussion}
+\label{sec-Discussion}
+% \begin{frame}
+%\subsection*{Questions (1)}
+The following questions have been settled only for $m \leqslant 3$:
+\begin{enumerate}
+\item
+How many EC classes are there for each $m$?
+Are there ``Exponential numbers'' of classes \cite{Kan83exponential}?
+\item
+Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
+\item
+Which EC classes overlap more than one ET class?
+\item
+Which bent functions are Cayley equivalent to their dual?
+\end{enumerate}
+
+Also, what are the remaining EA and EC classes for $m=4$,
+i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
+
+% \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
 % \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
