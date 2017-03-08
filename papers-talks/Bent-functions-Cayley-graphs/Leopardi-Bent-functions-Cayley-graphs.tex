@@ -35,6 +35,8 @@
 
 \newtheorem*{lemma}{Lemma}
 \newtheorem{Lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem{Proposition}{Proposition}
 \newtheorem*{theorem}{Theorem}
 \newtheorem{Theorem}{Theorem}
 \newtheorem*{conjecture}{Conjecture}
@@ -73,10 +75,11 @@ Paul~C.~Leopardi
 \section{Introduction}
 \label{sec-Introduction}
 Binary bent functions are important combinatorial objects.
-Besides the well-known application of bent functions and their generalizations to cryptography,
+Besides the well-known application of bent functions and their generalizations to cryptography
+\cite{Ada97} \cite[4.1-4.6]{Tok15bent},
 bent functions have well-studied connections to Hadamard difference sets \cite{Dil74},
 symmetric designs with the symmetric difference property \cite{DilS87block,Kan75symplectic},
-projective two-weight codes and strongly-regular graphs.
+projective two-weight codes \cite{DinD15class} and strongly regular graphs.
 
 In two papers, Bernasconi and Codenotti \cite{BerC99}, and then Bernasconi, Codenotti and Vanderkam \cite{BerCV01} explored some of the connections
 between bent functions and strongly regular graphs.
@@ -87,13 +90,14 @@ Hadamard difference sets, and symmetric designs with certain properties grows at
 This result suggests that the number of strongly regular graphs obtained as Cayley graphs of bent functions also increases at least exponentially with dimension.
 
 In a recent paper, the author found an example of two infinite series of bent functions whose Cayley graphs have the same strongly regular parameters,
-but are not isomorphic if the dimension 8 or more [TBD].
+but are not isomorphic if the dimension 8 or more \cite{Leo17Hurwitz}.
 
 The goal of the current paper is to further explore the connections between bent functions, their Cayley graphs, and related combinatorial objects,
 and in particular to examine the relationship between various equivalence classes of bent functions, in particular, the relationship between the extended affine
 equivalence classes and equivalence classes defined by isomorphism of Cayley graphs.
-Besides a theoretical study of bent functions of all dimensions, an empirical study is conducted into bent functions of dimension at most 8,
-using SageMath and SageMathCloud.
+As well as a theoretical study of bent functions of all dimensions, an empirical study is conducted
+into bent functions of dimension at most 8,
+using SageMath \cite{SageMath7517} and SageMathCloud \cite{SageMathCloud}.
 
 
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
@@ -115,11 +119,13 @@ using SageMath and SageMathCloud.
 The remainder of the paper is organized as follows.
 % Section \ref{sec-Background} outlines some of the background of this investigation.
 Section \ref{sec-Preliminaries} covers the concepts, definitions and known results used later in the paper.
-Some of these concepts and definitions are novel.
-Section \ref{sec-Equivalence} introduces various concepts of equivalence of bent functions.
+Some of these concepts and definitions are novel, such as new notions of equivalence of bent
+functions.
+%Section \ref{sec-Equivalence} introduces various concepts of equivalence of bent functions.
 Section \ref{sec-Results} contains the main theoretical results of the paper.
 Section \ref{sec-Empirical} lists some of the properties of the equivalence classes of bent functions for dimension up to 8.
-Section \ref{sec-Code} outlines the SageMath and SageMathCloud code that has been used to obtain and display these empirical results.
+Section \ref{sec-Code} describes the SageMath and SageMathCloud code that has been used to obtain
+and display these empirical results.
 Section~\ref{sec-Discussion} puts these results in the context of questions that are still open.
 %
 % % \begin{frame}
@@ -259,7 +265,7 @@ Remark: The function $\dual{f}$ is also a bent function on $\Z_2^{2m}$ \cite[p. 
 The \Emph{Hamming weight} of a Boolean function is the cardinality of its \Emph{support}.
 For $f$ on $\Z_2^{2m}$
 \begin{align*}
-\support{f} &:= \{x \in \Z_2^{2m} \mid f(x)=1 \}, \quad \weight{f} := \| \support{f} \|.
+\support{f} &:= \{x \in \Z_2^{2m} \mid f(x)=1 \}, \quad \weight{f} := \abs{ \support{f} }.
 \end{align*}
 \end{Definition}
 
@@ -369,8 +375,10 @@ in terms of the Cayley graph for a general Boolean function with $f$ with $f(0)=
 %\begin{center}
 \begin{Definition}
 \label{def-Cayley-graph}
-For a Boolean function $f : \Z_2^{2 m} \To \Z_2$, with $f(0)=0$ we consider the simple undirected \emph{Cayley graph} $\Cay(f)$  \cite[3.1]{BerC99}
-where the vertex set $V(\Cay(f)) = \Z_2^{2 m}$ and for $i,j \in \Z_2^{2 m}$, the edge $(i,j)$ is in the edge set $E(\Cay(f))$ if and only if $f(i+j)=1$.
+For a Boolean function $f : \Z_2^{2 m} \To \Z_2$, with $f(0)=0$ we consider the simple undirected
+\emph{Cayley graph} $\Cay{f}$  \cite[3.1]{BerC99}
+where the vertex set $V(\Cay{f}) = \Z_2^{2 m}$ and for $i,j \in \Z_2^{2 m}$, the edge $(i,j)$ is in
+the edge set $E(\Cay{f})$ if and only if $f(i+j)=1$.
 \end{Definition}
 Note especially that in contrast with the paper of Bernasconi and Codenotti \cite{BerC99},
 this paper defines Cayley graphs only for Boolean functions $f$ with $f(0)=0$,
@@ -381,7 +389,8 @@ since the use of Definition~\ref{def-Cayley-graph} with a function $f$ for which
 % \begin{frame}
 \paragraph*{Bent functions and strongly regular graphs.}
 %\begin{center}
-We state below in Theorem~\ref{th-Cayley-bent-strongly-regular}
+We repeat below in Proposition~\ref{pr-Cayley-bent-strongly-regular}
+the result of Bernasconi and Codenotti \cite{BerC99}
 that the Cayley graph of a bent function is strongly regular.
 The following definition is used fix the notation used in this paper.
 \begin{Definition}
@@ -408,8 +417,8 @@ each nonadjacent pair of vertices has $\mu$ common neighbours.
 
 % \begin{frame}
 
-\begin{Theorem}
-\label{th-Cayley-bent-strongly-regular}
+\begin{Proposition}
+\label{pr-Cayley-bent-strongly-regular}
 The Cayley graph $\Cay{f}$ of a bent function $f$ on $\Z_2^{2m}$
 (with $f(0)=0$) is a strongly regular graph with $\lambda = \mu$ \cite[Lemma 12]{BerC99}.
 
@@ -419,7 +428,7 @@ The parameters of $\Cay{f}$ are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{
 \\
   \text{or} \quad &(4^m, 2^{2 m - 1} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}).
 \end{align*}
-\end{Theorem}
+\end{Proposition}
 
 %~
 %
@@ -434,11 +443,11 @@ The parameters of $\Cay{f}$ are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{
 The adjacency matrix of $\Cay{f}$ can also be interpreted as the incidence matrix of a block design.
 In this case we do not need $f(0)=0$.
 
-~
 \begin{Definition}
 \label{def-SDP-design}
-A second block design described by Kantor \cite[Section 5]{Kan75symplectic}, and further investigated by
-Dillon and Schatz \cite{DilS87block} \cite[Theorem 3.29]{Neu06bent}, can be defined by the incidence matrix $D(f)$ where
+A symmetric block design described by Kantor \cite[Section 5]{Kan75symplectic}, and further
+investigated by Dillon and Schatz \cite{DilS87block} \cite[Theorem 3.29]{Neu06bent}, can be defined
+by the incidence matrix $D(f)$ where
 \begin{align*}
 D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
 \end{align*}
@@ -455,18 +464,19 @@ which we call the \emph{SDP design} of $f$.
 
 \begin{Definition}
 \label{def-two-weight-codes}
-\cite{BouFFWW2006}
+\cite{BouFFWW2006} \cite{Ton96uniformly}
 
 A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with
 minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size 2.
 
+Bouyukliev, Fack, Willems and Winne \cite[p. 60]{BouFFWW2006} define projective codes as follows.
 ``A \Emph{generator matrix} $G$ of a linear code $[n, k]$ code $C$ is any matrix
-of rank $k$ (over $\Z_2$) with rows from $C.$''
-
-``A linear $[n, k]$ code is called \Emph{projective} if no two columns of a generator matrix
+of rank $k$ (over $\Z_2$) with rows from $C.$ \ldots
+A linear $[n, k]$ code is called \Emph{projective} if no two columns of a generator matrix
 $G$ are linearly dependent, i.e., if the columns of $G$ are pairwise different points in a
 projective $(k-1)$-dimensional space.''
-In the case of $\Z_2$, no two columns are equal.
+
+Remark: In the case of $\Z_2$, no two columns are equal.
 %
 %~
 %
@@ -475,11 +485,12 @@ In the case of $\Z_2$, no two columns are equal.
 \end{Definition}
 
 % \end{frame}
-\section{Equivalence}
-\label{sec-Equivalence}
+\subsection*{More notions equivalence of bent functions}
+%\label{sec-Equivalence}
+The following notions of equivalence of bent functions are used in this paper.
 
 % \begin{frame}
-\subsection*{Extended translation equivalence}
+\paragraph*{Extended translation equivalence.}
 
 \begin{Definition}
 For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
@@ -493,7 +504,7 @@ for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 % \end{frame}
 
 % \begin{frame}
-\subsection*{Extended affine equivalence}
+\paragraph*{Extended affine equivalence.}
 
 \begin{Definition}
 For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
@@ -509,7 +520,7 @@ for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 %\slidecite{Tokareva 2014}
 % \end{frame}
 % \begin{frame}
-\subsection*{Cayley equivalence}
+\paragraph*{Cayley equivalence.}
 \begin{Definition}
 %
 For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
@@ -530,7 +541,7 @@ g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}.
 \end{Definition}
 % \end{frame}
 % \begin{frame}
-\subsection*{Extended Cayley equivalence}
+\paragraph*{Extended Cayley equivalence.}
 \begin{Definition}
 For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
 
@@ -539,6 +550,11 @@ if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \
 we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
 \end{Definition}
 Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\Z_2^{2m}$.
+
+Remark: While extended affine equivalence has been well studied,
+the use of extended translation equivalence and the two notions of Cayley equivalence are
+apparently new.
+
 % \end{frame}
 \section{Theoretical results}
 \label{sec-Results}
@@ -1296,7 +1312,7 @@ The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$
 %\smallcite{Ding 2015, Corollary 10}
 
 For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
-is a two-weight projective binary code.
+is a projective two-weight binary code.
 %
 %~
 %
@@ -1334,7 +1350,7 @@ For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
 \end{align*}
 
 \end{Definition}
-Since $C(f)$ is a two-weight binary projective code,
+Since $C(f)$ is a projective two-weight binary code,
 $R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
 
 %\slidecite{Delsarte 1972, Theorem 2}
@@ -1521,8 +1537,8 @@ Two extended Cayley classes:
 % \begin{frame}
 %\subsection*{For $m=2$: two-weight codes}
 
-The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following two-weight projective
-codes:
+The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following
+projective two-weight codes:
 
 \begin{align*}
 \begin{array}{|ccc|}
