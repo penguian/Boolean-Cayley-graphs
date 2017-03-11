@@ -39,17 +39,18 @@ class BijectiveList(object):
     Index lookup for index() and index_append() uses a dict named _index.
     This class is used for 1-1 relationships where index lookup via dict makes sense.
     """
-    def __init__(self, other=None):
+    def __init__(self, other_list=None):
         """
         *** Warning *** Initialization from a non-empty list can easily break
                         the 1-1 relationship between index and item in a BijectiveList.
         """
-        if other == None:
+        if other_list == None:
             self._item = []
             self._index = {}
         else:
-            self._item = other
-            self._index = dict((other[index],index) for index in range(len(other)))
+            self._item = other_list
+            self._index = dict((other_list[index],index)
+                               for index in range(len(other_list)))
 
 
     def __getitem__(self, index):
@@ -57,6 +58,27 @@ class BijectiveList(object):
         List lookup by index.
         """
         return self._item[index]
+
+
+    def __len__(self):
+        r"""
+        Get the length of the list.
+        """
+        return len(self._item)
+
+
+    def get_dict(self):
+        r"""
+        Get the dict part of the BijectiveList.
+        """
+        return self._index
+
+
+    def get_list(self):
+        r"""
+        Get the list part of the BijectiveList.
+        """
+        return self._item
 
 
     def index(self,item):
@@ -86,9 +108,4 @@ class BijectiveList(object):
             self._index[item] = result
         return result
 
-
-    def __len__(self):
-        r"""
-        """
-        return len(self._item)
 
