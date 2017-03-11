@@ -29,9 +29,9 @@ class BentFunction(BooleanFunctionImproved):
     """
 
 
-    def dillon_schatz_design_matrix(self):
+    def sdp_design_matrix(self):
         r"""
-        The function `Dillon_Schatz_design_matrix` returns
+        The function `sdp_design_matrix` returns
         the incidence matrix of the design of type $R(\mathtt{self})$,
         as described by Dillon and Schatz (1987).
         """
