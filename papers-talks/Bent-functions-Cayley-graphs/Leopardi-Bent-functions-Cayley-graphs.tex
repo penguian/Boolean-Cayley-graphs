@@ -61,7 +61,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{DRAFT ONLY: 8 March 2017}
+\date{DRAFT ONLY: 19 March 2017}
 
 \begin{document}
 
@@ -129,7 +129,7 @@ and display these empirical results.
 Section~\ref{sec-Discussion} puts these results in the context of questions that are still open.
 %
 % % \begin{frame}
-% \subsection*{Overview}
+% \subsection{Overview}
 % %\begin{center}
 % \begin{itemize}
 % \item
@@ -173,7 +173,8 @@ Section~\ref{sec-Discussion} puts these results in the context of questions that
 % \begin{Conjecture}\label{conjecture-1}
 % %
 % For all $m \geqslant 0$ there is a permutation $\pi$ of the set of $4^m$ canonical basis matrices,
-% that sends an amicable pair of basis matrices with disjoint support to an anti-amicable pair, and vice-versa.
+% that sends an amicable pair of basis matrices with disjoint support to an anti-amicable pair, and
+vice-versa.
 % %
 % \end{Conjecture}
 %
@@ -205,10 +206,12 @@ Section~\ref{sec-Discussion} puts these results in the context of questions that
 % that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$?
 % \end{Question}
 %
-% (The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and $\varDelta_m[1]$
+% (The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and
+$\varDelta_m[1]$
 % are given in the relevant papers and are repeated in the next section.)
 %
-% The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem} leads to the resolution of these conjectures and this question.
+% The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem} leads to the resolution of
+these conjectures and this question.
 
 \section{Key concepts}
 \label{sec-Preliminaries}
@@ -219,7 +222,7 @@ This section presents some of the key concepts used in the remainder of the pape
 We first define the primary objects of study, bent functions and their Cayley graphs.
 
 % \begin{frame}
-\subsection*{Bent functions}
+\subsection{Bent functions}
 
 Bent Boolean functions can be defined in a number of equivalent ways.
 The definition used here involves the Walsh Hadamard Transform.
@@ -237,7 +240,8 @@ W_f(y)
 \begin{Definition}
 \label{def-Bent-function}
 A Boolean function $f : \Z_2^m \To \Z_2$ is \Emph{bent}
-if and only if its Walsh Hada\-mard transform has constant magnitude $2^{-m}$ \cite[p. 74]{Dil74} \cite[p. 300]{Rot76}.
+if and only if its Walsh Hada\-mard transform has constant magnitude $2^{-m}$ \cite[p. 74]{Dil74}
+\cite[p. 300]{Rot76}.
 \end{Definition}
 
 The remainder of this paper refers to bent Boolean functions simply as bent functions.
@@ -259,7 +263,7 @@ Remark: The function $\dual{f}$ is also a bent function on $\Z_2^{2m}$ \cite[p. 
 \end{Definition}
 
 
-\subsection*{Weights and weight classes}
+\subsection{Weights and weight classes}
 \begin{Definition}
 \label{def-weight}
 The \Emph{Hamming weight} of a Boolean function is the cardinality of its \Emph{support}.
@@ -278,7 +282,8 @@ here called \emph{weight classes}.
 \label{def-weight-class}
 A bent function $f$ on $\Z_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74}
 \begin{align*}
-\weight{f} &= 2^{2 m - 1} - 2^{m-1} \quad (\text{weight class number~} \weightclass{f}=0), \text{~or}
+\weight{f} &= 2^{2 m - 1} - 2^{m-1} \quad (\text{weight class number~} \weightclass{f}=0),
+\text{~or}
 \\
 \weight{f} &= 2^{2 m - 1} + 2^{m-1} \quad (\text{weight class number~} \weightclass{f}=1).
 \end{align*}
@@ -286,88 +291,13 @@ A bent function $f$ on $\Z_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74}
 \end{Definition}
 % \end{frame}
 
-\begin{Lemma}
-\label{lm-notes-9a}
-For a bent function $f : \Z_2^{2m} \To \Z_2$,
-\begin{align*}
-\weightclass{f}
-&=
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1},
-\intertext{so that}
-\weight{f}
-&=
-2^{m} \weightclass{f} + 2^{2m-1} - 2^{m-1}.
-\end{align*}
-
-\end{Lemma}
-
-\begin{proof}
-If $\weight{f} = 2^{2 m - 1} - 2^{m-1}$ then
-\begin{align*}
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
-&=
-2^{-m} (2^{2 m - 1} - 2^{m-1}) - 2^{m-1} + 2^{-1}
-\\
-&=
-2^{m-1} - 2^{-1}  - 2^{m-1} + 2^{-1} = 0.
-\end{align*}
-If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
-\begin{align*}
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
-&=
-2^{-m} (2^{2 m - 1} + 2^{m-1}) - 2^{m-1} + 2^{-1}
-\\
-&=
-2^{m-1} + 2^{-1}  - 2^{m-1} + 2^{-1} = 1.
-\end{align*}
-\end{proof}
-
-\begin{Lemma}
-\label{lm-notes-9b}
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $x \in \Z_2^{2m}$,
-\begin{align*}
-\dual{f}(x)
-&=
-\weightclass{y \mapsto f(y) + \langle x, y \rangle}
-\end{align*}
-
-\end{Lemma}
-
-\begin{proof}
-Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
-Then
-\begin{align*}
-(-1)^{\dual{f}(x)}
-&=
-2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
-\\
-&=
-2^{-m} \left( \sum_{f(y) + \langle x, y \rangle = 0} 1 - \sum_{f(y) + \langle x, y \rangle = 1} 1 \right)
-\\
-&=
-2^{-m} \left( 2^{2m} - 2 \weight{h} \right)
-\\
-&=
-2^m - 2^{1-m} \weight{h}
-\\
-&=
-2^m - 2^{1-m} (2^{m} \weightclass{h} + 2^{2m-1} - 2^{m-1})
-\\
-&=
-2^m - 2 \weightclass{h} - 2^m + 1
-\\
-&=
-1 - 2 \weightclass{h} = (-1)^{\weightclass{h}}.
-\end{align*}
-\end{proof}
-
 %
 %~
 %
 %\slidecite{Dillon 1974; Rothaus 1976; Tokareva 2011}
 % \end{frame}
 
-\subsection*{The Cayley graph of a Bent function}
+\subsection{The Cayley graph of a Bent function}
 
 The Cayley graph of a bent function $f$ with $f(0)=0$ is defined
 in terms of the Cayley graph for a general Boolean function with $f$ with $f(0)=0$.
@@ -382,7 +312,8 @@ the edge set $E(\Cay{f})$ if and only if $f(i+j)=1$.
 \end{Definition}
 Note especially that in contrast with the paper of Bernasconi and Codenotti \cite{BerC99},
 this paper defines Cayley graphs only for Boolean functions $f$ with $f(0)=0$,
-since the use of Definition~\ref{def-Cayley-graph} with a function $f$ for which $f(0)=1$ would result in a graph with loops rather than a simple graph.
+since the use of Definition~\ref{def-Cayley-graph} with a function $f$ for which $f(0)=1$ would
+result in a graph with loops rather than a simple graph.
 
 %\slidecite{Bernasconi and Codenotti 1999} % BerC99
 % \end{frame}
@@ -396,7 +327,8 @@ The following definition is used fix the notation used in this paper.
 \begin{Definition}
 \label{def-strongly-regular-graph}
 %
-A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} \cite{Bos63,BroCN89,Sei79} with parameters
+A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} \cite{Bos63,BroCN89,Sei79} with
+parameters
 $(v,k,\lambda,\mu)$ if
 \begin{itemize}
  \item
@@ -438,7 +370,7 @@ The parameters of $\Cay{f}$ are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{
 % \begin{frame}
 
 % \begin{frame}
-\subsection*{The two block designs of a bent function}
+\subsection{The two block designs of a bent function}
 
 The adjacency matrix of $\Cay{f}$ can also be interpreted as the incidence matrix of a block design.
 In this case we do not need $f(0)=0$.
@@ -460,14 +392,16 @@ which we call the \emph{SDP design} of $f$.
 %\slidecite{Dillon and Schatz 1987; Neumann 2006}
 % \end{frame}
 % \begin{frame}
-\subsection*{Projective two-weight binary codes}
+\subsection{Projective two-weight binary codes}
 
 \begin{Definition}
 \label{def-two-weight-codes}
 \cite{BouFFWW2006} \cite{Ton96uniformly}
 
-A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with
-minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size 2.
+A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$
+with
+minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size
+2.
 
 Bouyukliev, Fack, Willems and Winne \cite[p. 60]{BouFFWW2006} define projective codes as follows.
 ``A \Emph{generator matrix} $G$ of a linear code $[n, k]$ code $C$ is any matrix
@@ -485,9 +419,9 @@ Remark: In the case of $\Z_2$, no two columns are equal.
 \end{Definition}
 
 % \end{frame}
-\subsection*{More notions equivalence of bent functions}
+\subsection{More concepts of equivalence of bent functions}
 %\label{sec-Equivalence}
-The following notions of equivalence of bent functions are used in this paper.
+The following concepts of equivalence of bent functions are used in this paper.
 
 % \begin{frame}
 \paragraph*{Extended translation equivalence.}
@@ -549,7 +483,8 @@ if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \
 
 we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
 \end{Definition}
-Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\Z_2^{2m}$.
+Extended Cayley equivalence is an equivalence relation on the set of all bent functions on
+$\Z_2^{2m}$.
 
 Remark: While extended affine equivalence has been well studied,
 the use of extended translation equivalence and the two notions of Cayley equivalence are
@@ -561,7 +496,8 @@ apparently new.
 % \begin{frame}
 
 % \begin{frame}
-\subsection*{Linear equivalence implies Cayley equivalence}
+\subsection{Relationships between different concepts of equivalence}
+\paragraph*{Linear equivalence implies Cayley equivalence.}
 
 \begin{Theorem}
 \label{th-Linear-Cayley}
@@ -577,7 +513,7 @@ g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m
 % \end{frame}
 
 % \begin{frame}
-\subsection*{Extended affine, translation and Cayley equivalence}
+\paragraph*{Extended affine, translation, and Cayley equivalence.}
 
 \begin{Theorem}
 \label{th-Affine-Translate-Cayley}
@@ -609,9 +545,10 @@ if $h(0)=0$ then $h \equiv g$.
 
 
 % \begin{frame}
-% \subsection*{Extended affine equivalence}
+% \subsection{Extended affine equivalence}
 
-Therefore, to determine the extended Cayley equivalence classes within the extended affine equivalence class of
+Therefore, to determine the extended Cayley equivalence classes within the extended affine
+equivalence class of
 a bent function $f : \Z_2^{2m} \To \Z_2$, for which $f(0)=0$, we need only examine
 the extended translation equivalent functions of the form
 \begin{align*}
@@ -620,15 +557,1237 @@ f(x+b) + \langle c, x \rangle + f(b),
 for each $b, c \in \Z_2^{2m}$.
 % \end{frame}
 % \begin{frame}
-\subsection*{Quadratic bent functions have 2 EC classes}
+
+% \begin{frame}
+\subsection{Weight classes, dual bent functions, and SDP designs}
+\paragraph*{Weight classes and dual bent functions.}
+
+\begin{Lemma}
+\label{lm-notes-9a}
+For a bent function $f : \Z_2^{2m} \To \Z_2$,
+\begin{align*}
+\weightclass{f}
+&=
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1},
+\intertext{so that}
+\weight{f}
+&=
+2^{m} \weightclass{f} + 2^{2m-1} - 2^{m-1}.
+\end{align*}
+
+\end{Lemma}
+
+\begin{proof}
+If $\weight{f} = 2^{2 m - 1} - 2^{m-1}$ then
+\begin{align*}
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
+&=
+2^{-m} (2^{2 m - 1} - 2^{m-1}) - 2^{m-1} + 2^{-1}
+\\
+&=
+2^{m-1} - 2^{-1}  - 2^{m-1} + 2^{-1} = 0.
+\end{align*}
+If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
+\begin{align*}
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
+&=
+2^{-m} (2^{2 m - 1} + 2^{m-1}) - 2^{m-1} + 2^{-1}
+\\
+&=
+2^{m-1} + 2^{-1}  - 2^{m-1} + 2^{-1} = 1.
+\end{align*}
+\end{proof}
+
+\begin{Lemma}
+\label{lm-notes-9b}
+For a bent function $f : \Z_2^{2m} \To \Z_2$, and $x \in \Z_2^{2m}$,
+\begin{align*}
+\dual{f}(x)
+&=
+\weightclass{y \mapsto f(y) + \langle x, y \rangle}
+\end{align*}
+
+\end{Lemma}
+
+\begin{proof}
+Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
+Then
+\begin{align*}
+(-1)^{\dual{f}(x)}
+&=
+2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
+\\
+&=
+2^{-m} \left( \sum_{f(y) + \langle x, y \rangle = 0} 1 - \sum_{f(y) + \langle x, y \rangle = 1} 1
+\right)
+\\
+&=
+2^{-m} \left( 2^{2m} - 2 \weight{h} \right)
+\\
+&=
+2^m - 2^{1-m} \weight{h}
+\\
+&=
+2^m - 2^{1-m} (2^{m} \weightclass{h} + 2^{2m-1} - 2^{m-1})
+\\
+&=
+2^m - 2 \weightclass{h} - 2^m + 1
+\\
+&=
+1 - 2 \weightclass{h} = (-1)^{\weightclass{h}}.
+\end{align*}
+\end{proof}
+
+\begin{Proposition}
+\cite[Remark 6.2.7]{Dil74} \cite[Proposition 8.7]{Car10boolean}
+%\smallcite{Carlet 2007, Proposition 4}
+%
+%~
+%
+For a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
+if
+\begin{align*}
+g(x) &:= f(x+b) + \langle c, x \rangle
+\intertext{then}
+\dual{g}(x) &= \dual{f}(x+c) + \langle b, x \rangle + \langle b, c \rangle.
+\end{align*}
+\end{Proposition}
+
+% \end{frame}
+% \begin{frame}
+%\subsection{Dual functions}
+\begin{Theorem}
+For a bent function $f : \Z_2^{2m} \To \Z_2$, and $A \in GL(2 m, 2)$,
+if
+\begin{align*}
+g(x) &:= f(A x)
+\intertext{then}
+\dual{g}(x) &= \dual{f}\big((A^T)^{-1} x \big),
+\end{align*}
+\end{Theorem}
+and therefore $\dual{g} \equiv \dual{f}$.
+If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
+
+% \end{frame}
+% \begin{frame}
+%\subsection{Dual functions}
+
+Functions of the form
+\begin{align*}
+f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
+\end{align*}
+are self dual bent functions, $f=\dual{f}$.
+%
+%~
+%
+There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
+
+%~
+%
+%\slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} %
+%FeuSSW2013
+% \end{frame}
+% \begin{frame}
+\paragraph*{Weight classes and the SDP design matrix.}
+\begin{Theorem}
+\label{th-Dillon-Schatz}
+For every bent function $f$, the \Emph{weight class number matrix} of $f$
+equals the incidence matrix of the SDP design of $f$.
+
+~
+
+Specifically,
+for a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
+\begin{align*}
+\weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
+&=
+f(b) + \langle c, b \rangle + \dual{f}(c)
+\\
+&=
+D(f)_{c,b}.
+\end{align*}
+
+\end{Theorem}
+
+\begin{proof}
+Let $g(x) := f(x+b) + \langle c, x \rangle + f(b)$.
+Then by change of variable $y:=x+b$,
+\begin{align*}
+\weightclass{g}
+&=
+\weightclass{y \mapsto f(y) + \langle c, y \rangle + \langle c, b \rangle + f(b)}
+\\
+&=
+\weightclass{y \mapsto f(y) + \langle c, y \rangle} + \langle c, b \rangle + f(b)
+\\
+&=
+\dual{f}(c) + \langle c, b \rangle + f(b),
+\end{align*}
+as a consequence of Lemma \ref{lm-notes-9b}.
+\end{proof}
+
+
+\paragraph*{Quadratic bent functions have only two extended Cayley classes.}
 \begin{Theorem}
 \label{th-Quadratic-Classes}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
 $q : \Z_2^{2m} \To \Z_2$ contains exactly two extended Cayley equivalence classes,
-corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
+corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle c, x \rangle +
+q(b)$.
 \end{Theorem}
 
-The proof relies on a number of supporting lemmas.
+The proof of this theorem is quite long and is given in Appendix~\ref{app-proof-of}.
+
+% \end{frame}
+% \begin{frame}
+\subsection{Bent functions, linear codes and strongly regular graphs}
+\paragraph*{From bent function to linear code.}
+\begin{Definition}
+\cite[Corollary 10]{DinD15class}
+%\smallcite{Ding 2015, Corollary 10}
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$,
+define the linear code $C(f)$ by the generator matrix
+\begin{align*}
+M C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
+\\
+M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+\end{align*}
+with $x$ in lexicographic order of $\Z_2^{2m}$
+and $\support{f}(y)$ in lexicographic order of $\support{f}$.
+
+The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
+\end{Definition}
+
+%\slidecite{Ding 2015, Corollary 10}
+%
+% \end{frame}
+% \begin{frame}
+%\frametitle{From bent function to linear code (2)}
+\begin{Theorem}
+\cite[Corollary 10]{DinD15class}
+%\smallcite{Ding 2015, Corollary 10}
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
+is a projective two-weight binary code.
+%
+%~
+%
+The possible weights of non-zero code words are:
+\begin{align*}
+\begin{cases}
+2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
+\\
+2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
+\end{cases}
+\end{align*}
+%
+\end{Theorem}
+%
+%\slidecite{Ding 2015, Corollary 10}
+%
+% \end{frame}
+% \begin{frame}
+\paragraph*{From linear code to strongly regular graph.}
+\begin{Definition}
+
+Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
+
+The graph $R(f)$ is defined as:
+
+Vertices of $R(f)$ are code words of $C(f)$.
+
+For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
+\begin{align*}
+\begin{cases}
+\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\weightclass{f}=0).
+\\
+\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
+\end{cases}
+\end{align*}
+
+\end{Definition}
+Since $C(f)$ is a projective two-weight binary code,
+$R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
+
+%\slidecite{Delsarte 1972, Theorem 2}
+% \end{frame}
+% \begin{frame}
+\paragraph*{The graph $R(f)$ is the Cayley graph of the extended dual.}
+
+\begin{Theorem}
+For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
+\begin{align*}
+R(f) \equiv \Cay{\dual{f} + \weightclass{f}}.
+\end{align*}
+
+\end{Theorem}
+% \end{frame}
+\begin{proof}
+We examine $W_f$, the Walsh Hadamard transform of $f$.
+\begin{align*}
+W_f(y)
+&=
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle} + f(x)
+=
+\sum_{f(x)=0} (-1)^{\langle x, y \rangle} + f(x)
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
+\\
+&=
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}.
+\end{align*}
+But
+\begin{align*}
+\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
+&=
+\begin{cases}
+4^m &(y=0)
+\\
+0 & \text{otherwise},
+\end{cases}
+\end{align*}
+as per the Sylvester Hadamard matrices.
+
+So, for $y \neq 0$,
+\begin{align*}
+W_f(y)
+&=
+- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle},
+\intertext{so}
+\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
+&=
+\weight{f} - 2 \sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
+=
+- W_f(y)/2.
+\intertext{But}
+\sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
+&=
+\weight{C(f)[y]},
+\end{align*}
+the weight of code $C(f)$ at the point $y$.
+So
+\begin{align*}
+\weight{f} - 2 \weight{C(f)[y]}
+&=
+- W_f(y)/2,
+\intertext{and therefore}
+\weight{C(f)[y]}
+&=
+\weight{f}/2 + W_f(y)/4.
+\end{align*}
+We now examine the two possible weight class numbers of $f$.
+
+If $\weightclass{f} = 0$ then $\weight{f} = 2^{2m-1}-2^{m-1}$.
+For $y \neq 0$ there are two cases, depending on $\dual{f}(y)$:
+
+If $\dual{f}(y) = 0$ then $W_f(y) = 2^m$, so
+\begin{align*}
+\weight{C(f)[y]}
+&=
+2^{2m-2}-2^{m-2} + 2^{m-2}
+=
+2^{2m-2}
+=
+4^{m-1}.
+\end{align*}
+
+If $\dual{f}(y) = 1$ then $W_f(y) = -2^m$, so
+\begin{align*}
+\weight{C(f)[y]}
+&=
+2^{2m-2}-2^{m-2} - 2^{m-2}
+=
+2^{2m-2} - 2^{m-1}
+=
+4^{m-1} - 2^{m-1}.
+\end{align*}
+
+Similarly, if $\weightclass{f} = 1$ then $\weight{f} = 2^{2m-1}+2^{m-1}$,
+and so for $y \neq 0$
+\begin{align*}
+\weight{C(f)[y]}
+&=
+\begin{cases}
+4^{m-1} + 2^{m-1} & (\dual{f}(y)=0)
+\\
+4^{m-1}           & (\dual{f}(y)=1).
+\end{cases}
+\end{align*}
+Also, as a consequence of Lemma \ref{lm-notes-9b}, $\weightclass{f} = \dual{f}(0)$,
+so if $g(y) := \dual{f}(y) + \weightclass{f}$ then $g(0)=0$ and therefore the Cayley graph of $g$
+is well defined.
+\end{proof}
+
+
+\section{Empirical Observations}
+\label{sec-Empirical}
+% \begin{frame}
+\subsection{Bent functions in 2 dimensions}
+
+One extended affine class: $[f_{2,1}]$
+
+where $f_{2,1}(x) := x_0 x_1$ is self dual.
+
+~
+
+Two extended Cayley classes:
+\begin{align*}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(4, 1, 0, 0) & 4 &
+2t^{2} + 4t + 1
+\\
+2 &
+K_4 & 4 &
+t^{4} + 4t^{3} + 6t^{2} + 4t + 1
+\\
+\hline
+\end{array}
+\end{align*}
+
+% \end{frame}
+% \begin{frame}
+\subsection{Bent functions in 4 dimensions}
+
+One extended affine class: $[f_{4,1}]$ where
+
+$f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
+
+~
+
+Two extended Cayley classes:
+\begin{align*}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(16, 6, 2, 2) &
+6 &
+8t^{4} + 32t^{3} + 48t^{2} + 16t + 1
+\\
+2 &
+(16, 10, 6, 6) &
+6 &
+\begin{array}{l}
+16t^{5} + 120t^{4} + 160t^{3} +
+\\
+80t^{2} + 16t + 1
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+% \end{frame}
+% \begin{frame}
+%\subsection{For $m=2$: two-weight codes}
+
+The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following
+projective two-weight codes:
+
+\begin{align*}
+\begin{array}{|ccc|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Generator matrix}
+\\
+\hline
+1 &
+[6, 4, 2] &
+\left[
+\begin{array}{cccccc}
+0 & 0 & 1 & 1 & 1 & 1
+\\
+1 & 0 & 0 & 1 & 1 & 1
+\\
+1 & 1 & 1 & 1 & 0 & 0
+\\
+0 & 1 & 1 & 1 & 1 & 0
+\end{array}
+\right]
+\\
+2 &
+[5, 4, 2] &
+\left[
+\begin{array}{ccccc}
+1 & 1 & 0 & 0 & 0
+\\
+0 & 1 & 1 & 0 & 0
+\\
+0 & 0 & 0 & 1 & 1
+\\
+1 & 0 & 0 & 0 & 1
+\end{array}
+\right]
+\\
+\hline
+\end{array}
+\end{align*}
+
+% \end{frame}
+% \begin{frame}
+\subsection{Bent functions in 6 dimensions}
+\paragraph*{Extended affine classes.}
+
+In 1996, Tonchev classified the binary projective two-weight $[27,21,3]$ and $[35,6,16]$ codes
+listing them in Tables 1 and 2, respectively, of his paper \cite{Ton96uniformly}.
+These tables are repeated as Tables 1.155 and 1.156 in Chapter VII.1 of the Handbook of
+Combinatorial Designs, Second Edition \cite{Ton07codes},
+with a different numbering.
+
+Four extended affine classes:
+
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cl|}
+\hline
+\text{Class} &
+\text{Representative}
+\\
+\hline
+\,[f_{6,1}] & f_{6,1} :=
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5}
+\end{array}
+\\
+\,[f_{6,2}] & f_{6,2} :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}
+\end{array}
+\\
+\,[f_{6,3}] & f_{6,3} :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} +
+\\
+x_{2} x_{4} + x_{3} x_{4}
+\end{array}
+\\
+\,[f_{6,4}] & f_{6,4} :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} +
+\\
+x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{6,1}]$.}
+
+The function
+$f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
+
+~
+
+Two extended Cayley classes:
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(64, 28, 12, 12) & 8 &
+\begin{array}{l}
+64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
+\\
+5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+\end{array}
+\\
+2 &
+(64, 36, 20, 20) & 8 &
+\begin{array}{l}
+2304t^{6} + 13824t^{5} + 19200t^{4} +
+\\
+7680t^{3} + 1152t^{2} + 64t + 1
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{6,1}]$.}
+
+The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following
+two-weight projective
+codes as listed by Tonchev \cite{Ton07codes}:
+
+\begin{align*}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+1 & [35,6,16] & \text{Table 1.156 1, 2 }
+\\
+2 & [27,6,12] & \text{Table 1.155 1 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+%\slidecite{Tonchev 1996, 2006}
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{6,2}]$.}
+
+The function
+$f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
+
+~
+
+Three extended Cayley classes:
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(64, 28, 12, 12) & 8 &
+\begin{array}{l}
+64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
+\\
+5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+\end{array}
+\\
+2 &
+(64, 28, 12, 12) & 8 &
+\begin{array}{l}
+256t^{6} + 1536t^{5} + 4352t^{4} +
+\\
+3584t^{3} + 896t^{2} + 64t + 1
+\end{array}
+\\
+3 &
+(64, 36, 20, 20) & 8 &
+\begin{array}{l}
+192t^{8} + 1536t^{7} + 8960t^{6} + 19968t^{5} +
+\\
+20224t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+Graph 1 is isomorphic to graph 1 of EA class $[f_{6,1}]$,
+and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular graph $X$
+\cite{Roy08normal}.
+%
+%~
+%
+%\slidecite{Royle 2008}
+% \end{frame}
+% \begin{frame}
+%\paragraph*{ET class $[f_{6,2}]$: two-weight codes.}
+
+The Cayley graphs for classes 1 to 3 are isomorphic to those those obtained from the following
+two-weight projective
+codes as listed by Tonchev \cite{Ton07codes}:
+
+\begin{align*}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+1 & [35,6,16] & \text{Table 1.156 1, 2 }
+\\
+2 & [35,6,16] & \text{Table 1.156 3 }
+\\
+3 & [27,6,12] & \text{Table 1.155 2 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+%\slidecite{Tonchev 1996, 2006}
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{6,3}]$.}
+
+The function
+\begin{align*}
+f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
+\\
+           &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
+\end{align*}
+
+Four extended Cayley classes:
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(64, 28, 12, 12) & 12 &
+\begin{array}{l}
+32t^{8} + 256t^{7} + 896t^{6} + 2048t^{5} +
+\\
+4608t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+\end{array}
+\\
+2 &
+(64, 28, 12, 12) & 12 &
+\begin{array}{l}
+64t^{6} + 1024t^{5} + 4096t^{4} +
+\\
+3584t^{3} + 896t^{2} + 64t + 1
+\end{array}
+\\
+3 &
+(64, 36, 20, 20) & 12 &
+\begin{array}{l}
+160t^{8} + 1280t^{7} + 9344t^{6} + 21504t^{5} +
+\\
+20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+\end{array}
+\\
+4 &
+(64, 36, 20, 20) & 12 &
+\begin{array}{l}
+160t^{8} + 1664t^{7} + 9792t^{6} + 21504t^{5} +
+\\
+20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+% \end{frame}
+% \begin{frame}
+%\paragraph*{ET class $[f_{6,3}]$: two-weight codes.}
+
+The Cayley graphs for classes 1 to 4 are isomorphic to those those obtained from the following
+two-weight projective
+codes as listed by Tonchev \cite{Ton07codes}:
+
+\begin{align*}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+1 & [35,6,16] & \text{Table 1.156 4 }
+\\
+2 & [35,6,16] & \text{Table 1.156 5 }
+\\
+3 & [27,6,12] & \text{Table 1.155 3 }
+\\
+4 & [27,6,12] & \text{Table 1.155 4 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+%\slidecite{Tonchev 1996, 2006}
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{6,4}]$.}
+
+The function
+\begin{align*}
+f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
+           &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
+\end{align*}
+
+Three extended Cayley classes:
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(64, 28, 12, 12) & 14 &
+\begin{array}{l}
+32t^{8} + 256t^{7} + 896t^{6} + 1792t^{5} +
+\\
+4480t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+\end{array}
+\\
+2 &
+(64, 28, 12, 12) & 14 &
+\begin{array}{l}
+16t^{8} + 128t^{7} + 448t^{6} + 1280t^{5} +
+\\
+4224t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+\end{array}
+\\
+3 &
+(64, 36, 20, 20) & 14 &
+\begin{array}{l}
+176t^{8} + 1408t^{7} + 9664t^{6} + 22272t^{5} +
+\\
+20608t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+% \end{frame}
+% \begin{frame}
+%\paragraph*{ET class $[f_{6,4}]$: two-weight codes.}
+
+The Cayley graphs for classes 1 to 3 are isomorphic to those those obtained from the following
+two-weight projective
+codes as listed by Tonchev \cite{Ton07codes}:
+
+\begin{align*}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+1 & [35,6,16] & \text{Table 1.156 7 }
+\\
+2 & [35,6,16] & \text{Table 1.156 6 }
+\\
+3 & [27,6,12] & \text{Table 1.155 5 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+%\slidecite{Tonchev 1996, 2006}
+% \end{frame}
+% \begin{frame}
+\subsection{Bent functions in 8 dimensions}
+
+There are
+$99 270 589 265 934 370 305 785 861 242 880 \approx 2^{106}$ bent functions in dimension 8,
+according to Langevin and Leander \cite{LanL11counting}.
+%
+%~
+%
+The number of EA classes has not yet been published, let alone a list of representatives.
+
+\paragraph*{Extended affine classes up to degree 3.}
+
+Up to degree 3:
+Ten extended affine classes,
+
+containing the following extended translation classes:
+
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cl|}
+\hline
+\text{Class} &
+\text{Representative}
+\\
+\hline
+\,[f_{ 8 , 1 }] & f_{ 8 , 1 } :=
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 2 }] & f_{ 8 , 2 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 3 }] & f_{ 8 , 3 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{4} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 4 }] & f_{ 8 , 4 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} +
+x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 5 }] & f_{ 8 , 5 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
++ x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 6 }] & f_{ 8 , 6 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5}
++ x_{2} x_{4} + x_{5} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 7 }] & f_{ 8 , 7 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} +
+x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
++\,  x_{2} x_{4} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 8 }] & f_{ 8 , 8 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4}
++ x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 9 }] & f_{ 8 , 9 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} +
+x_{4} x_{5} x_{6} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 10 }] & f_{ 8 , 10 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6}
++ x_{2} x_{3} x_{5}
+\\
++\, x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\normalsize{}
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,1}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: weight classes}
+  \label{fig:8_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: 2 extended Cayley classes}
+  \label{fig:8_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,2}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: weight classes}
+  \label{fig:8_2_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: 4 extended Cayley classes}
+  \label{fig:8_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,3}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: weight classes}
+  \label{fig:8_3_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: 6 extended Cayley classes}
+  \label{fig:8_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,4}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: weight classes}
+  \label{fig:8_4_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: 5 extended Cayley classes}
+  \label{fig:8_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,5}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: weight classes}
+  \label{fig:8_5_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: 9 extended Cayley classes}
+  \label{fig:8_5_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,6}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: weight classes}
+  \label{fig:8_6_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: 9 extended Cayley classes}
+  \label{fig:8_6_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+The same 9 classes as $[f_{8,5}]$, with the same frequencies!
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,7}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: weight classes}
+  \label{fig:8_7_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: 5 extended Cayley classes}
+  \label{fig:8_7_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,8}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: weight classes}
+  \label{fig:8_8_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: 6 extended Cayley classes}
+  \label{fig:8_8_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,9}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_9_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_9_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_9_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes of dual bent functions}
+  \label{fig:c8_9_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+4 of the 8 classes form 2 dual pairs of classes.
+% \end{frame}
+% \begin{frame}
+\paragraph*{ET class $[f_{8,10}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_10_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_10_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_10_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes of dual bent functions}
+  \label{fig:c8_10_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+6 of the 10 classes form 3 dual pairs of classes.
+% \end{frame}
+% \end{colortheme}
+% \begin{colortheme}{seagull}
+% \begin{frame}
+
+\paragraph*{Partial spread bent functions.}
+
+According to Langevin and Hou \cite{LanH11counting}
+there are $70576747237594114392064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in
+dimension 8,
+contained in $14758$ EA classes, of which $14756$ classes have degree 4.
+%
+%~
+%
+The EA class representatives are listed at Langevin's web site
+%
+\begin{verbatim}
+http://langevin.univ-tln.fr/project/spread/psp.html
+\end{verbatim}
+
+%\slidecite{Langevin and Hou 2011}
+% \end{frame}
+% \end{colortheme}
+% \begin{colortheme}{jubata}
+% \begin{frame}
+\paragraph*{Example partial spread ET class $[psf_{9,5438}]$.}
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:psf_9_5438_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes of dual bent functions}
+  \label{fig:psf_9_5438_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+6 of the 16 classes form 3 dual pairs of classes.
+% \end{frame}
+
+\section{SageMath and SageMathCloud code}
+\label{sec-Code}
+% \begin{frame}[fragile]
+%\subsection{Public worksheet on SageMathCloud}
+~
+
+Bliss: \cite{JunK07Bliss,JukN11conflict}
+
+Boolean-Cayley-graphs: GitHub repository \cite{Leo16GitHub} and SageMathCloud folder
+\cite{Leo16SMC}.
+
+Nauty: \cite{McKP13nauty,McKP14practical}
+
+Coding theory and cryptography in Sage: \cite{JoyEtAl13Sage}
+
+SageMath: \cite{SageMath7517}
+
+SageMathCloud: \cite{SageMathCloud}.
+
+% \end{frame}
+
+\begin{itemize}
+ \item 2015-04 to 2015-05 SageMathCloud: Cliques-Automorphisms project starts looking at Cayley
+classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
+ \item 2015-12 SageMathCloud: Cliques-Automorphisms project
+worksheets produced initial results used in the ACCMCC presentation.
+The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
+ \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
+ \item 2016-08 GitHub: Uploaded refactored Sage code to new Boolean-Cayley-graphs project.
+ \item 2016-08 SageMath: Began using \verb!canonical_label()! rather than \verb!is_isomorphic()!.
+This used the Bliss algorithm, speeding up computation in comparison to the default Sage algorithm,
+and allowed comparison between graphs using equality of canonically labelled graphs rather than
+isomorphism, also giving a speed boost. This finally made it feasible to check bent functions in 8
+dimensions up to degree 3.
+ \item 2016-09 SageMath: Changed many Sage code files into Python modules. Introduced a
+BentFunction class.
+ \item 2016-11 SageMath: \verb!check_graphs_using_gap!
+\end{itemize}
+
+
+\section{Discussion}
+\label{sec-Discussion}
+% \begin{frame}
+%\subsection{Questions (1)}
+The following questions have been settled only for $m \leqslant 3$:
+\begin{enumerate}
+\item
+How many EC classes are there for each $m$?
+Are there ``Exponential numbers'' of classes \cite{Kan83exponential}?
+\item
+Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
+\item
+Which EC classes overlap more than one ET class?
+\item
+Which bent functions are Cayley equivalent to their dual?
+\end{enumerate}
+
+Also, what are the remaining EA and EC classes for $m=4$,
+i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
+
+% \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
+% \end{frame}
+
+\appendix
+
+\section{Proof of Theorem \ref{th-Quadratic-Classes}}
+\label{app-proof-of}
+
+The proof of Theorem \ref{th-Quadratic-Classes} relies on a number of supporting lemmas,
+which are stated and proved here.
 \begin{Lemma}
 \label{lm-notes-5}
 Let $q(x) := x^T L x$ where $L \in \Z_2^{2 m \times 2 m}$,
@@ -653,7 +1812,9 @@ f(x)
 &=
 q(x) + \langle c',x \rangle.
 \end{align*}
+
 \end{Lemma}
+
 \begin{proof}
 \begin{align*}
 q(x) = x^T L x, \quad \text{so~}
@@ -1143,7 +2304,8 @@ q(x) + \langle c', x \rangle.
 
 \begin{Lemma}
 \label{lm-notes-6-b}
-For distinct $k,\ell \in \{0,\ldots,m-1\}$ let $e^{(k)}, e^{(\ell)}$ be defined as per Lemma \ref{lm-notes-6}.
+For distinct $k,\ell \in \{0,\ldots,m-1\}$ let $e^{(k)}, e^{(\ell)}$ be defined as per Lemma
+\ref{lm-notes-6}.
 Let $h(x) := q(x) + \langle e^{(k)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
 Then there exists $A \in GL(2 m, 2)$ such that
 \begin{align}
@@ -1154,7 +2316,8 @@ q(x) + \langle e^{(\ell)},x \rangle.
 \end{Lemma}
 
 \begin{proof}
-The matrix $A$ is the permutation matrix for the the permutation $(k\ \ell)(m+k\ m+\ell)$ (defined using cycle notation.)
+The matrix $A$ is the permutation matrix for the the permutation $(k\ \ell)(m+k\ m+\ell)$ (defined
+using cycle notation.)
 \end{proof}
 
 \begin{Lemma}
@@ -1172,15 +2335,20 @@ This is a consequence of Lemmas \ref{lm-notes-6} and \ref{lm-notes-6-b}.
 \end{proof}
 
 \begin{proofof}{Theorem \ref{th-Quadratic-Classes}}
-It is well known that all quadratic bent functions are contained in one Extended Affine equivalence class.
-As a consequence of Theorem \ref{th-Affine-Translate-Cayley}, without loss of generality, we need only examine
-the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma \ref{lm-notes-5}.
+It is well known that all quadratic bent functions are contained in one Extended Affine equivalence
+class.
+As a consequence of Theorem \ref{th-Affine-Translate-Cayley}, without loss of generality, we need
+only examine
+the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma
+\ref{lm-notes-5}.
 
 As a result of Lemma \ref{lm-notes-5}, we actually need only examine functions of the form
 $f(x) = q(x) + \langle c,x \rangle$
 for some $c \in \Z_2^{2m}$.
-Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to $q$.
-Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x) + \langle c', x \rangle$
+Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to
+$q$.
+Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x) +
+\langle c', x \rangle$
 with $q(c)=q(c')=1$ are Cayley equivalent to each other.
 
 The functions where $q(c)=0$ are not Cayley equivalent to the functions where $q(c)=1$ because
@@ -1192,1129 +2360,6 @@ Lemma \ref{lm-notes-9b} implies that
 \end{align*}
 since $q$ is self-dual.
 \end{proofof}
-
-% \begin{frame}
-\subsection*{Dual functions}
-\begin{Theorem}
-\cite[Remark 6.2.7]{Dil74} \cite[Proposition 8.7]{Car10boolean}
-%\smallcite{Carlet 2007, Proposition 4}
-%
-%~
-%
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
-if
-\begin{align*}
-g(x) &:= f(x+b) + \langle c, x \rangle
-\intertext{then}
-\dual{g}(x) &= \dual{f}(x+c) + \langle b, x \rangle + \langle b, c \rangle.
-\end{align*}
-\end{Theorem}
-
-% \end{frame}
-% \begin{frame}
-%\subsection*{Dual functions}
-\begin{Theorem}
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $A \in GL(2 m, 2)$,
-if
-\begin{align*}
-g(x) &:= f(A x)
-\intertext{then}
-\dual{g}(x) &= \dual{f}\big((A^T)^{-1} x \big),
-\end{align*}
-\end{Theorem}
-and therefore $\dual{g} \equiv \dual{f}$.
-If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
-
-% \end{frame}
-% \begin{frame}
-%\subsection*{Dual functions}
-
-Functions of the form
-\begin{align*}
-f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
-\end{align*}
-are self dual bent functions, $f=\dual{f}$.
-%
-%~
-%
-There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
-
-%~
-%
-%\slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} % FeuSSW2013
-% \end{frame}
-% \begin{frame}
-\subsection*{The SDP design matrix}
-\begin{Theorem}
-\label{th-Dillon-Schatz}
-For every bent function $f$, the \Emph{weight class number matrix} of $f$
-equals the incidence matrix of the SDP design of $f$.
-
-~
-
-Specifically,
-for a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
-\begin{align*}
-\weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
-&=
-f(b) + \langle c, b \rangle + \dual{f}(c)
-\\
-&=
-D(f)_{c,b}.
-\end{align*}
-
-\end{Theorem}
-
-\begin{proof}
-Let $g(x) := f(x+b) + \langle c, x \rangle + f(b)$.
-Then by change of variable $y:=x+b$,
-\begin{align*}
-\weightclass{g}
-&=
-\weightclass{y \mapsto f(y) + \langle c, y \rangle + \langle c, b \rangle + f(b)}
-\\
-&=
-\weightclass{y \mapsto f(y) + \langle c, y \rangle} + \langle c, b \rangle + f(b)
-\\
-&=
-\dual{f}(c) + \langle c, b \rangle + f(b),
-\end{align*}
-as a consequence of Lemma \ref{lm-notes-9b}.
-\end{proof}
-
-% \end{frame}
-% \begin{frame}
-\subsection*{From bent function to linear code}
-\begin{Definition}
-\cite[Corollary 10]{DinD15class}
-%\smallcite{Ding 2015, Corollary 10}
-
-For a bent function $f : \Z_2^{2m} \To \Z_2$,
-define the linear code $C(f)$ by the generator matrix
-\begin{align*}
-M C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
-\\
-M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
-\end{align*}
-with $x$ in lexicographic order of $\Z_2^{2m}$
-and $\support{f}(y)$ in lexicographic order of $\support{f}$.
-
-The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
-\end{Definition}
-
-%\slidecite{Ding 2015, Corollary 10}
-%
-% \end{frame}
-% \begin{frame}
-%\frametitle{From bent function to linear code (2)}
-\begin{Theorem}
-\cite[Corollary 10]{DinD15class}
-%\smallcite{Ding 2015, Corollary 10}
-
-For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
-is a projective two-weight binary code.
-%
-%~
-%
-The possible weights of non-zero code words are:
-\begin{align*}
-\begin{cases}
-2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
-\\
-2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
-\end{cases}
-\end{align*}
-%
-\end{Theorem}
-%
-%\slidecite{Ding 2015, Corollary 10}
-%
-% \end{frame}
-% \begin{frame}
-\subsection*{From linear code to strongly regular graph}
-\begin{Definition}
-
-Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
-
-The graph $R(f)$ is defined as:
-
-Vertices of $R(f)$ are code words of $C(f)$.
-
-For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
-\begin{align*}
-\begin{cases}
-\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\weightclass{f}=0).
-\\
-\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
-\end{cases}
-\end{align*}
-
-\end{Definition}
-Since $C(f)$ is a projective two-weight binary code,
-$R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
-
-%\slidecite{Delsarte 1972, Theorem 2}
-% \end{frame}
-% \begin{frame}
-\subsection*{The graph $R(f)$ is the Cayley graph of the extended dual}
-
-\begin{Theorem}
-For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
-\begin{align*}
-R(f) \equiv \Cay{\dual{f} + \weightclass{f}}.
-\end{align*}
-
-\end{Theorem}
-% \end{frame}
-\begin{proof}
-We examine $W_f$, the Walsh Hadamard transform of $f$.
-\begin{align*}
-W_f(y)
-&=
-\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle} + f(x)
-=
-\sum_{f(x)=0} (-1)^{\langle x, y \rangle} + f(x)
-- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
-\\
-&=
-\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
-- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}.
-\end{align*}
-But
-\begin{align*}
-\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle}
-&=
-\begin{cases}
-4^m &(y=0)
-\\
-0 & \text{otherwise},
-\end{cases}
-\end{align*}
-as per the Sylvester Hadamard matrices.
-
-So, for $y \neq 0$,
-\begin{align*}
-W_f(y)
-&=
-- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle},
-\intertext{so}
-\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
-&=
-\weight{f} - 2 \sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
-=
-- W_f(y)/2.
-\intertext{But}
-\sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
-&=
-\weight{C(f)[y]},
-\end{align*}
-the weight of code $C(f)$ at the point $y$.
-So
-\begin{align*}
-\weight{f} - 2 \weight{C(f)[y]}
-&=
-- W_f(y)/2,
-\intertext{and therefore}
-\weight{C(f)[y]}
-&=
-\weight{f}/2 + W_f(y)/4.
-\end{align*}
-We now examine the two possible weight class numbers of $f$.
-
-If $\weightclass{f} = 0$ then $\weight{f} = 2^{2m-1}-2^{m-1}$.
-For $y \neq 0$ there are two cases, depending on $\dual{f}(y)$:
-
-If $\dual{f}(y) = 0$ then $W_f(y) = 2^m$, so
-\begin{align*}
-\weight{C(f)[y]}
-&=
-2^{2m-2}-2^{m-2} + 2^{m-2}
-=
-2^{2m-2}
-=
-4^{m-1}.
-\end{align*}
-
-If $\dual{f}(y) = 1$ then $W_f(y) = -2^m$, so
-\begin{align*}
-\weight{C(f)[y]}
-&=
-2^{2m-2}-2^{m-2} - 2^{m-2}
-=
-2^{2m-2} - 2^{m-1}
-=
-4^{m-1} - 2^{m-1}.
-\end{align*}
-
-Similarly, if $\weightclass{f} = 1$ then $\weight{f} = 2^{2m-1}+2^{m-1}$,
-and so for $y \neq 0$
-\begin{align*}
-\weight{C(f)[y]}
-&=
-\begin{cases}
-4^{m-1} + 2^{m-1} & (\dual{f}(y)=0)
-\\
-4^{m-1}           & (\dual{f}(y)=1).
-\end{cases}
-\end{align*}
-Also, as a consequence of Lemma \ref{lm-notes-9b}, $\weightclass{f} = \dual{f}(0)$,
-so if $g(y) := \dual{f}(y) + \weightclass{f}$ then $g(0)=0$ and therefore the Cayley graph of $g$
-is well defined.
-\end{proof}
-
-
-\section{Empirical Observations}
-\label{sec-Empirical}
-% \begin{frame}
-\subsection*{For $m=1$}
-
-One extended affine class: $[f_{2,1}]$
-
-where $f_{2,1}(x) := x_0 x_1$ is self dual.
-
-~
-
-Two extended Cayley classes:
-\begin{align*}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-1 &
-(4, 1, 0, 0) & 4 &
-2t^{2} + 4t + 1
-\\
-2 &
-K_4 & 4 &
-t^{4} + 4t^{3} + 6t^{2} + 4t + 1
-\\
-\hline
-\end{array}
-\end{align*}
-
-% \end{frame}
-% \begin{frame}
-\subsection*{For $m=2$}
-
-One extended affine class: $[f_{4,1}]$ where
-
-$f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
-
-~
-
-Two extended Cayley classes:
-\begin{align*}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-1 &
-(16, 6, 2, 2) &
-6 &
-8t^{4} + 32t^{3} + 48t^{2} + 16t + 1
-\\
-2 &
-(16, 10, 6, 6) &
-6 &
-\begin{array}{l}
-16t^{5} + 120t^{4} + 160t^{3} +
-\\
-80t^{2} + 16t + 1
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-% \end{frame}
-% \begin{frame}
-%\subsection*{For $m=2$: two-weight codes}
-
-The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following
-projective two-weight codes:
-
-\begin{align*}
-\begin{array}{|ccc|}
-\hline
-\text{Class} &
-\text{Parameters} & \text{Generator matrix}
-\\
-\hline
-1 &
-[6, 4, 2] &
-\left[
-\begin{array}{cccccc}
-0 & 0 & 1 & 1 & 1 & 1
-\\
-1 & 0 & 0 & 1 & 1 & 1
-\\
-1 & 1 & 1 & 1 & 0 & 0
-\\
-0 & 1 & 1 & 1 & 1 & 0
-\end{array}
-\right]
-\\
-2 &
-[5, 4, 2] &
-\left[
-\begin{array}{ccccc}
-1 & 1 & 0 & 0 & 0
-\\
-0 & 1 & 1 & 0 & 0
-\\
-0 & 0 & 0 & 1 & 1
-\\
-1 & 0 & 0 & 0 & 1
-\end{array}
-\right]
-\\
-\hline
-\end{array}
-\end{align*}
-
-% \end{frame}
-% \begin{frame}
-\subsection*{For $m=3$: extended affine classes}
-
-In 1996, Tonchev classified the binary projective two-weight $[27,21,3]$ and $[35,6,16]$ codes
-listing them in Tables 1 and 2, respectively, of his paper \cite{Ton96uniformly}.
-These tables are repeated as Tables 1.155 and 1.156 in Chapter VII.1 of the Handbook of Combinatorial Designs, Second Edition \cite{Ton07codes},
-with a different numbering.
-
-Four extended affine classes:
-
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cl|}
-\hline
-\text{Class} &
-\text{Representative}
-\\
-\hline
-\,[f_{6,1}] & f_{6,1} :=
-\begin{array}{l}
-x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5}
-\end{array}
-\\
-\,[f_{6,2}] & f_{6,2} :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}
-\end{array}
-\\
-\,[f_{6,3}] & f_{6,3} :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} +
-\\
-x_{2} x_{4} + x_{3} x_{4}
-\end{array}
-\\
-\,[f_{6,4}] & f_{6,4} :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} +
-\\
-x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{6,1}]$}
-
-The function
-$f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
-
-~
-
-Two extended Cayley classes:
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-1 &
-(64, 28, 12, 12) & 8 &
-\begin{array}{l}
-64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
-\\
-5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
-\\
-2 &
-(64, 36, 20, 20) & 8 &
-\begin{array}{l}
-2304t^{6} + 13824t^{5} + 19200t^{4} +
-\\
-7680t^{3} + 1152t^{2} + 64t + 1
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{6,1}]$}
-
-The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following
-two-weight projective
-codes as listed by Tonchev \cite{Ton07codes}:
-
-\begin{align*}
-\begin{array}{|ccl|}
-\hline
-\text{Class} &
-\text{Parameters} & \text{Reference}
-\\
-\hline
-1 & [35,6,16] & \text{Table 1.156 1, 2 }
-\\
-2 & [27,6,12] & \text{Table 1.155 1 }
-\\
-\hline
-\end{array}
-\end{align*}
-
-%\slidecite{Tonchev 1996, 2006}
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{6,2}]$}
-
-The function
-$f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
-
-~
-
-Three extended Cayley classes:
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-1 &
-(64, 28, 12, 12) & 8 &
-\begin{array}{l}
-64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
-\\
-5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
-\\
-2 &
-(64, 28, 12, 12) & 8 &
-\begin{array}{l}
-256t^{6} + 1536t^{5} + 4352t^{4} +
-\\
-3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
-\\
-3 &
-(64, 36, 20, 20) & 8 &
-\begin{array}{l}
-192t^{8} + 1536t^{7} + 8960t^{6} + 19968t^{5} +
-\\
-20224t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-Graph 1 is isomorphic to graph 1 of EA class $[f_{6,1}]$,
-and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular graph $X$
-\cite{Roy08normal}.
-%
-%~
-%
-%\slidecite{Royle 2008}
-% \end{frame}
-% \begin{frame}
-%\paragraph*{ET class $[f_{6,2}]$: two-weight codes}
-
-The Cayley graphs for classes 1 to 3 are isomorphic to those those obtained from the following
-two-weight projective
-codes as listed by Tonchev \cite{Ton07codes}:
-
-\begin{align*}
-\begin{array}{|ccl|}
-\hline
-\text{Class} &
-\text{Parameters} & \text{Reference}
-\\
-\hline
-1 & [35,6,16] & \text{Table 1.156 1, 2 }
-\\
-2 & [35,6,16] & \text{Table 1.156 3 }
-\\
-3 & [27,6,12] & \text{Table 1.155 2 }
-\\
-\hline
-\end{array}
-\end{align*}
-
-%\slidecite{Tonchev 1996, 2006}
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{6,3}]$}
-
-The function
-\begin{align*}
-f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
-\\
-           &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
-\end{align*}
-
-Four extended Cayley classes:
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-1 &
-(64, 28, 12, 12) & 12 &
-\begin{array}{l}
-32t^{8} + 256t^{7} + 896t^{6} + 2048t^{5} +
-\\
-4608t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
-\\
-2 &
-(64, 28, 12, 12) & 12 &
-\begin{array}{l}
-64t^{6} + 1024t^{5} + 4096t^{4} +
-\\
-3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
-\\
-3 &
-(64, 36, 20, 20) & 12 &
-\begin{array}{l}
-160t^{8} + 1280t^{7} + 9344t^{6} + 21504t^{5} +
-\\
-20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-\end{array}
-\\
-4 &
-(64, 36, 20, 20) & 12 &
-\begin{array}{l}
-160t^{8} + 1664t^{7} + 9792t^{6} + 21504t^{5} +
-\\
-20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-% \end{frame}
-% \begin{frame}
-%\paragraph*{ET class $[f_{6,3}]$: two-weight codes}
-
-The Cayley graphs for classes 1 to 4 are isomorphic to those those obtained from the following
-two-weight projective
-codes as listed by Tonchev \cite{Ton07codes}:
-
-\begin{align*}
-\begin{array}{|ccl|}
-\hline
-\text{Class} &
-\text{Parameters} & \text{Reference}
-\\
-\hline
-1 & [35,6,16] & \text{Table 1.156 4 }
-\\
-2 & [35,6,16] & \text{Table 1.156 5 }
-\\
-3 & [27,6,12] & \text{Table 1.155 3 }
-\\
-4 & [27,6,12] & \text{Table 1.155 4 }
-\\
-\hline
-\end{array}
-\end{align*}
-
-%\slidecite{Tonchev 1996, 2006}
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{6,4}]$}
-
-The function
-\begin{align*}
-f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
-\\
-           &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
-\end{align*}
-
-Three extended Cayley classes:
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-1 &
-(64, 28, 12, 12) & 14 &
-\begin{array}{l}
-32t^{8} + 256t^{7} + 896t^{6} + 1792t^{5} +
-\\
-4480t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
-\\
-2 &
-(64, 28, 12, 12) & 14 &
-\begin{array}{l}
-16t^{8} + 128t^{7} + 448t^{6} + 1280t^{5} +
-\\
-4224t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
-\\
-3 &
-(64, 36, 20, 20) & 14 &
-\begin{array}{l}
-176t^{8} + 1408t^{7} + 9664t^{6} + 22272t^{5} +
-\\
-20608t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-% \end{frame}
-% \begin{frame}
-%\paragraph*{ET class $[f_{6,4}]$: two-weight codes}
-
-The Cayley graphs for classes 1 to 3 are isomorphic to those those obtained from the following
-two-weight projective
-codes as listed by Tonchev \cite{Ton07codes}:
-
-\begin{align*}
-\begin{array}{|ccl|}
-\hline
-\text{Class} &
-\text{Parameters} & \text{Reference}
-\\
-\hline
-1 & [35,6,16] & \text{Table 1.156 7 }
-\\
-2 & [35,6,16] & \text{Table 1.156 6 }
-\\
-3 & [27,6,12] & \text{Table 1.155 5 }
-\\
-\hline
-\end{array}
-\end{align*}
-
-%\slidecite{Tonchev 1996, 2006}
-% \end{frame}
-% \begin{frame}
-\subsection*{For $m=4$: extended translation classes}
-
-Up to degree 3:
-Ten extended affine classes,
-
-containing the following extended translation classes:
-
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cl|}
-\hline
-\text{Class} &
-\text{Representative}
-\\
-\hline
-\,[f_{ 8 , 1 }] & f_{ 8 , 1 } :=
-\begin{array}{l}
-x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5} + x_{6} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 2 }] & f_{ 8 , 2 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 3 }] & f_{ 8 , 3 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{4} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 4 }] & f_{ 8 , 4 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} +
-x_{6} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 5 }] & f_{ 8 , 5 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
-+ x_{2} x_{4} + x_{3} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 6 }] & f_{ 8 , 6 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5}
-+ x_{2} x_{4} + x_{5} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 7 }] & f_{ 8 , 7 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} +
-x_{1} x_{5} + x_{2} x_{3} x_{5}
-\\
-+\,  x_{2} x_{4} + x_{6} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 8 }] & f_{ 8 , 8 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4}
-+ x_{3} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 9 }] & f_{ 8 , 9 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} +
-x_{4} x_{5} x_{6} + x_{6} x_{7}
-\end{array}
-\\
-\,[f_{ 8 , 10 }] & f_{ 8 , 10 } :=
-\begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6}
-+ x_{2} x_{3} x_{5}
-\\
-+\, x_{2} x_{4} + x_{3} x_{7}
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-\normalsize{}
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,1}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,1}]$: weight classes}
-  \label{fig:8_1_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,1}]$: 2 extended Cayley classes}
-  \label{fig:8_1_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-~
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,2}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,2}]$: weight classes}
-  \label{fig:8_2_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,2}]$: 4 extended Cayley classes}
-  \label{fig:8_2_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-~
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,3}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,3}]$: weight classes}
-  \label{fig:8_3_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,3}]$: 6 extended Cayley classes}
-  \label{fig:8_3_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-~
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,4}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,4}]$: weight classes}
-  \label{fig:8_4_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,4}]$: 5 extended Cayley classes}
-  \label{fig:8_4_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-~
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,5}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,5}]$: weight classes}
-  \label{fig:8_5_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,5}]$: 9 extended Cayley classes}
-  \label{fig:8_5_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-~
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,6}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,6}]$: weight classes}
-  \label{fig:8_6_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,6}]$: 9 extended Cayley classes}
-  \label{fig:8_6_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-The same 9 classes as $[f_{8,5}]$, with the same frequencies!
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,7}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,7}]$: weight classes}
-  \label{fig:8_7_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,7}]$: 5 extended Cayley classes}
-  \label{fig:8_7_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-~
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,8}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_weight_class_matrix.png}
-  \captionof{figure}{$[f_{8,8}]$: weight classes}
-  \label{fig:8_8_weight_class_matrix}
-\end{minipage}%
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,8}]$: 6 extended Cayley classes}
-  \label{fig:8_8_bent_cayley_graph_index_matrix}
-\end{minipage}
-\end{figure}
-~
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,9}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_9_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
-  \label{fig:c8_9_bent_cayley_graph_index_matrix}
-\end{minipage}
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_9_dual_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes of dual bent functions}
-  \label{fig:c8_9_dual_cayley_graph_index_matrix}
-\end{minipage}%
-\end{figure}
-4 of the 8 classes form 2 dual pairs of classes.
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{8,10}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_10_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
-  \label{fig:c8_10_bent_cayley_graph_index_matrix}
-\end{minipage}
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_10_dual_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes of dual bent functions}
-  \label{fig:c8_10_dual_cayley_graph_index_matrix}
-\end{minipage}%
-\end{figure}
-6 of the 10 classes form 3 dual pairs of classes.
-% \end{frame}
-% \end{colortheme}
-% \begin{colortheme}{seagull}
-% \begin{frame}
-\subsection*{For $m=4$: number of bent functions and EA classes}
-
-There are
-$99 270 589 265 934 370 305 785 861 242 880 \approx 2^{106}$ bent functions in dimension 8,
-according to Langevin and Leander \cite{LanL11counting}.
-%
-%~
-%
-The number of EA classes has not yet been published, let alone a list of representatives.
-
-%\slidecite{Langevin and Leander 2011}
-% \end{frame}
-% \begin{frame}[fragile]
-\subsection*{For $m=4$: number of partial spread bent functions and EA classes}
-
-According to Langevin and Hou \cite{LanH11counting}
-there are $70576747237594114392064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in
-dimension 8,
-contained in $14758$ EA classes, of which $14756$ classes have degree 4.
-%
-%~
-%
-The EA class representatives are listed at Langevin's web site
-%
-\begin{verbatim}
-http://langevin.univ-tln.fr/project/spread/psp.html
-\end{verbatim}
-
-%\slidecite{Langevin and Hou 2011}
-% \end{frame}
-% \end{colortheme}
-% \begin{colortheme}{jubata}
-% \begin{frame}
-\subsection*{Example partial spread ET class $[psf_{9,5438}]$}
-\begin{figure}[!hb]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
-  \label{fig:psf_9_5438_bent_cayley_graph_index_matrix}
-\end{minipage}
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_dual_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes of dual bent functions}
-  \label{fig:psf_9_5438_dual_cayley_graph_index_matrix}
-\end{minipage}%
-\end{figure}
-6 of the 16 classes form 3 dual pairs of classes.
-% \end{frame}
-
-\section{SageMath and SageMathCloud code}
-\label{sec-Code}
-% \begin{frame}[fragile]
-%\subsection*{Public worksheet on SageMathCloud}
-~
-
-See
-\begin{verbatim}
-http://tinyurl.com/jnchhev
-\end{verbatim}
-
-% \end{frame}
-
-\begin{itemize}
- \item 2015-04 to 2015-05 SageMathCloud: Cliques-Automorphisms project starts looking at Cayley
-classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
- \item 2015-12 SageMathCloud: Cliques-Automorphisms project
-worksheets produced initial results used in the ACCMCC presentation.
-The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
- \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
- \item 2016-08 GitHub: Uploaded refactored Sage code to new Boolean-Cayley-graphs project.
- \item 2016-08 SageMath: Began using \verb!canonical_label()! rather than \verb!is_isomorphic()!.
-This used the Bliss algorithm, speeding up computation in comparison to the default Sage algorithm,
-and allowed comparison between graphs using equality of canonically labelled graphs rather than
-isomorphism, also giving a speed boost. This finally made it feasible to check bent functions in 8
-dimensions up to degree 3.
- \item 2016-09 SageMath: Changed many Sage code files into Python modules. Introduced a
-BentFunction class.
- \item 2016-11 SageMath: \verb!check_graphs_using_gap!
-\end{itemize}
-
-
-\section{Discussion}
-\label{sec-Discussion}
-% \begin{frame}
-%\subsection*{Questions (1)}
-The following questions have been settled only for $m \leqslant 3$:
-\begin{enumerate}
-\item
-How many EC classes are there for each $m$?
-Are there ``Exponential numbers'' of classes \cite{Kan83exponential}?
-\item
-Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
-\item
-Which EC classes overlap more than one ET class?
-\item
-Which bent functions are Cayley equivalent to their dual?
-\end{enumerate}
-
-Also, what are the remaining EA and EC classes for $m=4$,
-i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
-
-% \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
-% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph*{Acknowledgements.}
