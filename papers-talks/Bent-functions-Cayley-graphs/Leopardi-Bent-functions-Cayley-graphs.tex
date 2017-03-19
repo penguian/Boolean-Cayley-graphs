@@ -174,7 +174,7 @@ Section~\ref{sec-Discussion} puts these results in the context of questions that
 % %
 % For all $m \geqslant 0$ there is a permutation $\pi$ of the set of $4^m$ canonical basis matrices,
 % that sends an amicable pair of basis matrices with disjoint support to an anti-amicable pair, and
-vice-versa.
+%vice-versa.
 % %
 % \end{Conjecture}
 %
@@ -207,11 +207,11 @@ vice-versa.
 % \end{Question}
 %
 % (The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and
-$\varDelta_m[1]$
+%$\varDelta_m[1]$
 % are given in the relevant papers and are repeated in the next section.)
 %
 % The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem} leads to the resolution of
-these conjectures and this question.
+%these conjectures and this question.
 
 \section{Key concepts}
 \label{sec-Preliminaries}
@@ -380,9 +380,10 @@ In this case we do not need $f(0)=0$.
 A symmetric block design described by Kantor \cite[Section 5]{Kan75symplectic}, and further
 investigated by Dillon and Schatz \cite{DilS87block} \cite[Theorem 3.29]{Neu06bent}, can be defined
 by the incidence matrix $D(f)$ where
-\begin{align*}
+\begin{align}
 D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
-\end{align*}
+\label{D-f-def}
+\end{align}
 This is a symmetric block design with the \Emph{symmetric difference property},
 which we call the \emph{SDP design} of $f$.
 \end{Definition}
@@ -559,7 +560,7 @@ for each $b, c \in \Z_2^{2m}$.
 % \begin{frame}
 
 % \begin{frame}
-\subsection{Weight classes, dual bent functions, and SDP designs}
+\subsection{Weight classes, dual functions, and SDP designs}
 \paragraph*{Weight classes and dual bent functions.}
 
 \begin{Lemma}
@@ -691,7 +692,7 @@ There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
 \paragraph*{Weight classes and the SDP design matrix.}
 \begin{Theorem}
 \label{th-Dillon-Schatz}
-For every bent function $f$, the \Emph{weight class number matrix} of $f$
+For every bent function $f$, the \Emph{weight class matrix} of $f$
 equals the incidence matrix of the SDP design of $f$.
 
 ~
@@ -699,14 +700,16 @@ equals the incidence matrix of the SDP design of $f$.
 Specifically,
 for a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
 \begin{align*}
+M_{wc}(f)_{c,b}
+&:=
 \weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
-&=
+=
 f(b) + \langle c, b \rangle + \dual{f}(c)
 \\
 &=
-D(f)_{c,b}.
+D(f)_{c,b},
 \end{align*}
-
+where $D(f)$ is defined by \eqref{D-f-def}.
 \end{Theorem}
 
 \begin{proof}
@@ -732,8 +735,8 @@ as a consequence of Lemma \ref{lm-notes-9b}.
 \label{th-Quadratic-Classes}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
 $q : \Z_2^{2m} \To \Z_2$ contains exactly two extended Cayley equivalence classes,
-corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle c, x \rangle +
-q(b)$.
+corresponding to the two possible weight classes of
+$x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
 \end{Theorem}
 
 The proof of this theorem is quite long and is given in Appendix~\ref{app-proof-of}.
@@ -749,14 +752,14 @@ The proof of this theorem is quite long and is given in Appendix~\ref{app-proof-
 For a bent function $f : \Z_2^{2m} \To \Z_2$,
 define the linear code $C(f)$ by the generator matrix
 \begin{align*}
-M C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
+M_C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
 \\
-M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+M_C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
 \end{align*}
 with $x$ in lexicographic order of $\Z_2^{2m}$
 and $\support{f}(y)$ in lexicographic order of $\support{f}$.
 
-The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
+The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M_C(f)$.
 \end{Definition}
 
 %\slidecite{Ding 2015, Corollary 10}
@@ -764,7 +767,7 @@ The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$
 % \end{frame}
 % \begin{frame}
 %\frametitle{From bent function to linear code (2)}
-\begin{Theorem}
+\begin{Proposition}
 \cite[Corollary 10]{DinD15class}
 %\smallcite{Ding 2015, Corollary 10}
 
@@ -782,7 +785,7 @@ The possible weights of non-zero code words are:
 \end{cases}
 \end{align*}
 %
-\end{Theorem}
+\end{Proposition}
 %
 %\slidecite{Ding 2015, Corollary 10}
 %
