@@ -81,19 +81,28 @@ bent functions have well-studied connections to Hadamard difference sets \cite{D
 symmetric designs with the symmetric difference property \cite{DilS87block,Kan75symplectic},
 projective two-weight codes \cite{DinD15class} and strongly regular graphs.
 
-In two papers, Bernasconi and Codenotti \cite{BerC99}, and then Bernasconi, Codenotti and Vanderkam \cite{BerCV01} explored some of the connections
+In two papers, Bernasconi and Codenotti \cite{BerC99}, and then Bernasconi, Codenotti and Vanderkam
+\cite{BerCV01} explored some of the connections
 between bent functions and strongly regular graphs.
-While these papers established that the Cayley graph of a binary bent function (whose value at 0 is 0) is a strongly regular graph
-with certain parameters, they leave open the question of which strongly regular graphs with these parameters  be so obtained.
-Kantor, in 1983 \cite{Kan83exponential}, showed that the number of non-isomorphic projective linear two weight codes with certain parameters,
-Hadamard difference sets, and symmetric designs with certain properties grows at exponentially with dimension.
-This result suggests that the number of strongly regular graphs obtained as Cayley graphs of bent functions also increases at least exponentially with dimension.
+While these papers established that the Cayley graph of a binary bent function (whose value at 0 is
+0) is a strongly regular graph
+with certain parameters, they leave open the question of which strongly regular graphs with these
+parameters  be so obtained.
+Kantor, in 1983 \cite{Kan83exponential}, showed that the number of non-isomorphic projective linear
+two weight codes with certain parameters,
+Hadamard difference sets, and symmetric designs with certain properties, grows at exponentially
+with dimension.
+This result suggests that the number of strongly regular graphs obtained as Cayley graphs of bent
+functions also increases at least exponentially with dimension.
 
-In a recent paper, the author found an example of two infinite series of bent functions whose Cayley graphs have the same strongly regular parameters,
+In a recent paper, the author found an example of two infinite series of bent functions whose
+Cayley graphs have the same strongly regular parameters at each dimension,
 but are not isomorphic if the dimension 8 or more \cite{Leo17Hurwitz}.
 
-The goal of the current paper is to further explore the connections between bent functions, their Cayley graphs, and related combinatorial objects,
-and in particular to examine the relationship between various equivalence classes of bent functions, in particular, the relationship between the extended affine
+The goal of the current paper is to further explore the connections between bent functions, their
+Cayley graphs, and related combinatorial objects,
+and in particular to examine the relationship between various equivalence classes of bent
+functions, in particular, the relationship between the extended affine
 equivalence classes and equivalence classes defined by isomorphism of Cayley graphs.
 As well as a theoretical study of bent functions of all dimensions, an empirical study is conducted
 into bent functions of dimension at most 8,
@@ -496,10 +505,25 @@ apparently new.
 \label{sec-Results}
 % \begin{frame}
 
+This section contains a number of theoretical results that serve a few purposes.
+Firstly, in order to classify bent functions by their Cayley graphs,
+it helps to understand the relationship between Cayley equivalence and other concepts of equivalence
+of bent functions, especially if this helps to cut down the search space needed for the
+classification.
+A similar consideration applies to the duals of bent functions.
+Secondly, some empirical observations made in the classification of bent functions in small
+dimensions can be explained by theoretical results.
+Thirdly, theoretical results can improve our understanding of the relationships between
+some of the concepts introduced in the previous section, notably dual bent functions, SDP designs,
+projective two-weight codes, and strongly regular graphs.
+
 % \begin{frame}
-\subsection{Relationships between different concepts of equivalence}
+\subsection{Different concepts of equivalence}
+
 \paragraph*{Linear equivalence implies Cayley equivalence.}
 
+Firstly, Cayley equivalence is invariant under invertible linear mapping.
+Specifically, the following result applies.
 \begin{Theorem}
 \label{th-Linear-Cayley}
 If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
@@ -516,6 +540,10 @@ g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m
 % \begin{frame}
 \paragraph*{Extended affine, translation, and Cayley equivalence.}
 
+Secondly, if $f$ is bent with $f(0)=0$, and a bent function $h$ is extended affine equivalent to
+$f$,
+then a bent function $g$ can be found that is Cayley equivalent to $h$ and extended translation
+equivalent to $f$.
 \begin{Theorem}
 \label{th-Affine-Translate-Cayley}
 For $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$,
@@ -548,7 +576,9 @@ if $h(0)=0$ then $h \equiv g$.
 % \begin{frame}
 % \subsection{Extended affine equivalence}
 
-Therefore, to determine the extended Cayley equivalence classes within the extended affine
+Therefore, to determine
+which strongly regular graphs occur in
+the extended Cayley equivalence classes within the extended affine
 equivalence class of
 a bent function $f : \Z_2^{2m} \To \Z_2$, for which $f(0)=0$, we need only examine
 the extended translation equivalent functions of the form
@@ -556,6 +586,8 @@ the extended translation equivalent functions of the form
 f(x+b) + \langle c, x \rangle + f(b),
 \end{align*}
 for each $b, c \in \Z_2^{2m}$.
+This cuts down the required search space considerably.
+
 % \end{frame}
 % \begin{frame}
 
@@ -1750,13 +1782,15 @@ worksheets produced initial results used in the ACCMCC presentation.
 The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
  \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
  \item 2016-08 GitHub: Uploaded refactored Sage code to new Boolean-Cayley-graphs project.
- \item 2016-08 SageMath: Began using \verb!canonical_label()! rather than \verb!is_isomorphic()!.
-This used the Bliss algorithm, speeding up computation in comparison to the default Sage algorithm,
-and allowed comparison between graphs using equality of canonically labelled graphs rather than
-isomorphism, also giving a speed boost. This finally made it feasible to check bent functions in 8
-dimensions up to degree 3.
- \item 2016-09 SageMath: Changed many Sage code files into Python modules. Introduced a
-BentFunction class.
+ \item 2016-08 SageMath: Began using canonical labels rather than directly testing for isomorphism
+between Cayley graphs.
+Canonical labelling uses the Bliss algorithm, speeding up computation in comparison to the default
+Sage algorithm,
+and allows comparison between graphs using equality of canonically labelled graphs rather than
+isomorphism, also giving a speed boost.
+This finally made it feasible to check bent functions in 8 dimensions up to degree 3.
+ \item 2016-09 SageMath: Changed many Sage code files into Python modules.
+Introduced a BentFunction class.
  \item 2016-11 SageMath: \verb!check_graphs_using_gap!
 \end{itemize}
 
