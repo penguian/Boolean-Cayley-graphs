@@ -61,7 +61,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{DRAFT ONLY: 19 March 2017}
+\date{DRAFT ONLY: 20 March 2017}
 
 \begin{document}
 
@@ -434,11 +434,34 @@ Remark: In the case of $\Z_2$, no two columns are equal.
 The following concepts of equivalence of bent functions are used in this paper.
 
 % \begin{frame}
+\paragraph*{Extended affine equivalence.}
+
+\begin{Definition}
+For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
+$f$ is \Emph{extended affine equivalent} \cite[Section 1.4]{Tok15bent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(A x + b) + \langle c, x \rangle + \delta
+\end{align*}
+for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
+\end{Definition}
+
+% \begin{frame}
+\paragraph*{General linear equivalence.}
+
+\begin{Definition}
+For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
+$f$ is \Emph{general linear equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(A x)
+\end{align*}
+for some $A \in GL(2m,2)$.
+\end{Definition}
+
+% \begin{frame}
 \paragraph*{Extended translation equivalence.}
 
 \begin{Definition}
 For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
-
 $f$ is \Emph{extended translation equivalent} to $g$ if and only if
 \begin{align*}
 g(x) &= f(x + b) + \langle c, x \rangle + \delta
@@ -446,20 +469,6 @@ g(x) &= f(x + b) + \langle c, x \rangle + \delta
 for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
 \end{Definition}
 % \end{frame}
-
-% \begin{frame}
-\paragraph*{Extended affine equivalence.}
-
-\begin{Definition}
-For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
-
-$f$ is \Emph{extended affine equivalent} \cite[Section 1.4]{Tok15bent} to $g$ if and only if
-\begin{align*}
-g(x) &= f(A x + b) + \langle c, x \rangle + \delta
-\end{align*}
-for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
-\end{Definition}
-~
 
 %\slidecite{Tokareva 2014}
 % \end{frame}
@@ -474,10 +483,7 @@ and write $f \equiv g$,
 
 if and only if $f(0)=g(0)=0$ and $\Cay{f} \equiv \Cay{g}$ as graphs.
 
-~
-
 Equivalently, $f \equiv g$ if and only if $f(0)=g(0)=0$ and
-
 there exists a bijection $\pi : \Z_2^{2m} \To \Z_2^{2m}$ such that
 \begin{align*}
 g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}.
@@ -488,17 +494,15 @@ g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}.
 \paragraph*{Extended Cayley equivalence.}
 \begin{Definition}
 For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
-
 if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
-
 we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
 \end{Definition}
 Extended Cayley equivalence is an equivalence relation on the set of all bent functions on
 $\Z_2^{2m}$.
 
 Remark: While extended affine equivalence has been well studied,
-the use of extended translation equivalence and the two notions of Cayley equivalence are
-apparently new.
+general linear equivalence and extended translation equivalence are less often used,
+and the two notions of Cayley equivalence are apparently new.
 
 % \end{frame}
 \section{Theoretical results}
@@ -520,9 +524,9 @@ projective two-weight codes, and strongly regular graphs.
 % \begin{frame}
 \subsection{Different concepts of equivalence}
 
-\paragraph*{Linear equivalence implies Cayley equivalence.}
+\paragraph*{General linear equivalence implies Cayley equivalence.}
 
-Firstly, Cayley equivalence is invariant under invertible linear mapping.
+Firstly, general linear equivalence implies Cayley equivalence.
 Specifically, the following result applies.
 \begin{Theorem}
 \label{th-Linear-Cayley}
@@ -595,6 +599,22 @@ This cuts down the required search space considerably.
 \subsection{Weight classes, dual functions, and SDP designs}
 \paragraph*{Weight classes and dual bent functions.}
 
+We first note a connection between weight classes and dual bent functions that
+makes it a little easier to reason about dual bent functions.
+The following lemma expresses the dual bent function in terms of weight classes.
+
+\begin{Lemma}
+\label{lm-notes-9b}
+For a bent function $f : \Z_2^{2m} \To \Z_2$, and $x \in \Z_2^{2m}$,
+\begin{align*}
+\dual{f}(x)
+&=
+\weightclass{y \mapsto f(y) + \langle x, y \rangle}
+\end{align*}
+
+\end{Lemma}
+
+The proof of Lemma~\ref{lm-notes-9b} relies on the following lemma about weight classes.
 \begin{Lemma}
 \label{lm-notes-9a}
 For a bent function $f : \Z_2^{2m} \To \Z_2$,
@@ -631,18 +651,7 @@ If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
 \end{align*}
 \end{proof}
 
-\begin{Lemma}
-\label{lm-notes-9b}
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $x \in \Z_2^{2m}$,
-\begin{align*}
-\dual{f}(x)
-&=
-\weightclass{y \mapsto f(y) + \langle x, y \rangle}
-\end{align*}
-
-\end{Lemma}
-
-\begin{proof}
+\begin{proofof}{Lemma\ref{lm-notes-9b}}
 Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
 Then
 \begin{align*}
@@ -667,16 +676,50 @@ Then
 2^m - 2 \weightclass{h} - 2^m + 1
 \\
 &=
-1 - 2 \weightclass{h} = (-1)^{\weightclass{h}}.
+1 - 2 \weightclass{h} = (-1)^{\weightclass{h}},
 \end{align*}
-\end{proof}
+where we have used Lemma~\ref{lm-notes-9a}.
+\end{proofof}
 
+The following propositions are based on well known results,
+but are useful in understanding the relationship
+between the duality of bent functions and various concepts of equivalence.
+% \begin{frame}
+%\subsection{Dual functions}
+
+Firstly, general linear equivalence of bent functions $f$ and $g$
+implies general linear equivalence of their duals, $\dual{f}$ and $\dual{g}$,
+which implies Cayley equivalence of $\dual{f}$ and $\dual{g}$.
+\begin{Proposition}
+\cite[Remark 6.2.7]{Dil74}
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$, and $A \in GL(2 m, 2)$,
+if
+\begin{align*}
+g(x) &:= f(A x)
+\intertext{then}
+\dual{g}(x) &= \dual{f}\big((A^T)^{-1} x \big),
+\end{align*}
+and therefore by Theorem \ref{th-Linear-Cayley}, $\dual{g} \equiv \dual{f}$.
+
+If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
+\end{Proposition}
+
+Functions of the form
+\begin{align*}
+f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
+\end{align*}
+are self dual bent functions, $f=\dual{f}$ \cite[Remark 6.3.2]{Dil74}.
+There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
+
+The following proposition displays a relationship between the extended translation
+class of a bent function $f$
 \begin{Proposition}
 \cite[Remark 6.2.7]{Dil74} \cite[Proposition 8.7]{Car10boolean}
 %\smallcite{Carlet 2007, Proposition 4}
 %
 %~
-%
+
 For a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
 if
 \begin{align*}
@@ -687,33 +730,10 @@ g(x) &:= f(x+b) + \langle c, x \rangle
 \end{Proposition}
 
 % \end{frame}
-% \begin{frame}
-%\subsection{Dual functions}
-\begin{Theorem}
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $A \in GL(2 m, 2)$,
-if
-\begin{align*}
-g(x) &:= f(A x)
-\intertext{then}
-\dual{g}(x) &= \dual{f}\big((A^T)^{-1} x \big),
-\end{align*}
-\end{Theorem}
-and therefore $\dual{g} \equiv \dual{f}$.
-If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
 
 % \end{frame}
 % \begin{frame}
 %\subsection{Dual functions}
-
-Functions of the form
-\begin{align*}
-f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
-\end{align*}
-are self dual bent functions, $f=\dual{f}$.
-%
-%~
-%
-There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
 
 %~
 %
