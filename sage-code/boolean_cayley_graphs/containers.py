@@ -43,7 +43,7 @@ class BijectiveList(object):
     Index lookup for index() and index_append() uses a dict named _index.
     This class is used for 1-1 relationships where index lookup via dict makes sense.
     """
-    def __init__(self, other_list=None):
+    def __init__(self, other_list=None, file_prefix=None):
         """
         *** Warning *** Initialization from a non-empty list can easily break
                         the 1-1 relationship between index and item in a BijectiveList.
@@ -113,6 +113,18 @@ class BijectiveList(object):
         return result
 
 
+    def sync(self):
+        pass
+
+
+    def close_dict(self):
+        pass
+
+
+    def remove_dict(self):
+        del self._index
+
+
 class ShelveBijectiveList(BijectiveList):
     r"""
     Replacement for list class with only a few methods, such as __getitem__()
@@ -123,7 +135,7 @@ class ShelveBijectiveList(BijectiveList):
     *** NOTE ***
     This class uses shelve for persistence.
     """
-    def __init__(self, other_list=None, file_prefix="/tmp/ShelveBijectiveList"):
+    def __init__(self, other_list=None, file_prefix=None):
         """
         *** Warning *** Initialization from a non-empty list can easily break
                         the 1-1 relationship between index and item in a BijectiveList.
@@ -131,66 +143,25 @@ class ShelveBijectiveList(BijectiveList):
         self.file_prefix = file_prefix
         # Work around http://bugs.python.org/issue18039 not fixed in 2.7*
         self.remove()
-        self._item = shelve.open(file_prefix+".item", flag='n')
         self._index = shelve.open(file_prefix+".index", flag='n')
-        if other_list != None:
+        if other_list == None:
+            self._item = []
+        else:
+            self._item = other_list
             for index in range(len(other_list)):
                 item = other_list[index]
-                self._item[str(index)] = item
                 self._index[item] = index
 
 
-    def __getitem__(self, index):
-        r"""
-        List lookup by index.
-        """
-        return self._item[str(index)]
-
-
-    def index_append(self, item):
-        r"""
-        Use a lookup using _index instead of calling index() on the list.
-        If the lookup yields a KeyError then set index to the length of self,
-        append item to self, and add index to _index.
-        """
-        try:
-            index = self._index[item]
-        except KeyError:
-            index = len(self._item)
-            self._item[str(index)] = item
-            self._index[item] = index
-        return index
-
-
     def sync(self):
-        self._item.sync()
         self._index.sync()
-
-
-    def close_list(self):
-        self._item.close()
 
 
     def close_dict(self):
         self._index.close()
 
 
-    def close(self):
-        self.close_list()
-        self.close_dict()
-
-
-    def remove_list(self):
-        for fn in glob.glob(self.file_prefix+".item*"):
-            os.remove(fn)
-
-
     def remove_dict(self):
         for fn in glob.glob(self.file_prefix+".index*"):
             os.remove(fn)
-
-
-    def remove(self):
-        self.remove_list()
-        self.remove_dict()
 

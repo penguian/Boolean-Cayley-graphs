@@ -49,6 +49,7 @@ from numpy import array, argwhere
 from sage.arith.srange import xsrange
 from sage.combinat.designs.incidence_structures import IncidenceStructure
 from sage.functions.log import log
+from sage.graphs.graph import Graph
 from sage.matrix.constructor import matrix
 from sage.plot.matrix_plot import matrix_plot
 from sage.rings.integer import Integer
@@ -58,7 +59,7 @@ from bent_function import BentFunction
 from boolean_cayley_graph import boolean_cayley_graph
 from boolean_linear_code_graph import boolean_linear_code_graph
 from containers import BijectiveList
-from persistent import Persistent
+from saveable import Saveable
 from strongly_regular_graph import StronglyRegularGraph
 from weight_class import weight_class
 
@@ -69,7 +70,7 @@ def immutable_canonical_label(g):
     return g.canonical_label().copy(immutable=True)
 
 
-class BentFunctionCayleyGraphClassification(SageObject, Persistent):
+class BentFunctionCayleyGraphClassification(SageObject, Saveable):
     r"""
     Attributes of the Cayley graphs within the extended translation equivalence class of a bent function.
     """
@@ -168,10 +169,13 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
         dim = bentf.nvariables()
         v = 2 ** dim
-
         self.algebraic_normal_form = bentf.algebraic_normal_form()
 
-        cayley_graph_class_bijection = BijectiveList()
+        file_prefix=self.mangled_name(bentf.truth_table(format='hex'))
+        cayley_graph_class_bijection = (
+            BijectiveList()
+            if dim < 8 else
+            ShelveBijectiveList(file_prefix=file_prefix))
 
         self.bent_cayley_graph_index_matrix = matrix(v, v)
         if list_dual_graphs:
@@ -193,7 +197,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
             for c in xsrange(v):
                 fbc = bentf.extended_translate(b, c, fb)
                 cg = immutable_canonical_label(boolean_cayley_graph(dim, fbc))
-                cg_index = cayley_graph_class_bijection.index_append(cg)
+                cg_index = cayley_graph_class_bijection.index_append(cg.graph6_string())
                 self.bent_cayley_graph_index_matrix[c, b] = cg_index
 
                 weight = sum(fbc(x) for x in xsrange(v))
@@ -210,7 +214,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
 
                     dual_fbc = bentfbc.walsh_hadamard_dual().extended_translate(d=wc)
                     dg = immutable_canonical_label(boolean_cayley_graph(dim, dual_fbc))
-                    dg_index = cayley_graph_class_bijection.index_append(dg)
+                    dg_index = cayley_graph_class_bijection.index_append(dg.graph6_string())
                     self.dual_cayley_graph_index_matrix[c, b] = dg_index
 
                     if checking and dim > 2:
@@ -225,9 +229,13 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                                 + "graph from linear code at "
                                 + str(b) + ","
                                 + str(c))
+            cayley_graph_class_bijection.sync()
 
-        # Get the list part of the BijectiveList.
+        # Retain the list part of cayley_graph_class_bijection, and
+        # close and remove the dict part.
         self.cayley_graph_class_list = cayley_graph_class_bijection.get_list()
+        cayley_graph_class_bijection.close_dict()
+        cayley_graph_class_bijection.remove_dict()
 
         if checking:
             sdp_design_matrix = bentf.sdp_design_matrix()
@@ -450,7 +458,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                     bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
                     p = bent_fbc.algebraic_normal_form()
                     print "Algebraic normal form of representative:", p
-                    g = cayley_graph_class_list[index]
+                    g = Graph(cayley_graph_class_list[index])
                     s = StronglyRegularGraph(g)
                     print "Clique polynomial:",
                     print s.stored_clique_polynomial
@@ -464,7 +472,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Persistent):
                         if dual_index != index:
                             print "Cayley graph of dual of representative differs:"
                             print "Index is", dual_index
-                            dual_g = cayley_graph_class_list[dual_index]
+                            dual_g = Graph(cayley_graph_class_list[dual_index])
                             dual_s = StronglyRegularGraph(dual_g)
                             print "Clique polynomial",
                             print_compare(
