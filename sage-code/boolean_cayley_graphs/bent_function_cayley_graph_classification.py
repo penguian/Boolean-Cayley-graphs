@@ -59,6 +59,7 @@ from bent_function import BentFunction
 from boolean_cayley_graph import boolean_cayley_graph
 from boolean_linear_code_graph import boolean_linear_code_graph
 from containers import BijectiveList
+from containers import ShelveBijectiveList
 from saveable import Saveable
 from strongly_regular_graph import StronglyRegularGraph
 from weight_class import weight_class
