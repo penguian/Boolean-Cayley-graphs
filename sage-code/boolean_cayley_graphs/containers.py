@@ -142,7 +142,7 @@ class ShelveBijectiveList(BijectiveList):
         """
         self.file_prefix = file_prefix
         # Work around http://bugs.python.org/issue18039 not fixed in 2.7*
-        self.remove()
+        self.remove_dict()
         self._index = shelve.open(file_prefix+".index", flag='n')
         if other_list == None:
             self._item = []
