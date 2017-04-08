@@ -30,7 +30,7 @@ def save_boolean_dimension_cayley_graph_classifications(dim, start=1, stop=None)
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
     if stop == None:
-        stop = len(p):
+        stop = len(p)
     for n in xrange(start, stop):
         if verbose:
             print 'Function', n, ':'
@@ -56,7 +56,7 @@ def load_boolean_dimension_cayley_graph_classifications(dim, start=1, stop=None)
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
     if stop == None:
-        stop = len(p):
+        stop = len(p)
     for n in xrange(start, stop):
         if verbose:
             print 'Function', n, ':'
