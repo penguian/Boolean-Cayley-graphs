@@ -22,14 +22,16 @@ import boolean_cayley_graphs.cayley_graph_controls as controls
 load("bent_function_extended_affine_representative_polynomials.sage")
 
 
-def save_boolean_dimension_cayley_graph_classifications(dim, start=1):
+def save_boolean_dimension_cayley_graph_classifications(dim, start=1, stop=None):
     r"""
     """
     verbose = controls.verbose
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    for n in xrange(start, len(p)):
+    if stop == None:
+        stop = len(p):
+    for n in xrange(start, stop):
         if verbose:
             print 'Function', n, ':'
         f = BentFunction(p[n])
@@ -41,7 +43,7 @@ def save_boolean_dimension_cayley_graph_classifications(dim, start=1):
     return c
 
 
-def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
+def load_boolean_dimension_cayley_graph_classifications(dim, start=1, stop=None):
     r"""
     """
     verbose = controls.verbose
@@ -53,7 +55,9 @@ def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    for n in xrange(start, len(p)):
+    if stop == None:
+        stop = len(p):
+    for n in xrange(start, stop):
         if verbose:
             print 'Function', n, ':'
         name_n = 'p'+str(dim)+'_'+str(n)
