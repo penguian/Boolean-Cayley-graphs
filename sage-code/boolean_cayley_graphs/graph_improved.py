@@ -9,10 +9,10 @@
 #*****************************************************************************
 
 from sage.graphs.graph import Graph
-from persistent import Persistent
+from saveable import Saveable
 
 
-class GraphImproved(Graph, Persistent):
+class GraphImproved(Graph, Saveable):
     r"""
     The class `GraphImproved` is used to store a  graph
     and some of its computed properties, including

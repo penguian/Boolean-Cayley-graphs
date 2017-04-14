@@ -13,7 +13,7 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from sage.arith.srange import xsrange
+from sage.arith.srange import srange
 from sage.graphs.graph import Graph
 
 
@@ -25,7 +25,4 @@ def boolean_cayley_graph(dim, f):
     `f` as a Boolean function on $\mathbb{Z}_2^d$, with the canonical ordering.
     The value `f(0)` is assumed to be 0, so the graph is always simple.
     """
-    v = 2 ** dim
-    result = Graph(v)
-    result.add_edges([(i,j) for i in xsrange(v) for j in xsrange(i) if f(i ^ j)])
-    return result
+    return Graph([srange(2 ** dim), lambda i, j: f(i ^ j)], format="rule", immutable=True)

@@ -14,7 +14,7 @@ import numpy as np
 
 from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
-from boolean_cayley_graphs.containers import List
+from boolean_cayley_graphs.containers import BijectiveList
 from sage.structure.sage_object import register_unpickle_override
 
 import boolean_cayley_graphs.cayley_graph_controls as controls
@@ -22,16 +22,18 @@ import boolean_cayley_graphs.cayley_graph_controls as controls
 load("bent_function_extended_affine_representative_polynomials.sage")
 
 
-def save_boolean_dimension_cayley_graph_classifications(dim, start=1):
+def save_boolean_dimension_cayley_graph_classifications(dim, start=1, stop=None):
     r"""
     """
     verbose = controls.verbose
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    for n in xrange(start, len(p)):
+    if stop == None:
+        stop = len(p)
+    for n in xrange(start, stop):
         if verbose:
-            print n, ':'
+            print 'Function', n, ':'
         f = BentFunction(p[n])
         c[n] = BentFunctionCayleyGraphClassification(f)
         name_n = 'p'+str(dim)+'_'+str(n)
@@ -41,7 +43,7 @@ def save_boolean_dimension_cayley_graph_classifications(dim, start=1):
     return c
 
 
-def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
+def load_boolean_dimension_cayley_graph_classifications(dim, start=1, stop=None):
     r"""
     """
     verbose = controls.verbose
@@ -50,13 +52,14 @@ def load_boolean_dimension_cayley_graph_classifications(dim, start=1):
         'bent_function_cayley_graph_classification',
         'BentFunctionCayleyGraphClassification',
         BentFunctionCayleyGraphClassification)
-    register_unpickle_override('containers', 'List', List)
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    for n in xrange(start, len(p)):
+    if stop == None:
+        stop = len(p)
+    for n in xrange(start, stop):
         if verbose:
-            print n, ':'
+            print 'Function', n, ':'
         name_n = 'p'+str(dim)+'_'+str(n)
         c[n] = BentFunctionCayleyGraphClassification.load_mangled(name_n)
         if verbose:
@@ -75,7 +78,7 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
         verbose = controls.verbose
 
         self.dim = 0
-        self.cayley_graph_class_list = List([])
+        cayley_graph_class_bijection = BijectiveList()
         self.classification_list = copy.deepcopy(cc)
         c = self.classification_list
         self.reclassification_table = [None]*len(c)
@@ -103,7 +106,7 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
                 new_cg_index_matrix = cg_index_matrix.copy()
                 for i in xrange(len(cg_class_list)):
                     g = cg_class_list[i]
-                    reclass_index = self.cayley_graph_class_list.index_append(g)
+                    reclass_index = cayley_graph_class_bijection.index_append(g)
                     r[n][0, i] = reclass_index
                     cb_index = cb_index_list[i]
                     c_index = cb_index[0]
@@ -126,8 +129,12 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
                                                    reclass_index,
                                                    new_dg_index_matrix)
                 c[n].dual_cayley_graph_index_matrix = new_dg_index_matrix
+
                 if verbose:
                     print r[n]
+
+        # Get the list part of the BijectiveList.
+        self.cayley_graph_class_list = cayley_graph_class_bijection.get_list()
 
 
     def save_matrix_plots(self, prefix='re', cmap='gist_stern'):

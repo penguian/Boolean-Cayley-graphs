@@ -5,7 +5,7 @@ Paul Leopardi.
 """
 
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -15,6 +15,7 @@ Paul Leopardi.
 
 
 from sage.arith.srange import xsrange
+from sage.graphs.graph import Graph
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.matrix.constructor import matrix
 
@@ -29,9 +30,51 @@ class BentFunction(BooleanFunctionImproved):
     """
 
 
-    def dillon_schatz_design_matrix(self):
+    def is_partial_spread_minus(self, certify=False):
         r"""
-        The function `Dillon_Schatz_design_matrix` returns
+        """
+        dim = self.nvariables()
+        reqd_clique_size = 2 ** (dim / 2)
+        cayley = self.cayley_graph()
+        cliques_0 = cayley.cliques_containing_vertex(0)
+        reqd_cliques = [
+            set(clique)
+            for clique in cliques_0
+            if (len(clique) >= reqd_clique_size)]
+        nbr_cliques = len(reqd_cliques)
+        if nbr_cliques == 0:
+            return False
+        clique_matrix = matrix(nbr_cliques)
+        for j in range(nbr_cliques):
+            for k in range(j + 1, nbr_cliques):
+                clique_matrix[j, k] = clique_matrix[k, j] = (
+                    1
+                    if reqd_cliques[j] & reqd_cliques[k] == {0} else
+                    0)
+
+        clique_graph = Graph(clique_matrix)
+        clique_max = clique_graph.clique_maximum()
+        if len(clique_max) != reqd_clique_size // 2:
+            return False
+        if certify:
+            part = [
+                reqd_cliques[j] - {0}
+                for j in clique_max]
+            return part
+        else:
+            return True
+
+
+    def linear_code_graph(self):
+        r"""
+        """
+        L = self.linear_code()
+        return strongly_regular_from_two_weight_code(L)
+
+
+    def sdp_design_matrix(self):
+        r"""
+        The function `sdp_design_matrix` returns
         the incidence matrix of the design of type $R(\mathtt{self})$,
         as described by Dillon and Schatz (1987).
         """
@@ -44,13 +87,6 @@ class BentFunction(BooleanFunctionImproved):
             result[c,:] = matrix([self.extended_translate(0, c, dual_f(c))(x)
                                 for x in xsrange(v)])
         return result
-
-
-    def linear_code_graph(self):
-        r"""
-        """
-        L = self.linear_code()
-        return strongly_regular_from_two_weight_code(L)
 
 
     def walsh_hadamard_dual(self):

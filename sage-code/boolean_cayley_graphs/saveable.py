@@ -5,6 +5,7 @@ A mixin class with methods that load and save SageObject objects with standardiz
 AUTHORS:
 
 - Paul Leopardi (2016-08-04): initial version
+- Paul Leopardi (2017-04-01): saveable.py based on persistent.py
 
 """
 
@@ -21,7 +22,7 @@ AUTHORS:
 from sage.structure.sage_object import load
 
 
-class Persistent(object):
+class Saveable(object):
     r"""
     """
 

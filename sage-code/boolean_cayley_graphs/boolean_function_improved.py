@@ -23,13 +23,13 @@ from sage.crypto.boolean_function import BooleanFunction
 from boolean_cayley_graph import boolean_cayley_graph
 from boolean_linear_code import boolean_linear_code
 from integer_bits import inner
-from persistent import Persistent
+from saveable import Saveable
 
 
 base2 = lambda dim, num: num.digits(2, padto=dim)
 
 
-class BooleanFunctionImproved(BooleanFunction, Persistent):
+class BooleanFunctionImproved(BooleanFunction, Saveable):
     r"""
     """
 
