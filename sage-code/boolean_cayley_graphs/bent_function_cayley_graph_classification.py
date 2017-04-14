@@ -66,12 +66,6 @@ from boolean_cayley_graphs.weight_class import weight_class
 import boolean_cayley_graphs.cayley_graph_controls as controls
 
 
-def immutable_canonical_label(g):
-    r"""
-    """
-    return g.canonical_label().copy(immutable=True)
-
-
 class BentFunctionCayleyGraphClassification(SageObject, Saveable):
     r"""
     Attributes of the Cayley graphs within the
@@ -197,7 +191,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             fb = f(b)
             for c in xsrange(v):
                 fbc = bentf.extended_translate(b, c, fb)
-                cg = immutable_canonical_label(boolean_cayley_graph(dim, fbc))
+                cg = boolean_cayley_graph(dim, fbc).canonical_label()
                 cg_index = cayley_graph_class_bijection.index_append(cg.graph6_string())
                 self.bent_cayley_graph_index_matrix[c, b] = cg_index
 
@@ -214,16 +208,16 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
                     bentfbc = BentFunction([fbc(x) for x in xsrange(v)])
 
                     dual_fbc = bentfbc.walsh_hadamard_dual().extended_translate(d=wc)
-                    dg = immutable_canonical_label(boolean_cayley_graph(dim, dual_fbc))
+                    dg = boolean_cayley_graph(dim, dual_fbc).canonical_label()
                     dg_index = cayley_graph_class_bijection.index_append(dg.graph6_string())
                     self.dual_cayley_graph_index_matrix[c, b] = dg_index
 
                     if checking and dim > 2:
                         blcg = boolean_linear_code_graph(dim, fbc)
                         lg = (
-                            immutable_canonical_label(blcg)
-                            if wc == 0
-                            else immutable_canonical_label(blcg.complement()))
+                            blcg.canonical_label()
+                            if wc == 0 else
+                            blcg.complement().canonical_label())
                         if lg != dg:
                             raise ValueError, (
                                 "Cayley graph of dual does not match"
