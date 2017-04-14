@@ -16,25 +16,24 @@ EXAMPLES::
     sage: f = BentFunction(p)
     sage: c = BentFunctionCayleyGraphClassification(f)
     sage: c.__dict__
-
     {'algebraic_normal_form': x0*x1 + x1,
-    'bent_cayley_graph_index_matrix': [0 0 1 0]
-    [1 0 0 0]
-    [0 0 0 1]
-    [0 1 0 0],
-    'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
-    'dual_cayley_graph_index_matrix': [0 0 1 0]
-    [1 0 0 0]
-    [0 0 0 1]
-    [0 1 0 0],
-    'weight_class_matrix': [0 0 1 0]
-    [1 0 0 0]
-    [0 0 0 1]
-    [0 1 0 0]}
+     'bent_cayley_graph_index_matrix': [0 0 1 0]
+     [1 0 0 0]
+     [0 0 0 1]
+     [0 1 0 0],
+     'cayley_graph_class_list': ['CK', 'C~'],
+     'dual_cayley_graph_index_matrix': [0 0 1 0]
+     [1 0 0 0]
+     [0 0 0 1]
+     [0 1 0 0],
+     'weight_class_matrix': [0 0 1 0]
+     [1 0 0 0]
+     [0 0 0 1]
+     [0 1 0 0]}
 """
 
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -55,25 +54,28 @@ from sage.plot.matrix_plot import matrix_plot
 from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
 
-from bent_function import BentFunction
-from boolean_cayley_graph import boolean_cayley_graph
-from boolean_linear_code_graph import boolean_linear_code_graph
-from containers import BijectiveList
-from containers import ShelveBijectiveList
-from saveable import Saveable
-from strongly_regular_graph import StronglyRegularGraph
-from weight_class import weight_class
+from boolean_cayley_graphs.bent_function import BentFunction
+from boolean_cayley_graphs.boolean_cayley_graph import boolean_cayley_graph
+from boolean_cayley_graphs.boolean_linear_code_graph import boolean_linear_code_graph
+from boolean_cayley_graphs.containers import BijectiveList
+from boolean_cayley_graphs.containers import ShelveBijectiveList
+from boolean_cayley_graphs.saveable import Saveable
+from boolean_cayley_graphs.strongly_regular_graph import StronglyRegularGraph
+from boolean_cayley_graphs.weight_class import weight_class
 
-import cayley_graph_controls as controls
+import boolean_cayley_graphs.cayley_graph_controls as controls
 
 
 def immutable_canonical_label(g):
+    r"""
+    """
     return g.canonical_label().copy(immutable=True)
 
 
 class BentFunctionCayleyGraphClassification(SageObject, Saveable):
     r"""
-    Attributes of the Cayley graphs within the extended translation equivalence class of a bent function.
+    Attributes of the Cayley graphs within the
+    extended translation equivalence class of a bent function.
     """
 
 
@@ -96,15 +98,15 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         The current object `self` is initialized as follows.
 
         - `algebraic_normal_form` is set to `bentf.algebraic_normal_form()`,
-        - `cayley_graph_class_list` is set to a list of `Graph`
+        - `cayley_graph_class_list` is set to a list of `graph6_string` stings
           corresponding to the complete set of non-isomorphic Cayley graphs
           of the bent functions within the extended translation equivalence
-          class of `bentf`,
+          class of `bentf` (and their duals, if `list_dual_graphs` is `True`),
         - `bent_cayley_graph_index_matrix` is set to a matrix of indices
           into `cayley_graph_class_list` corresponding
           to these bent functions,
-        - `dual_cayley_graph_index_matrix` is set to None
-          if list_dual_graphs is False, otherwise it is set to
+        - `dual_cayley_graph_index_matrix` is set to `None`
+          if `list_dual_graphs` is `False`, otherwise it is set to
           a matrix of indices into `cayley_graph_class_list` corresponding
           to the duals of these bent functions, and
         - `weight_class_matrix` is set to the 0-1 matrix of weight classes
@@ -126,21 +128,20 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             sage: f = BentFunction(p)
             sage: c1 = BentFunctionCayleyGraphClassification(f)
             sage: c1.__dict__
-
             {'algebraic_normal_form': x0*x1 + x0 + x1,
-            'bent_cayley_graph_index_matrix': [0 1 1 1]
-            [1 1 0 1]
-            [1 0 1 1]
-            [1 1 1 0],
-            'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
-            'dual_cayley_graph_index_matrix': [0 1 1 1]
-            [1 1 0 1]
-            [1 0 1 1]
-            [1 1 1 0],
-            'weight_class_matrix': [1 0 0 0]
-            [0 0 1 0]
-            [0 1 0 0]
-            [0 0 0 1]}
+             'bent_cayley_graph_index_matrix': [0 1 1 1]
+             [1 1 0 1]
+             [1 0 1 1]
+             [1 1 1 0],
+             'cayley_graph_class_list': ['C~', 'CK'],
+             'dual_cayley_graph_index_matrix': [0 1 1 1]
+             [1 1 0 1]
+             [1 0 1 1]
+             [1 1 1 0],
+             'weight_class_matrix': [1 0 0 0]
+             [0 0 1 0]
+             [0 1 0 0]
+             [0 0 0 1]}
 
             The classification of the bent function defined by the polynomial x1 + x2 + x1*x2,
             but with list_dual_graphs=False.
@@ -152,18 +153,17 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             sage: f = BentFunction(p)
             sage: c2 = BentFunctionCayleyGraphClassification(f,list_dual_graphs=False)
             sage: c2.__dict__
-
             {'algebraic_normal_form': x0*x1 + x0 + x1,
-            'bent_cayley_graph_index_matrix': [0 1 1 1]
-            [1 1 0 1]
-            [1 0 1 1]
-            [1 1 1 0],
-            'cayley_graph_class_list': [Graph on 4 vertices, Graph on 4 vertices],
-            'dual_cayley_graph_index_matrix': None,
-            'weight_class_matrix': [1 0 0 0]
-            [0 0 1 0]
-            [0 1 0 0]
-            [0 0 0 1]}
+             'bent_cayley_graph_index_matrix': [0 1 1 1]
+             [1 1 0 1]
+             [1 0 1 1]
+             [1 1 1 0],
+             'cayley_graph_class_list': ['C~', 'CK'],
+             'dual_cayley_graph_index_matrix': None,
+             'weight_class_matrix': [1 0 0 0]
+             [0 0 1 0]
+             [0 1 0 0]
+             [0 0 0 1]}
         """
         checking = controls.checking
         timing   = controls.timing
@@ -322,7 +322,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             sage: c.report()
             Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3
             Function is bent.
-
+            <BLANKLINE>
             Weight class matrix:
             [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
             [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
@@ -340,11 +340,11 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
             [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
             [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
-
+            <BLANKLINE>
             SDP design incidence structure t-design parameters: (True, (2, 16, 6, 2))
-
+            <BLANKLINE>
             Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
-
+            <BLANKLINE>
             Matrix of indices of Cayley graphs:
             [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
             [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
@@ -362,19 +362,19 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
             [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
             [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
-
+            <BLANKLINE>
             There are 2 extended Cayley classes in the extended translation class:
-
+            <BLANKLINE>
             For each extended Cayley class in the extended translation class:
             Clique polynomial, strongly regular parameters, rank, and order of a representative graph; and
             linear code and generator matrix for a representative bent function:
-
+            <BLANKLINE>
             EC class 0 :
             Algebraic normal form of representative: x0*x1 + x0 + x2*x3
             Clique polynomial: 8*t^4 + 32*t^3 + 48*t^2 + 16*t + 1
             Strongly regular parameters: (16, 6, 2, 2)
             Rank: 6 Order: 1152
-
+            <BLANKLINE>
             Linear code from representative:
             [6, 4] linear code over GF(2)
             Generator matrix:
@@ -384,13 +384,13 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             [0 0 0 0 1 1]
             Linear code is projective.
             Weight distribution: {0: 1, 2: 6, 4: 9}
-
+            <BLANKLINE>
             EC class 1 :
             Algebraic normal form of representative: x0*x1 + x0 + x1 + x2*x3
             Clique polynomial: 16*t^5 + 120*t^4 + 160*t^3 + 80*t^2 + 16*t + 1
             Strongly regular parameters: (16, 10, 6, 6)
             Rank: 6 Order: 1920
-
+            <BLANKLINE>
             Linear code from representative:
             [10, 4] linear code over GF(2)
             Generator matrix:
@@ -519,8 +519,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
                     wd = lc.weight_distribution()
                     print dict([
                         (w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
-
-
 
         p = self.algebraic_normal_form
         print "Algebraic normal form of Boolean function:", p
