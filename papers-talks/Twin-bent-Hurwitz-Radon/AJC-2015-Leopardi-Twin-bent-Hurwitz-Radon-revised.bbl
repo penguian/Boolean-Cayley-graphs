@@ -1,0 +1,56 @@
+\begin{thebibliography}{1}
+
+\bibitem{BerC99}
+A.~Bernasconi and B.~Codenotti.
+\newblock Spectral analysis of {Boolean} functions as a graph eigenvalue
+  problem.
+\newblock {\em IEEE Transactions on Computers}, 48(3):345--351, (1999).
+
+\bibitem{Cra95}
+R.~Craigen.
+\newblock Signed groups, sequences, and the asymptotic existence of {Hadamard}
+  matrices.
+\newblock {\em J. Combin. Theory Ser. A}, 71(2):241--254, (1995).
+
+\bibitem{GerP74a}
+A.~V. Geramita and N.~J. Pullman.
+\newblock A theorem of {Hurwitz} and {Radon} and orthogonal projective modules.
+\newblock {\em Proceedings of the American Mathematical Society}, 42(1):51--56,
+  (1974).
+
+\bibitem{Hur22}
+A.~Hurwitz.
+\newblock {\"Uber} die {Komposition} der quadratischen {Formen}.
+\newblock {\em Math. Ann.}, 88(1-2):1--25, (1922).
+
+\bibitem{Leo05}
+P.~Leopardi.
+\newblock A generalized {FFT} for {Clifford} algebras.
+\newblock {\em Bulletin of the Belgian Mathematical Society -- Simon Stevin},
+  11(5):663--688, (2004).
+
+\bibitem{Leo14Constructions}
+P.~Leopardi.
+\newblock Constructions for {Hadamard} matrices, {Clifford} algebras, and their
+  relation to amicability / anti-amicability graphs.
+\newblock {\em Australasian Journal of Combinatorics}, 58(2):214--248, (2014).
+
+\bibitem{Leo15Twin}
+P.~Leopardi.
+\newblock Twin bent functions and {Clifford} algebras.
+\newblock In C.~J. Colbourn, editor, {\em Algebraic Design Theory and Hadamard
+  Matrices}, volume 133 of {\em Springer Proceedings in Mathematics and
+  Statistics},  189--199. Springer International Publishing, (2015).
+
+\bibitem{Rad22}
+J.~Radon.
+\newblock Lineare {Scharen} orthogonaler {Matrizen}.
+\newblock {\em Abhandlungen aus dem Mathematischen Seminar der Universit{\"a}t
+  Hamburg}, 1(1):1--14, (1922).
+
+\bibitem{Wil44}
+J.~Williamson.
+\newblock Hadamard's determinant theorem and the sum of four squares.
+\newblock {\em Duke Math. J.}, 11:65--81, (1944).
+
+\end{thebibliography}
