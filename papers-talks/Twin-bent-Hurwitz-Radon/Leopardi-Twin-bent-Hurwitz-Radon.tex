@@ -10,6 +10,7 @@
 %
 \newcommand{\mb}[1]{\mathbb{#1}}
 \newcommand{\mf}[1]{\mathbf{#1}}
+\newcommand{\Cay}{\operatorname{Cay}}
 \newcommand{\oE}{\mf{\operatorname{E}}}
 \newcommand{\G}{\mb{G}}
 \newcommand{\R}{\mb{R}}
@@ -17,6 +18,7 @@
 \newcommand{\Rep}{P}
 \newcommand{\V}[1]{\underline{#1}}
 \newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\isomorphic}{\simeq}
 \newcommand{\To}{\rightarrow}
 %
 \newtheorem*{lemma}{Lemma}
@@ -45,7 +47,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{Submitted: 11 April 2015, revised 10 November 2015}
+\date{Submitted: 11 April 2015, revised 11 November 2015}
 
 \begin{document}
 
@@ -167,7 +169,7 @@ defined by the signed group presentation
 where $S_{p,q} := \{-q,\ldots,-1,1,\ldots,p\}.$
 
 The following construction of the real monomial representation $\Rep(\G_{m,m})$
-of the group $\G_{m,m}$ is used in \cite{Leo14Constructions}.
+of the group $\G_{m,m}$ is used below.
 
 The $2 \times 2$ orthogonal matrices
 \begin{align*}
@@ -242,15 +244,71 @@ which is also a monomial basis for the real representation of the Clifford algeb
 Kronecker product order,
 called this ordered monomial basis the \emph{positive signed basis} of $\Rep(\R_{m,m}).$ 
 
-\begin{definition}\label{definition-gamma}
+\begin{Definition}\label{definition-gamma}
 We define the function $\gamma_m : \Z_{2^{2 m}} \To \Rep(\G_{m,m})$ 
 to choose the corresponding basis matrix from the positive signed basis of $\Rep(\R_{m,m}),$
 using the Kronecker product ordering.
 This ordering also defines a corresponding function on $\Z_2^{2 m},$
 which we also call $\gamma_m.$
-\end{definition}
+\end{Definition}
 
-\paragraph*{The graphs used in Conjectures \ref{conjecture-2} and \ref{conjecture-3} and Question 1.}
+
+\paragraph*{Hurwitz-Radon theory.}
+\label{sec-Hurwitz-Radon}
+The key concept used in the proof of Lemma~\ref{Red-clique-lemma} below is that of a \emph{Hurwitz-Radon family} of matrices.
+~
+
+A set of real orthogonal matrices $\{A_1,A_2,\ldots,A_s\}$ is called a Hurwitz-Radon family 
+\cite{GerP74a,Hur22,Rad22} if
+\begin{enumerate}
+ \item
+$A_j^T = -A_j$ for all $j=1,\ldots,s$, and
+ \item 
+$A_j A_k = -A_k A_j$ for all $j \neq k$.
+\end{enumerate}
+The Hurwitz-Radon function $\rho$ is defined by
+\begin{align*}
+\rho(2^{4 d + c}) &:= 2^c + 8 d, \quad \text{where~} 0 \leqslant c < 4.
+\end{align*}
+As stated by Geramita and Pullman \cite[Theorem A]{GerP74a}, Radon \cite{Rad22}
+proved the following result, which is used as a lemma in this paper.
+\begin{Lemma}\label{Hurwitz-Radon-lemma}
+Any Hurwitz-Radon family of order $n$ has at most $\rho(n)-1$ members.
+\end{Lemma}
+
+\paragraph*{The two sequences of bent functions.}
+\label{sec-Bent}
+
+~
+
+The previous two papers \cite{Leo14Constructions,Leo15Bent} 
+define two binary functions  on $\Z_2^{2 m}$, $\sigma_m$ and $\tau_m$, respectively.
+The relevant definitions and key properties are repeated below.
+See the two papers for the proofs and for more details and references on bent functions.
+
+The function $\sigma_m : \Z_2^{2 m} \To \Z_2$:
+\begin{itemize}
+ \item 
+For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
+digits equal to 1 in  the base 4 representation of $i$ is odd.
+ \item 
+Since each matrix $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is skew.
+ \item 
+The function $\sigma_m$ is bent.
+\end{itemize}
+
+The function $\tau_m : \Z_2^{2 m} \To \Z_2$:
+\begin{itemize}
+ \item 
+For $i \in \Z_{2^{2m}},$ $\tau_m(i) = 1$ if and only if the number of digits equal to 1 or 2 in the base 4
+representation of $i$ is non zero, and the number of digits equal to 1 is even.
+ \item 
+The value $\tau_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is symmetric but not diagonal.
+ \item 
+The function $\tau_m$ is bent.
+\end{itemize}
+
+\paragraph*{The relevant graphs.}
 \label{sec-Graphs}
 
 ~
@@ -282,40 +340,24 @@ the subgraph containing all of the vertices of $\varDelta_m,$ and all of edges l
 and $\varDelta_m[1]$ denotes the ``blue subgraph'' of $\varDelta_m,$
 the subgraph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $1$.
 
-As noted in the paper on Clifford algebras and Hadamard matrices \cite{Leo14Constructions},
+As noted in the paper on Hada\-mard matrices \cite{Leo14Constructions},
 a \emph{transversal graph} for the Clifford algebra $\R_{m,m}$
 is any induced subgraph of $\varDelta_m$ that is a complete graph on $2^m$ vertices.
 That is, each pair of vertices in the transversal graph represents a pair of matrices,
 $A_j$ and $A_k$ with disjoint support.
-\paragraph*{Two bent functions and their strongly regular Cayley graphs.}
-\label{sec-Bent}
 
-~
+For a binary function $f : \Z_2^{2 m} \To \Z_2$, with $f(0)=0$ we now consider the simple undirected Cayley graph $\Cay(f)$
+where $V(\Cay(f)) = \Z_2^{2 m}$ and for $i,j \in \Z_2^{2 m}$, $(i,j) \in E(\Cay(f))$ if and only if $f(i+j)=1$.
 
-The previous two papers \cite{Leo14Constructions,Leo15Bent} 
-define two bent functions  on $\Z_2^{2 m}$, $\sigma_m$ and $\tau_m$, respectively.
-(For the definition and properties of bent functions, see the previous two papers \cite{Leo14Constructions,Leo15Bent}
-and references therein.)
+In the paper on Hada\-mard matrices \cite{Leo14Constructions} it is shown that
+since $\sigma_m(i)=1$ if and only if $\gamma_m(i)$ is skew,
+the subgraph $\varDelta_m[-1]$ is isomorphic to the Cayley graph $\Cay(\sigma_m)$.
 
-In the paper on bent functions \cite{Leo15Bent}, the following two properties of $\sigma_m$ are noted.
-\begin{enumerate}
- \item 
-Since each matrix $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is skew.
- \item 
-For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
-digits equal to 1 in  the base 4 representation of $i$ is odd.
-\end{enumerate}
-Thus the subgraph $\varDelta_m[-1]$ is isomorphic to the Cayley graph of $\sigma_m$,
-the graph whose vertices are labelled by $\Z_2^{2 m}$,
-where there is an edge between $i$ and $j$ if and only if $\sigma_m(i+j)=1$.
+The paper on bent functions \cite{Leo15Bent} notes that 
+since $\tau_m(i) = 1$ if and only if $\gamma_m(i)$ is symmetric but not diagonal,
+Thus the subgraph $\varDelta_m[1]$ is isomorphic to the Cayley graph $\Cay(\tau_m)$.
 
-The paper on bent functions \cite{Leo15Bent} also notes that 
-$\tau_m(i) = 1$ if and only if $\gamma_m(i)$ is symmetric but not diagonal.
-Thus the subgraph $\varDelta_m[1]$ is isomorphic to the Cayley graph of $\tau_m$.
-It is also easily verified that $\tau_m(i) = 1$ if and only if the number of digits equal to 1 or 2 in the base 4
-representation of $i$ is non zero, and the number of digits equal to 1 is even.
-
-The paper on bent functions \cite{Leo15Bent} uses the characterization of $\varDelta_m[-1]$ and $\varDelta_m[1]$ 
+The paper on bent functions \cite{Leo15Bent} uses these isomorphisms and the characterization of $\Cay(\sigma_m)$ and $\Cay(\tau_m)$ 
 as Cayley graphs of bent functions to prove the following theorem. 
 \begin{Theorem}\label{Twins-are-strongly-regular-theorem}
 %
@@ -325,49 +367,26 @@ $v_m = 4^m,$ $k_m = 2^{2 m - 1} - 2^{m - 1},$ $\lambda_m=\mu_m=2^{2 m - 2} - 2^{
 %
 \end{Theorem}
 
-\paragraph*{Hurwitz-Radon theory.}
-\label{sec-Hurwitz-Radon}
-The key concept used in the proof of Lemma~\ref{Red-clique-lemma} below is that of a \emph{Hurwitz-Radon family} of matrices.
-~
-
-A set of real orthogonal matrices $\{A_1,A_2,\ldots,A_s\}$ is called a Hurwitz-Radon family 
-\cite{GerP74a,Hur22,Rad22} if
-\begin{enumerate}
- \item
-$A_j^T = -A_j$ for all $j=1,\ldots,s$, and
- \item 
-$A_j A_k = -A_k A_j$ for all $j \neq k$.
-\end{enumerate}
-The Hurwitz-Radon function $\rho$ is defined by
-\begin{align*}
-\rho(2^{4 d + c}) &:= 2^c + 8 d, \quad \text{where~} 0 \leqslant c < 4.
-\end{align*}
-As stated by Geramita and Pullman \cite[Theorem A]{GerP74a}, Radon \cite{Rad22}
-proved the following result, which is used as a lemma in this paper.
-\begin{Lemma}\label{Hurwitz-Radon-lemma}
-Any Hurwitz-Radon family of order $n$ has at most $\rho(n)-1$ members.
-\end{Lemma}
-
 \section{Proof of Theorem \ref{HR-non-imomorphic-theorem} and related results}
 \label{sec-Results}
 Here we state and prove the main results of this paper.
 
 The proof of Theorem~\ref{HR-non-imomorphic-theorem} follows from the following two lemmas.
-The first lemma puts an upper bound on the clique number of $\varDelta_m[-1]$.
+The first lemma puts an upper bound on the clique number of the graph $\Cay(\sigma_m) \isomorphic \varDelta_m[-1]$.
 \begin{Lemma}
 \label{Red-clique-lemma}
-The clique number of the graph $\varDelta_m[-1]$ is at most $\rho(2^m)$,
+The clique number of the graph $\Cay(\sigma_m)$ is at most $\rho(2^m)$,
 where $\rho$ is the Hurwitz-Radon function.
 Therefore $\rho(2^m) < 2^m$ for $m \geqslant 4$.
 \end{Lemma}
 \begin{proof}
-If we label the vertices of the graph $\varDelta_m[-1]$ with the elements of $Z_2^{2m}$,
+If we label the vertices of the graph $\Cay(\sigma_m)$ with the elements of $Z_2^{2m}$,
 then any clique in this graph is mapped to another clique if a constant is added to all of the vertices.
-Thus without loss of generality we can assume that one of the vertices is labelled 0.
-If we then use $\gamma_m$ to label the vertices with elements of $\R_{m,m}$,
-we have one vertex labelled with the identity matrix $I$ of order $2^m$,
-and (since we have a clique in $\varDelta_m[-1]$) the other vertices $A_1$ to $A_s$ (say) must necessarily be skew matrices
-that are pairwise anti-amicable:
+Thus without loss of generality we can assume that we have a clique of order $s+1$ with one of the vertices labelled by 0.
+If we then use $\gamma_m$ to label the vertices with elements of $\R_{m,m}$ to obtain the isomorphic graph $\varDelta_m[-1]$,
+we have one vertex of the clique labelled with the identity matrix $I$ of order $2^m$.
+Since the clique is in $\varDelta_m[-1]$, the other vertices $A_1$ to $A_s$ (say) must necessarily be skew matrices
+that are pairwise anti-amicable,
 \begin{align*}
 A_j A_k^T &= -A_k A_j^T\quad\text{for all~} j \neq k.
 \intertext{But then}
@@ -378,13 +397,13 @@ By Lemma~\ref{Hurwitz-Radon-lemma}, $s$ is at most $\rho(2^m)-1$ and therefore t
 $\rho(2^m)$.
 \end{proof}
 
-The second lemma puts a lower bound on the clique number of the graph $\varDelta_m[1]$.
+The second lemma puts a lower bound on the clique number of the graph $\Cay(\tau_m) \isomorphic \varDelta_m[1]$.
 \begin{Lemma}
 \label{Blue-clique-lemma}
-The clique number of the graph $\varDelta_m[1]$ is at least $2^m$.
+The clique number of the graph $\Cay(\tau_m)$ is at least $2^m$.
 \end{Lemma}
 \begin{proof}
-We construct a clique of order $2^m$ in $\varDelta_m[1]$ with the vertices labelled in $\Z_2^{2m}$, 
+We construct a clique of order $2^m$ in $\Cay(\tau_m)$ with the vertices labelled in $\Z_2^{2m}$, 
 using the following vertices denoted in base 4:
 \begin{align*}
 00 &\ldots 02
@@ -396,14 +415,14 @@ using the following vertices denoted in base 4:
 22 &\ldots 22
 \end{align*}
 This set is closed under addition in $\Z_2^{2 m}$,
-and therefore forms a clique of order $2^m$ in $\varDelta_m[1]$.
+and therefore forms a clique of order $2^m$ in $\Cay(\tau_m)$.
 \end{proof}
 
 With these two lemmas in hand, the proof of Theorem~\ref{HR-non-imomorphic-theorem} follows easily.
 
 \begin{proofof}{Theorem~\ref{HR-non-imomorphic-theorem}}
 The result is a direct consequence of Lemmas~\ref{Red-clique-lemma} and~\ref{Blue-clique-lemma}.
-For $m \geqslant 4$, the clique numbers of the graphs $\varDelta_m[-1]$ and $\varDelta_m[1]$ are different,
+For $m \geqslant 4$, the clique numbers of the graphs $\Cay(\sigma_m)$ and $\Cay(\tau_m)$ are different,
 and therefore these graphs cannot be isomorphic.
 \end{proofof}
 
@@ -464,7 +483,7 @@ is remarkable in the light of Theorem~\ref{Conjectures-are-false-theorem}.
 \paragraph*{Acknowledgements.}
 
 Thanks to Christine Leopardi for her hospitality at Long Beach.
-Thanks to Robert Craigen, William Martin,
+Thanks to Robert Craigen, Joanne Hall, William Martin,
 Padraig {\'O} Cath{\'a}in and Judy-anne Osborn for valuable discussions.
 This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University, 
 and concluded while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia.
