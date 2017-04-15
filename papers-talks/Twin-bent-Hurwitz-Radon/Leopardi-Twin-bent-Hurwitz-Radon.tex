@@ -41,11 +41,11 @@
 \author{
 Paul~C.~Leopardi
 \thanks{School of Mathematical and Physical Sciences, The University of Newcastle.
-\protect\url{mailto:paul.leopardi@newcastle.edu.au}}
+\protect\url{mailto:paul.leopardi@gmail.com}}
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{Submitted: 11 April 2015, revised 9 October 2015}
+\date{Submitted: 11 April 2015, revised 10 November 2015}
 
 \begin{document}
 
@@ -65,17 +65,6 @@ The proof of this non-isomorphism is a simple consequence of a theorem of Radon.
 
 \section{Introduction}
 \label{sec-Introduction}
-A paper of Bernasconi and Codenotti gives a description of the relationship between bent functions and
-their Cayley graphs, implying that a bent function corresponding to a $(v,k,\lambda,n)$ Hadamard difference set has a Cayley graph 
-that is strongly regular with parameters $(v,k,\lambda,\mu)$ where $\lambda=\mu$~\cite[Lemma 12]{BerC99}.
-This result has opened up the possibility of classifying bent functions via their Cayley graphs.
-Key questions that may lead to a classification are
-\begin{enumerate}
-\item For which difference set parameters $v, k$ and $\lambda$ are all of the corresponding Cayley graphs isomorphic?
-\item In general, which strongly regular graphs with parameters $(v,k,\lambda,\lambda)$ occur as Cayley graphs of bent functions?
-\item What is the relationship between previous classifications of bent functions and the classification via Cayley graphs?
-\end{enumerate}
-
 Two recent papers \cite{Leo14Constructions,Leo15Bent} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
 The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on 
 generalizations of Williamson's construction for Hada\-mard matrices.
@@ -85,7 +74,7 @@ In this second paper it is shown that the bent functions $\sigma_m$ and $\tau_m$
 \begin{align*}
 (v_m,k_m,\lambda_m,n_m) &= (4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}, 2^{2 m - 2}),
 \end{align*}
-and that their Cayley graphs are both strongly regular with the same parameters $(v_m,k_m,\lambda_m,\lambda_m)$.
+and that their corresponding Cayley graphs are both strongly regular with the same parameters $(v_m,k_m,\lambda_m,\lambda_m)$.
 
 The main result of the current paper is the following.
 \begin{Theorem}\label{HR-non-imomorphic-theorem}
@@ -93,10 +82,10 @@ The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic o
 \end{Theorem}
 
 The remainder of the paper is organized as follows.
-Section \ref{sec-Background} outlines some of the background of this investigation, in terms of a number of conjectures arising from constructions for  Hada\-mard matrices.
+Section \ref{sec-Background} outlines some of the background of this investigation.
 Section \ref{sec-Preliminaries} repeats enough of the definitions and properties used in the previous papers \cite{Leo14Constructions, Leo15Bent},
-and includes those further definitions needed to make this paper self-contained.
-Section~\ref{sec-Results} proves the main result, and a number of corollaries.
+and includes those further definitions needed to make this paper reasonably self-contained.
+Section~\ref{sec-Results} proves the main result, and resolves the conjectures and the question raised by the previous papers.
 
 \section{Background}\label{sec-Background}
 A recent paper of the author \cite{Leo14Constructions} describes a generalization of
@@ -142,10 +131,7 @@ that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$?
 (The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and $\varDelta_m[1]$ 
 are given in the relevant papers and are repeated in the next section.)
 
-The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem}, implies that
-Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$, and as a consequence, 
-so do Conjectures~\ref{conjecture-1} and~\ref{conjecture-2}.
-This also resolves Question~\ref{Question-1}: the only values for which such an automorphism exists are 1, 2, and 3.
+The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem} leads to the resolution of these conjectures and this question.
 
 \section{Definitions and properties}
 \label{sec-Preliminaries}
@@ -291,9 +277,9 @@ Otherwise there is no edge between $A_j$ and $A_k$.
 
 The graph $\varDelta_m$ is composed
 of two subgraphs:
-$\varDelta_m[-1]$ denotes the \emph{red subgraph} of $\varDelta_m,$
+$\varDelta_m[-1]$ denotes the ``red subgraph'' of $\varDelta_m,$
 the subgraph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $-1$;
-and $\varDelta_m[1]$ denotes the \emph{blue subgraph} of $\varDelta_m,$
+and $\varDelta_m[1]$ denotes the ``blue subgraph'' of $\varDelta_m,$
 the subgraph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $1$.
 
 As noted in the paper on Clifford algebras and Hadamard matrices \cite{Leo14Constructions},
@@ -310,14 +296,14 @@ The previous two papers \cite{Leo14Constructions,Leo15Bent}
 define two bent functions  on $\Z_2^{2 m}$, $\sigma_m$ and $\tau_m$, respectively.
 (For the definition and properties of bent functions, see the previous two papers \cite{Leo14Constructions,Leo15Bent}
 and references therein.)
-\newpage
+
 In the paper on bent functions \cite{Leo15Bent}, the following two properties of $\sigma_m$ are noted.
 \begin{enumerate}
  \item 
 Since each matrix $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is skew.
  \item 
 For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
-1 digits in  the base 4 representation of $i$ is odd.
+digits equal to 1 in  the base 4 representation of $i$ is odd.
 \end{enumerate}
 Thus the subgraph $\varDelta_m[-1]$ is isomorphic to the Cayley graph of $\sigma_m$,
 the graph whose vertices are labelled by $\Z_2^{2 m}$,
@@ -326,8 +312,8 @@ where there is an edge between $i$ and $j$ if and only if $\sigma_m(i+j)=1$.
 The paper on bent functions \cite{Leo15Bent} also notes that 
 $\tau_m(i) = 1$ if and only if $\gamma_m(i)$ is symmetric but not diagonal.
 Thus the subgraph $\varDelta_m[1]$ is isomorphic to the Cayley graph of $\tau_m$.
-It is also easily verified that $\tau_m(i) = 1$ if and only if the number of digits 1 or 2 in the base 4
-representation of $i$ is non zero, and the number of 1 digits is even.
+It is also easily verified that $\tau_m(i) = 1$ if and only if the number of digits equal to 1 or 2 in the base 4
+representation of $i$ is non zero, and the number of digits equal to 1 is even.
 
 The paper on bent functions \cite{Leo15Bent} uses the characterization of $\varDelta_m[-1]$ and $\varDelta_m[1]$ 
 as Cayley graphs of bent functions to prove the following theorem. 
@@ -341,7 +327,7 @@ $v_m = 4^m,$ $k_m = 2^{2 m - 1} - 2^{m - 1},$ $\lambda_m=\mu_m=2^{2 m - 2} - 2^{
 
 \paragraph*{Hurwitz-Radon theory.}
 \label{sec-Hurwitz-Radon}
-
+The key concept used in the proof of Lemma~\ref{Red-clique-lemma} below is that of a \emph{Hurwitz-Radon family} of matrices.
 ~
 
 A set of real orthogonal matrices $\{A_1,A_2,\ldots,A_s\}$ is called a Hurwitz-Radon family 
@@ -361,10 +347,68 @@ proved the following result, which is used as a lemma in this paper.
 \begin{Lemma}\label{Hurwitz-Radon-lemma}
 Any Hurwitz-Radon family of order $n$ has at most $\rho(n)-1$ members.
 \end{Lemma}
-\newpage
-\section{Main Results}
+
+\section{Proof of Theorem \ref{HR-non-imomorphic-theorem} and related results}
 \label{sec-Results}
 Here we state and prove the main results of this paper.
+
+The proof of Theorem~\ref{HR-non-imomorphic-theorem} follows from the following two lemmas.
+The first lemma puts an upper bound on the clique number of $\varDelta_m[-1]$.
+\begin{Lemma}
+\label{Red-clique-lemma}
+The clique number of the graph $\varDelta_m[-1]$ is at most $\rho(2^m)$,
+where $\rho$ is the Hurwitz-Radon function.
+Therefore $\rho(2^m) < 2^m$ for $m \geqslant 4$.
+\end{Lemma}
+\begin{proof}
+If we label the vertices of the graph $\varDelta_m[-1]$ with the elements of $Z_2^{2m}$,
+then any clique in this graph is mapped to another clique if a constant is added to all of the vertices.
+Thus without loss of generality we can assume that one of the vertices is labelled 0.
+If we then use $\gamma_m$ to label the vertices with elements of $\R_{m,m}$,
+we have one vertex labelled with the identity matrix $I$ of order $2^m$,
+and (since we have a clique in $\varDelta_m[-1]$) the other vertices $A_1$ to $A_s$ (say) must necessarily be skew matrices
+that are pairwise anti-amicable:
+\begin{align*}
+A_j A_k^T &= -A_k A_j^T\quad\text{for all~} j \neq k.
+\intertext{But then}
+A_j A_k &= -A_k A_j\quad\text{for all~} j \neq k,
+\end{align*}
+and therefore $\{A_1,\ldots,A_s\}$ is a Hurwitz-Radon family.
+By Lemma~\ref{Hurwitz-Radon-lemma}, $s$ is at most $\rho(2^m)-1$ and therefore the size of the clique is at most
+$\rho(2^m)$.
+\end{proof}
+
+The second lemma puts a lower bound on the clique number of the graph $\varDelta_m[1]$.
+\begin{Lemma}
+\label{Blue-clique-lemma}
+The clique number of the graph $\varDelta_m[1]$ is at least $2^m$.
+\end{Lemma}
+\begin{proof}
+We construct a clique of order $2^m$ in $\varDelta_m[1]$ with the vertices labelled in $\Z_2^{2m}$, 
+using the following vertices denoted in base 4:
+\begin{align*}
+00 &\ldots 02
+\\
+00 &\ldots 20
+\\
+&\ldots
+\\
+22 &\ldots 22
+\end{align*}
+This set is closed under addition in $\Z_2^{2 m}$,
+and therefore forms a clique of order $2^m$ in $\varDelta_m[1]$.
+\end{proof}
+
+With these two lemmas in hand, the proof of Theorem~\ref{HR-non-imomorphic-theorem} follows easily.
+
+\begin{proofof}{Theorem~\ref{HR-non-imomorphic-theorem}}
+The result is a direct consequence of Lemmas~\ref{Red-clique-lemma} and~\ref{Blue-clique-lemma}.
+For $m \geqslant 4$, the clique numbers of the graphs $\varDelta_m[-1]$ and $\varDelta_m[1]$ are different,
+and therefore these graphs cannot be isomorphic.
+\end{proofof}
+
+Lemmas~\ref{Red-clique-lemma} and~\ref{Blue-clique-lemma}, along with Theorem~\ref{HR-non-imomorphic-theorem}
+imply the failure of the conjectures~\ref{conjecture-1} to~\ref{conjecture-3}, as well as the resolution of Question~\ref{Question-1}, as follows.
 \begin{Theorem}
 \label{Conjectures-are-false-theorem}
 For $m \geqslant 4$ the following hold.
@@ -383,58 +427,11 @@ are $m=1,2$ and $3$.
 
 \end{Theorem}
 
-The proof of Theorem~\ref{Conjectures-are-false-theorem} follows from the following two lemmas.
-The first lemma puts an upper bound on the size of the maximum clique in $\varDelta_m[-1]$.
-\begin{Lemma}
-\label{Red-clique-lemma}
-The order of the largest clique in the red subgraph $\varDelta_m[-1]$ is at most $\rho(2^m)$,
-where $\rho$ is the Hurwitz-Radon function.
-Therefore $\rho(2^m) < 2^m$ for $m \geqslant 4$.
-\end{Lemma}
 \begin{proof}
-If we label the vertices of the subgraph $\varDelta_m[-1]$ with the elements of $Z_2^{2m}$,
-then any clique in this subgraph is mapped to another clique if a constant is added to all of the vertices.
-Thus without loss of generality we can assume that one of the vertices is labelled 0.
-If we then use $\gamma_m$ to label the vertices with elements of $\R_{m,m}$,
-we have one vertex labelled with the identity matrix $I$ of order $2^m$,
-and (since we have a clique in $\varDelta_m[-1]$) the other vertices $A_1$ to $A_s$ (say) must necessarily be skew matrices
-that are pairwise anti-amicable:
-\begin{align*}
-A_j A_k^T &= -A_k A_j^T\quad\text{for all~} j \neq k.
-\intertext{But then}
-A_j A_k &= -A_k A_j\quad\text{for all~} j \neq k,
-\end{align*}
-and therefore $\{A_1,\ldots,A_s\}$ is a Hurwitz-Radon family.
-By Lemma~\ref{Hurwitz-Radon-lemma}, $s$ is at most $\rho(2^m)-1$ and therefore the size of the clique is at most
-$\rho(2^m)$.
-\end{proof}
-
-The second lemma puts a lower bound on the size of the maximum clique in $\varDelta_m[1]$.
-\begin{Lemma}
-\label{Blue-clique-lemma}
-The order of the largest clique in the blue subgraph $\varDelta_m[1]$ is at least $2^m$.
-\end{Lemma}
-\begin{proof}
-We construct a clique of order $2^m$ in $\varDelta_m[1]$ with the vertices labelled in $\Z_2^{2m}$, 
-using the following vertices denoted in base 4:
-\begin{align*}
-00 &\ldots 02
-\\
-00 &\ldots 20
-\\
-&\ldots
-\\
-22 &\ldots 22
-\end{align*}
-This set is closed under addition in $\Z_2^{2 m}$,
-and therefore forms a clique of order $2^m$ in $\varDelta_m[1]$.
-\end{proof}
-
-With these two lemmas in hand, the proof of Theorem~\ref{Conjectures-are-false-theorem} follows easily.
-\begin{proofof}{Theorem~\ref{Conjectures-are-false-theorem}}
 Assume that $m \geqslant 4$.
 A transversal graph is a subgraph of $\varDelta_m$ which is a complete graph of order $2^m$.
-The edges of a transversal graph are labelled with -1 (red) or 1 (blue).
+The edges of a transversal graph are labelled with the colour red (if the edge is contained in $\varDelta_m[-1]$) or blue
+(if the edge is contained in $\varDelta_m[1]$).
 By Lemma~\ref{Red-clique-lemma}, the largest clique of $\varDelta_m[-1]$ is of order $\rho(2^m) < 2^m$,
 and by Lemma~\ref{Blue-clique-lemma}, the largest clique of $\varDelta_m[1]$ is of order $2^m$.
 If we take a blue clique of order $2^m$ as a transversal graph, this cannot have an edge-colour complement
@@ -446,11 +443,10 @@ Since Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$,
 the pairing of graphs described in Conjecture~\ref{conjecture-2} is impossible for $m \geqslant 4$.
 Thus Conjecture~\ref{conjecture-2} is also false.
 
-Finally, Conjecture~\ref{conjecture-1} fails as a direct consequence of Lemmas~\ref{Red-clique-lemma} and~\ref{Blue-clique-lemma},
-since, for $m \geqslant 4$, the difference between $\varDelta_m[-1]$  and $\varDelta_m[1]$ in the order of the largest clique
-means that these two subgraphs of $\varDelta_m$ cannot be isomorphic.
+Finally, Conjecture~\ref{conjecture-1} fails as a direct consequence of Theorem~\ref{HR-non-imomorphic-theorem}
+since, for $m \geqslant 4$, the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$are not isomorphic.
 Therefore, for $m \geqslant 4$,  there can be no automorphism of $\varDelta_m$ that swaps the edge colours. 
-\end{proofof}
+\end{proof}
 
 \begin{remark}
 As a result of Theorems~\ref{Twins-are-strongly-regular-theorem} and \ref{Conjectures-are-false-theorem},
@@ -472,6 +468,7 @@ Thanks to Robert Craigen, William Martin,
 Padraig {\'O} Cath{\'a}in and Judy-anne Osborn for valuable discussions.
 This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University, 
 and concluded while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia.
+%Thanks also to the anonymous reviewer of the previous draft of this paper.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -483,7 +480,7 @@ and concluded while the author was a Visiting Fellow and a Casual Academic at th
 
 %\bibliography{bib}
 
-\input{AJC-2015-Leopardi-Twin-bent-Hurwitz-Radon.bbl}
+\input{AJC-2015-Leopardi-Twin-bent-Hurwitz-Radon-revised.bbl}
 
 \end{document}
 % ----------------------------------------------------------------
