@@ -1,0 +1,38 @@
+\begin{thebibliography}{1}
+
+\bibitem{GerP74a}
+A.~V. Geramita and N.~J. Pullman.
+\newblock A theorem of {Hurwitz} and {Radon} and orthogonal projective modules.
+\newblock {\em Proceedings of the American Mathematical Society}, 42(1):51--56,
+  (1974).
+
+\bibitem{Hur22}
+A.~Hurwitz.
+\newblock {\"Uber} die {Komposition} der quadratischen {Formen}.
+\newblock {\em Math. Ann.}, 88(1-2):1--25, (1922).
+
+\bibitem{Leo14Constructions}
+P.~Leopardi.
+\newblock Constructions for {Hadamard} matrices, {Clifford} algebras, and their
+  relation to amicability / anti-amicability graphs.
+\newblock {\em Australasian Journal of Combinatorics}, 58(2):214--248, (2014).
+
+\bibitem{Leo15Bent}
+P.~Leopardi.
+\newblock Twin bent functions and {Clifford} algebras.
+\newblock Accepted for publication in Springer Proceedings in Mathematics and
+  Statistics (PROMS): Algebraic Design Theory and Hadamard Matrices. Preprint:
+  arXiv:1501.05477 [math.CO], (2015).
+
+\bibitem{Rad22}
+J.~Radon.
+\newblock Lineare {Scharen} orthogonaler {Matrizen}.
+\newblock {\em Abhandlungen aus dem Mathematischen Seminar der Universit{\"a}t
+  Hamburg}, 1(1):1--14, (1922).
+
+\bibitem{Wil44}
+J.~Williamson.
+\newblock Hadamard's determinant theorem and the sum of four squares.
+\newblock {\em Duke Math. J.}, 11:65--81, (1944).
+
+\end{thebibliography}
