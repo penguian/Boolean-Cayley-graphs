@@ -42,7 +42,8 @@
 
 \author{
 Paul~C.~Leopardi
-\thanks{School of Mathematical and Physical Sciences, The University of Newcastle.
+%\thanks{School of Mathematical and Physical Sciences, The University of Newcastle.
+\thanks{Australian Government - Bureau of Meteorology.
 \protect\url{mailto:paul.leopardi@gmail.com}}
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
@@ -267,7 +268,7 @@ In turn, because Lemma \ref{th-graph-image} guarantees the existence of a comple
 isomorphic to $\varGamma_{m,m}$ within $P_b$, and because $\varDelta_m$ is a subgraph of $\varGamma_{m,m}$,
 the graph $P_b$ would have to contain a two-edge-coloured subgraph isomorphic to $\overline{T}$.
 This would imply the existence of an $n$-tuple of $B$ matrices of order $n$ satisfying the condition \eqref{constructions-4}
-such that the construction (H0) would satisfy the Hadamard condition (H1), with a matrix of order $n^2$.
+such that the construction (H0) would satisfy the Hada\-mard condition (H1), with a matrix of order $n^2$.
 
 The author's subsequent paper on bent functions \cite{Leo15Twin} 
 refines Conjecture~\ref{conjecture-1} into the following question.
@@ -591,19 +592,29 @@ and the result for $V^+$ in his Theorem 2 is equivalent to Lemma \ref{Red-clique
 
 The main consequence of Theorem~\ref{Conjectures-are-false-theorem} is that for $m>3$ there is at least one $n$-tuple of $A$ matrices,
 with $n=2^m$ such that no $n$-tuple of $B$ matrices of order $n$ can be found to satisfy construction (H0) under condition (H1).
-The proof of Theorem 5 of the Hadamard construction paper \cite{Leo14Constructions} shows by construction that for any $m$,
+The proof of Theorem 5 of the Hada\-mard construction paper \cite{Leo14Constructions} shows by construction that for any $m$,
 and any $n$-tuple of $A$ matrices satisfying \eqref{constructions-4}, there is an $n$-tuple of $B$ matrices of order $nc$ that 
 satisfies construction (H0) under condition (H1), where $c=M(n-1)$, with
-\begin{align*}
-M(q) &=
+\begin{align}
+M(q) &:=
 \begin{cases}
 \lceil \frac{q}{2} \rceil + 1, \quad \text{if~} q \equiv 2,3,4 \quad (\operatorname{mod} 8),
 \\
 \lceil \frac{q}{2} \rceil \quad \text{otherwise.}
 \end{cases}
-\end{align*}
+\label{M-def}
+\end{align}
 Thus Theorem 5 remains valid.
-The question remains as to whether the the order $nc$ is tight or can be reduced
+The question remains as to whether the the order $nc$ is tight or can be reduced.
+In the special case where the $n$-tuple of $A$ matrices is mutually amicable, the answer is given by Corollary 15 of the paper \cite{Leo14Constructions}:
+The set of ${-1,1}$ matrices of order $c$ contains an $n$-tuple of mutually anti-amicable Hada\-mard matrices. 
+So in this special case, the required order can be reduced from $nc$ to $c$.
+This leads to the following question.
+\begin{Question}
+In the general case, for any $m>1$, $n=2^m$, for any $n$-tuple of $A$ matrices satisfying \eqref{constructions-4},
+does there always exist an $n$-tuple of $B$ matrices of order $c$ that 
+satisfies construction (H0) under condition (H1), where $c=M(n-1)$, with $M$ defined by \eqref{M-def}?
+\end{Question}
 
 As a result of Theorems~\ref{Twins-are-strongly-regular-theorem} and \ref{Conjectures-are-false-theorem},
 we see that we have two sequences of strongly regular graphs, $\varDelta_m[-1]$ and $\varDelta_m[1]$ ($m \geqslant 1$),
@@ -621,12 +632,13 @@ that is strongly regular with parameters $(v,k,\lambda,\mu)$ where $\lambda=\mu$
 The current paper notes that for two specific sequences of bent functions, $\sigma_m$ and $\tau_m$,
 the corresponding Cayley graphs are not necessarily isomorphic.
 
-This raises the subject of classifying bent functions via their Cayley graphs.
-In particular:
-\begin{enumerate}
-\item Which strongly regular graphs with parameters $(v,k,\lambda,\lambda)$ occur as Cayley graphs of bent functions?
-\item What is the relationship between other classifications of bent functions and the classification via Cayley graphs?
-\end{enumerate}
+This raises the subject of classifying bent functions via their Cayley graphs, raising the following questions.
+\begin{Question}
+Which strongly regular graphs with parameters $(v,k,\lambda,\lambda)$ occur as Cayley graphs of bent functions? 
+\end{Question}
+\begin{Question}
+What is the relationship between other classifications of bent functions and the classification via Cayley graphs? 
+\end{Question}
 This classification is the topic of a paper in preparation \cite{Leo16Classifying}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
