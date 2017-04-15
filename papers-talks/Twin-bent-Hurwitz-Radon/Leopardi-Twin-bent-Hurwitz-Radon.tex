@@ -71,7 +71,7 @@ The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \ci
 generalizations of Williamson's construction for Hada\-mard matrices.
 The bent function $\tau_m$ on $\Z_2^{2 m}$ is described in the second paper \cite{Leo15Twin},
 which investigates some of the properties of the two sequences of bent functions.
-In this second paper it is shown that the bent functions $\sigma_m$ and $\tau_m$ both correspond to Hadamard difference sets with the same parameters
+In this second paper it is shown that the bent functions $\sigma_m$ and $\tau_m$ both correspond to Hada\-mard difference sets with the same parameters
 \begin{align*}
 (v_m,k_m,\lambda_m,n_m) &= (4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}, 2^{2 m - 2}),
 \end{align*}
@@ -167,9 +167,9 @@ defined by the signed group presentation
 \end{align*}
 %
 where $S_{p,q} := \{-q,\ldots,-1,1,\ldots,p\}.$
-
-The following construction of the real monomial representation $\Rep(\G_{m,m})$
-of the group $\G_{m,m}$ is used below.
+% 
+% The following construction of the real monomial representation $\Rep(\G_{m,m})$
+% of the group $\G_{m,m}$ is used below.
 
 The $2 \times 2$ orthogonal matrices
 \begin{align*}
@@ -224,8 +224,8 @@ and the pairs are ordered as follows.
 This ordering is called 
 the \emph{Kronecker product ordering} of the cosets of $\{\pm I\}$ in $\Rep(\G_{m,m}).$
 
-Recall that
-the group $\G_{m,m}$ and its real monomial representation $\Rep(\G_{m,m})$ 
+%Recall that
+The group $\G_{m,m}$ and its real monomial representation $\Rep(\G_{m,m})$ 
 satisfy the following properties.
 \begin{enumerate}
 \item 
@@ -244,14 +244,13 @@ which is also a monomial basis for the real representation of the Clifford algeb
 Kronecker product order,
 called this basis the \emph{positive signed basis} of $\Rep(\R_{m,m}).$ 
 
-\begin{Definition}\label{definition-gamma}
-We define the function $\gamma_m : \Z_{2^{2 m}} \To \Rep(\G_{m,m})$ 
-to choose the corresponding basis matrix from the positive signed basis of $\Rep(\R_{m,m}),$
+%\begin{Definition}\label{definition-gamma}
+The function $\gamma_m : \Z_{2^{2 m}} \To \Rep(\G_{m,m})$ 
+chooses the corresponding basis matrix from the positive signed basis of $\Rep(\R_{m,m}),$
 using the Kronecker product ordering.
 This ordering also defines a corresponding function on $\Z_2^{2 m},$
-which we also call $\gamma_m.$
-\end{Definition}
-
+also called $\gamma_m.$
+%\end{Definition}
 
 \paragraph*{Hurwitz-Radon theory.}
 \label{sec-Hurwitz-Radon}
@@ -285,11 +284,11 @@ Any Hurwitz-Radon family of order $n$ has at most $\rho(n)-1$ members.
 
 The previous two papers \cite{Leo14Constructions,Leo15Twin} 
 define two binary functions  on $\Z_2^{2 m}$, $\sigma_m$ and $\tau_m$, respectively.
-The relevant definitions and key properties are repeated below.
+Their key properties are repeated below.
 See the two papers for the proofs and for more details and references on bent functions.
 
-The function $\sigma_m : \Z_2^{2 m} \To \Z_2$:
-\begin{itemize}
+The function $\sigma_m : \Z_2^{2 m} \To \Z_2$ has the following properties.
+\begin{enumerate}
  \item 
 For $i \in \Z_2^{2m},$ $\sigma_m(i) = 1$ if and only if the number of
 digits equal to 1 in  the base 4 representation of $i$ is odd.
@@ -297,10 +296,10 @@ digits equal to 1 in  the base 4 representation of $i$ is odd.
 Since each matrix $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is skew.
  \item 
 The function $\sigma_m$ is bent.
-\end{itemize}
+\end{enumerate}
 
-The function $\tau_m : \Z_2^{2 m} \To \Z_2$:
-\begin{itemize}
+The function $\tau_m : \Z_2^{2 m} \To \Z_2$ has the following properties.
+\begin{enumerate}
  \item 
 For $i \in \Z_2^{2m},$ $\tau_m(i) = 1$ if and only if the number of digits equal to 1 or 2 in the base 4
 representation of $i$ is non zero, and the number of digits equal to 1 is even.
@@ -308,7 +307,7 @@ representation of $i$ is non zero, and the number of digits equal to 1 is even.
 The value $\tau_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is symmetric but not diagonal.
  \item 
 The function $\tau_m$ is bent.
-\end{itemize}
+\end{enumerate}
 
 \paragraph*{The relevant graphs.}
 \label{sec-Graphs}
@@ -319,6 +318,8 @@ The following definitions appear in the previous two papers \cite{Leo14Construct
 and are repeated here for completeness, because Conjectures~\ref{conjecture-2} and \ref{conjecture-3} and Question 1 depend on these definitions.
 
 \begin{Definition}\label{definition-delta}
+\cite[p. 225]{Leo14Constructions}
+
 Let $\varDelta_m$ be the graph whose vertices are the $n^2=4^m$ 
 positive signed basis matrices of the real representation
 of the Clifford algebra $\R_{m,m}$,
@@ -347,7 +348,7 @@ is any induced subgraph of $\varDelta_m$ that is a complete graph on $2^m$ verti
 That is, each pair of vertices in the transversal graph represents a pair of matrices,
 $A_j$ and $A_k$ with disjoint support.
 
-For a binary function $f : \Z_2^{2 m} \To \Z_2$, with $f(0)=0$ we now consider the simple undirected \emph{Cayley graph} $\Cay(f)$
+For a binary function $f : \Z_2^{2 m} \To \Z_2$, with $f(0)=0$ we now consider the simple undirected \emph{Cayley graph} $\Cay(f)$  \cite[3.1]{BerC99}
 where the vertex set $V(\Cay(f)) = \Z_2^{2 m}$ and for $i,j \in \Z_2^{2 m}$, the edge $(i,j)$ is in the edge set $E(\Cay(f))$ if and only if $f(i+j)=1$.
 
 In the paper on Hada\-mard matrices \cite{Leo14Constructions} it is shown that
@@ -465,7 +466,7 @@ Thus Conjecture~\ref{conjecture-2} is also false.
 
 Finally, Conjecture~\ref{conjecture-1} fails as a direct consequence of Theorem~\ref{HR-non-imomorphic-theorem}
 since, for $m \geqslant 4$, the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$are not isomorphic.
-Therefore, for $m \geqslant 4$,  there can be no automorphism of $\varDelta_m$ that swaps the edge colours. 
+Therefore, for $m \geqslant 4$,  there can be no automorphism of $\varDelta_m$ that swaps these subgraphs. 
 \end{proof}
 
 \section{Discussion}
@@ -481,7 +482,7 @@ as subgraphs \cite[Table 1]{Leo14Constructions}
 is remarkable in the light of Theorem~\ref{Conjectures-are-false-theorem}.
 
 A paper of Bernasconi and Codenotti describes the relationship between bent functions and
-their Cayley graphs, implying that a bent function corresponding to a $(v,k,\lambda,n)$ Hadamard difference set has a Cayley graph 
+their Cayley graphs, implying that a bent function corresponding to a $(v,k,\lambda,n)$ Hada\-mard difference set has a Cayley graph 
 that is strongly regular with parameters $(v,k,\lambda,\mu)$ where $\lambda=\mu$~\cite[Lemma 12]{BerC99}.
 The current paper notes that for two specific sequences of bent functions, $\sigma_m$ and $\tau_m$,
 the corresponding Cayley graphs are not necessarily isomorphic.
