@@ -45,7 +45,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{Submitted: 11 April 2015, revised 28 April 2015}
+\date{Submitted: 11 April 2015, revised 9 October 2015}
 
 \begin{document}
 
@@ -57,7 +57,7 @@ The real monomial representations of Clifford algebras
 give rise to two sequences of bent functions.
 For each of these sequences, the corresponding Cayley graphs are 
 strongly regular graphs, and the corresponding sequences of strongly regular graph parameters
-$(\nu,k,\lambda,\mu)$ coincide.
+$(v,k,\lambda,\mu)$ coincide.
 Even so, the corresponding graphs in the two sequences are not isomorphic, except in the first 3 cases.
 The proof of this non-isomorphism is a simple consequence of a theorem of Radon.  
 %
@@ -65,7 +65,40 @@ The proof of this non-isomorphism is a simple consequence of a theorem of Radon.
 
 \section{Introduction}
 \label{sec-Introduction}
+A paper of Bernasconi and Codenotti gives a description of the relationship between bent functions and
+their Cayley graphs, implying that a bent function corresponding to a $(v,k,\lambda,n)$ Hadamard difference set has a Cayley graph 
+that is strongly regular with parameters $(v,k,\lambda,\mu)$ where $\lambda=\mu$~\cite[Lemma 12]{BerC99}.
+This result has opened up the possibility of classifying bent functions via their Cayley graphs.
+Key questions that may lead to a classification are
+\begin{enumerate}
+\item For which difference set parameters $v, k$ and $\lambda$ are all of the corresponding Cayley graphs isomorphic?
+\item In general, which strongly regular graphs with parameters $(v,k,\lambda,\lambda)$ occur as Cayley graphs of bent functions?
+\item What is the relationship between previous classifications of bent functions and the classification via Cayley graphs?
+\end{enumerate}
 
+Two recent papers \cite{Leo14Constructions,Leo15Bent} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
+The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on 
+generalizations of Williamson's construction for Hada\-mard matrices.
+The bent function $\tau_m$ on $\Z_2^{2 m}$ is described in the second paper \cite{Leo15Bent},
+which investigates some of the properties of the two sequences of bent functions.
+In this second paper it is shown that the bent functions $\sigma_m$ and $\tau_m$ both correspond to Hadamard difference sets with the same parameters
+\begin{align*}
+(v_m,k_m,\lambda_m,n_m) &= (4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}, 2^{2 m - 2}),
+\end{align*}
+and that their Cayley graphs are both strongly regular with the same parameters $(v_m,k_m,\lambda_m,\lambda_m)$.
+
+The main result of the current paper is the following.
+\begin{Theorem}\label{HR-non-imomorphic-theorem}
+The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic only when $m=1, 2,$ or $3.$ 
+\end{Theorem}
+
+The remainder of the paper is organized as follows.
+Section \ref{sec-Background} outlines some of the background of this investigation, in terms of a number of conjectures arising from constructions for  Hada\-mard matrices.
+Section \ref{sec-Preliminaries} repeats enough of the definitions and properties used in the previous papers \cite{Leo14Constructions, Leo15Bent},
+and includes those further definitions needed to make this paper self-contained.
+Section~\ref{sec-Results} proves the main result, and a number of corollaries.
+
+\section{Background}\label{sec-Background}
 A recent paper of the author \cite{Leo14Constructions} describes a generalization of
 Williamson's construction for Hada\-mard matrices \cite{Wil44}
 using the real monomial representation of the basis elements of the Clifford algebras $\R_{m,m}$.
@@ -109,16 +142,12 @@ that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$?
 (The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and $\varDelta_m[1]$ 
 are given in the relevant papers and are repeated in the next section.)
 
-In this paper it is proved that Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$, and as a consequence, 
+The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem}, implies that
+Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$, and as a consequence, 
 so do Conjectures~\ref{conjecture-1} and~\ref{conjecture-2}.
 This also resolves Question~\ref{Question-1}: the only values for which such an automorphism exists are 1, 2, and 3.
 
-The paper is organized as follows.
-Section~\ref{sec-Preliminaries} repeats the relevant definitions from the previous two papers \cite{Leo14Constructions,Leo15Bent},
-and includes further definitions as necessary.
-Section~\ref{sec-Results} states and proves the main results.
-
-\section{Preliminaries}
+\section{Definitions and properties}
 \label{sec-Preliminaries}
 This section sets out the main definitions and properties used in this paper.
 It is mostly based on the previous papers \cite{Leo14Constructions, Leo15Bent}
@@ -285,7 +314,7 @@ and references therein.)
 In the paper on bent functions \cite{Leo15Bent}, the following two properties of $\sigma_m$ are noted.
 \begin{enumerate}
  \item 
-Since each $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if $\gamma_m(i)$ is skew.
+Since each matrix $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is skew.
  \item 
 For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
 1 digits in  the base 4 representation of $i$ is odd.
