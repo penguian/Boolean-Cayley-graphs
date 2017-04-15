@@ -5,7 +5,7 @@
 \usepackage{amsthm}
 \usepackage{graphicx}
 %
-\usepackage{hyperref}
+\usepackage[colorlinks=true,allcolors=blue]{hyperref}
 %\usepackage{url}
 %
 \newcommand{\mb}[1]{\mathbb{#1}}
@@ -47,7 +47,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{Submitted: 11 April 2015, revised 11 November 2015}
+\date{Submitted: 11 November 2015}
 
 \begin{document}
 
@@ -84,8 +84,8 @@ The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic o
 
 The remainder of the paper is organized as follows.
 Section \ref{sec-Background} outlines some of the background of this investigation.
-Section \ref{sec-Preliminaries} repeats enough of the definitions and properties used in the previous papers \cite{Leo14Constructions, Leo15Twin},
-and includes those further definitions needed to make this paper reasonably self-contained.
+Section \ref{sec-Preliminaries} repeats some of the definitions and properties used in the previous papers \cite{Leo14Constructions, Leo15Twin},
+and includes further definitions used in the subsequent sections.
 Section~\ref{sec-Results} proves the main result, and resolves the conjectures and the question raised by the previous papers.
 Section~\ref{sec-Discussion} puts these results in context, and suggests future research.
 
@@ -151,8 +151,9 @@ The following definitions and results appear in the paper on Hada\-mard matrices
 and are presented here for completeness, since they are used below. 
 Further details and proofs can be found in that paper, and in the paper on bent functions \cite{Leo15Twin},
 unless otherwise noted.
+An earlier paper on representations of Clifford algebras \cite{Leo05} contains more background material.
 
-The signed group
+The signed group \cite{Cra95}
 $\G_{p,q}$ of order $2^{1+p+q}$ 
 is extension of $\Z_2$ by $\Z_2^{p+q}$,
 defined by the signed group presentation
@@ -176,16 +177,16 @@ The $2 \times 2$ orthogonal matrices
 \oE_1 :=
 \left[
 \begin{array}{cc}
-. & - \\
-1 & .
+0 & -1 \\
+1 & 0
 \end{array}
 \right],
 \quad
 \oE_2 :=
 \left[
 \begin{array}{cc}
-. & 1 \\
-1 & .
+0 & 1 \\
+1 & 0
 \end{array}
 \right]
 \end{align*}
@@ -361,7 +362,7 @@ the subgraph $\varDelta_m[1]$ is isomorphic to the Cayley graph $\Cay(\tau_m)$.
 In that paper, these isomorphisms and the characterization of $\Cay(\sigma_m)$ and $\Cay(\tau_m)$ 
 as Cayley graphs of bent functions are used to prove the following theorem. 
 \begin{Theorem}\label{Twins-are-strongly-regular-theorem}
-\cite[Theorem 10]{Leo15Twin} 
+\cite[Theorem 5.2]{Leo15Twin} 
 
 For all $m \geqslant 1,$
 both graphs $\varDelta_m[-1]$ and $\varDelta_m[1]$ are strongly regular, with parameters
@@ -371,7 +372,7 @@ $v_m = 4^m,$ $k_m = 2^{2 m - 1} - 2^{m - 1},$ $\lambda_m=\mu_m=2^{2 m - 2} - 2^{
 
 \section{Proof of Theorem \ref{HR-non-imomorphic-theorem} and related results}
 \label{sec-Results}
-Here prove main result, and examine its implications for Conjectures~\ref{conjecture-1} to~\ref{conjecture-3} and Question~\ref{Question-1}.
+Here we prove the main result, and examine its implications for Conjectures~\ref{conjecture-1} to~\ref{conjecture-3} and Question~\ref{Question-1}.
 
 The proof of Theorem~\ref{HR-non-imomorphic-theorem} follows from the following two lemmas.
 The first lemma puts an upper bound on the clique number of the graph $\Cay(\sigma_m) \isomorphic \varDelta_m[-1]$.
@@ -457,7 +458,8 @@ By Lemma~\ref{Red-clique-lemma}, the largest clique of $\varDelta_m[-1]$ is of o
 and by Lemma~\ref{Blue-clique-lemma}, the largest clique of $\varDelta_m[1]$ is of order $2^m$.
 If we take a blue clique of order $2^m$ as a transversal graph, this cannot have an edge-colour complement
 in $\varDelta_m$, because no red clique can be this large.
-More generally, we need only take a transversal graph containing a blue clique with order larger than $\rho(2^m)$.
+More generally, we need only take a transversal graph containing a blue clique with order larger than $\rho(2^m)$ to have a clique with no edge-colour complement
+in $\varDelta_m$.
 This falsifies Conjecture~\ref{conjecture-3}.
 
 Since Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$, 
@@ -511,11 +513,11 @@ and concluded while the author was a Visiting Fellow and a Casual Academic at th
 
 %\newpage
 
-\bibliographystyle{abbrv-par}
+%\bibliographystyle{abbrv-par}
 
-\bibliography{bib}
+%\bibliography{bib}
 
-%\input{AJC-2015-Leopardi-Twin-bent-Hurwitz-Radon-revised.bbl}
+\input{AJC-2015-Leopardi-Twin-bent-Hurwitz-Radon-revised.bbl}
 
 \end{document}
 % ----------------------------------------------------------------
