@@ -22,17 +22,15 @@
 \newtheorem*{lemma}{Lemma}
 \newtheorem{Lemma}{Lemma}
 \newtheorem*{theorem}{Theorem}
-\newtheorem{Theorem}[Lemma]{Theorem}
+\newtheorem{Theorem}{Theorem}
 \newtheorem*{conjecture}{Conjecture}
 \newtheorem{Conjecture}{Conjecture}
 \newtheorem*{corollary}{Corollary}
 \newtheorem{Corollary}[Lemma]{Corollary}
 \newtheorem*{remark}{Remark}
-\newtheorem{Remark}[Lemma]{Remark}
+\newtheorem{Remark}{Remark}
 \newtheorem*{definition}{Definition}
 \newtheorem{Definition}{Definition}
-\newtheorem*{propertyonea}{Property 1a}
-\newtheorem{Property}{Property}
 \newtheorem{Question}{Question}
 \newtheorem{Questions}[Question]{Questions}
 %
@@ -66,13 +64,12 @@ The proof of this non-isomorphism is a simple consequence of a theorem of Hurwit
 \end{abstract}
 
 \section{Introduction}
-\label{sec-intro}
+\label{sec-Introduction}
 
 A recent paper of the author \cite{Leo14Constructions} describes a generalization of
 Williamson's construction for Hada\-mard matrices \cite{Wil44}
 using the real monomial representation of the basis elements of the Clifford algebras $\R_{m,m}$.
-
-In that paper, the following conjectures appear:
+In that paper, the following three conjectures appear:
 
 \begin{Conjecture}\label{conjecture-1}
 %
@@ -85,9 +82,9 @@ that sends an amicable pair of basis matrices with disjoint support to an anti-a
 %
 For all $m \geqslant 0,$ 
 for the Clifford algebra $\R_{m,m},$ the subset of transversal graphs that are 
-not self-edge-colour-complementary
+not self-edge-colour complementary
 can be arranged into a set of pairs of graphs with each member of the pair 
-being edge-colour-complementary to the other member.
+being edge-colour complementary to the other member.
 %
 \end{Conjecture}
 
@@ -98,31 +95,41 @@ for the Clifford algebra $\R_{m,m},$ if a graph $T$ exists amongst the transvers
 then so does at least one graph with edge colours complementary to those of $T$.
 %
 \end{Conjecture}
-A transversal graph is a subgraph of $\varDelta_m$ which is a complete graph of order $2^m$.
 
-TBD: definitions
-
-In this paper it is proved that Conjecture~\ref{conjecture-3} is false, and as a consequence, so are Conjectures~\ref{conjecture-1}
-and~\ref{conjecture-2}.
-
+The author's subsequent paper on bent functions \cite{Leo15Bent} 
+refines Conjecture~\ref{conjecture-1} into the following question.
 \begin{Question}
 \label{Question-1}
-Consider the sequence of edge-coloured graphs $\varDelta_m$ $(m \geqslant 1)$ as defined in \cite{Leo14Constructions},
+Consider the sequence of edge-coloured graphs $\varDelta_m$ for $m \geqslant 1$,
 each with red subgraph $\varDelta_m[-1],$ and blue subgraph $\varDelta_m[1].$
-For which $m \geqslant 1$ is there an automorphism of $\varDelta_m$ that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$?
+For which $m \geqslant 1$ is there an automorphism of $\varDelta_m$ 
+that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$?
 \end{Question}
  
+(The term \emph{transversal graph} and the definitions of $\varDelta_m$, $\varDelta_m[-1],$ and $\varDelta_m[1]$ 
+are given in the relevant papers and are repeated in the next section.)
 
+In this paper it is proved that Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$, and as a consequence, 
+so do Conjectures~\ref{conjecture-1} and~\ref{conjecture-2}.
+This also resolves Question~\ref{Question-1}: the only values for which such an automorphism exists are 1, 2, and 3.
 
 The paper is organized as follows.
+Section~\ref{sec-Preliminaries} repeats the relevant definitions from the previous two papers \cite{Leo14Constructions,Leo15Bent},
+and includes further definitions as necessary.
+Section~\ref{sec-Results} states and proves the main results.
+
+\section{Preliminaries}
+\label{sec-Preliminaries}
+This section sets out the main definitions and properties used in this paper.
+It is mostly based on the previous papers \cite{Leo14Constructions, Leo15Bent}
+with a few additions.
 
 %\newpage
-\section{Signed groups and Clifford algebras}
-\label{sec-A}
+\paragraph*{Clifford algebras and their real monomial representations.}
+\label{sec-Clifford}
 
-\section{A signed group and its real monomial representation}
-\label{sec-first-bent}
-%
+~
+
 The following definitions and results appear in the paper on Hada\-mard matrices and \index{Clifford algebras} \cite{Leo14Constructions},
 and are presented here for completeness, since they are used below. 
 Further details and proofs can be found in that paper, and in the paper on bent functions and Clifford algebras,
@@ -228,167 +235,159 @@ This ordering also defines a corresponding function on $\Z_2^{2 m},$
 which we also call $\gamma_m.$
 \end{definition}
 
-\section{Two bent functions}
-\label{sec-second-bent}
+\paragraph*{The graphs used in Conjectures \ref{conjecture-2} and \ref{conjecture-3} and Question 1.}
+\label{sec-Graphs}
 
-We now define two functions, $\sigma_m$ and $\tau_m$ on $\Z_2^{2 m},$
-and show that both of these are bent.
+~
 
-TBD Bent function: \cite[p. 74]{Dil74}.
+The following definitions appear in the previous two papers \cite{Leo14Constructions,Leo15Bent},
+and are repeated here for completeness, because Conjectures~\ref{conjecture-2} and \ref{conjecture-3} and Question 1 depend on these definitions.
 
-The first function, $\sigma_m$ is defined and shown to be bent in \cite{Leo14Constructions}.
-We repeat the definition here.
+\begin{Definition}\label{definition-delta}
+Let $\varDelta_m$ be the graph whose vertices are the $n^2=4^m$ 
+canonical basis matrices of the real representation
+of the Clifford algebra $\R_{m,m}$,
+with each edge having one of two labels, $-1$ or $1$:
+\begin{itemize}
+\item 
+Matrices $A_j$ and $A_k$ are connected by an edge labelled by $-1$ if they have disjoint support and are anti-amicable,
+that is, $A_j A_k^{-1}$ is skew.
+\item 
+Matrices $A_j$ and $A_k$ are connected by an edge labelled by $1$ if they have disjoint support and are amicable,
+that is, $A_j A_k^{-1}$ is symmetric.
+\item 
+Otherwise there is no edge between $A_j$ and $A_k$.
+\end{itemize}
+\end{Definition}
 
-\begin{definition}\label{definition-sign-of-square-function}
-We use the basis element selection function $\gamma_m$ of Definition~\ref{definition-gamma} to 
-define the \emph{sign-of-square} function $\sigma_m : \Z_2^{2 m} \To \Z_2$ as
-\begin{align*}
-\sigma_m(i) &:=
-\begin{cases}
-1 \leftrightarrow \gamma_m(i)^2 = -I
-\\
-0 \leftrightarrow \gamma_m(i)^2 = I,
-\end{cases}
-\end{align*}
-for all $i$ in $\Z_2^{2 m}$.
-\end{definition}
-In the paper on bent functions \cite{Leo15Bent}, the following two properties are noted.
+The graph $\varDelta_m$ is composed
+of two subgraphs:
+$\varDelta_m[-1]$ denotes the \emph{red subgraph} of $\varDelta_m,$
+the graph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $-1$;
+and $\varDelta_m[1]$ denotes the \emph{blue subgraph} of $\varDelta_m.$
+the graph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $1$.
+
+As noted in the paper on Clifford algebras and Hadamard matrices \cite{Leo14Constructions},
+a \emph{transversal graph} for the Clifford algebra $\R_{m,m}$
+is any induced subgraph of $\varDelta_m$ that is a complete graph on $2^m$ vertices.
+That is, each pair of vertices in the transversal graph represents a pair of matrices,
+$A_j$ and $A_k$ with disjoint support.
+\paragraph*{Two bent functions and their strongly regular Cayley graphs.}
+\label{sec-Bent}
+
+~
+
+The previous two papers \cite{Leo14Constructions,Leo15Bent} 
+define two bent functions  on $\Z_2^{2 m}$, $\sigma_m$ and $\tau_m$, respectively.
+(For the definition and properties of bent functions, see the previous two papers \cite{Leo14Constructions,Leo15Bent}
+and references therein.)
+\newpage
+In the paper on bent functions \cite{Leo15Bent}, the following two properties of $\sigma_m$ are noted.
 \begin{enumerate}
  \item 
-Since each $\gamma_m(i)$ is orthogonal,
-$\sigma_m(i) = 1$ if and only if $\gamma_m(i)$ is skew.
+Since each $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if $\gamma_m(i)$ is skew.
  \item 
 For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
 1 digits in  the base 4 representation of $i$ is odd.
 \end{enumerate}
+Thus the subgraph $\varDelta_m[-1]$ is isomorphic to Cayley graph of $\sigma_m$,
+the graph whose vertices are labelled by $\Z_2^{2 m}$,
+where there is an edge between $i$ and $j$ if and only if $\sigma_m(i+j)=1$.
 
-The basis element selection function $\gamma_m$ also gives rise to a second function,
-$\tau_m$ on $\Z_{2^{2 m}}.$
-
-The second function, $\tau_m$ is defined and shown to be bent in the paper on bent functions \cite{Leo15Bent}.
-We repeat the definition here.
-
-\begin{definition}\label{definition-non-diagonal-symmetry-function}
-We define the \emph{non-diagonal-symmetry} function $\tau_m$ on $\Z_{2^{2 m}}$ and $\Z_2^{2 m}$
-as follows.
-
-For $i$ in $\Z_2^2$:
-\begin{align*}
-&\tau_1(i) :=
-\begin{cases}
-1 &\text{if~}i = 10,\text{~so that~}\gamma_1(i) = \pm \oE_2,
-\\
-0 &\text{otherwise}.
-\end{cases}
-\end{align*}
-
-For $i$ in $\Z_2^{2 m - 2}$:
-\begin{align*}
-&\tau_m (00 \odot i) := \tau_{m-1}(i), 
-\\
-&\tau_m (01 \odot i) := \sigma_{m-1}(i),
-\\
-&\tau_m (10 \odot i) := \sigma_{m-1}(i) + 1,
-\\ 
-&\tau_m (11 \odot i) := \tau_{m-1}(i).
-\end{align*}
-where $\odot$ denotes concatenation of bit vectors, and $\sigma$ is the sign-of-square function, as above.
-\end{definition}
-
-It is easy to verify that
+The paper on bent functions \cite{Leo15Bent} also notes that 
 $\tau_m(i) = 1$ if and only if $\gamma_m(i)$ is symmetric but not diagonal.
+Thus the subgraph $\varDelta_m[1]$ is isomorphic to Cayley graph of $\sigma_m$.
+It is also easily verified that $\tau_m(i) = 1$ if and only if the number of digits 1 or 2 in the base 4
+representation of $i$ is non zero, and the number of 1 digits is even.
 
-\section{Bent functions and strongly regular graphs}
-\label{sec-strongly-regular}
-%
-This section examines the relationship between the bent functions $\sigma_m$ and $\tau_m$ and
-the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$ from Question~\ref{Question-1}.
-
-We use this result to examine the graph $\varDelta_m.$
-The following two definitions appear in the previous paper \cite{Leo14Constructions}
-and are repeated here for completeness.
-\begin{definition}\label{definition-delta}
-Let $\varDelta_m$ be the graph whose vertices are the $n^2=4^m$ 
-canonical basis matrices of the real representation
-of the Clifford algebra $\R_{m,m}$,
-with each edge having one of two colours, $-1$ (red) and $1$ (blue):
-\begin{itemize}
-\item 
-Matrices $A_j$ and $A_k$ are connected by a red edge if they have disjoint support and are anti-amicable,
-i.e. $A_j A_k^{-1}$ is skew.
-\item 
-Matrices $A_j$ and $A_k$ are connected by a blue edge if they have disjoint support and are amicable,
-i.e. $A_j A_k^{-1}$ is symmetric.
-\item 
-Otherwise there is no edge between $A_j$ and $A_k$.
-\end{itemize}
-We call this graph the \emph{restricted amicability / anti-amicability graph}
-\index{amicability / anti-amicability graph}
-of the Clifford algebra $\R_{m,m},$
-the restriction being the requirement that an edge only exists for pairs of matrices with disjoint support.
-\end{definition}
-
-\begin{definition}\label{definition-red-subgraph}
-For a graph $\Gamma$ with edges coloured by -1 (red) and 1 (blue),
-$\Gamma[-1]$ denotes the \emph{red subgraph} of $\Gamma,$
-the graph containing all of the vertices of $\Gamma,$ and all of the red (-1) coloured edges.
-Similarly, $\Gamma[1]$ denotes the \emph{blue subgraph} of $\Gamma.$
-\end{definition}
-
-The following theorem is proven in the paper on bent functions\cite{Leo15Bent}.
-
-\begin{theorem}\label{theorem-twins-are-strongly-regular}
+The paper on bent functions \cite{Leo15Bent} uses the characterization of $\varDelta_m[1]$ and $\varDelta_m[1]$ 
+as Cayley graphs of bent functions to prove the following theorem. 
+\begin{Theorem}\label{Twins-are-strongly-regular-theorem}
 %
 For all $m \geqslant 1,$
-both graphs $\varDelta_m[-1]$ and $\varDelta_m[1]$ is strongly regular, with parameters
+both graphs $\varDelta_m[-1]$ and $\varDelta_m[1]$ are strongly regular, with parameters
 $v_m = 4^m,$ $k_m = 2^{2 m - 1} - 2^{m - 1},$ $\lambda_m=\mu_m=2^{2 m - 2} - 2^{m - 1}.$
 %
-\end{theorem}
+\end{Theorem}
 
-The existence of a permutation $\pi$ with Property 1 is equivalent to the graph $\varDelta_m$
-having the following property.
+\paragraph*{Hurwitz-Radon theory.}
+\label{sec-Hurwitz-Radon}
 
-\begin{propertyonea}
-The graph $\varDelta_m$ is self-edge-colour-complementary.
-That is, there exists a permutation of the vertices which takes every red edge to a blue edge and vice-versa.
-(This permutation is $\pi$ itself.) 
-\end{propertyonea}
+~
 
+A set of real orthogonal matrices $\{A_1,A_2,\ldots,A_s\}$ is called a Hurwitz-Radon family 
+\cite{GerP74a,Hur22,Rad22} if
+\begin{enumerate}
+ \item
+$A_j^T = -A_j$ for all $j=1,\ldots,s$, and
+ \item 
+$A_j A_k = -A_k A_j$ for all $j \neq k$.
+\end{enumerate}
+The Hurwitz-Radon function $\rho$ is defined by
+\begin{align*}
+\rho(2^{4 d + c}) &:= 2^c + 8 d, \quad \text{where~} 0 \leqslant c < 4.
+\end{align*}
+As stated by Geramita and Pullman \cite[Theorem A]{GerP74a}, Radon \cite{Rad22}
+proved the following result, which is used as a lemma in this paper.
+\begin{Lemma}\label{Hurwitz-Radon-lemma}
+Any Hurwitz-Radon family of order $n$ has at most $\rho(n)-1$ members.
+\end{Lemma}
+\newpage
 \section{Main Results}
+\label{sec-Results}
+Here we state and prove the main results of this paper.
 \begin{Theorem}
 \label{Conjectures-are-false-theorem}
-For $m \geqslant 1$ the following hold.
+For $m \geqslant 4$ the following hold.
 \begin{enumerate}
  \item 
-There exist transversal graphs that do not have an edge-colour-complement.
-Thus Conjecture~\ref{conjecture-3} is false.
+There exist transversal graphs that do not have an edge-colour complement, and
+therefore Conjecture~\ref{conjecture-3} does not hold.
 \item
-As a consequence, Conjectures~\ref{conjecture-1} and~\ref{conjecture-2} are also false.
+As a consequence, Conjectures~\ref{conjecture-1} and~\ref{conjecture-2} also do not hold.
 \item
 Question~\ref{Question-1} is resolved.
-The only $m \geqslant 1$ for which there an automorphism of $\varDelta_m$ that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$
+The only $m \geqslant 1$ for which there an automorphism of $\varDelta_m$ 
+that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$
 are $m=1,2$ and $3$.
 \end{enumerate}
 
 \end{Theorem}
 
+The proof of Theorem~\ref{Conjectures-are-false-theorem} follows from the following two lemmas.
+The first lemma puts an upper bound on the size of the maximum clique in $\varDelta_m[-1]$.
 \begin{Lemma}
 \label{Red-clique-lemma}
 The order of the largest clique in the red subgraph $\varDelta_m[-1]$ is at most $\rho(2^m)$,
-where $\rho$ is the Hurwitz-Radon function \cite{GerP74,Hur22,Rad22}:
-\begin{align*}
-\rho(2^{4 d + c}) &:= 2^c + 8 d, \quad \text{where~} 0 \leqslant c < 4.
-\end{align*}
-(In particular, $\rho(2)=2$, $\rho(4)=4$, $\rho(8)=8$, but $\rho(16)=9$. 
-In general, $\rho(2^m) < 2^m$ for $m \geqslant 4$.
+where $\rho$ is the Hurwitz-Radon function.
+Therefore $\rho(2^m) < 2^m$ for $m \geqslant 4$.
 \end{Lemma}
+\begin{proof}
+If we label the vertices of the subgraph $\varDelta_m[-1]$ with the elements of $Z_2^{2m}$,
+then any clique in this subgraph is mapped to another clique if a constant is added to all of the vertices.
+Thus without loss of generality we can assume that one of the vertices is labelled 0.
+If we then use $\gamma_m$ to label the vertices with elements of $\R_{m,m}$,
+we have one vertex labelled with the identity matrix $I$ of order $2^m$,
+and (since we have a clique in $\varDelta_m[-1]$) the other vertices $A_1$ to $A_s$ (say) must necessarily be skew matrices
+that are pairwise anti-amicable:
+\begin{align*}
+A_j A_k^T &= -A_k A_j^T\quad\text{for all~} j \neq k.
+\intertext{But then}
+A_j A_k &= -A_k A_j\quad\text{for all~} j \neq k,
+\end{align*}
+and therefore $\{A_1,\ldots,A_s\}$ is a Hurwitz-Radon family.
+By Lemma~\ref{Hurwitz-Radon-lemma}, $s$ is at most $\rho(2^m)-1$ and therefore the size of the clique is at most
+$\rho(2^m)$.
+\end{proof}
 
+The second lemma puts a lower bound on the size of the maximum clique in $\varDelta_m[1]$.
 \begin{Lemma}
 \label{Blue-clique-lemma}
 The order of the largest clique in the blue subgraph $\varDelta_m[1]$ is at least $2^m$.
 \end{Lemma}
 \begin{proof}
-We construct a clique of order $2^m$, using the following vertices denoted in base 4:
+We construct a clique of order $2^m$ in $\varDelta_m[1]$ with the vertices labelled in $\Z_2^{2m}$, 
+using the following vertices denoted in base 4:
 \begin{align*}
 00 &\ldots 02
 \\
@@ -402,13 +401,14 @@ This set is closed under addition in $\Z_2^{2 m}$,
 and therefore forms a clique of order $2^m$ in $\varDelta_m[1]$.
 \end{proof}
 
+With these two lemmas in hand, the proof of Theorem~\ref{Conjectures-are-false-theorem} follows easily.
 \begin{proofof}{Theorem~\ref{Conjectures-are-false-theorem}}
 Assume that $m \geqslant 4$.
 A transversal graph is a subgraph of $\varDelta_m$ which is a complete graph of order $2^m$.
 The edges of a transversal graph are labelled with -1 (red) or 1 (blue).
 By Lemma~\ref{Red-clique-lemma}, the largest clique of $\varDelta_m[-1]$ is of order $\rho(2^m) < 2^m$,
 and by Lemma~\ref{Blue-clique-lemma}, the largest clique of $\varDelta_m[1]$ is of order $2^m$.
-If we take a blue clique of order $2^m$ as a transversal graph, this cannot have an edge-colour-complement
+If we take a blue clique of order $2^m$ as a transversal graph, this cannot have an edge-colour complement
 in $\varDelta_m$, because no red clique can be this large.
 More generally, we need only take a transversal graph containing a blue clique with order larger than $\rho(2^m)$.
 This falsifies Conjecture~\ref{conjecture-3}.
@@ -423,15 +423,22 @@ means that these two subgraphs of $\varDelta_m$ cannot be isomorphic.
 Therefore, for $m \geqslant 4$,  there can be no automorphism of $\varDelta_m$ that swaps the edge colours. 
 \end{proofof}
 
+\begin{remark}
+As a result of Theorems~\ref{Twins-are-strongly-regular-theorem} and \ref{Conjectures-are-false-theorem},
+we see that we have two sequences of strongly regular graphs, $\varDelta_m[-1]$ and $\varDelta_m[1]$ ($m \geqslant 1$),
+sharing the same parameters, 
+$v_m = 4^m,$ $k_m = 2^{2 m - 1} - 2^{m - 1},$ $\lambda_m=\mu_m=2^{2 m - 2} - 2^{m - 1},$
+but the graphs are isomorphic only for $m=1, 2, 3$. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Acknowledgements.}
+\paragraph*{Acknowledgements.}
 
-Thanks to Christine Leopardi for her hospitality.
+Thanks to Christine Leopardi for her hospitality at Long Beach.
 Thanks to Robert Craigen, William Martin,
 Padraig {\'O} Cath{\'a}in and Judy-anne Osborn for valuable discussions.
-This work was begun in 2014 while the author was a Visiting Fellow at the Australian National
-University, and concluded while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia.
+This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University, 
+and concluded while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
