@@ -45,7 +45,7 @@ Paul~C.~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{Submitted: 11 April 2015}
+\date{Submitted: 11 April 2015, revised 28 April 2015}
 
 \begin{document}
 
@@ -245,7 +245,7 @@ and are repeated here for completeness, because Conjectures~\ref{conjecture-2} a
 
 \begin{Definition}\label{definition-delta}
 Let $\varDelta_m$ be the graph whose vertices are the $n^2=4^m$ 
-canonical basis matrices of the real representation
+positive signed basis matrices of the real representation
 of the Clifford algebra $\R_{m,m}$,
 with each edge having one of two labels, $-1$ or $1$:
 \begin{itemize}
@@ -263,9 +263,9 @@ Otherwise there is no edge between $A_j$ and $A_k$.
 The graph $\varDelta_m$ is composed
 of two subgraphs:
 $\varDelta_m[-1]$ denotes the \emph{red subgraph} of $\varDelta_m,$
-the graph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $-1$;
-and $\varDelta_m[1]$ denotes the \emph{blue subgraph} of $\varDelta_m.$
-the graph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $1$.
+the subgraph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $-1$;
+and $\varDelta_m[1]$ denotes the \emph{blue subgraph} of $\varDelta_m,$
+the subgraph containing all of the vertices of $\varDelta_m,$ and all of edges labelled with $1$.
 
 As noted in the paper on Clifford algebras and Hadamard matrices \cite{Leo14Constructions},
 a \emph{transversal graph} for the Clifford algebra $\R_{m,m}$
@@ -290,17 +290,17 @@ Since each $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if $\gamma
 For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
 1 digits in  the base 4 representation of $i$ is odd.
 \end{enumerate}
-Thus the subgraph $\varDelta_m[-1]$ is isomorphic to Cayley graph of $\sigma_m$,
+Thus the subgraph $\varDelta_m[-1]$ is isomorphic to the Cayley graph of $\sigma_m$,
 the graph whose vertices are labelled by $\Z_2^{2 m}$,
 where there is an edge between $i$ and $j$ if and only if $\sigma_m(i+j)=1$.
 
 The paper on bent functions \cite{Leo15Bent} also notes that 
 $\tau_m(i) = 1$ if and only if $\gamma_m(i)$ is symmetric but not diagonal.
-Thus the subgraph $\varDelta_m[1]$ is isomorphic to Cayley graph of $\sigma_m$.
+Thus the subgraph $\varDelta_m[1]$ is isomorphic to the Cayley graph of $\tau_m$.
 It is also easily verified that $\tau_m(i) = 1$ if and only if the number of digits 1 or 2 in the base 4
 representation of $i$ is non zero, and the number of 1 digits is even.
 
-The paper on bent functions \cite{Leo15Bent} uses the characterization of $\varDelta_m[1]$ and $\varDelta_m[1]$ 
+The paper on bent functions \cite{Leo15Bent} uses the characterization of $\varDelta_m[-1]$ and $\varDelta_m[1]$ 
 as Cayley graphs of bent functions to prove the following theorem. 
 \begin{Theorem}\label{Twins-are-strongly-regular-theorem}
 %
@@ -347,7 +347,7 @@ therefore Conjecture~\ref{conjecture-3} does not hold.
 As a consequence, Conjectures~\ref{conjecture-1} and~\ref{conjecture-2} also do not hold.
 \item
 Question~\ref{Question-1} is resolved.
-The only $m \geqslant 1$ for which there an automorphism of $\varDelta_m$ 
+The only $m \geqslant 1$ for which there is an automorphism of $\varDelta_m$ 
 that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$
 are $m=1,2$ and $3$.
 \end{enumerate}
