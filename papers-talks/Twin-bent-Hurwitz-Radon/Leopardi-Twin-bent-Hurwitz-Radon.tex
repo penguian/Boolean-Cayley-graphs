@@ -38,17 +38,19 @@
 %
 \newenvironment{proofof}[1]{\noindent\emph{Proof of #1.}}{\qed}
 
-\title{Twin bent functions, strongly regular Cayley graphs, and Hurwitz-Radon theory}
+\title{Twin bent functions, strongly regular Cayley graphs, and Hurwitz-Radon theory:
+Draft for review only}
 
 \author{
 Paul~C.~Leopardi
 %\thanks{School of Mathematical and Physical Sciences, The University of Newcastle.
-\thanks{Australian Government - Bureau of Meteorology.
+%\thanks{Australian Government - Bureau of Meteorology.
+\thanks{University of Melbourne.
 \protect\url{mailto:paul.leopardi@gmail.com}}
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{Revised: 9 October 2016}
+\date{Revised:16 April 2017}
 
 \begin{document}
 
@@ -58,17 +60,17 @@ Paul~C.~Leopardi
 %
 The real monomial representations of Clifford algebras
 give rise to two sequences of bent functions.
-For each of these sequences, the corresponding Cayley graphs are 
+For each of these sequences, the corresponding Cayley graphs are
 strongly regular graphs, and the corresponding sequences of strongly regular graph parameters coincide.
 Even so, the corresponding graphs in the two sequences are not isomorphic, except in the first 3 cases.
-The proof of this non-isomorphism is a simple consequence of a theorem of Radon.  
+The proof of this non-isomorphism is a simple consequence of a theorem of Radon.
 %
 \end{abstract}
 
 \section{Introduction}
 \label{sec-Introduction}
 Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
-The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on 
+The bent function $\sigma_m$ on $\Z_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on
 generalizations of Williamson's construction for Hada\-mard matrices.
 The bent function $\tau_m$ on $\Z_2^{2 m}$ is described in the second paper \cite{Leo15Twin},
 which investigates some of the properties of the two sequences of bent functions.
@@ -80,7 +82,7 @@ and that their corresponding Cayley graphs are both strongly regular with the sa
 
 The main result of the current paper is the following.
 \begin{Theorem}\label{HR-non-imomorphic-theorem}
-The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic only when $m=1, 2,$ or $3.$ 
+The Cayley graphs of the bent functions $\sigma_m$ and $\tau_m$ are isomorphic only when $m=1, 2,$ or $3.$
 \end{Theorem}
 
 The remainder of the paper is organized as follows.
@@ -97,9 +99,9 @@ using the real monomial representation of the basis elements of the Clifford alg
 Briefly, the general construction uses some
 \begin{align*}
 %
-\quad &A_k \in \{-1,0,1\}^{n \times n}, \quad B_k \in \{-1,1\}^{b \times b}, 
+\quad &A_k \in \{-1,0,1\}^{n \times n}, \quad B_k \in \{-1,1\}^{b \times b},
 \quad k \in \{1,\ldots,n\},
-% 
+%
 \end{align*}
 %
 where the $A_k$ are \emph{monomial} matrices,
@@ -126,7 +128,7 @@ H H^T &= n b I_{(n b)},
 \end{align}
 %
 i.e. $H$ is a Hada\-mard matrix of order $n b$.
-The paper \cite{Leo14Constructions} focuses on a special case of the construction, 
+The paper \cite{Leo14Constructions} focuses on a special case of the construction,
 satisfying the conditions
 %
 \begin{align}
@@ -177,8 +179,8 @@ satisfies conditions \eqref{constructions-4} on the $A$ matrices,
 %
 \begin{align}
 %
- A_j \ast A_k = 0 \quad (j \neq k)&, 
-\quad 
+ A_j \ast A_k = 0 \quad (j \neq k)&,
+\quad
 \sum_{k=1}^n A_k \in \{-1,1\}^{n \times n}.
 %
 \label{A-property-2}
@@ -190,18 +192,18 @@ These definitions are repeated here since they are used in the conjectures and q
 \begin{Definition}\label{definition-delta}
 \cite[p. 225]{Leo14Constructions}
 
-Let $\varDelta_m$ be the graph whose vertices are the $n^2=4^m$ 
+Let $\varDelta_m$ be the graph whose vertices are the $n^2=4^m$
 positive signed basis matrices of the real representation
 of the Clifford algebra $\R_{m,m}$,
 with each edge having one of two labels, $-1$ or $1$:
 \begin{itemize}
-\item 
+\item
 Matrices $A_j$ and $A_k$ are connected by an edge labelled by $-1$ (``red'') if they have disjoint support and are anti-amicable,
 that is, $A_j A_k^{-1}$ is skew.
-\item 
+\item
 Matrices $A_j$ and $A_k$ are connected by an edge labelled by $1$ (``blue'') if they have disjoint support and are amicable,
 that is, $A_j A_k^{-1}$ is symmetric.
-\item 
+\item
 Otherwise there is no edge between $A_j$ and $A_k$.
 \end{itemize}
 The subgraph $\varDelta_m[-1]$ consists of the vertices of $\varDelta_m$ and all edges in $\varDelta_m$ labelled by $-1$.
@@ -224,22 +226,22 @@ that sends an amicable pair of basis matrices with disjoint support to an anti-a
 
 \begin{Conjecture}\label{conjecture-2}
 %
-For all $m \geqslant 0,$ 
-for the Clifford algebra $\R_{m,m},$ the subset of transversal graphs that are 
+For all $m \geqslant 0,$
+for the Clifford algebra $\R_{m,m},$ the subset of transversal graphs that are
 not self-edge-colour complementary
-can be arranged into a set of pairs of graphs with each member of the pair 
+can be arranged into a set of pairs of graphs with each member of the pair
 being edge-colour complementary to the other member.
 %
 \end{Conjecture}
 
 \begin{Conjecture}\label{conjecture-3}
 %
-For all $m \geqslant 0,$ 
+For all $m \geqslant 0,$
 for the Clifford algebra $\R_{m,m},$ if a graph $T$ exists amongst the transversal graphs,
 then so does at least one graph with edge colours complementary to those of $T$.
 %
 \end{Conjecture}
-Note that Conjecture \ref{conjecture-1} implies  Conjecture \ref{conjecture-2}, 
+Note that Conjecture \ref{conjecture-1} implies  Conjecture \ref{conjecture-2},
 which in turn implies Conjecture \ref{conjecture-3}.
 
 The significance of these conjectures can be seen in relation to the following result,
@@ -247,13 +249,13 @@ which is Part 1 of Theorem 10 of the paper \cite{Leo14Constructions}.
 
 \begin{Lemma}\label{th-graph-image}
 If $b$ is a power of 2, $b=2^m$, $m \geqslant 0$,
-the amicability / anti-amicability graph $P_b$ of the matrices 
+the amicability / anti-amicability graph $P_b$ of the matrices
 $\{-1,1\}^{b \times b}$ contains a complete two-edge-coloured graph on $2 b^2$ vertices
 with each vertex being a Hada\-mard matrix.
 This graph is isomorphic to $\varGamma_{m,m}$, the amicability / anti-amicability graph of
 the group $\G_{m,m}$.
 \end{Lemma}
-The definitions of $\varGamma_{m,m}$ and $\G_{m,m}$ 
+The definitions of $\varGamma_{m,m}$ and $\G_{m,m}$
 are given in Section 3 of the paper \cite{Leo14Constructions},
 and the definition of $\G_{m,m}$ is repeated below.
 For the current paper, it suffices to note that $\varDelta_m$ is a subgraph of $\varGamma_{m,m}$,
@@ -262,7 +264,7 @@ and so, therefore, are all of the transversal graphs.
 An $n$-tuple of $A$ matrices of order $n=2^m$ satisfying properties \eqref{A-property-1} and \eqref{A-property-2}
 yields a corresponding transversal graph $T$.
 As noted in Section 5 of the paper  \cite{Leo14Constructions},
-if Conjecture \ref{conjecture-3} were true, this would guarantee the existence 
+if Conjecture \ref{conjecture-3} were true, this would guarantee the existence
 of an edge-colour complementary transversal graph $\overline{T}$.
 In turn, because Lemma \ref{th-graph-image} guarantees the existence of a complete two-edge-coloured graph
 isomorphic to $\varGamma_{m,m}$ within $P_b$, and because $\varDelta_m$ is a subgraph of $\varGamma_{m,m}$,
@@ -270,17 +272,17 @@ the graph $P_b$ would have to contain a two-edge-coloured subgraph isomorphic to
 This would imply the existence of an $n$-tuple of $B$ matrices of order $n$ satisfying the condition \eqref{constructions-4}
 such that the construction (H0) would satisfy the Hada\-mard condition (H1), with a matrix of order $n^2$.
 
-The author's subsequent paper on bent functions \cite{Leo15Twin} 
+The author's subsequent paper on bent functions \cite{Leo15Twin}
 refines Conjecture~\ref{conjecture-1} into the following question.
 \begin{Question}
 \label{Question-1}
 Consider the sequence of edge-coloured graphs $\varDelta_m$ for $m \geqslant 1$,
 each with red subgraph $\varDelta_m[-1],$ and blue subgraph $\varDelta_m[1].$
-For which $m \geqslant 1$ is there an automorphism of $\varDelta_m$ 
+For which $m \geqslant 1$ is there an automorphism of $\varDelta_m$
 that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$?
 \end{Question}
 
-The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem}, 
+The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem},
 leads to the resolution of these conjectures and this question.
 
 \section{Further definitions and properties}
@@ -295,18 +297,18 @@ It is based on the previous papers \cite{Leo14Constructions, Leo15Twin} with add
 ~
 
 The following definitions and results appear in the paper on Hada\-mard matrices and Clifford algebras \cite{Leo14Constructions},
-and are presented here for completeness, since they are used below. 
+and are presented here for completeness, since they are used below.
 Further details and proofs can be found in that paper, and in the paper on bent functions \cite{Leo15Twin},
 unless otherwise noted.
 An earlier paper on representations of Clifford algebras \cite{Leo05} contains more background material.
 
 The signed group \cite{Cra95}
-$\G_{p,q}$ of order $2^{1+p+q}$ 
+$\G_{p,q}$ of order $2^{1+p+q}$
 is extension of $\Z_2$ by $\Z_2^{p+q}$,
 defined by the signed group presentation
 %
 \begin{align*}
-\G_{p,q} := \bigg\langle \ 
+\G_{p,q} := \bigg\langle \
 &\mf{e}_{\{k\}}\ (k \in S_{p,q})\ \mid
 \\
 &\mf{e}_{\{k\}}^2 = -1\ (k < 0), \quad \mf{e}_{\{k\}}^2 = 1\ (k > 0),
@@ -315,7 +317,7 @@ defined by the signed group presentation
 \end{align*}
 %
 where $S_{p,q} := \{-q,\ldots,-1,1,\ldots,p\}.$
-% 
+%
 % The following construction of the real monomial representation $\Rep(\G_{m,m})$
 % of the group $\G_{m,m}$ is used below.
 
@@ -351,11 +353,11 @@ ordered using a pair of bits, as follows.
 \end{align*}
 
 For $m > 1$,
-the real monomial representation $\Rep(\G_{m,m})$ of the 
+the real monomial representation $\Rep(\G_{m,m})$ of the
 group $\G_{m,m}$ consists of matrices of the form $G_1 \otimes G_{m-1}$
 with $G_1$ in $\Rep(\G_{1,1})$ and $G_{m-1}$ in $\Rep(\G_{m-1,m-1}).$
 The cosets of $\{\pm I\} \equiv \Z_2$ in $\Rep(\G_{m,m})$ are
-ordered by concatenation of pairs of bits, 
+ordered by concatenation of pairs of bits,
 where each pair of bits uses the ordering as per $\Rep(\G_{1,1}),$
 and the pairs are ordered as follows.
 \begin{align*}
@@ -369,31 +371,31 @@ and the pairs are ordered as follows.
 \\
 2^{2m} - 1 &\leftrightarrow 11 \ldots 11 \leftrightarrow \{ \pm (\oE_1 \oE_2)^{\otimes {m}} \}.
 \end{align*}
-This ordering is called 
+This ordering is called
 the \emph{Kronecker product ordering} of the cosets of $\{\pm I\}$ in $\Rep(\G_{m,m}).$
 
 %Recall that
-The group $\G_{m,m}$ and its real monomial representation $\Rep(\G_{m,m})$ 
+The group $\G_{m,m}$ and its real monomial representation $\Rep(\G_{m,m})$
 satisfy the following properties.
 \begin{enumerate}
-\item 
+\item
 Pairs of elements of $\G_{m,m}$ (and therefore $\Rep(\G_{m,m})$) either commute or anti\-commute:
 for $g, h \in \G_{m,m},$ either $h g = g h$ or $h g = - g h.$
 \item
 The matrices $E \in \Rep(\G_{m,m})$ are orthogonal: $E E^T = E^T E = I.$
 \item
-The matrices $E \in \Rep(\G_{m,m})$ are either symmetric and square to give $I$ or 
+The matrices $E \in \Rep(\G_{m,m})$ are either symmetric and square to give $I$ or
 skew and square to give $-I$: either $E^T = E$ and $E^2 =I$ or $E^T = -E$ and $E^2 = -I.$
 \end{enumerate}
 
 Taking the positive signed element of each of the $2^{2m}$ cosets listed above
 defines a transversal of $\{\pm I\}$ in $\Rep(\G_{m,m})$
-which is also a monomial basis for the real representation of the Clifford algebra $\R_{m,m}$ in 
+which is also a monomial basis for the real representation of the Clifford algebra $\R_{m,m}$ in
 Kronecker product order,
-called this basis the \emph{positive signed basis} of $\Rep(\R_{m,m}).$ 
+called this basis the \emph{positive signed basis} of $\Rep(\R_{m,m}).$
 
 %\begin{Definition}\label{definition-gamma}
-The function $\gamma_m : \Z_{2^{2 m}} \To \Rep(\G_{m,m})$ 
+The function $\gamma_m : \Z_{2^{2 m}} \To \Rep(\G_{m,m})$
 chooses the corresponding basis matrix from the positive signed basis of $\Rep(\R_{m,m}),$
 using the Kronecker product ordering.
 This ordering also defines a corresponding function on $\Z_2^{2 m},$
@@ -405,12 +407,12 @@ also called $\gamma_m.$
 The key concept used in the proof of Lemma~\ref{Red-clique-lemma} below is that of a \emph{Hurwitz-Radon family} of matrices.
 ~
 
-A set of real orthogonal matrices $\{A_1,A_2,\ldots,A_s\}$ is called a Hurwitz-Radon family 
+A set of real orthogonal matrices $\{A_1,A_2,\ldots,A_s\}$ is called a Hurwitz-Radon family
 \cite{GerP74a,Hur22,Rad22} if
 \begin{enumerate}
  \item
 $A_j^T = -A_j$ for all $j=1,\ldots,s$, and
- \item 
+ \item
 $A_j A_k = -A_k A_j$ for all $j \neq k$.
 \end{enumerate}
 The Hurwitz-Radon function $\rho$ is defined by
@@ -430,30 +432,30 @@ Any Hurwitz-Radon family of order $n$ has at most $\rho(n)-1$ members.
 
 ~
 
-The previous two papers \cite{Leo14Constructions,Leo15Twin} 
+The previous two papers \cite{Leo14Constructions,Leo15Twin}
 define two binary functions  on $\Z_2^{2 m}$, $\sigma_m$ and $\tau_m$, respectively.
 Their key properties are repeated below.
 See the two papers for the proofs and for more details and references on bent functions.
 
 The function $\sigma_m : \Z_2^{2 m} \To \Z_2$ has the following properties.
 \begin{enumerate}
- \item 
+ \item
 For $i \in \Z_2^{2m},$ $\sigma_m(i) = 1$ if and only if the number of
 digits equal to 1 in  the base 4 representation of $i$ is odd.
- \item 
+ \item
 Since each matrix $\gamma_m(i)$ is orthogonal, $\sigma_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is skew.
- \item 
+ \item
 The function $\sigma_m$ is bent.
 \end{enumerate}
 
 The function $\tau_m : \Z_2^{2 m} \To \Z_2$ has the following properties.
 \begin{enumerate}
- \item 
+ \item
 For $i \in \Z_2^{2m},$ $\tau_m(i) = 1$ if and only if the number of digits equal to 1 or 2 in the base 4
 representation of $i$ is non zero, and the number of digits equal to 1 is even.
- \item 
+ \item
 The value $\tau_m(i) = 1$ if and only if the matrix $\gamma_m(i)$ is symmetric but not diagonal.
- \item 
+ \item
 The function $\tau_m$ is bent.
 \end{enumerate}
 
@@ -469,13 +471,13 @@ In the paper on Hada\-mard matrices \cite{Leo14Constructions} it is shown that
 since $\sigma_m(i)=1$ if and only if $\gamma_m(i)$ is skew,
 the subgraph $\varDelta_m[-1]$ is isomorphic to the Cayley graph $\Cay(\sigma_m)$.
 
-The paper on bent functions \cite{Leo15Twin} notes that 
+The paper on bent functions \cite{Leo15Twin} notes that
 since $\tau_m(i) = 1$ if and only if $\gamma_m(i)$ is symmetric but not diagonal,
 the subgraph $\varDelta_m[1]$ is isomorphic to the Cayley graph $\Cay(\tau_m)$.
-In that paper, these isomorphisms and the characterization of $\Cay(\sigma_m)$ and $\Cay(\tau_m)$ 
-as Cayley graphs of bent functions are used to prove the following theorem. 
+In that paper, these isomorphisms and the characterization of $\Cay(\sigma_m)$ and $\Cay(\tau_m)$
+as Cayley graphs of bent functions are used to prove the following theorem.
 \begin{Theorem}\label{Twins-are-strongly-regular-theorem}
-\cite[Theorem 5.2]{Leo15Twin} 
+\cite[Theorem 5.2]{Leo15Twin}
 
 For all $m \geqslant 1,$
 both graphs $\varDelta_m[-1]$ and $\varDelta_m[1]$ are strongly regular, with parameters
@@ -519,7 +521,7 @@ The second lemma puts a lower bound on the clique number of the graph $\Cay(\tau
 The clique number of the graph $\Cay(\tau_m)$ is at least $2^m$.
 \end{Lemma}
 \begin{proof}
-We construct a clique of order $2^m$ in $\Cay(\tau_m)$ with the vertices labelled in $\Z_2^{2m}$, 
+We construct a clique of order $2^m$ in $\Cay(\tau_m)$ with the vertices labelled in $\Z_2^{2m}$,
 using the following vertices denoted in base 4:
 \begin{align*}
 00 &\ldots 02
@@ -548,14 +550,14 @@ imply the failure of the conjectures~\ref{conjecture-1} to~\ref{conjecture-3}, a
 \label{Conjectures-are-false-theorem}
 For $m \geqslant 4$ the following hold.
 \begin{enumerate}
- \item 
+ \item
 There exist transversal graphs that do not have an edge-colour complement, and
 therefore Conjecture~\ref{conjecture-3} does not hold.
 \item
 As a consequence, Conjectures~\ref{conjecture-1} and~\ref{conjecture-2} also do not hold.
 \item
 Question~\ref{Question-1} is resolved.
-The only $m \geqslant 1$ for which there is an automorphism of $\varDelta_m$ 
+The only $m \geqslant 1$ for which there is an automorphism of $\varDelta_m$
 that swaps the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$
 are $m=1,2$ and $3$.
 \end{enumerate}
@@ -575,13 +577,13 @@ More generally, we need only take a transversal graph containing a blue clique w
 in $\varDelta_m$.
 This falsifies Conjecture~\ref{conjecture-3}.
 
-Since Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$, 
+Since Conjecture~\ref{conjecture-3} fails for $m \geqslant 4$,
 the pairing of graphs described in Conjecture~\ref{conjecture-2} is impossible for $m \geqslant 4$.
 Thus Conjecture~\ref{conjecture-2} is also false.
 
 Finally, Conjecture~\ref{conjecture-1} fails as a direct consequence of Theorem~\ref{HR-non-imomorphic-theorem}
 since, for $m \geqslant 4$, the subgraphs $\varDelta_m[-1]$ and $\varDelta_m[1]$are not isomorphic.
-Therefore, for $m \geqslant 4$,  there can be no automorphism of $\varDelta_m$ that swaps these subgraphs. 
+Therefore, for $m \geqslant 4$,  there can be no automorphism of $\varDelta_m$ that swaps these subgraphs.
 \end{proof}
 
 \section{Discussion}
@@ -593,7 +595,7 @@ and the result for $V^+$ in his Theorem 2 is equivalent to Lemma \ref{Red-clique
 The main consequence of Theorem~\ref{Conjectures-are-false-theorem} is that for $m>3$ there is at least one $n$-tuple of $A$ matrices,
 with $n=2^m$ such that no $n$-tuple of $B$ matrices of order $n$ can be found to satisfy construction (H0) under condition (H1).
 The proof of Theorem 5 of the Hada\-mard construction paper \cite{Leo14Constructions} shows by construction that for any $m$,
-and any $n$-tuple of $A$ matrices satisfying \eqref{constructions-4}, there is an $n$-tuple of $B$ matrices of order $nc$ that 
+and any $n$-tuple of $A$ matrices satisfying \eqref{constructions-4}, there is an $n$-tuple of $B$ matrices of order $nc$ that
 satisfies construction (H0) under condition (H1), where $c=M(n-1)$, with
 \begin{align}
 M(q) &:=
@@ -607,37 +609,37 @@ M(q) &:=
 Thus Theorem 5 remains valid.
 The question remains as to whether the the order $nc$ is tight or can be reduced.
 In the special case where the $n$-tuple of $A$ matrices is mutually amicable, the answer is given by Corollary 15 of the paper \cite{Leo14Constructions}:
-The set of $\{-1,1\}$ matrices of order $c$ contains an $n$-tuple of mutually anti-amicable Hada\-mard matrices. 
+The set of $\{-1,1\}$ matrices of order $c$ contains an $n$-tuple of mutually anti-amicable Hada\-mard matrices.
 So in this special case, the required order can be reduced from $nc$ to $c$.
 This leads to the following question.
 \begin{Question}
 In the general case, for any $m>1$, $n=2^m$, for any $n$-tuple of $A$ matrices satisfying \eqref{constructions-4},
-does there always exist an $n$-tuple of $B$ matrices of order $c$ that 
+does there always exist an $n$-tuple of $B$ matrices of order $c$ that
 satisfies construction (H0) under condition (H1), where $c=M(n-1)$, with $M$ defined by \eqref{M-def}?
 \end{Question}
 
 As a result of Theorems~\ref{Twins-are-strongly-regular-theorem} and \ref{Conjectures-are-false-theorem},
 we see that we have two sequences of strongly regular graphs, $\varDelta_m[-1]$ and $\varDelta_m[1]$ ($m \geqslant 1$),
-sharing the same parameters, 
+sharing the same parameters,
 $v_m = 4^m,$ $k_m = 2^{2 m - 1} - 2^{m - 1},$ $\lambda_m=\mu_m=2^{2 m - 2} - 2^{m - 1},$
 but the graphs are isomorphic only for $m=1, 2, 3$.
 For these three values of $m$, the existence of
-automorphisms of $\varDelta_m$ that swap $\varDelta_m[-1]$ and $\varDelta_m[1]$ 
+automorphisms of $\varDelta_m$ that swap $\varDelta_m[-1]$ and $\varDelta_m[1]$
 as subgraphs \cite[Table 1]{Leo14Constructions}
 is remarkable in the light of Theorem~\ref{Conjectures-are-false-theorem}.
 
 A paper of Bernasconi and Codenotti describes the relationship between bent functions and
-their Cayley graphs, implying that a bent function corresponding to a $(v,k,\lambda,n)$ Hada\-mard difference set has a Cayley graph 
+their Cayley graphs, implying that a bent function corresponding to a $(v,k,\lambda,n)$ Hada\-mard difference set has a Cayley graph
 that is strongly regular with parameters $(v,k,\lambda,\mu)$ where $\lambda=\mu$~\cite[Lemma 12]{BerC99}.
 The current paper notes that for two specific sequences of bent functions, $\sigma_m$ and $\tau_m$,
 the corresponding Cayley graphs are not necessarily isomorphic.
 
 This raises the subject of classifying bent functions via their Cayley graphs, raising the following questions.
 \begin{Question}
-Which strongly regular graphs with parameters $(v,k,\lambda,\lambda)$ occur as Cayley graphs of bent functions? 
+Which strongly regular graphs with parameters $(v,k,\lambda,\lambda)$ occur as Cayley graphs of bent functions?
 \end{Question}
 \begin{Question}
-What is the relationship between other classifications of bent functions and the classification via Cayley graphs? 
+What is the relationship between other classifications of bent functions and the classification via Cayley graphs?
 \end{Question}
 This classification is the topic of a paper in preparation \cite{Leo16Classifying}.
 
@@ -647,9 +649,10 @@ This classification is the topic of a paper in preparation \cite{Leo16Classifyin
 Thanks to Christine Leopardi for her hospitality at Long Beach.
 Thanks to Robert Craigen, Joanne Hall, William Martin,
 Padraig {\'O} Cath{\'a}in and Judy-anne Osborn for valuable discussions.
-This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University, 
+This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University,
 continued while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia,
-and concluded while the author was an employee of the Bureau of Meteorology of the Australian Government.
+and concluded while the author was an employee of the Bureau of Meteorology of the Australian
+Government, and an Honorary Fellow of the University of Melbourne.
 Thanks also to the anonymous reviewers of previous drafts of this paper.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -658,11 +661,11 @@ Thanks also to the anonymous reviewers of previous drafts of this paper.
 
 %\newpage
 
-%\bibliographystyle{abbrv-par}
+\bibliographystyle{abbrv-par}
 
-%\bibliography{bib}
+\bibliography{bib}
 
-\input{Leopardi-2016-Twin-bent-Hurwitz-Radon.bbl}
+%\input{Leopardi-Twin-bent-Hurwitz-Radon.bbl}
 
 \end{document}
 % ----------------------------------------------------------------
