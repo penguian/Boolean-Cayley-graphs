@@ -43,7 +43,7 @@
 Draft for review only}
 
 \author{
-Paul~C.~Leopardi
+Paul~Leopardi
 %\thanks{School of Mathematical and Physical Sciences, The University of Newcastle.
 %\thanks{Australian Government - Bureau of Meteorology.
 \thanks{University of Melbourne.
@@ -638,6 +638,44 @@ Which strongly regular graphs with parameters $(v,k,\lambda,\lambda)$ occur as C
 What is the relationship between other classifications of bent functions and the classification via Cayley graphs?
 \end{Question}
 This classification is the topic of a paper in preparation \cite{Leo16Classifying}.
+
+With respect to the specific bent functions $\sigma_m$ and $\tau_m$ investigated here,
+one of the anonymous reviewers of an earlier draft of this paper has asked whether each of these
+functions are part of a larger class of bent functions.
+
+The function $\sigma_m$ is a quadratic form, as can be seen from its definition and
+its recursive identity \cite[Lemma 7]{Leo14Constructions}.
+Specifically, $\sigma_m(0)=0$,
+and, in terms of algebraic normal form,
+using a particular convention for the mapping of bits to Boolean
+variables, the identity is $\sigma_1(x_0,x_1)=x_0 x_1 + x_0$, and
+\begin{align*}
+\sigma_{m+1}(x_0,x_1,\ldots,x_{2m},x_{2m+1})
+&=
+\sigma_m(x_0,x_1) +
+\sigma_m(x_2,x_3,\ldots,x_{2m},x_{2m+1})
+\\
+&= x_0 x_1 + x_0 + x_2 x_3 + x_2 + \ldots + x_{2m} x_{2m+1} + x_{2m}.
+\end{align*}
+
+In a paper in preparation \cite{Leo16Classifying},
+it is proven that all quadratic bent functions with
+the same dimension and weight have the same Cayley graph, up to isomorphism.
+
+As for $\tau_m$, it is a \emph{bent iterative} function
+\cite[Theorem~V.4]{CanCCP01cryptographic} \cite[Theorem~2]{CanC03decomposing} \cite{Tok11number},
+as can be seen from its definition, and from the proof that it is a bent function
+\cite[Theorem 3.1]{Leo15Twin}.
+
+Since the size of the largest clique of $\Cay(\tau_m)$ is $2^m$,
+Since the $\mathcal{PS}^{(-)}$ bent functions are formed using $m$-dimensional subspaces of
+$\Z^{2m}$ which are disjoint except for the $0$ vector \cite[p. 95]{Dil74},
+these bent functions also have Cayley graphs whose largest clique size is at least $2^m$.
+It could therefore be speculated that $\tau_m$ is also a $\mathcal{PS}^{(-)}$ bent function,
+but exhaustive search using SageMathCloud \cite{SageMathCloud} shows that $\tau_3$ cannot be in
+$\mathcal{PS}^{(-)}$.
+Each clique of size 8 in $\Cay(\tau_3)$ that contains the 0 vector intersects each other such
+clique at two vectors, only one of which is 0 \cite{Leo16SMC}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph*{Acknowledgements.}
