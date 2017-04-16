@@ -39,6 +39,7 @@
 \newenvironment{proofof}[1]{\noindent\emph{Proof of #1.}}{\qed}
 
 \title{Twin bent functions, strongly regular Cayley graphs, and Hurwitz-Radon theory:
+\\
 Draft for review only}
 
 \author{
@@ -522,18 +523,13 @@ The clique number of the graph $\Cay(\tau_m)$ is at least $2^m$.
 \end{Lemma}
 \begin{proof}
 We construct a clique of order $2^m$ in $\Cay(\tau_m)$ with the vertices labelled in $\Z_2^{2m}$,
-using the following vertices denoted in base 4:
+using the following set of vertices, denoted in base 4:
 \begin{align*}
-00 &\ldots 02
-\\
-00 &\ldots 20
-\\
-&\ldots
-\\
-22 &\ldots 22
+C_m &:= \{ 00 \ldots 00, 00 \ldots 02, 00 \ldots 20, \ldots, 22 \ldots 22 \}.
 \end{align*}
-This set is closed under addition in $\Z_2^{2 m}$,
-and therefore forms a clique of order $2^m$ in $\Cay(\tau_m)$.
+The set $C_m$ is closed under addition in $\Z_2^{2 m}$,
+and therefore forms a clique of order $2^m$ in $\Cay(\tau_m)$,
+since the sum of any two distinct elements of $C_m$ is in the support of $\tau_m$.
 \end{proof}
 
 With these two lemmas in hand, the proof of Theorem~\ref{HR-non-imomorphic-theorem} follows easily.
