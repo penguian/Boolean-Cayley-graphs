@@ -38,9 +38,7 @@
 %
 \newenvironment{proofof}[1]{\noindent\emph{Proof of #1.}}{\qed}
 
-\title{Twin bent functions, strongly regular Cayley graphs, and Hurwitz-Radon theory:
-\\
-Draft for review only}
+\title{Twin bent functions, strongly regular Cayley graphs, and Hurwitz-Radon theory}
 
 \author{
 Paul~Leopardi
@@ -51,7 +49,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{Revised:16 April 2017}
+\date{Resubmitted to JACODES Math: 16 April 2017}
 
 \begin{document}
 
@@ -650,8 +648,8 @@ and, in terms of algebraic normal form,
 using a particular convention for the mapping of bits to Boolean
 variables, the identity is $\sigma_1(x_0,x_1)=x_0 x_1 + x_0$, and
 \begin{align*}
-\sigma_{m+1}(x_0,x_1,\ldots,x_{2m},x_{2m+1})
-&=
+\sigma_{m+1}(x_0,x_1,&\ldots,x_{2m},x_{2m+1})
+=
 \sigma_m(x_0,x_1) +
 \sigma_m(x_2,x_3,\ldots,x_{2m},x_{2m+1})
 \\
@@ -660,22 +658,22 @@ variables, the identity is $\sigma_1(x_0,x_1)=x_0 x_1 + x_0$, and
 
 In a paper in preparation \cite{Leo16Classifying},
 it is proven that all quadratic bent functions with
-the same dimension and weight have the same Cayley graph, up to isomorphism.
+the same dimension and weight have isomorphic Cayley graphs.
 
 As for $\tau_m$, it is a \emph{bent iterative} function
 \cite[Theorem~V.4]{CanCCP01cryptographic} \cite[Theorem~2]{CanC03decomposing} \cite{Tok11number},
 as can be seen from its definition, and from the proof that it is a bent function
 \cite[Theorem 3.1]{Leo15Twin}.
 
-Since the size of the largest clique of $\Cay(\tau_m)$ is $2^m$,
-Since the $\mathcal{PS}^{(-)}$ bent functions are formed using $m$-dimensional subspaces of
-$\Z^{2m}$ which are disjoint except for the $0$ vector \cite[p. 95]{Dil74},
-these bent functions also have Cayley graphs whose largest clique size is at least $2^m$.
+Since the $\mathcal{PS}^{(-)}$ \emph{partial spread}
+bent functions are formed using $m$-di\-mensional subspaces of $\Z^{2m}$ which are disjoint except
+for the $0$ vector \cite[p. 95]{Dil74},
+these bent functions also have Cayley graphs whose clique number is at least $2^m$.
 It could therefore be speculated that $\tau_m$ is also a $\mathcal{PS}^{(-)}$ bent function,
 but exhaustive search using SageMathCloud \cite{SageMathCloud} shows that $\tau_3$ cannot be in
 $\mathcal{PS}^{(-)}$.
 Each clique of size 8 in $\Cay(\tau_3)$ that contains the 0 vector intersects each other such
-clique at two vectors, only one of which is 0 \cite{Leo16SMC}.
+clique at two vectors, only one of which is the 0 vector \cite{Leo16SMC}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph*{Acknowledgements.}
@@ -695,11 +693,11 @@ Thanks also to the anonymous reviewers of previous drafts of this paper.
 
 %\newpage
 
-\bibliographystyle{abbrv-par}
+%\bibliographystyle{abbrv-par}
 
-\bibliography{bib}
+%\bibliography{bib}
 
-%\input{Leopardi-Twin-bent-Hurwitz-Radon.bbl}
+\input{Leopardi-Twin-bent-Hurwitz-Radon.bbl}
 
 \end{document}
 % ----------------------------------------------------------------
