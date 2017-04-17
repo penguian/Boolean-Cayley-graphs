@@ -43,7 +43,10 @@ class BentFunction(BooleanFunctionImproved):
             if (len(clique) >= reqd_clique_size)]
         nbr_cliques = len(reqd_cliques)
         if nbr_cliques == 0:
-            return False
+            if certify:
+                return False, []
+            else:
+                return False
         clique_matrix = matrix(nbr_cliques)
         for j in range(nbr_cliques):
             for k in range(j + 1, nbr_cliques):
@@ -54,15 +57,24 @@ class BentFunction(BooleanFunctionImproved):
 
         clique_graph = Graph(clique_matrix)
         clique_max = clique_graph.clique_maximum()
-        if len(clique_max) != reqd_clique_size // 2:
-            return False
-        if certify:
-            part = [
-                reqd_cliques[j] - {0}
-                for j in clique_max]
-            return part
+        if len(clique_max) == reqd_clique_size // 2:
+            if certify:
+                part = [
+                    reqd_cliques[j] - {0}
+                    for j in clique_max]
+                return True, part
+            else:
+                return True
         else:
-            return True
+            if certify:
+                intersections = []
+                for j in range(nbr_cliques):
+                    for k in range(j + 1, nbr_cliques):
+                        intersections.append(
+                            ((j,k), reqd_cliques[j] & reqd_cliques[k]))
+                return False, intersections
+            else:
+                return False
 
 
     def linear_code_graph(self):
