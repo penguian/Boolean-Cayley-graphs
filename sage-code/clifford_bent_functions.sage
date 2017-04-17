@@ -13,8 +13,7 @@ Paul Leopardi.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from sage.crypto.boolean_function import BooleanFunction
-
+from boolean_cayley_graphs.bent_function import BentFunction
 
 base4 = lambda length, num: num.digits(4, padto=length)
 
@@ -45,18 +44,18 @@ power_4_truth_table = lambda m, f: [
 
 
 sigma_list = lambda n: [
-    BooleanFunction(power_4_truth_table(m, clifford_sign_of_square_sigma))
+    BentFunction(power_4_truth_table(m, clifford_sign_of_square_sigma))
     for m in sxrange(n)]
 r"""
-The list `sigma_list(n)` contains each `BooleanFunction`
+The list `sigma_list(n)` contains each `BentFunction`
 corresponding to $\sigma_m$ for $m$ from 0 to n-1.
 """
 
 
 tau_list = lambda n: [
-    BooleanFunction(power_4_truth_table(m, clifford_non_diag_symmetry_tau))
+    BentFunction(power_4_truth_table(m, clifford_non_diag_symmetry_tau))
     for m in sxrange(n)]
 r"""
-The list `tau_list(n)` contains each `BooleanFunction`
+The list `tau_list(n)` contains each `BentFunction`
 corresponding to $\tau_m$ for $m$ from 0 to n-1.
 """
