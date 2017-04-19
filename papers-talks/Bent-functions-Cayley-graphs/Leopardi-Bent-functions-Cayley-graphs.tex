@@ -986,7 +986,7 @@ is well defined.
 % \begin{frame}
 \subsection{Bent functions in 2 dimensions}
 
-One extended affine class: $[f_{2,1}]$
+One extended affine class, containing the extended translation class: $[f_{2,1}]$
 
 where $f_{2,1}(x) := x_0 x_1$ is self dual.
 
@@ -994,6 +994,7 @@ where $f_{2,1}(x) := x_0 x_1$ is self dual.
 
 Two extended Cayley classes:
 \begin{align*}
+\def\arraystretch{1.2}
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
@@ -1002,13 +1003,19 @@ Two extended Cayley classes:
 \text{Clique polynomial}
 \\
 \hline
-1 &
-(4, 1, 0, 0) & 4 &
+0 &
+(4, 1, 0, 0) &
+4 &
+\begin{array}{l}
 2t^{2} + 4t + 1
+\end{array}
 \\
-2 &
-K_4 & 4 &
+1 &
+K_4 &
+4 &
+\begin{array}{l}
 t^{4} + 4t^{3} + 6t^{2} + 4t + 1
+\end{array}
 \\
 \hline
 \end{array}
@@ -1018,7 +1025,7 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 % \begin{frame}
 \subsection{Bent functions in 4 dimensions}
 
-One extended affine class: $[f_{4,1}]$ where
+One extended affine class, containing the extended translation class $[f_{4,1}]$ where
 
 $f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
 
@@ -1026,6 +1033,7 @@ $f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
 
 Two extended Cayley classes:
 \begin{align*}
+\def\arraystretch{1.2}
 \begin{array}{|cccl|}
 \hline
 \text{Class} &
@@ -1034,26 +1042,26 @@ Two extended Cayley classes:
 \text{Clique polynomial}
 \\
 \hline
-1 &
+0 &
 (16, 6, 2, 2) &
 6 &
+\begin{array}{l}
 8t^{4} + 32t^{3} + 48t^{2} + 16t + 1
+\end{array}
 \\
-2 &
+1 &
 (16, 10, 6, 6) &
 6 &
 \begin{array}{l}
-16t^{5} + 120t^{4} + 160t^{3} +
+16t^{5} + 120t^{4} + 160t^{3}
+\,+
 \\
-80t^{2} + 16t + 1
+ 80t^{2} + 16t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-% \end{frame}
-% \begin{frame}
-%\subsection{For $m=2$: two-weight codes}
 
 The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following
 projective two-weight codes:
@@ -1108,7 +1116,7 @@ These tables are repeated as Tables 1.155 and 1.156 in Chapter VII.1 of the Hand
 Combinatorial Designs, Second Edition \cite{Ton07codes},
 with a different numbering.
 
-Four extended affine classes:
+Four extended affine classes, containing the following extended translation classes:
 
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1155,6 +1163,7 @@ $f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
 ~
 
 Two extended Cayley classes:
+
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1166,43 +1175,48 @@ Two extended Cayley classes:
 \text{Clique polynomial}
 \\
 \hline
-1 &
-(64, 28, 12, 12) & 8 &
+0 &
+(64, 28, 12, 12) &
+8 &
 \begin{array}{l}
-64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
+64t^{8} + 512t^{7} + 1792t^{6}
+\,+
 \\
-5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+ 3584t^{5} + 5376t^{4} + 3584t^{3}
+\,+
+\\
+ 896t^{2} + 64t + 1
 \end{array}
 \\
-2 &
-(64, 36, 20, 20) & 8 &
+1 &
+(64, 36, 20, 20) &
+8 &
 \begin{array}{l}
-2304t^{6} + 13824t^{5} + 19200t^{4} +
+2304t^{6} + 13824t^{5} + 19200t^{4}
+\,+
 \\
-7680t^{3} + 1152t^{2} + 64t + 1
+ 7680t^{3} + 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-% \end{frame}
-% \begin{frame}
-\paragraph*{ET class $[f_{6,1}]$.}
 
-The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the following
+The Cayley graphs for classes 0 and 1 are isomorphic to those those obtained from the following
 two-weight projective
 codes as listed by Tonchev \cite{Ton07codes}:
 
 \begin{align*}
+\def\arraystretch{1.2}
 \begin{array}{|ccl|}
 \hline
 \text{Class} &
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Table 1.156 1, 2 }
+0 & [35,6,16] & \text{Table 1.156 1, 2 (complement)}
 \\
-2 & [27,6,12] & \text{Table 1.155 1 }
+1 & [27,6,12] & \text{Table 1.155 1 }
 \\
 \hline
 \end{array}
@@ -1230,34 +1244,48 @@ Three extended Cayley classes:
 \text{Clique polynomial}
 \\
 \hline
-1 &
-(64, 28, 12, 12) & 8 &
+0 &
+(64, 28, 12, 12) &
+8 &
 \begin{array}{l}
-64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
+64t^{8} + 512t^{7} + 1792t^{6}
+\,+
 \\
-5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+ 3584t^{5} + 5376t^{4} + 3584t^{3}
+\,+
+\\
+ 896t^{2} + 64t + 1
+\end{array}
+\\
+1 &
+(64, 28, 12, 12) &
+8 &
+\begin{array}{l}
+256t^{6} + 1536t^{5} + 4352t^{4}
+\,+
+\\
+ 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 2 &
-(64, 28, 12, 12) & 8 &
+(64, 36, 20, 20) &
+8 &
 \begin{array}{l}
-256t^{6} + 1536t^{5} + 4352t^{4} +
+192t^{8} + 1536t^{7} + 8960t^{6}
+\,+
 \\
-3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
+ 19968t^{5} + 20224t^{4} + 7680t^{3}
+\,+
 \\
-3 &
-(64, 36, 20, 20) & 8 &
-\begin{array}{l}
-192t^{8} + 1536t^{7} + 8960t^{6} + 19968t^{5} +
-\\
-20224t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+ 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-Graph 1 is isomorphic to graph 1 of EA class $[f_{6,1}]$,
+
+
+Graph 0 is isomorphic to graph 0 of ET class $[f_{6,1}]$,
 and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular graph $X$
 \cite{Roy08normal}.
 %
@@ -1268,22 +1296,23 @@ and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly reg
 % \begin{frame}
 %\paragraph*{ET class $[f_{6,2}]$: two-weight codes.}
 
-The Cayley graphs for classes 1 to 3 are isomorphic to those those obtained from the following
+The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from the following
 two-weight projective
 codes as listed by Tonchev \cite{Ton07codes}:
 
 \begin{align*}
+\def\arraystretch{1.2}
 \begin{array}{|ccl|}
 \hline
 \text{Class} &
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Table 1.156 1, 2 }
+0 & [35,6,16] & \text{Table 1.156 1, 2 (complement)}
 \\
-2 & [35,6,16] & \text{Table 1.156 3 }
+1 & [35,6,16] & \text{Table 1.156 3 (complement)}
 \\
-3 & [27,6,12] & \text{Table 1.155 2 }
+2 & [27,6,12] & \text{Table 1.155 2 }
 \\
 \hline
 \end{array}
@@ -1302,6 +1331,7 @@ f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
 \end{align*}
 
 Four extended Cayley classes:
+
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1313,63 +1343,78 @@ Four extended Cayley classes:
 \text{Clique polynomial}
 \\
 \hline
-1 &
-(64, 28, 12, 12) & 12 &
+0 &
+(64, 28, 12, 12) &
+12 &
 \begin{array}{l}
-32t^{8} + 256t^{7} + 896t^{6} + 2048t^{5} +
+32t^{8} + 256t^{7} + 896t^{6}
+\,+
 \\
-4608t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+ 2048t^{5} + 4608t^{4} + 3584t^{3}
+\,+
+\\
+ 896t^{2} + 64t + 1
+\end{array}
+\\
+1 &
+(64, 36, 20, 20) &
+12 &
+\begin{array}{l}
+160t^{8} + 1280t^{7} + 9344t^{6}
+\,+
+\\
+ 21504t^{5} + 20480t^{4} + 7680t^{3}
+\,+
+\\
+ 1152t^{2} + 64t + 1
 \end{array}
 \\
 2 &
-(64, 28, 12, 12) & 12 &
+(64, 28, 12, 12) &
+12 &
 \begin{array}{l}
-64t^{6} + 1024t^{5} + 4096t^{4} +
+64t^{6} + 1024t^{5} + 4096t^{4}
+\,+
 \\
-3584t^{3} + 896t^{2} + 64t + 1
+ 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 3 &
-(64, 36, 20, 20) & 12 &
+(64, 36, 20, 20) &
+12 &
 \begin{array}{l}
-160t^{8} + 1280t^{7} + 9344t^{6} + 21504t^{5} +
+160t^{8} + 1664t^{7} + 9792t^{6}
+\,+
 \\
-20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-\end{array}
+ 21504t^{5} + 20480t^{4} + 7680t^{3}
+\,+
 \\
-4 &
-(64, 36, 20, 20) & 12 &
-\begin{array}{l}
-160t^{8} + 1664t^{7} + 9792t^{6} + 21504t^{5} +
-\\
-20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+ 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-% \end{frame}
-% \begin{frame}
-%\paragraph*{ET class $[f_{6,3}]$: two-weight codes.}
 
-The Cayley graphs for classes 1 to 4 are isomorphic to those those obtained from the following
+The Cayley graphs for classes 0 to 3 are isomorphic to those those obtained from the following
 two-weight projective
 codes as listed by Tonchev \cite{Ton07codes}:
 
 \begin{align*}
+\def\arraystretch{1.2}
 \begin{array}{|ccl|}
 \hline
 \text{Class} &
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Table 1.156 4 }
+0 & [35,6,16] & \text{Table 1.156 4 (complement)}
 \\
-2 & [35,6,16] & \text{Table 1.156 5 }
+1 & [27,6,12] & \text{Table 1.155 3 }
 \\
-3 & [27,6,12] & \text{Table 1.155 3 }
+2 & [35,6,16] & \text{Table 1.156 5 (complement)}
 \\
-4 & [27,6,12] & \text{Table 1.155 4 }
+3 & [27,6,12] & \text{Table 1.155 4 }
 \\
 \hline
 \end{array}
@@ -1389,6 +1434,7 @@ f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} 
 
 Three extended Cayley classes:
 \small{}
+
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1399,53 +1445,66 @@ Three extended Cayley classes:
 \text{Clique polynomial}
 \\
 \hline
-1 &
-(64, 28, 12, 12) & 14 &
+0 &
+(64, 28, 12, 12) &
+14 &
 \begin{array}{l}
-32t^{8} + 256t^{7} + 896t^{6} + 1792t^{5} +
+32t^{8} + 256t^{7} + 896t^{6}
+\,+
 \\
-4480t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
+ 1792t^{5} + 4480t^{4} + 3584t^{3}
+\,+
+\\
+ 896t^{2} + 64t + 1
+\end{array}
+\\
+1 &
+(64, 28, 12, 12) &
+14 &
+\begin{array}{l}
+16t^{8} + 128t^{7} + 448t^{6}
+\,+
+\\
+ 1280t^{5} + 4224t^{4} + 3584t^{3}
+\,+
+\\
+ 896t^{2} + 64t + 1
 \end{array}
 \\
 2 &
-(64, 28, 12, 12) & 14 &
+(64, 36, 20, 20) &
+14 &
 \begin{array}{l}
-16t^{8} + 128t^{7} + 448t^{6} + 1280t^{5} +
+176t^{8} + 1408t^{7} + 9664t^{6}
+\,+
 \\
-4224t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-\end{array}
+ 22272t^{5} + 20608t^{4} + 7680t^{3}
+\,+
 \\
-3 &
-(64, 36, 20, 20) & 14 &
-\begin{array}{l}
-176t^{8} + 1408t^{7} + 9664t^{6} + 22272t^{5} +
-\\
-20608t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
+ 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-% \end{frame}
-% \begin{frame}
-%\paragraph*{ET class $[f_{6,4}]$: two-weight codes.}
 
-The Cayley graphs for classes 1 to 3 are isomorphic to those those obtained from the following
+The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from the following
 two-weight projective
 codes as listed by Tonchev \cite{Ton07codes}:
 
 \begin{align*}
+\def\arraystretch{1.2}
 \begin{array}{|ccl|}
 \hline
 \text{Class} &
 \text{Parameters} & \text{Reference}
 \\
 \hline
-1 & [35,6,16] & \text{Table 1.156 7 }
+0 & [35,6,16] & \text{Table 1.156 7 (complement)}
 \\
-2 & [35,6,16] & \text{Table 1.156 6 }
+1 & [35,6,16] & \text{Table 1.156 6 (complement)}
 \\
-3 & [27,6,12] & \text{Table 1.155 5 }
+2 & [27,6,12] & \text{Table 1.155 5 }
 \\
 \hline
 \end{array}
@@ -1454,6 +1513,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 %\slidecite{Tonchev 1996, 2006}
 % \end{frame}
 % \begin{frame}
+
 \subsection{Bent functions in 8 dimensions}
 
 There are
@@ -1467,9 +1527,7 @@ The number of EA classes has not yet been published, let alone a list of represe
 \paragraph*{Extended affine classes up to degree 3.}
 
 Up to degree 3:
-Ten extended affine classes,
-
-containing the following extended translation classes:
+Ten extended affine classes, containing the following extended translation classes:
 
 \small{}
 \begin{align*}
