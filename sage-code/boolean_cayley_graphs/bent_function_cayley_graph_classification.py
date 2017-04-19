@@ -50,6 +50,7 @@ from sage.combinat.designs.incidence_structures import IncidenceStructure
 from sage.functions.log import log
 from sage.graphs.graph import Graph
 from sage.matrix.constructor import matrix
+from sage.misc.latex import latex
 from sage.plot.matrix_plot import matrix_plot
 from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
@@ -555,6 +556,94 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
                 graph_and_linear_code_report(bentf, cg_list, cb_list, ci_matrix,
                                             di_matrix)
+
+
+    def print_latex_table_of_cayley_classes(self, width=40):
+        r"""
+        For a given classification, print, in LaTeX format, the table
+        of selected properties of the Cayley classes of that classification.
+
+        EXAMPLES::
+
+            Print the table of Cayley classes for the classification of the bent
+            function defined by the polynomial x0+x0*x1+x2*x3.
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: R4.<x0,x1,x2,x3> = BooleanPolynomialRing(4)
+            sage: p = x0+x0*x1+x2*x3
+            sage: f = BentFunction(p)
+            sage: c = BentFunctionCayleyGraphClassification(f)
+            sage: c.print_latex_table_of_cayley_classes()
+            \begin{align*}
+            \def\arraystretch{1.2}
+            \begin{array}{|cccl|}
+            \hline
+            \text{Class} &
+            \text{Parameters} &
+            \text{2-rank} &
+            \text{Clique polynomial}
+            \\
+            \hline
+            0 &
+            (16, 6, 2, 2) &
+            6 &
+            \begin{array}{l}
+            8t^{4} + 32t^{3} + 48t^{2} + 16t + 1
+            \end{array}
+            \\
+            1 &
+            (16, 10, 6, 6) &
+            6 &
+            \begin{array}{l}
+            16t^{5} + 120t^{4} + 160t^{3}
+            \,+
+            \\
+            80t^{2} + 16t + 1
+            \end{array}
+            \\
+            \hline
+            \end{array}
+            \end{align*}
+
+        """
+        print "\\begin{align*}"
+        print "\\def\\arraystretch{1.2}"
+        print "\\begin{array}{|cccl|}"
+        print "\\hline"
+        print "\\text{Class} &"
+        print "\\text{Parameters} &"
+        print "\\text{2-rank} &"
+        print "\\text{Clique polynomial}"
+        print "\\\\"
+        print "\\hline"
+
+        cg_list = self.cayley_graph_class_list
+        for n in xsrange(len(cg_list)):
+            print n, "&"
+            g = Graph(cg_list[n])
+            srg = StronglyRegularGraph(g)
+            print srg.strongly_regular_parameters, "&"
+            print srg.rank, "&"
+            cp = srg.stored_clique_polynomial
+            print "\\begin{array}{l}"
+            lf = latex(cp)
+            cut = 0
+            while cut >= 0 and len(lf) > width:
+                cut = lf.rfind('+', 0, width)
+                if cut > 0:
+                    print lf[:cut]
+                if cut >= 0 and cut < len(lf):
+                    print "\\,+"
+                    print "\\\\"
+                lf = lf[cut + 1:]
+            print lf
+            print "\\end{array}"
+            print "\\\\"
+
+        print "\\hline"
+        print "\\end{array}"
+        print "\\end{align*}"
 
 
     def save_matrix_plots(self, figure_name, cmap='gist_stern'):
