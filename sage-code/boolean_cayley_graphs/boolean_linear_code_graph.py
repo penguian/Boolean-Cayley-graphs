@@ -16,6 +16,7 @@ Paul Leopardi.
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 
 from boolean_linear_code import boolean_linear_code
+from boolean_linear_code import linear_code_from_code_gens
 
 
 def boolean_linear_code_graph(dim, f):
@@ -24,3 +25,9 @@ def boolean_linear_code_graph(dim, f):
     L = boolean_linear_code(dim, f)
     return strongly_regular_from_two_weight_code(L)
 
+
+def strongly_regular_from_code_gens(c):
+    r"""
+    """
+    L = linear_code_from_code_gens(c)
+    return strongly_regular_from_two_weight_code(L)
