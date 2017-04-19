@@ -34,3 +34,11 @@ def boolean_linear_code(dim, f):
         for y in support]
         for x in xsrange(v)])
     return LinearCode(M)
+
+
+def linear_code_from_code_gens(c):
+    r"""
+    """
+    M = matrix(GF(2), [list(s) for s in c])
+    return LinearCode(M)
+
