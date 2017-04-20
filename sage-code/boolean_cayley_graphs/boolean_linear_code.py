@@ -42,3 +42,13 @@ def linear_code_from_code_gens(c):
     M = matrix(GF(2), [list(s) for s in c])
     return LinearCode(M)
 
+
+def print_latex_code_parameters(c):
+    r"""
+    """
+    print (
+        "[" + str(c.length()) +
+        "," + str(c.dimension()) +
+        "," + str(c.minimum_distance()) + "]"),
+
+
