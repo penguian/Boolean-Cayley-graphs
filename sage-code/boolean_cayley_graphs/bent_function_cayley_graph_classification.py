@@ -46,9 +46,11 @@ from datetime import datetime
 
 from numpy import array, argwhere
 from sage.arith.srange import xsrange
+from sage.coding.linear_code import LinearCode
 from sage.combinat.designs.incidence_structures import IncidenceStructure
 from sage.functions.log import log
 from sage.graphs.graph import Graph
+from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.matrix.constructor import matrix
 from sage.misc.latex import latex
 from sage.plot.matrix_plot import matrix_plot
@@ -56,7 +58,11 @@ from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
 
 from boolean_cayley_graphs.bent_function import BentFunction
+from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_27_6_12
+from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_35_6_16
 from boolean_cayley_graphs.boolean_cayley_graph import boolean_cayley_graph
+from boolean_cayley_graphs.boolean_linear_code import linear_code_from_code_gens
+from boolean_cayley_graphs.boolean_linear_code import print_latex_code_parameters
 from boolean_cayley_graphs.boolean_linear_code_graph import boolean_linear_code_graph
 from boolean_cayley_graphs.containers import BijectiveList
 from boolean_cayley_graphs.containers import ShelveBijectiveList
@@ -640,6 +646,60 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             print lf
             print "\\end{array}"
             print "\\\\"
+
+        print "\\hline"
+        print "\\end{array}"
+        print "\\end{align*}"
+
+
+    def print_latex_table_of_tonchev_graphs(self, width=40):
+        r"""
+        """
+        print "\\begin{align*}"
+        print "\\def\\arraystretch{1.2}"
+        print "\\begin{array}{|ccl|}"
+        print "\\hline"
+        print "\\text{Class} &"
+        print "\\text{Parameters} &"
+        print "\\text{Reference}"
+        print "\\\\"
+        print "\\hline"
+
+        tw_155 = binary_projective_two_weight_27_6_12()
+        lc_155 = [
+            linear_code_from_code_gens(tw)
+            for tw in tw_155]
+        sr_155 = [
+            strongly_regular_from_two_weight_code(lc).canonical_label().graph6_string()
+            for lc in lc_155]
+
+        tw_156 = binary_projective_two_weight_35_6_16()
+        lc_156 = [
+            linear_code_from_code_gens(tw)
+            for tw in tw_156]
+        sr_156 = [
+            strongly_regular_from_two_weight_code(lc).complement().canonical_label().graph6_string()
+            for lc in lc_156]
+
+        cg_list = self.cayley_graph_class_list
+        for n in xsrange(len(cg_list)):
+            cg = cg_list[n]
+            for k in xsrange(len(sr_155)):
+                if cg == sr_155[k]:
+                    print n, "&",
+                    print_latex_code_parameters(lc_155[k])
+                    print "& \\text{Table 1.155",
+                    print k + 1,
+                    print "}"
+                    print "\\\\"
+            for k in xsrange(len(sr_156)):
+                if cg == sr_156[k]:
+                    print n, "&",
+                    print_latex_code_parameters(lc_156[k])
+                    print "& \\text{Table 1.156",
+                    print k + 1,
+                    print "(complement)}"
+                    print "\\\\"
 
         print "\\hline"
         print "\\end{array}"
