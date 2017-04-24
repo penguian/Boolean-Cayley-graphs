@@ -564,7 +564,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
                                             di_matrix)
 
 
-    def print_latex_table_of_cayley_classes(self, width=40):
+    def print_latex_table_of_cayley_classes(self, width=40, rows_per_table=6):
         r"""
         For a given classification, print, in LaTeX format, the table
         of selected properties of the Cayley classes of that classification.
@@ -613,19 +613,33 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             \end{align*}
 
         """
-        print "\\begin{align*}"
-        print "\\def\\arraystretch{1.2}"
-        print "\\begin{array}{|cccl|}"
-        print "\\hline"
-        print "\\text{Class} &"
-        print "\\text{Parameters} &"
-        print "\\text{2-rank} &"
-        print "\\text{Clique polynomial}"
-        print "\\\\"
-        print "\\hline"
+        def print_latex_header():
+            print "\\small{}"
+            print "\\begin{align*}"
+            print "\\def\\arraystretch{1.2}"
+            print "\\begin{array}{|cccl|}"
+            print "\\hline"
+            print "\\text{Class} &"
+            print "\\text{Parameters} &"
+            print "\\text{2-rank} &"
+            print "\\text{Clique polynomial}"
+            print "\\\\"
+            print "\\hline"
 
+
+        def print_latex_footer():
+            print "\\hline"
+            print "\\end{array}"
+            print "\\end{align*}"
+
+        print_latex_header()
         cg_list = self.cayley_graph_class_list
         for n in xsrange(len(cg_list)):
+            if n > 0 and n % rows_per_table == 0:
+                print_latex_footer()
+                print "\\newpage"
+                print_latex_header()
+
             print n, "&"
             g = Graph(cg_list[n])
             srg = StronglyRegularGraph(g)
@@ -647,9 +661,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             print "\\end{array}"
             print "\\\\"
 
-        print "\\hline"
-        print "\\end{array}"
-        print "\\end{align*}"
+        print_latex_footer()
 
 
     def print_latex_table_of_tonchev_graphs(self, width=40):
