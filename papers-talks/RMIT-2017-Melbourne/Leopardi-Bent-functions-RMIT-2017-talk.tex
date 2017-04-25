@@ -1227,34 +1227,73 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 \end{colortheme}
 \begin{colortheme}{jubata}
 \begin{frame}
-\frametitle{Example partial spread ET class $[psf_{9,5438}]$}
+\frametitle{Example partial spread ET class $[psf_{9,5439}]$}
 \begin{figure}
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \captionof{figure}{$[psf_{9,5439}]$: 16 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
   \label{fig:psf_9_5438_bent_cayley_graph_index_matrix}
 \end{minipage}
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5438_dual_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5438}]$: 16 extended Cayley classes of dual bent functions}
+  \captionof{figure}{$[psf_{9,5439}]$: 16 extended Cayley classes of dual bent functions}
   \label{fig:psf_9_5438_dual_cayley_graph_index_matrix}
 \end{minipage}%
 \end{figure}
 6 of the 16 classes form 3 dual pairs of classes.
 \end{frame}
+\begin{colortheme}{seagull}
+\begin{frame}[fragile]
+\frametitle{For 8 dimensions: Bent functions from CAST-128 S Boxes}
+
+The CAST-128 encryption algorithm is used in PGP and elsewhere.
+
+CAST-128, including the S-boxes, is specified by IETF RFC 2144:
+\begin{verbatim}
+https://www.ietf.org/rfc/rfc2144.txt
+\end{verbatim}
+
+The algorithm uses 8 S-boxes, each of which consists of 32 binary bent functions in 8 dimensions,
+with degree 4.
+
+~
+
+\slidecite{Adams 1997}
+\end{frame}
+\end{colortheme}
+\begin{frame}
+\frametitle{Example CAST-128 ET class $[cast128_{1,0}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast_128_1_1_weight_class_matrix.png}
+  \captionof{figure}{$[cast128_{1,0}]$: weight classes ~~~~~~ ~~~~~~~~}
+  \label{fig:cast128_1_1_weight_class_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast_128_1_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{1,0}]$: $65\,536$ extended Cayley classes}
+  \label{fig:cast_128_1_1_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\end{frame}
 \section{Questions}
 \begin{frame}
 \frametitle{Open problems}
-Settled only for dimension up to 6:
+Settled only for dimensions up to 6:
 \begin{enumerate}
 \item
 How many EC classes are there for each dimension?
 Are there ``Exponential numbers'' of classes?
 \item
-Which ET classes contain the maximum number of different EC classes?
+In $2m$ dimensions,
+which ET classes contain the maximum number, $4^m$, of different EC classes?
 \item
 Which EC classes overlap more than one ET class?
 \item
