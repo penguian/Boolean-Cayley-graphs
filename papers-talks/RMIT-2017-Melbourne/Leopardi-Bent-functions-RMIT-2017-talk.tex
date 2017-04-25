@@ -56,11 +56,11 @@
 \author{Paul Leopardi}
 
 \date{DRAFT ONLY
-//
+\\
 For RMIT University Melbourne 2017}
 
 \institute{Australian Government - Bureau of Meteorology
-//
+\\
 University of Melbourne}
 \titlegraphic{
 %\includegraphics[angle=0,width=10mm]{../../common/beamer-anu-colourlogo.png}
@@ -288,27 +288,6 @@ The parameters of $\Cay{f}$ are
 \end{colortheme}
 \begin{colortheme}{seagull}
 \begin{frame}
-\frametitle{The two block designs of a bent function}
-
-The adjacency matrix of $\Cay{f}$ can also be interpreted as the incidence matrix of a block design.
-In this case we do not need $f(0)=0$.
-
-~
-\begin{Definition}
-The second block design of a bent function $f$ is defined by the incidence matrix
-$D(f)$ where
-\begin{align*}
-D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
-\end{align*}
-This is a symmetric block design with the \Emph{symmetric difference property},
-called the \Emph{SDP design} of $f$.
-\end{Definition}
-
-~
-
-\slidecite{Kantor 1983; Dillon and Schatz 1987; Neumann 2006}
-\end{frame}
-\begin{frame}
 \frametitle{Projective two-weight binary codes}
 
 \begin{Definition}
@@ -335,6 +314,103 @@ In the case of $\Z_2$, no two columns are equal.
 
 \end{frame}
 \end{colortheme}
+
+\begin{colortheme}{seagull}
+\begin{frame}
+\frametitle{From bent function to linear code (1)}
+\begin{Definition}
+
+\smallcite{Carlet 2007; Ding 2015, Corollary 10}
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$,
+define the linear code $C(f)$ by the generator matrix
+\begin{align*}
+M C(f)_{x,y} &\in \Z_2^{4^m \times \weight{f}},
+\\
+M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+\end{align*}
+with $x$ in lexicographic order of $\Z_2^{2m}$
+and $\support{f}(y)$ in lexicographic order of $\support{f}$.
+
+The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
+\end{Definition}
+
+\slidecite{Carlet 2007; Ding 2015, Corollary 10}
+
+\end{frame}
+\begin{frame}
+\frametitle{From bent function to linear code (2)}
+\begin{Theorem}
+\smallcite{Carlet 2007, Prop. 20; Ding 2015, Corollary 10}
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
+is a two-weight projective binary code.
+
+~
+
+The possible weights of non-zero code words are:
+\begin{align*}
+\begin{cases}
+2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
+\\
+2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
+\end{cases}
+\end{align*}
+
+\end{Theorem}
+
+\slidecite{Carlet 2007, Prop. 20; Ding 2015, Corollary 10}
+
+\end{frame}
+\begin{frame}
+\frametitle{From linear code to strongly regular graph}
+\begin{Definition}
+\label{R-f-def}
+Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
+
+The graph $R(f)$ is defined as:
+
+Vertices of $R(f)$ are code words of $C(f)$.
+
+For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
+\begin{align*}
+\begin{cases}
+\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\weightclass{f}=0).
+\\
+\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
+\end{cases}
+\end{align*}
+
+\end{Definition}
+Since $C(f)$ is a two-weight binary projective code,
+$R(f)$ is a strongly regular graph.
+
+\slidecite{Delsarte 1972, Theorem 2}
+\end{frame}
+\begin{frame}
+\frametitle{The two block designs of a bent function}
+
+The first block design of a bent function $f$ is obtained by interpreting
+the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
+In this case we do not need $f(0)=0$.
+
+~
+\begin{Definition}
+The second block design of a bent function $f$ is defined by the incidence matrix
+$D(f)$ where
+\begin{align*}
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
+\end{align*}
+This is a symmetric block design with the \Emph{symmetric difference property},
+called the \Emph{SDP design} of $f$.
+\end{Definition}
+
+~
+
+\slidecite{Kantor 1983; Dillon and Schatz 1987; Neumann 2006}
+\end{frame}
+\end{colortheme}
+
 \section{Equivalence}
 
 \begin{colortheme}{seagull}
@@ -421,7 +497,7 @@ Extended Cayley equivalence is an equivalence relation on the set of all bent fu
 
 \begin{frame}
 \frametitle{Linear equivalence implies Cayley equivalence}
-TBD
+
 \begin{Theorem}
 If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
 then $g$ is bent with $g(0)=0$ and $f \equiv g$.
@@ -447,7 +523,7 @@ h(x) &:= f(A x + b) + \langle c, x \rangle + \delta
 \intertext{can be expressed as $h(x) = g(A x)$ where}
 g(x) &:= f(x+b) + \langle (A^{-1})^T c, x \rangle + \delta,
 \end{align*}
-and therefore if $f$ is bent and $h(0)=0$ then $h \equiv g$.
+and therefore if $f$ is bent then $h \cong g$.
 \end{Theorem}
 \end{frame}
 
@@ -471,11 +547,25 @@ corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle 
 \end{Theorem}
 
 \end{frame}
+%\end{colortheme}
+
+%\begin{colortheme}{jubata}
 \begin{frame}
-\frametitle{The Dillon-Schatz design matrix}
+\frametitle{The strongly regular graph $R(f)$ \\ is the Cayley graph of the dual}
+
+\begin{Theorem}
+For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
+\begin{align*}
+R(f) &\equiv \Cay{\dual{f} + \weightclass{f}}.
+\end{align*}
+\end{Theorem}
+
+\end{frame}
+\begin{frame}
+\frametitle{The SDP design matrix}
 \begin{Theorem}
 For every bent function $f$, the \Emph{weight class matrix} of $f$
-equals the incidence matrix of the Dillon-Schatz design of $f$.
+equals the incidence matrix of the SDP design of $f$.
 
 ~
 
@@ -493,103 +583,10 @@ D(f)_{c,b}.
 
 \end{frame}
 \end{colortheme}
-
-\begin{colortheme}{seagull}
-\begin{frame}
-\frametitle{From bent function to linear code (1)}
-\begin{Definition}
-
-\smallcite{Carlet 2007; Ding 2015, Corollary 10}
-
-For a bent function $f : \Z_2^{2m} \To \Z_2$,
-define the linear code $C(f)$ by the generator matrix
-\begin{align*}
-M C(f)_{x,y} &\in \Z_2^{4^m \times \weight{f}},
-\\
-M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
-\end{align*}
-with $x$ in lexicographic order of $\Z_2^{2m}$
-and $\support{f}(y)$ in lexicographic order of $\support{f}$.
-
-The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
-\end{Definition}
-
-\slidecite{Carlet 2007; Ding 2015, Corollary 10}
-
-\end{frame}
-\begin{frame}
-\frametitle{From bent function to linear code (2)}
-\begin{Theorem}
-\smallcite{Carlet 2007, Prop. 20; Ding 2015, Corollary 10}
-
-For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
-is a two-weight projective binary code.
-
-~
-
-The possible weights of non-zero code words are:
-\begin{align*}
-\begin{cases}
-2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
-\\
-2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
-\end{cases}
-\end{align*}
-
-\end{Theorem}
-
-\slidecite{Carlet 2007, Prop. 20; Ding 2015, Corollary 10}
-
-\end{frame}
-\begin{frame}
-\frametitle{From linear code to strongly regular graph}
-\begin{Definition}
-
-Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
-
-The graph $R(f)$ is defined as:
-
-Vertices of $R(f)$ are code words of $C(f)$.
-
-For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
-\begin{align*}
-\begin{cases}
-\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\weightclass{f}=0).
-\\
-\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
-\end{cases}
-\end{align*}
-
-\end{Definition}
-Since $C(f)$ is a two-weight binary projective code,
-$R(f)$ is a strongly regular graph.
-
-\slidecite{Delsarte 1972, Theorem 2}
-\end{frame}
-\end{colortheme}
-
-\begin{colortheme}{jubata}
-\begin{frame}
-\frametitle{The graph $R(f)$ is the Cayley graph of the dual}
-
-\begin{Theorem}
-For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
-\begin{align*}
-R(f) \equiv
-\begin{cases}
-\Cay{\dual{f}} & \text{if~} \weightclass{f}=0,
-\\
-\Cay{\dual{f}+1} & \text{if~} \weightclass{f}=1.
-\end{cases}
-\end{align*}
-
-\end{Theorem}
-\end{frame}
-\end{colortheme}
 \section{Observations}
 \begin{colortheme}{jubata}
 \begin{frame}
-\frametitle{For $m=1$}
+\frametitle{For 2 dimensions: classes}
 
 One extended affine class, containing the extended translation class $[f_{2,1}]$,
 where $f_{2,1}(x) := x_0 x_1$ is self dual.
@@ -638,7 +635,7 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 \end{figure}
 \end{frame}
 \begin{frame}
-\frametitle{For $m=2$: classes}
+\frametitle{For 4 dimensions: classes}
 
 One extended affine class, containing the extended translation class $[f_{4,1}]$, where
 $f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
@@ -692,7 +689,7 @@ Two extended Cayley classes:
 \end{figure}
 \end{frame}
 \begin{frame}
-\frametitle{For $m=3$: extended translation classes}
+\frametitle{For 6 dimensions: ET classes}
 
 Four extended affine classes, containing the following extended translation classes:
 
@@ -732,46 +729,36 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \end{array}
 \end{align*}
 \end{frame}
-% \begin{frame}
-% \frametitle{For ET class $[f_{6,1}]$: classes}
-%
-% Bent function
-% $f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
-%
-% ~
-%
-% Two extended Cayley classes:
-% \small{}
-% \begin{align*}
-% \def\arraystretch{1.2}
-% \begin{array}{|cccl|}
-% \hline
-% \text{Class} &
-% \text{Parameters} &
-% \text{2-rank} &
-% \text{Clique polynomial}
-% \\
-% \hline
-% 1 &
-% (64, 28, 12, 12) & 8 &
-% \begin{array}{l}
-% 64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
-% \\
-% 5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-% \end{array}
-% \\
-% 2 &
-% (64, 36, 20, 20) & 8 &
-% \begin{array}{l}
-% 2304t^{6} + 13824t^{5} + 19200t^{4} +
-% \\
-% 7680t^{3} + 1152t^{2} + 64t + 1
-% \end{array}
-% \\
-% \hline
-% \end{array}
-% \end{align*}
-% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,1}]$: EC classes}
+
+Bent function
+$f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
+
+ ~
+
+Two extended Cayley classes corresponding to Tonchev's two-weight projective codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 1, 2 (complement)}
+\\
+1 & [27,6,12] & \text{Table 1.155 1 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+Graph for class 0 is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular
+graph $X$.
+
+\slidecite{Tonchev 1996, 2006; Royle 2008}
+ \end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{6,1}]$: matrices}
 \begin{figure}
@@ -790,56 +777,37 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \end{minipage}
 \end{figure}
 \end{frame}
-% \begin{frame}
-% \frametitle{For ET class $[f_{6,2}]$: classes}
-%
-% Bent function
-% $f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
-%
-% ~
-%
-% Three extended Cayley classes:
-% \small{}
-% \begin{align*}
-% \def\arraystretch{1.2}
-% \begin{array}{|cccl|}
-% \hline
-% \text{Class} &
-% \text{Parameters} &
-% \text{2-rank} &
-% \text{Clique polynomial}
-% \\
-% \hline
-% 1 &
-% (64, 28, 12, 12) & 8 &
-% \begin{array}{l}
-% 64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5} +
-% \\
-% 5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-% \end{array}
-% \\
-% 2 &
-% (64, 28, 12, 12) & 8 &
-% \begin{array}{l}
-% 256t^{6} + 1536t^{5} + 4352t^{4} +
-% \\
-% 3584t^{3} + 896t^{2} + 64t + 1
-% \end{array}
-% \\
-% 3 &
-% (64, 36, 20, 20) & 8 &
-% \begin{array}{l}
-% 192t^{8} + 1536t^{7} + 8960t^{6} + 19968t^{5} +
-% \\
-% 20224t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-% \end{array}
-% \\
-% \hline
-% \end{array}
-% \end{align*}
-% Graph 1 is isomorphic to graph 1 of EA class $[f_{6,1}]$.
-%
-% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,2}]$: EC classes}
+
+Bent function
+$f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
+
+~
+
+Three extended Cayley classes corresponding to Tonchev's two-weight projective codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 1, 2 (complement)}
+\\
+1 & [35,6,16] & \text{Table 1.156 3 (complement)}
+\\
+2 & [27,6,12] & \text{Table 1.155 2 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+Graph for class 0 is also isomorphic to that of $[f_{6,1}]$ class 0.
+
+\slidecite{Tonchev 1996, 2006}
+\end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{6,2}]$: matrices}
 \begin{figure}
@@ -858,64 +826,39 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \end{minipage}
 \end{figure}
 \end{frame}
-% \begin{frame}
-% \frametitle{For ET class $[f_{6,3}]$: classes}
-%
-% Bent function
-% \begin{align*}
-% f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
-% \\
-%            &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
-% \end{align*}
-%
-% Four extended Cayley classes:
-% \small{}
-% \begin{align*}
-% \def\arraystretch{1.2}
-% \begin{array}{|cccl|}
-% \hline
-% \text{Class} &
-% \text{Parameters} &
-% \text{2-rank} &
-% \text{Clique polynomial}
-% \\
-% \hline
-% 1 &
-% (64, 28, 12, 12) & 12 &
-% \begin{array}{l}
-% 32t^{8} + 256t^{7} + 896t^{6} + 2048t^{5} +
-% \\
-% 4608t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-% \end{array}
-% \\
-% 2 &
-% (64, 28, 12, 12) & 12 &
-% \begin{array}{l}
-% 64t^{6} + 1024t^{5} + 4096t^{4} +
-% \\
-% 3584t^{3} + 896t^{2} + 64t + 1
-% \end{array}
-% \\
-% 3 &
-% (64, 36, 20, 20) & 12 &
-% \begin{array}{l}
-% 160t^{8} + 1280t^{7} + 9344t^{6} + 21504t^{5} +
-% \\
-% 20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-% \end{array}
-% \\
-% 4 &
-% (64, 36, 20, 20) & 12 &
-% \begin{array}{l}
-% 160t^{8} + 1664t^{7} + 9792t^{6} + 21504t^{5} +
-% \\
-% 20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-% \end{array}
-% \\
-% \hline
-% \end{array}
-% \end{align*}
-% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,3}]$: EC classes}
+
+Bent function
+\begin{align*}
+f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
+\\
+           &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
+\end{align*}
+
+Four extended Cayley classes corresponding to Tonchev's two-weight projective codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 4 (complement)}
+\\
+1 & [27,6,12] & \text{Table 1.155 3 }
+\\
+2 & [35,6,16] & \text{Table 1.156 5 (complement)}
+\\
+3 & [27,6,12] & \text{Table 1.155 4 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+\slidecite{Tonchev 1996, 2006}
+\end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{6,3}]$: matrices}
 \begin{figure}
@@ -934,56 +877,37 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \end{minipage}
 \end{figure}
 \end{frame}
-% \begin{frame}
-% \frametitle{For ET class $[f_{6,4}]$: classes}
-%
-% Bent function
-% \begin{align*}
-% f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
-% \\
-%            &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
-% \end{align*}
-%
-% Three extended Cayley classes:
-% \small{}
-% \begin{align*}
-% \def\arraystretch{1.2}
-% \begin{array}{|cccl|}
-% \hline
-% \text{Class} &
-% \text{Parameters} &
-% \text{2-rank} &
-% \text{Clique polynomial}
-% \\
-% \hline
-% 1 &
-% (64, 28, 12, 12) & 14 &
-% \begin{array}{l}
-% 32t^{8} + 256t^{7} + 896t^{6} + 1792t^{5} +
-% \\
-% 4480t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-% \end{array}
-% \\
-% 2 &
-% (64, 28, 12, 12) & 14 &
-% \begin{array}{l}
-% 16t^{8} + 128t^{7} + 448t^{6} + 1280t^{5} +
-% \\
-% 4224t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
-% \end{array}
-% \\
-% 3 &
-% (64, 36, 20, 20) & 14 &
-% \begin{array}{l}
-% 176t^{8} + 1408t^{7} + 9664t^{6} + 22272t^{5} +
-% \\
-% 20608t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
-% \end{array}
-% \\
-% \hline
-% \end{array}
-% \end{align*}
-% \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,4}]$: EC classes}
+
+Bent function
+\begin{align*}
+f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
+           &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
+\end{align*}
+
+Three extended Cayley classes corresponding to Tonchev's two-weight projective codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 7 (complement)}
+\\
+1 & [35,6,16] & \text{Table 1.156 6 (complement)}
+\\
+2 & [27,6,12] & \text{Table 1.155 5 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+\slidecite{Tonchev 1996, 2006}
+\end{frame}
 \begin{frame}
 \frametitle{For ET class $[f_{6,4}]$: matrices}
 \begin{figure}
@@ -1002,10 +926,23 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \end{minipage}
 \end{figure}
 \end{frame}
+\begin{colortheme}{seagull}
 \begin{frame}
-\frametitle{For $m=4$: extended translation classes}
+\frametitle{For 8 dimensions: \\ number of bent functions and EA classes}
 
-Up to degree 3:
+According to Langevin and Leander (2011)
+there are $99270589265934370305785861242880 \approx 2^{106}$ bent functions in dimension 8.
+
+~
+
+The number of EA classes has not yet been published, let alone a list of representatives.
+
+\slidecite{Langevin and Leander 2011}
+\end{frame}
+\end{colortheme}
+\begin{frame}
+\frametitle{For 8 dimensions, up to degree 3: \\ extended translation classes}
+
 Ten extended affine classes,
 
 containing the following extended translation classes:
@@ -1270,20 +1207,8 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \end{frame}
 \end{colortheme}
 \begin{colortheme}{seagull}
-\begin{frame}
-\frametitle{For $m=4$: number of bent functions and EA classes}
-
-According to Langevin and Leander (2011)
-there are $99270589265934370305785861242880 \approx 2^{106}$ bent functions in dimension 8.
-
-~
-
-The number of EA classes has not yet been published, let alone a list of representatives.
-
-\slidecite{Langevin and Leander 2011}
-\end{frame}
 \begin{frame}[fragile]
-\frametitle{For $m=4$: number of partial spread bent functions and EA classes}
+\frametitle{For 8 dimensions: number of partial spread \\ bent functions and EA classes}
 
 According to Langevin and Hou (2011)
 there are $70576747237594114392064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in dimension 8,
@@ -1323,22 +1248,23 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 \section{Questions}
 \begin{frame}
 \frametitle{Open problems}
-Settled only for $m \leqslant 3$:
+Settled only for dimension up to 6:
 \begin{enumerate}
 \item
-How many EC classes are there for each $m$?
+How many EC classes are there for each dimension?
 Are there ``Exponential numbers'' of classes?
 \item
-Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
+Which ET classes contain the maximum number of different EC classes?
 \item
 Which EC classes overlap more than one ET class?
+\item
+Which bent functions are extended affine equivalent to their dual?
 \item
 Which bent functions are Cayley equivalent to their dual?
 \end{enumerate}
 ~
 
-Also, what are the remaining EA and EC classes for $m=4$,
-i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4?
+Also, what are the remaining EA and EC classes of binary bent functions of dimension 8 and degree 4?
 
 ~
 
@@ -1359,10 +1285,10 @@ https://github.com/penguian/Boolean-Cayley-graphs
 
 ~
 
-SageMathCloud: Public worksheet
+SageMathCloud: Public worksheets, Sage and Python source code
 
 \begin{verbatim}
-http://tinyurl.com/ho7tl4y
+http://tinyurl.com/Boolean-Cayley-graphs
 \end{verbatim}
 
 \end{frame}
