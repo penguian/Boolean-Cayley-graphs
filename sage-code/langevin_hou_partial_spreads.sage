@@ -27,7 +27,7 @@ def read_langevin_hou_anf_list(anf_file):
 
     R8.<x1,x2,x3,x4,x5,x6,x7,x8> = BooleanPolynomialRing(8)
 
-    anf_list = []
+    anf_list = [None]
     line = None
     while line != '':
         line = anf_file.readline()
