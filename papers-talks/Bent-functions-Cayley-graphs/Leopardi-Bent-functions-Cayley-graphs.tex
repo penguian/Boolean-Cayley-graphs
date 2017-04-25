@@ -383,7 +383,8 @@ The parameters of $\Cay{f}$ are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{
 % \begin{frame}
 \subsection{The two block designs of a bent function}
 
-The adjacency matrix of $\Cay{f}$ can also be interpreted as the incidence matrix of a block design.
+The first block design of a bent function $f$ is obtained by interpreting
+the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
 In this case we do not need $f(0)=0$.
 
 The second block design of a bent function $f$ is defined as follows.
@@ -407,7 +408,8 @@ and we call it the \emph{SDP design} of $f$.
 %\slidecite{Dillon and Schatz 1987; Neumann 2006}
 % \end{frame}
 % \begin{frame}
-\subsection{Projective two-weight binary codes}
+\subsection{Bent functions, linear codes and strongly regular graphs}
+\paragraph*{Projective two-weight binary codes}
 
 \begin{Definition}
 \label{def-two-weight-codes}
@@ -432,6 +434,78 @@ Remark: In the case of $\Z_2$, no two columns are equal.
 %\slidecite{Bouyukliev, Fack, Willems and Winne 2006} % BouFFWW2006
 %
 \end{Definition}
+
+\paragraph*{From bent function to linear code.}
+\begin{Definition}
+\cite[Corollary 10]{DinD15class}
+%\smallcite{Ding 2015, Corollary 10}
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$,
+define the linear code $C(f)$ by the generator matrix
+\begin{align*}
+M_C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
+\\
+M_C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+\end{align*}
+with $x$ in lexicographic order of $\Z_2^{2m}$
+and $\support{f}(y)$ in lexicographic order of $\support{f}$.
+
+The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M_C(f)$.
+\end{Definition}
+
+%\slidecite{Ding 2015, Corollary 10}
+%
+% \end{frame}
+% \begin{frame}
+%\frametitle{From bent function to linear code (2)}
+\begin{Proposition}
+\cite[Corollary 10]{DinD15class}
+%\smallcite{Ding 2015, Corollary 10}
+
+For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
+is a projective two-weight binary code.
+%
+%~
+%
+The possible weights of non-zero code words are:
+\begin{align*}
+\begin{cases}
+2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
+\\
+2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
+\end{cases}
+\end{align*}
+%
+\end{Proposition}
+%
+%\slidecite{Ding 2015, Corollary 10}
+%
+% \end{frame}
+% \begin{frame}
+\paragraph*{From linear code to strongly regular graph.}
+\begin{Definition}
+\label{R-f-def}
+Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
+
+The graph $R(f)$ is defined as:
+
+Vertices of $R(f)$ are code words of $C(f)$.
+
+For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
+\begin{align*}
+\begin{cases}
+\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\weightclass{f}=0).
+\\
+\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
+\end{cases}
+\end{align*}
+
+\end{Definition}
+Since $C(f)$ is a projective two-weight binary code,
+$R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
+
+%\slidecite{Delsarte 1972, Theorem 2}
+% \end{frame}
 
 % \end{frame}
 \subsection{More concepts of equivalence of bent functions}
@@ -803,84 +877,14 @@ $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
 The proof of this theorem is quite long and is given in Appendix~\ref{app-proof-of}.
 
 % \end{frame}
-% \begin{frame}
 \subsection{Bent functions, linear codes and strongly regular graphs}
-\paragraph*{From bent function to linear code.}
-\begin{Definition}
-\cite[Corollary 10]{DinD15class}
-%\smallcite{Ding 2015, Corollary 10}
-
-For a bent function $f : \Z_2^{2m} \To \Z_2$,
-define the linear code $C(f)$ by the generator matrix
-\begin{align*}
-M_C(f)_{x,y} &\in \Z_2^{2^{2m} \times \weight{f}},
-\\
-M_C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
-\end{align*}
-with $x$ in lexicographic order of $\Z_2^{2m}$
-and $\support{f}(y)$ in lexicographic order of $\support{f}$.
-
-The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M_C(f)$.
-\end{Definition}
-
-%\slidecite{Ding 2015, Corollary 10}
-%
-% \end{frame}
-% \begin{frame}
-%\frametitle{From bent function to linear code (2)}
-\begin{Proposition}
-\cite[Corollary 10]{DinD15class}
-%\smallcite{Ding 2015, Corollary 10}
-
-For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
-is a projective two-weight binary code.
-%
-%~
-%
-The possible weights of non-zero code words are:
-\begin{align*}
-\begin{cases}
-2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
-\\
-2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
-\end{cases}
-\end{align*}
-%
-\end{Proposition}
-%
-%\slidecite{Ding 2015, Corollary 10}
-%
-% \end{frame}
-% \begin{frame}
-\paragraph*{From linear code to strongly regular graph.}
-\begin{Definition}
-
-Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
-
-The graph $R(f)$ is defined as:
-
-Vertices of $R(f)$ are code words of $C(f)$.
-
-For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
-\begin{align*}
-\begin{cases}
-\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\weightclass{f}=0).
-\\
-\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\weightclass{f}=1).
-\end{cases}
-\end{align*}
-
-\end{Definition}
-Since $C(f)$ is a projective two-weight binary code,
-$R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
-
-%\slidecite{Delsarte 1972, Theorem 2}
-% \end{frame}
 % \begin{frame}
 \paragraph*{The graph $R(f)$ is the Cayley graph of the extended dual.}
+Recall the strongly regular graph $R(f)$ of bent function $f$ as defined by Definition
+\ref{R-f-def}.
 
 \begin{Theorem}
-For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
+For bent $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
 \begin{align*}
 R(f) \equiv \Cay{\dual{f} + \weightclass{f}}.
 \end{align*}
