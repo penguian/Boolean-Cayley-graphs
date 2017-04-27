@@ -144,18 +144,18 @@ SageMath code.
 \begin{Def}
 \label{def-Walsh-Hadamard-transform}
 The Walsh Hadamard transform of
-a Boolean function $f : \Z_2^m \To \Z_2$ is
+a Boolean function $f : \Z_2^{2m} \To \Z_2$ is
 \begin{align*}
-W_f(y)
+W_f(x)
 &:=
-\sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle} + f(x)
+\sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
 \end{align*}
 \end{Def}
 
 \begin{Def}
 \label{def-Bent-function}
-A Boolean function $f : \Z_2^m \To \Z_2$ is \Emph{bent}
-if and only if its Walsh Hada\-mard transform has constant magnitude $2^{-m}$.
+A Boolean function $f : \Z_2^{2m} \To \Z_2$ is \Emph{bent}
+if and only if its Walsh Hada\-mard transform has constant absolute value $2^{m}$.
 % \cite[p. 74]{Dil74}
 % \cite[p. 300]{Rot76}.
 \end{Def}
@@ -166,9 +166,9 @@ if and only if its Walsh Hada\-mard transform has constant magnitude $2^{-m}$.
 
 \begin{Def}
 \label{def-dual-Bent-function}
-For a bent function $f$, the function $\dual{f}$, defined by
+For a bent function  $f : \Z_2^{2m} \To \Z_2$, the function $\dual{f}$, defined by
 \begin{align*}
-(-1)^{\dual{f}(x)} &:= 2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
+(-1)^{\dual{f}(x)} &:= 2^{-m} W_f(x)
 \end{align*}
 is called the \Emph{dual} of $f$.
 \end{Def}
