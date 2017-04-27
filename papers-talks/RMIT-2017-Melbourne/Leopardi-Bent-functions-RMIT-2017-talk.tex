@@ -21,8 +21,8 @@
 %\usepackage{amsmath}   %needed for \begin{align}... \end{align} environment
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{amscd}
-\usepackage[all]{xy}
+%\usepackage{amscd}
+%\usepackage[all]{xy}
 \usepackage{xcolor}
 \usepackage{enumerate}
 %
@@ -47,7 +47,7 @@
 \newcommand{\G}{\mb{G}}
 \newcommand{\R}{\mb{R}}
 \newcommand{\Z}{\mb{Z}}
-%\newtheorem{Definition}{Definition}
+\newtheorem{Def}{Definition}
 \newtheorem{Conjecture}{Conjecture}
 \newtheorem{Question}{Question}
 \newtheorem{Proposition}{Proposition}
@@ -55,13 +55,11 @@
 \title{Classifying bent functions by their Cayley graphs, using Sage}
 \author{Paul Leopardi}
 
-\date{DRAFT ONLY
-\\
-For RMIT University Melbourne 2017}
+\date{For RMIT University Melbourne 2017}
 
-\institute{Australian Government - Bureau of Meteorology
+\institute{University of Melbourne
 \\
-University of Melbourne}
+Australian Government - Bureau of Meteorology}
 \titlegraphic{
 %\includegraphics[angle=0,width=10mm]{../../common/beamer-anu-colourlogo.png}
 %\includegraphics[angle=0,width=20mm]{../../common/carma_logo.jpg}
@@ -72,8 +70,6 @@ University of Melbourne}
 \begin{frame}
 \frametitle{Acknowledgements}
 \begin{center}
-~
-
 Nathan Clisby,
 Robert Craigen,
 Joanne Hall,
@@ -95,11 +91,11 @@ Australian National University. University of Newcastle, Australia. University o
 
 ~
 
-SageMath, Bliss, Nauty.
+Australian Government - Bureau of Meteorology.
 
 ~
 
-Australian Government - Bureau of Meteorology.
+SageMath, Bliss, Nauty.
 \end{center}
 \end{frame}
 
@@ -145,7 +141,7 @@ SageMath code.
 \frametitle{Bent functions}
 % Bent functions can be defined in a number of equivalent ways.
 % The definition used here involves the Walsh Hadamard Transform.
-\begin{Definition}
+\begin{Def}
 \label{def-Walsh-Hadamard-transform}
 The Walsh Hadamard transform of
 a Boolean function $f : \Z_2^m \To \Z_2$ is
@@ -154,28 +150,28 @@ W_f(y)
 &:=
 \sum_{x \in \Z_2^{2 m}} (-1)^{\langle x, y \rangle} + f(x)
 \end{align*}
-\end{Definition}
+\end{Def}
 
-\begin{Definition}
+\begin{Def}
 \label{def-Bent-function}
 A Boolean function $f : \Z_2^m \To \Z_2$ is \Emph{bent}
 if and only if its Walsh Hada\-mard transform has constant magnitude $2^{-m}$.
 % \cite[p. 74]{Dil74}
 % \cite[p. 300]{Rot76}.
-\end{Definition}
+\end{Def}
 \slidecite{Dillon 1974; Rothaus 1976}
 \end{frame}
 \begin{frame}
 \frametitle{Dual bent functions}
 
-\begin{Definition}
+\begin{Def}
 \label{def-dual-Bent-function}
 For a bent function $f$, the function $\dual{f}$, defined by
 \begin{align*}
 (-1)^{\dual{f}(x)} &:= 2^{-m} \sum_{y \in \Z_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
 \end{align*}
 is called the \Emph{dual} of $f$.
-\end{Definition}
+\end{Def}
 
 ~
 
@@ -189,7 +185,7 @@ The function $\dual{f}$ is also a bent function on $\Z_2^{2m}$.
 \begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Weights and weight classes}
-\begin{Definition}
+\begin{Def}
 The \Emph{weight} of a binary function is the cardinality of its \Emph{support}.
 For $f$ on $\Z_2^{2m}$
 \begin{align*}
@@ -203,7 +199,7 @@ A bent function $f$ on $\Z_2^{2m}$ has weight
 \weight{f} &= 2^{2 m - 1} + 2^{m-1} \quad (\text{weight class~} \weightclass{f}=1).
 \end{align*}
 % If $f(0)=0$ then $\weightclass{\Cay{f}} := \weightclass{f}$.
-\end{Definition}
+\end{Def}
 \end{frame}
 \end{colortheme}
 
@@ -290,9 +286,11 @@ The parameters of $\Cay{f}$ are
 \begin{frame}
 \frametitle{Projective two-weight binary codes}
 
-\begin{Definition}
-A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$ with
-minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size 2.
+\begin{Def}
+A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\Z_2^n$
+with
+minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size
+2.
 
 ~
 
@@ -308,7 +306,7 @@ In the case of $\Z_2$, no two columns are equal.
 
 ~
 
-\end{Definition}
+\end{Def}
 
 \slidecite{Tonchev 1996; Bouyukliev, Fack, Willems and Winne 2006}
 
@@ -318,14 +316,14 @@ In the case of $\Z_2$, no two columns are equal.
 \begin{colortheme}{seagull}
 \begin{frame}
 \frametitle{From bent function to linear code (1)}
-\begin{Definition}
+\begin{Def}
 
 \smallcite{Carlet 2007; Ding 2015, Corollary 10}
 
 For a bent function $f : \Z_2^{2m} \To \Z_2$,
 define the linear code $C(f)$ by the generator matrix
 \begin{align*}
-M C(f)_{x,y} &\in \Z_2^{4^m \times \weight{f}},
+M C(f) &\in \Z_2^{4^m \times \weight{f}},
 \\
 M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
 \end{align*}
@@ -333,14 +331,14 @@ with $x$ in lexicographic order of $\Z_2^{2m}$
 and $\support{f}(y)$ in lexicographic order of $\support{f}$.
 
 The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
-\end{Definition}
+\end{Def}
 
 \slidecite{Carlet 2007; Ding 2015, Corollary 10}
 
 \end{frame}
 \begin{frame}
 \frametitle{From bent function to linear code (2)}
-\begin{Theorem}
+\begin{Proposition}
 \smallcite{Carlet 2007, Prop. 20; Ding 2015, Corollary 10}
 
 For a bent function $f : \Z_2^{2m} \To \Z_2$, the linear code $C(f)$
@@ -357,14 +355,14 @@ The possible weights of non-zero code words are:
 \end{cases}
 \end{align*}
 
-\end{Theorem}
+\end{Proposition}
 
 \slidecite{Carlet 2007, Prop. 20; Ding 2015, Corollary 10}
 
 \end{frame}
 \begin{frame}
 \frametitle{From linear code to strongly regular graph}
-\begin{Definition}
+\begin{Def}
 \label{R-f-def}
 Given $f : \Z_2^{2m} \To \Z_2$, form the linear code $C(f)$.
 
@@ -381,7 +379,7 @@ For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
 \end{cases}
 \end{align*}
 
-\end{Definition}
+\end{Def}
 Since $C(f)$ is a two-weight binary projective code,
 $R(f)$ is a strongly regular graph.
 
@@ -395,7 +393,7 @@ the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
 In this case we do not need $f(0)=0$.
 
 ~
-\begin{Definition}
+\begin{Def}
 The second block design of a bent function $f$ is defined by the incidence matrix
 $D(f)$ where
 \begin{align*}
@@ -403,7 +401,7 @@ D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
 \end{align*}
 This is a symmetric block design with the \Emph{symmetric difference property},
 called the \Emph{SDP design} of $f$.
-\end{Definition}
+\end{Def}
 
 ~
 
@@ -417,7 +415,7 @@ called the \Emph{SDP design} of $f$.
 \begin{frame}
 \frametitle{Extended affine equivalence}
 
-\begin{Definition}
+\begin{Def}
 For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
 
 $f$ is \Emph{extended affine equivalent} to $g$ if and only if
@@ -425,30 +423,30 @@ $f$ is \Emph{extended affine equivalent} to $g$ if and only if
 g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 \end{align*}
 for some $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
-\end{Definition}
+\end{Def}
 ~
 
 \slidecite{Tokareva 2014}
 \end{frame}
+\end{colortheme}
+
+\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{General linear equivalence}
 
-\begin{Definition}
+\begin{Def}
 For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
 $f$ is \Emph{general linear equivalent} to $g$ if and only if
 \begin{align*}
 g(x) &= f(A x)
 \end{align*}
 for some $A \in GL(2m,2)$.
-\end{Definition}
+\end{Def}
 \end{frame}
-\end{colortheme}
-
-\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Extended translation equivalence}
 
-\begin{Definition}
+\begin{Def}
 For bent functions $f,g : \Z_2^{2m} \To \Z_2$,
 
 $f$ is \Emph{extended translation equivalent} to $g$ if and only if
@@ -456,14 +454,14 @@ $f$ is \Emph{extended translation equivalent} to $g$ if and only if
 g(x) &= f(x + b) + \langle c, x \rangle + \delta
 \end{align*}
 for $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$.
-\end{Definition}
+\end{Def}
 \end{frame}
 \end{colortheme}
 
 \begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Cayley equivalence}
-\begin{Definition}
+\begin{Def}
 %
 For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
 
@@ -480,23 +478,23 @@ there exists a bijection $\pi : \Z_2^{2m} \To \Z_2^{2m}$ such that
 \begin{align*}
 g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \Z_2^{2m}.
 \end{align*}
-\end{Definition}
+\end{Def}
 \end{frame}
 \begin{frame}
 \frametitle{Extended Cayley equivalence}
-\begin{Definition}
+\begin{Def}
 For $f, g : \Z_2^{2m} \To \Z_2$, with both $f$ and $g$ bent,
 
 if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
 
 we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
-\end{Definition}
+\end{Def}
 Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\Z_2^{2m}$.
 \end{frame}
 \section{Some results}
 
 \begin{frame}
-\frametitle{Linear equivalence implies Cayley equivalence}
+\frametitle{General linear equivalence \\ implies Cayley equivalence}
 
 \begin{Theorem}
 If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
@@ -511,7 +509,7 @@ g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \Z_2^{2m
 \end{frame}
 
 \begin{frame}
-\frametitle{Extended affine, extended translation and extended Cayley equivalence (1)}
+\frametitle{Extended affine, extended translation, and extended Cayley equivalence (1)}
 
 \begin{Theorem}
 For $A \in GL(2m,2)$, $b, c \in \Z_2^{2m}$, $\delta \in \Z_2$,
@@ -528,7 +526,7 @@ and therefore if $f$ is bent then $h \cong g$.
 \end{frame}
 
 \begin{frame}
-\frametitle{Extended affine, extended translation and extended Cayley equivalence (2)}
+\frametitle{Extended affine, extended translation, and extended Cayley equivalence (2)}
 
 Therefore, to determine the extended Cayley equivalence classes within the extended affine equivalence class of
 a bent function $f : \Z_2^{2m} \To \Z_2$, for which $f(0)=0$, we need only examine
@@ -539,7 +537,7 @@ f(x+b) + \langle c, x \rangle + f(b),
 for each $b, c \in \Z_2^{2m}$.
 \end{frame}
 \begin{frame}
-\frametitle{Quadratic bent functions have 2 EC classes}
+\frametitle{Quadratic bent functions have two \\ extended Cayley classes}
 \begin{Theorem}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
 $q : \Z_2^{2m} \To \Z_2$ contains exactly two extended Cayley equivalence classes,
@@ -551,7 +549,7 @@ corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle 
 
 %\begin{colortheme}{jubata}
 \begin{frame}
-\frametitle{The strongly regular graph $R(f)$ \\ is the Cayley graph of the dual}
+\frametitle{The strongly regular graph $R(f)$ is \\ the Cayley graph of the dual}
 
 \begin{Theorem}
 For $f : \Z_2^{2m} \To \Z_2$, with $f(0)=0$,
@@ -562,9 +560,9 @@ R(f) &\equiv \Cay{\dual{f} + \weightclass{f}}.
 
 \end{frame}
 \begin{frame}
-\frametitle{The SDP design matrix}
+\frametitle{The weight class matrix is \\ the SDP design matrix}
 \begin{Theorem}
-For every bent function $f$, the \Emph{weight class matrix} of $f$
+For every bent function $f$, the \Emph{weight class matrix} of the ET class of $f$
 equals the incidence matrix of the SDP design of $f$.
 
 ~
@@ -1247,7 +1245,7 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 \end{frame}
 \begin{colortheme}{seagull}
 \begin{frame}[fragile]
-\frametitle{For 8 dimensions: Bent functions from CAST-128 S Boxes}
+\frametitle{For 8 dimensions: Bent functions from CAST-128 S-boxes}
 
 The CAST-128 encryption algorithm is used in PGP and elsewhere.
 
