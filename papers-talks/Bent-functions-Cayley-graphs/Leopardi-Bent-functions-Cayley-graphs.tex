@@ -63,7 +63,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{INCOMPLETE DRAFT: 27 April 2017}
+\date{INCOMPLETE DRAFT: 30 April 2017}
 
 \begin{document}
 
@@ -875,7 +875,7 @@ corresponding to the two possible weight classes of
 $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
 \end{Theorem}
 
-The proof of this theorem is quite long and is given in Appendix~\ref{app-proof-of}.
+The proof of this theorem is given in Appendix~\ref{app-proof-of}.
 
 % \end{frame}
 \subsection{Bent functions, linear codes and strongly regular graphs}
@@ -989,18 +989,15 @@ is well defined.
 \end{proof}
 
 
-\section{Empirical Observations}
+\section{Observations for low dimensions}
 \label{sec-Empirical}
 % \begin{frame}
 \subsection{Bent functions in 2 dimensions}
 
-One extended affine class, containing the extended translation class: $[f_{2,1}]$
-
+The bent functions on $\Z_2^2$ consist of one extended affine class, containing the extended translation class: $[f_{2,1}]$
 where $f_{2,1}(x) := x_0 x_1$ is self dual.
 
-~
-
-Two extended Cayley classes:
+The extended translation class contains two extended Cayley classes with Cayley graphs as follows.
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1028,13 +1025,29 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 \hline
 \end{array}
 \end{align*}
+Note that the Cayley graph for class 1 is $K_4$, which is not considered to be strongly regular, by convention.
+
+\begin{figure}[!ht]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re2_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{2,1}]$: weight classes}
+  \label{fig:c2_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re2_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{2,1}]$: extended Cayley classes}
+  \label{fig:c2_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
 
 % \end{frame}
 % \begin{frame}
 \subsection{Bent functions in 4 dimensions}
 
-One extended affine class, containing the extended translation class $[f_{4,1}]$ where
-
+The bent functions on $\Z_2^4$ consist of one extended affine class, containing the extended translation class $[f_{4,1}]$ where
 $f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
 
 ~
@@ -1113,18 +1126,29 @@ projective two-weight codes:
 \end{array}
 \end{align*}
 
+\begin{figure}[!hb]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re4_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{4,1}]$: weight classes}
+  \label{fig:c4_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re4_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{4,1}]$: extended Cayley classes}
+  \label{fig:c4_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+
 % \end{frame}
 % \begin{frame}
 \subsection{Bent functions in 6 dimensions}
 \paragraph*{Extended affine classes.}
 
-In 1996, Tonchev classified the binary projective two-weight $[27,21,3]$ and $[35,6,16]$ codes
-listing them in Tables 1 and 2, respectively, of his paper \cite{Ton96uniformly}.
-These tables are repeated as Tables 1.155 and 1.156 in Chapter VII.1 of the Handbook of
-Combinatorial Designs, Second Edition \cite{Ton07codes},
-with a different numbering.
-
-Four extended affine classes, containing the following extended translation classes:
+The bent functions on $\Z_2^4$ consist of four
+extended affine classes, containing the following extended translation classes:
 
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1161,6 +1185,19 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 \hline
 \end{array}
 \end{align*}
+
+In 1996, Tonchev classified the binary projective two-weight $[27,21,3]$ and $[35,6,16]$ codes
+listing them in Tables 1 and 2, respectively, of his paper \cite{Ton96uniformly}.
+These tables are repeated as Tables 1.155 and 1.156 in Chapter VII.1 of the Handbook of
+Combinatorial Designs, Second Edition \cite{Ton07codes},
+with a different numbering.
+For each of the codes listed in these two tables, the characteristics of the corresponding
+strongly regular graph is also listed.
+
+In the classification given below, the Cayley graph of each Cayley class is matched by isomorphism
+with a strongly regular graph corresponding to one
+or more of Tonchev's projective two-weight codes, or the complement of such a graph.
+
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{6,1}]$.}
@@ -1168,9 +1205,8 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 The function
 $f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
 
-~
-
-Two extended Cayley classes:
+The extended translation class contains
+two extended Cayley classes:
 
 \small{}
 \begin{align*}
@@ -1235,12 +1271,11 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \begin{frame}
 \paragraph*{ET class $[f_{6,2}]$.}
 
-The function
+This is the extended translation class of the bent function
 $f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
 
-~
-
-Three extended Cayley classes:
+The extended translation class contains
+three extended Cayley classes:
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1331,14 +1366,15 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \begin{frame}
 \paragraph*{ET class $[f_{6,3}]$.}
 
-The function
+This is the extended translation class of the bent function
 \begin{align*}
 f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
 \\
            &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
 \end{align*}
 
-Four extended Cayley classes:
+The extended translation class contains
+four extended Cayley classes:
 
 \small{}
 \begin{align*}
@@ -1433,14 +1469,15 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \begin{frame}
 \paragraph*{ET class $[f_{6,4}]$.}
 
-The function
+This is the extended translation class of the bent function
 \begin{align*}
 f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
 \\
            &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
 \end{align*}
 
-Three extended Cayley classes:
+The extended translation class contains
+three extended Cayley classes:
 \small{}
 
 \begin{align*}
