@@ -63,7 +63,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{INCOMPLETE DRAFT: 30 April 2017}
+\date{INCOMPLETE DRAFT: 1 May 2017}
 
 \begin{document}
 
@@ -71,6 +71,12 @@ Paul~Leopardi
 
 \begin{abstract}
 %
+In 1999 Bernasconi and Codenotti noted that the Cayley graph of a bent function is strongly regular.
+This paper describes the concept of extended Cayley equivalence of bent functions,
+discusses some connections between bent functions, designs, and codes,
+and explores the relationship between extended Cayley equivalence and extended affine equivalence.
+SageMath scripts and SageMathCloud worksheets are used to compute and display some of these relationships,
+for bent functions up to dimension 8.
 %
 \end{abstract}
 
@@ -106,7 +112,7 @@ Cayley graphs, and related combinatorial objects,
 and in particular to examine the relationship between various equivalence classes of bent
 functions, in particular, the relationship between the extended affine
 equivalence classes and equivalence classes defined by isomorphism of Cayley graphs.
-As well as a theoretical study of bent functions of all dimensions, an empirical study is conducted
+As well as a theoretical study of bent functions of all dimensions, an computational study is conducted
 into bent functions of dimension at most 8,
 using SageMath \cite{SageMath7517} and SageMathCloud \cite{SageMathCloud}.
 
@@ -136,7 +142,7 @@ functions.
 Section \ref{sec-Results} contains the main theoretical results of the paper.
 Section \ref{sec-Empirical} lists some of the properties of the equivalence classes of bent functions for dimension up to 8.
 Section \ref{sec-Code} describes the SageMath and SageMathCloud code that has been used to obtain
-and display these empirical results.
+and display these computational results.
 Section~\ref{sec-Discussion} puts these results in the context of questions that are still open.
 %
 % % \begin{frame}
@@ -229,7 +235,6 @@ Section~\ref{sec-Discussion} puts these results in the context of questions that
 
 % \begin{frame}
 This section presents some of the key concepts used in the remainder of the paper.
-
 We first define the primary objects of study, bent functions and their Cayley graphs.
 
 % \begin{frame}
@@ -251,8 +256,7 @@ W_f(x)
 \begin{Definition}
 \label{def-Bent-function}
 A Boolean function $f : \Z_2^{2m} \To \Z_2$ is \Emph{bent}
-if and only if its Walsh Hada\-mard transform has constant absolute value $2^{m}$ \cite[p.
-74]{Dil74}
+if and only if its Walsh Hada\-mard transform has constant absolute value $2^{m}$ \cite[p. 74]{Dil74}
 \cite[p. 300]{Rot76}.
 \end{Definition}
 
@@ -273,7 +277,6 @@ is called the \Emph{dual} of $f$ \cite{Tok11number}.
 
 Remark: The function $\dual{f}$ is also a bent function on $\Z_2^{2m}$ \cite[p. 301]{Rot76}.
 \end{Definition}
-
 
 \subsection{Weights and weight classes}
 \begin{Definition}
@@ -308,6 +311,38 @@ A bent function $f$ on $\Z_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74}
 %
 %\slidecite{Dillon 1974; Rothaus 1976; Tokareva 2011}
 % \end{frame}
+
+% \begin{frame}
+\subsection{The two block designs of a bent function}
+
+TBD
+
+The first block design of a bent function $f$ on $\Z_2^{2m}$ is obtained by interpreting
+the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
+In this case we do not need $f(0)=0$ \cite[p. 160]{DilS87block}.
+
+The second block design of a bent function $f$ is defined as follows.
+\begin{Definition}
+\label{def-SDP-design}
+For a bent function $f$, the symmetric block design described by Kantor
+\cite[Section 5]{Kan75symplectic},
+and investigated by Dillon and Schatz \cite{DilS87block}
+\cite[Theorem 3.29]{Neu06bent},
+is defined by the incidence matrix $D(f)$ where
+\begin{align}
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
+\label{D-f-def}
+\end{align}
+This symmetric block design has the \Emph{symmetric difference property},
+and we call it the \emph{SDP design} of $f$.
+\end{Definition}
+%
+%~
+%
+%\slidecite{Dillon and Schatz 1987; Neumann 2006}
+% \end{frame}
+
+% \begin{frame}
 
 \subsection{The Cayley graph of a Bent function}
 
@@ -380,36 +415,9 @@ The parameters of $\Cay{f}$ are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{
 %\end{center}
 % \end{frame}
 % \begin{frame}
-
-% \begin{frame}
-\subsection{The two block designs of a bent function}
-
-The first block design of a bent function $f$ is obtained by interpreting
-the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
-In this case we do not need $f(0)=0$.
-
-The second block design of a bent function $f$ is defined as follows.
-\begin{Definition}
-\label{def-SDP-design}
-For a bent function $f$, the symmetric block design described by Kantor
-\cite[Section 5]{Kan75symplectic},
-and further investigated by Dillon and Schatz \cite{DilS87block}
-\cite[Theorem 3.29]{Neu06bent},
-is defined by the incidence matrix $D(f)$ where
-\begin{align}
-D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
-\label{D-f-def}
-\end{align}
-This symmetric block design has the \Emph{symmetric difference property},
-and we call it the \emph{SDP design} of $f$.
-\end{Definition}
-%
-%~
-%
-%\slidecite{Dillon and Schatz 1987; Neumann 2006}
-% \end{frame}
-% \begin{frame}
 \subsection{Bent functions, linear codes and strongly regular graphs}
+Another way to obtain a strongly regular graph from a bent function is via a projective two-weight
+code.
 \paragraph*{Projective two-weight binary codes}
 
 \begin{Definition}
@@ -429,6 +437,9 @@ $G$ are linearly dependent, i.e., if the columns of $G$ are pairwise different p
 projective $(k-1)$-dimensional space.''
 
 Remark: In the case of $\Z_2$, no two columns are equal.
+
+A \Emph{projective two-weight binary code} with parameters $[n, k, d]$ is thus a
+two-weight binary with these parameters which is also projective as an $[n, k]$ linear code.
 %
 %~
 %
@@ -989,7 +1000,7 @@ is well defined.
 \end{proof}
 
 
-\section{Observations for low dimensions}
+\section{Computational results for low dimensions}
 \label{sec-Empirical}
 % \begin{frame}
 \subsection{Bent functions in 2 dimensions}
