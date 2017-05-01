@@ -315,27 +315,56 @@ A bent function $f$ on $\Z_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74}
 % \begin{frame}
 \subsection{The two block designs of a bent function}
 
-TBD
-
 The first block design of a bent function $f$ on $\Z_2^{2m}$ is obtained by interpreting
 the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
 In this case we do not need $f(0)=0$ \cite[p. 160]{DilS87block}.
 
-The second block design of a bent function $f$ is defined as follows.
+The second block design of a bent function $f$ involves the
+\Emph{symmetric difference property}, which was first investigated by Kantor
+\cite[Section 5]{Kan75symplectic}.
+\begin{Definition}
+\label{def-Symmetric-difference-property}
+\cite[p. 49]{Kan75symplectic}.
+
+A symmetric block design $\mathcal{D}$ has the symmetric difference property (SDP)
+if, for any three blocks, $B, C, D$ of $\mathcal{D},$ the symmetric difference
+$B \bigtriangleup C \bigtriangleup D$ is either a block or the complement of a block.
+\end{Definition}
+
+This second block design is defined as follows.
 \begin{Definition}
 \label{def-SDP-design}
-For a bent function $f$, the symmetric block design described by Kantor
-\cite[Section 5]{Kan75symplectic},
-and investigated by Dillon and Schatz \cite{DilS87block}
-\cite[Theorem 3.29]{Neu06bent},
-is defined by the incidence matrix $D(f)$ where
+For a bent function  $f$ on $\Z_2^{2m}$, define the matrix $D(f) \in \Z_2^{2^{2m} \times 2^{2m}}$ where
 \begin{align}
-D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c),
 \label{D-f-def}
 \end{align}
-This symmetric block design has the \Emph{symmetric difference property},
-and we call it the \emph{SDP design} of $f$.
+and use it as the incidence matrix of a symmetric block design, which
+we call it the \emph{SDP design} of $f$.
+
 \end{Definition}
+
+Kantor describes the special case where $f$ is quadratic
+\cite[Section 5]{Kan75symplectic},
+and Dillon and Schatz \cite{DilS87block} describe the general case.
+
+TBD
+
+\begin{Proposition}
+\label{prop-SDP-design}
+\cite[Theorem 3.29]{Neu06bent}
+
+For any bent function $f$ on $\Z_2^{2m}$, the \emph{SDP design} of $f$ has the symmetric difference property.
+\end{Proposition}
+
+\begin{Proposition}
+\label{prop-SDP-design-affine-equivalence}
+\cite{Kan83exponential}
+
+For bent functions $f, g$ on $\Z_2^{2m}$,
+the two SDP designs $D(f)$ and $D(g)$ are isomorphic as symmetric block designs if and only if $f$ and $g$ are affine equivalent.
+\end{Proposition}
+
 %
 %~
 %
