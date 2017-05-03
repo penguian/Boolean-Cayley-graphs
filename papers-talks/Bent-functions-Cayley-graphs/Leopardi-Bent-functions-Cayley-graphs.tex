@@ -63,7 +63,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{INCOMPLETE DRAFT: 1 May 2017}
+\date{INCOMPLETE DRAFT: 3 May 2017}
 
 \begin{document}
 
@@ -334,32 +334,40 @@ $B \bigtriangleup C \bigtriangleup D$ is either a block or the complement of a b
 This second block design is defined as follows.
 \begin{Definition}
 \label{def-SDP-design}
-For a bent function  $f$ on $\Z_2^{2m}$, define the matrix $D(f) \in \Z_2^{2^{2m} \times 2^{2m}}$ where
+For a bent function  $f$ on $\Z_2^{2m}$, define the matrix $M_D(f) \in \Z_2^{2^{2m} \times 2^{2m}}$ where
 \begin{align}
-D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c),
+M_D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c),
 \label{D-f-def}
 \end{align}
 and use it as the incidence matrix of a symmetric block design, which
 we call it the \emph{SDP design} of $f$.
-
 \end{Definition}
 
 Kantor describes the special case where $f$ is quadratic
 \cite[Section 5]{Kan75symplectic},
 and Dillon and Schatz \cite{DilS87block} describe the general case.
 
-TBD
+Definition~\ref{def-SDP-design} is different from but equivalent to the one given by Dillon and Schatz \cite[p. 160]{DilS87block}:
+\begin{Lemma}
+\label{lm-SDP-design-rows}
+\cite[3.29]{Neu06bent}
 
+For any bent function $f$ on $\Z_2^{2m}$, the rows of the incidence matrix $M_D(f)$
+are given by the words of minimum weight in the code spanned by the support of $f$ and the Reed-Muller code $RM(1,2m)$.
+\end{Lemma}
+The proof of Lemma~\ref{lm-SDP-design-rows} is deferred to Section~\ref{sec-Results}.
+
+The following properties of SDP designs of bent functions are well known.
 \begin{Proposition}
 \label{prop-SDP-design}
-\cite[Theorem 3.29]{Neu06bent}
+\cite[p. 160]{DilS87block} \cite[Theorem 3.29]{Neu06bent}
 
-For any bent function $f$ on $\Z_2^{2m}$, the \emph{SDP design} of $f$ has the symmetric difference property.
+For any bent function $f$ on $\Z_2^{2m}$, the SDP design of $f$ has the symmetric difference property.
 \end{Proposition}
 
 \begin{Proposition}
 \label{prop-SDP-design-affine-equivalence}
-\cite{Kan83exponential}
+\cite[p. 161]{DilS87block} \cite{Kan83exponential}
 
 For bent functions $f, g$ on $\Z_2^{2m}$,
 the two SDP designs $D(f)$ and $D(g)$ are isomorphic as symmetric block designs if and only if $f$ and $g$ are affine equivalent.
@@ -811,10 +819,10 @@ Firstly, general linear equivalence of bent functions $f$ and $g$
 implies general linear equivalence of their duals, $\dual{f}$ and $\dual{g}$,
 which implies Cayley equivalence of $\dual{f}$ and $\dual{g}$.
 \begin{Proposition}
+\label{prop-dual-linear-equivalence}
 \cite[Remark 6.2.7]{Dil74}
 
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $A \in GL(2 m, 2)$,
-if
+For a bent function $f : \Z_2^{2m} \To \Z_2$, and $A \in GL(2 m, 2)$, if
 \begin{align*}
 g(x) &:= f(A x)
 \intertext{then}
@@ -825,22 +833,23 @@ and therefore by Theorem \ref{th-Linear-Cayley}, $\dual{g} \equiv \dual{f}$.
 If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
 \end{Proposition}
 
-Functions of the form
+Remark: Functions of the form
 \begin{align*}
 f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
 \end{align*}
 are self dual bent functions, $f=\dual{f}$ \cite[Remark 6.3.2]{Dil74}.
 There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
 
-The following proposition displays a relationship between the extended translation
-class of a bent function $f$
+Secondly, the following proposition displays a relationship between the extended translation
+class of a bent function $f$, and that of its dual $\dual{f}$.
 \begin{Proposition}
+\label{prop-dual-affine-equivalence}
 \cite[Remark 6.2.7]{Dil74} \cite[Proposition 8.7]{Car10boolean}
 %\smallcite{Carlet 2007, Proposition 4}
 %
 %~
 
-For a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
+For a bent function $f$ on $\Z_2^{2m}$, and $b,c \in \Z_2^{2m}$,
 if
 \begin{align*}
 g(x) &:= f(x+b) + \langle c, x \rangle
@@ -849,9 +858,26 @@ g(x) &:= f(x+b) + \langle c, x \rangle
 \end{align*}
 \end{Proposition}
 
-This result has many implications.
-First, recall that a bent function is not necessarily extended affine equivalent to its dual
+This result has an implication for the relationship between the set of bent functions within
+an extended translation (ET) equivalence class, and the set of their duals.
+Recall that a bent function is not necessarily extended affine (EA) equivalent to its dual
 \cite{LanLM08Kasami}.
+The following ``all or nothing'' property holds within an extended translation equivalence class of bent functions.
+\begin{Corollary}
+\label{cor-dual-ET-EC}
+For bent functions $f, g$ on $\Z_2^{2m}$,
+if $f$ is EA equivalent to $\dual{f}$ and $g$ is ET equivalent to $f$,
+then $\dual{g}$ is EA equivalent to $g$.
+Thus, by Theorem~\ref{th-Affine-Translate-Cayley},
+the set of isomorphism classes of Cayley graphs of the \Emph{duals} of the bent functions in
+the ET class of $f$ equals the set of isomorphism classes of Cayley graphs of
+the bent functions themselves.
+
+Conversely, for a bent function $f$ on $\Z_2^{2m}$,
+if there is any bent function $g$ that is ET equivalent to $f$,
+such that $\dual{g}$ is not EA equivalent to $g$, then no bent function in the ET class is EA
+equivalent to its dual, including $f$ itself.
+\end{Corollary}
 
 % \end{frame}
 
@@ -866,26 +892,61 @@ First, recall that a bent function is not necessarily extended affine equivalent
 % \end{frame}
 % \begin{frame}
 \paragraph*{Weight classes and the SDP design matrix.}
+
+With Lemma~\ref{lm-notes-9b} in hand, it is easy to prove Lemma~\ref{lm-SDP-design-rows} on
+the equivalence of the definitions of the SDP design of a bent function $f$ on $Z_2^{2m}$.
+
+\begin{proofof}{Lemma~\ref{lm-SDP-design-rows}}
+Firstly, it is well known (e.g. \cite[10.5.2]{Sti07combinatorial})
+that the Reed-Muller code $RM(1,2m)$ consists of the words spanned by the affine functions on $Z_2^{2m}$,
+that is, the incidence matrix $M_{RM(1,2m)}$ is defined by
+\begin{align*}
+{M_{RM(1,2m)}}_{c,x} &:= \langle c, x \rangle + d,
+\end{align*}
+where $d \in \Z_2$.
+
+Thus the incidence matrix of the code spanned by the support of $f$ and $RM(1,2m)$ is defined by
+\begin{align*}
+{M_{f,RM(1,2m)}}_{c,x} &:= f(x) + \langle c, x \rangle + d.
+\end{align*}
+Finally, from Lemma~\ref{lm-notes-9b} we know that
+\begin{align*}
+\weightclass{x \mapsto f(x) + \langle c, x \rangle}
+&=
+\dual{f}(c),
+\intertext{so that}
+\weightclass{x \mapsto f(x) + \langle c, x \rangle + \dual{f}(c)}
+&=
+0.
+\end{align*}
+\end{proofof}
+
+The following characterization of the SDP design of a bent function $f$ also relies on
+Lemma~\ref{lm-notes-9b} for its proof.
 \begin{Theorem}
 \label{th-Dillon-Schatz}
-For every bent function $f$, the \Emph{weight class matrix} of $f$
-equals the incidence matrix of the SDP design of $f$.
-
-~
-
-Specifically,
-for a bent function $f : \Z_2^{2m} \To \Z_2$, and $b,c \in \Z_2^{2m}$,
+For a bent function $f : \Z_2^{2m} \To \Z_2$,
+define the \Emph{weight class matrix} of $f$ by
 \begin{align*}
 M_{wc}(f)_{c,b}
 &:=
 \weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
+\end{align*}
+for $b,c \in \Z_2^{2m}$.
+
+Then the weight class matrix of $f$
+equals the incidence matrix of the SDP design of $f$.
+
+Specifically,
+\begin{align*}
+M_{wc}(f)_{c,b}
 =
 f(b) + \langle c, b \rangle + \dual{f}(c)
 \\
 &=
-D(f)_{c,b},
+M_D(f)_{c,b},
 \end{align*}
-where $D(f)$ is defined by \eqref{D-f-def}.
+where $M_D(f)$ is defined by \eqref{D-f-def}.
 \end{Theorem}
 
 \begin{proof}
@@ -902,7 +963,7 @@ Then by change of variable $y:=x+b$,
 &=
 \dual{f}(c) + \langle c, b \rangle + f(b),
 \end{align*}
-as a consequence of Lemma \ref{lm-notes-9b}.
+as a consequence of Lemma~\ref{lm-notes-9b}.
 \end{proof}
 
 
