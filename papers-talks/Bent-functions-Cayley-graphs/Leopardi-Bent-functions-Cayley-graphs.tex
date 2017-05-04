@@ -779,7 +779,7 @@ If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
 \end{align*}
 \end{proof}
 
-\begin{proofof}{Lemma\ref{lm-notes-9b}}
+\begin{proofof}{Lemma~\ref{lm-notes-9b}}
 Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
 Then
 \begin{align*}
@@ -793,8 +793,7 @@ Then
 \\
 &=
 2^{-m} \left( 2^{2m} - 2 \weight{h} \right)
-\\
-&=
+=
 2^m - 2^{1-m} \weight{h}
 \\
 &=
@@ -802,8 +801,7 @@ Then
 \\
 &=
 2^m - 2 \weightclass{h} - 2^m + 1
-\\
-&=
+=
 1 - 2 \weightclass{h} = (-1)^{\weightclass{h}},
 \end{align*}
 where we have used Lemma~\ref{lm-notes-9a}.
@@ -936,11 +934,10 @@ for $b,c \in \Z_2^{2m}$.
 
 Then the weight class matrix of $f$
 equals the incidence matrix of the SDP design of $f$.
-
 Specifically,
 \begin{align*}
 M_{wc}(f)_{c,b}
-=
+&=
 f(b) + \langle c, b \rangle + \dual{f}(c)
 \\
 &=
@@ -1100,8 +1097,6 @@ where $f_{2,1}(x) := x_0 x_1$ is self dual.
 
 The extended translation class contains two extended Cayley classes with Cayley graphs as per Table~\ref{tab-c2_1_Cayley_classes}.
 \begin{table}[!hb]
-\caption{$f_{2,1}$ Cayley classes}
-\label{tab-c2_1_Cayley_classes}
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1129,6 +1124,8 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 \hline
 \end{array}
 \end{align*}
+\caption{$f_{2,1}$ Cayley classes}
+\label{tab-c2_1_Cayley_classes}
 \end{table}
 
 Note that the Cayley graph for class 1 is $K_4$, which is not considered to be strongly regular, by convention.
