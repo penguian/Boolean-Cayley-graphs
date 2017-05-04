@@ -7,6 +7,8 @@
 %
 \usepackage[colorlinks=true,allcolors=blue]{hyperref}
 \usepackage[figurename={Figure}]{caption}
+\usepackage{float}
+\usepackage{placeins}
 %\usepackage{url}
 %
 \newcommand{\mb}[1]{\mathbb{#1}}
@@ -63,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{INCOMPLETE DRAFT: 3 May 2017}
+\date{INCOMPLETE DRAFT: 4 May 2017}
 
 \begin{document}
 
@@ -1091,11 +1093,11 @@ is well defined.
 \label{sec-Empirical}
 % \begin{frame}
 \subsection{Bent functions in 2 dimensions}
-
+\FloatBarrier
 The bent functions on $\Z_2^2$ consist of one extended affine class, containing the extended translation class: $[f_{2,1}]$
 where $f_{2,1}(x) := x_0 x_1$ is self dual.
 The extended translation class contains two extended Cayley classes with Cayley graphs as per Table~\ref{tab-c2_1_EC_classes}.
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1150,11 +1152,11 @@ as shown in Figures~\ref{fig:c2_1_weight_class_matrix} and~\ref{fig:c2_1_bent_ca
 % \end{frame}
 % \begin{frame}
 \subsection{Bent functions in 4 dimensions}
-
+\FloatBarrier
 The bent functions on $\Z_2^4$ consist of one extended affine class, containing the extended translation class $[f_{4,1}]$ where
 $f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
 The extended translation class contains two extended Cayley classes with Cayley graphs as per Table~\ref{tab-c4_1_EC_classes}.
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1189,53 +1191,53 @@ The extended translation class contains two extended Cayley classes with Cayley 
 \label{tab-c4_1_EC_classes}
 \end{table}
 
-The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the
-projective two-weight codes listed in Table~\ref{tab-c4_1_codes}
+% The Cayley graphs for classes 1 and 2 are isomorphic to those those obtained from the
+% projective two-weight codes listed in Table~\ref{tab-c4_1_codes}
+%
+% \begin{table}[H] % [!bhpt]
+% \begin{align*}
+% \begin{array}{|ccc|}
+% \hline
+% \text{Class} &
+% \text{Parameters} & \text{Generator matrix}
+% \\
+% \hline
+% 1 &
+% [6, 4, 2] &
+% \left[
+% \begin{array}{cccccc}
+% 0 & 0 & 1 & 1 & 1 & 1
+% \\
+% 1 & 0 & 0 & 1 & 1 & 1
+% \\
+% 1 & 1 & 1 & 1 & 0 & 0
+% \\
+% 0 & 1 & 1 & 1 & 1 & 0
+% \end{array}
+% \right]
+% \\
+% 2 &
+% [5, 4, 2] &
+% \left[
+% \begin{array}{ccccc}
+% 1 & 1 & 0 & 0 & 0
+% \\
+% 0 & 1 & 1 & 0 & 0
+% \\
+% 0 & 0 & 0 & 1 & 1
+% \\
+% 1 & 0 & 0 & 0 & 1
+% \end{array}
+% \right]
+% \\
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$f_{4,1}$ Two-weight projective codes}
+% \label{tab-c4_1_codes}
+% \end{table}
 
-\begin{table}[!hb]
-\begin{align*}
-\begin{array}{|ccc|}
-\hline
-\text{Class} &
-\text{Parameters} & \text{Generator matrix}
-\\
-\hline
-1 &
-[6, 4, 2] &
-\left[
-\begin{array}{cccccc}
-0 & 0 & 1 & 1 & 1 & 1
-\\
-1 & 0 & 0 & 1 & 1 & 1
-\\
-1 & 1 & 1 & 1 & 0 & 0
-\\
-0 & 1 & 1 & 1 & 1 & 0
-\end{array}
-\right]
-\\
-2 &
-[5, 4, 2] &
-\left[
-\begin{array}{ccccc}
-1 & 1 & 0 & 0 & 0
-\\
-0 & 1 & 1 & 0 & 0
-\\
-0 & 0 & 0 & 1 & 1
-\\
-1 & 0 & 0 & 0 & 1
-\end{array}
-\right]
-\\
-\hline
-\end{array}
-\end{align*}
-\caption{$f_{4,1}$ Two-weight projective codes}
-\label{tab-c4_1_codes}
-\end{table}
-
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -1255,11 +1257,11 @@ projective two-weight codes listed in Table~\ref{tab-c4_1_codes}
 % \begin{frame}
 \subsection{Bent functions in 6 dimensions}
 \paragraph*{Extended affine classes.}
-
+\FloatBarrier
 The bent functions on $\Z_2^4$ consist of four
 extended affine classes, containing the following extended translation classes:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cl|}
@@ -1314,14 +1316,14 @@ or more of Tonchev's projective two-weight codes, or the complement of such a gr
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{6,1}]$.}
-
+\FloatBarrier
 The function
 $f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
 
 The extended translation class contains
 two extended Cayley classes:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1367,7 +1369,7 @@ The Cayley graphs for classes 0 and 1 are isomorphic to those those obtained fro
 projective two-weight
 codes as listed by Tonchev \cite{Ton07codes}:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1391,7 +1393,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \end{frame}
 % \begin{frame}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -1408,14 +1410,14 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \end{figure}
 
 \paragraph*{ET class $[f_{6,2}]$.}
-
+\FloatBarrier
 This is the extended translation class of the bent function
 $f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
 
 The extended translation class contains
 three extended Cayley classes:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1486,7 +1488,7 @@ The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from
 projective two-weight
 codes as listed by Tonchev \cite{Ton07codes}:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1508,7 +1510,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \label{tab-c6_2_codes}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -1528,7 +1530,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{6,3}]$.}
-
+\FloatBarrier
 This is the extended translation class of the bent function
 \begin{align*}
 f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
@@ -1539,7 +1541,7 @@ f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
 The extended translation class contains
 four extended Cayley classes:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1611,7 +1613,7 @@ The Cayley graphs for classes 0 to 3 are isomorphic to those those obtained from
 projective two-weight
 codes as listed by Tonchev \cite{Ton07codes}:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1635,7 +1637,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \label{tab-c6_3_codes}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -1655,7 +1657,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{6,4}]$.}
-
+\FloatBarrier
 This is the extended translation class of the bent function
 \begin{align*}
 f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
@@ -1666,7 +1668,7 @@ f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} 
 The extended translation class contains
 three extended Cayley classes:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1728,7 +1730,7 @@ The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from
 projective two-weight
 codes as listed by Tonchev \cite{Ton07codes}:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1754,7 +1756,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \end{frame}
 % \begin{frame}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -1781,11 +1783,11 @@ according to Langevin and Leander \cite{LanL11counting}.
 The number of EA classes has not yet been published, let alone a list of representatives.
 
 \paragraph*{Extended affine classes up to degree 3.}
-
+\FloatBarrier
 Up to degree 3:
 Ten extended affine classes, containing the following extended translation classes:
 
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1866,9 +1868,9 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,1}]$.}
-
+\FloatBarrier
 % f8_1
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1919,7 +1921,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \label{tab-c8_1_EC_classes}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -1938,9 +1940,9 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,2}]$.}
-
+\FloatBarrier
 % f8_2
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2024,7 +2026,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \end{table}
 
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -2043,9 +2045,9 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,3}]$.}
-
+\FloatBarrier
 % f8_3
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2160,7 +2162,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \label{tab-c8_3_EC_classes}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -2179,8 +2181,9 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,4}]$.}
+\FloatBarrier
 % f8_4
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2298,7 +2301,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \label{tab-c8_4_EC_classes}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -2317,9 +2320,9 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,5}]$.}
-
+\FloatBarrier
 % f8_5
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2419,7 +2422,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \end{table}
 
 \newpage
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2505,7 +2508,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \label{tab-c8_5_EC_classes_2}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -2524,10 +2527,9 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,6}]$.}
-
-
+\FloatBarrier
 % f8_6
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2630,7 +2632,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \end{table}
 
 \newpage
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2713,7 +2715,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \label{tab-c8_6_EC_classes_2}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -2732,8 +2734,9 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,7}]$.}
+\FloatBarrier
 % f8_7
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2848,7 +2851,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_7_EC_classes}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -2867,8 +2870,9 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,8}]$.}
+\FloatBarrier
 % f8_8
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2983,7 +2987,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_8_EC_classes}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -3002,8 +3006,9 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,9}]$.}
+\FloatBarrier
 % f8_9
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -3102,7 +3107,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_9_EC_classes}
 \end{table}
 \newpage
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -3172,7 +3177,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_9_EC_classes_2}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -3191,9 +3196,9 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,10}]$.}
-
+\FloatBarrier
 % f8_10
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -3292,7 +3297,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_10_EC_classes}
 \end{table}
 \newpage
-\begin{table}[!hb]
+\begin{table}[H] % [!bhpt]
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -3394,7 +3399,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_10_EC_classes_2}
 \end{table}
 
-\begin{figure}[!hb]
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -3436,7 +3441,8 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 % \begin{colortheme}{jubata}
 % \begin{frame}
 \paragraph*{Example partial spread ET class $[psf_{9,5439}]$.}
-\begin{figure}[!hb]
+\FloatBarrier
+\begin{figure}[H] % [!bhpt]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
