@@ -65,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{INCOMPLETE DRAFT: 6 May 2017}
+\date{INCOMPLETE DRAFT: 7 May 2017}
 
 \begin{document}
 
@@ -1139,7 +1139,7 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 \end{array}
 \end{align*}
 }
-\caption{$[f_{2,1}]$ extended Cayley classes}
+\caption{$[f_{2,1}]$ extended Cayley classes.}
 \label{tab-c2_1_EC_classes}
 \end{table}
 
@@ -1205,7 +1205,7 @@ The extended translation class contains two extended Cayley classes as per Table
 \end{array}
 \end{align*}
 }
-\caption{$f_{4,1}$ extended Cayley classes}
+\caption{$[f_{4,1}]$ extended Cayley classes.}
 \label{tab-c4_1_EC_classes}
 \end{table}
 
@@ -1281,10 +1281,11 @@ as shown in Figures~\ref{fig:c4_1_weight_class_matrix} and~\ref{fig:c4_1_bent_ca
 \subsection{Bent functions in 6 dimensions}
 \paragraph*{Extended affine classes.}
 %
-The bent functions on $\Z_2^4$ consist of four
-extended affine classes, containing the following extended translation classes:
-
+The bent functions on $\Z_2^6$ consist of four
+extended affine classes, containing the extended translation classes as listed in Table~\ref{tab-c6_ET_classes}
+\cite[p. 303]{Rot76} \cite[Section 7.2]{Tok15bent}.
 \begin{table}[!bhpt] % [H]
+\small{
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cl|}
@@ -1320,7 +1321,8 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 \hline
 \end{array}
 \end{align*}
-\caption{6 dimensions: extended translation classes}
+}
+\caption{6 dimensions: extended translation classes.}
 \label{tab-c6_ET_classes}
 \end{table}
 
@@ -1335,20 +1337,21 @@ strongly regular graph is also listed.
 In the classification given below, the Cayley graph of each Cayley class is matched by isomorphism
 with a strongly regular graph corresponding to one
 or more of Tonchev's projective two-weight codes, or the complement of such a graph.
-
+Tonchev's strongly regular graphs were checked using the function
+\verb!strongly_regular_from_two_weight_code!, which uses the smaller of the two weights to create the graph
+\cite{SageMath7517}.
 % \end{frame}
 % \begin{frame}
 %
 \paragraph*{ET class $[f_{6,1}]$.}
 %
 The function
-$f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
+$f_{6,1}(x) := x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
 
-The extended translation class contains
-two extended Cayley classes:
+The extended translation class contains two extended Cayley classes as per Table~\ref{tab-c6_1_EC_classes}.
 
 \begin{table}[!bhpt] % [H]
-\small{}
+\small{
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1385,15 +1388,16 @@ two extended Cayley classes:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,1}$ extended Cayley classes}
+}
+\caption{$[f_{6,1}]$ extended Cayley classes.}
 \label{tab-c6_1_EC_classes}
 \end{table}
 
-The Cayley graphs for classes 0 and 1 are isomorphic to those those obtained from the following
-projective two-weight
-codes as listed by Tonchev \cite{Ton07codes}:
+The Cayley graphs for classes 0 and 1 are isomorphic to those those obtained from the
+Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6_1_codes}.
 
 \begin{table}[!bhpt] % [H]
+\small{
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1409,7 +1413,8 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,1}$ Two-weight projective codes}
+}
+\caption{$[f_{6,1}]$ Two-weight projective codes.}
 \label{tab-c6_1_codes}
 \end{table}
 
@@ -1417,33 +1422,38 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \end{frame}
 % \begin{frame}
 
+The two extended Cayley classes correspond to the two weight classes,
+as shown in Figures~\ref{fig:c6_1_weight_class_matrix} and~\ref{fig:c6_1_bent_cayley_graph_index_matrix}.
+
 \begin{figure}[!bhpt] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_1_weight_class_matrix.png}
   \captionof{figure}{$[f_{6,1}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:6_1_weight_class_matrix}
+  \label{fig:c6_1_weight_class_matrix}
 \end{minipage}%
 ~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_1_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{6,1}]$: extended Cayley classes.}
-  \label{fig:6_1_bent_cayley_graph_index_matrix}
+  \label{fig:c6_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+
+Remark: The sequence of Figures~\ref{fig:c2_1_weight_class_matrix}, \ref{fig:c4_1_weight_class_matrix},
+and \ref{fig:c6_1_weight_class_matrix} displays a fractal-like self-similar quality.
 
 \paragraph*{ET class $[f_{6,2}]$.}
 %
 This is the extended translation class of the bent function
-$f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
+$f_{6,2}(x) := x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
 
-The extended translation class contains
-three extended Cayley classes:
+The extended translation class contains three extended Cayley classes as per Table~\ref{tab-c6_2_EC_classes}.
 
 \begin{table}[!bhpt] % [H]
-\small{}
+\small{
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1493,10 +1503,10 @@ three extended Cayley classes:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,2}$ extended Cayley classes}
+}
+\caption{$[f_{6,2}]$ extended Cayley classes.}
 \label{tab-c6_2_EC_classes}
 \end{table}
-
 
 Graph 0 is isomorphic to graph 0 of ET class $[f_{6,1}]$,
 and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular graph $X$
@@ -1509,11 +1519,11 @@ and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly reg
 % \begin{frame}
 %\paragraph*{ET class $[f_{6,2}]$: two-weight codes.}
 
-The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from the following
-projective two-weight
-codes as listed by Tonchev \cite{Ton07codes}:
+The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from the
+Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6_2_codes}.
 
 \begin{table}[!bhpt] % [H]
+\small{
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1531,7 +1541,8 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,2}$ Two-weight projective codes}
+}
+\caption{$[f_{6,2}]$ Two-weight projective codes}
 \label{tab-c6_2_codes}
 \end{table}
 
@@ -1541,14 +1552,14 @@ codes as listed by Tonchev \cite{Ton07codes}:
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_2_weight_class_matrix.png}
   \captionof{figure}{$[f_{6,2}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:6_2_weight_class_matrix}
+  \label{fig:c6_2_weight_class_matrix}
 \end{minipage}%
 ~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_2_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{6,2}]$: extended Cayley classes.}
-  \label{fig:6_2_bent_cayley_graph_index_matrix}
+  \label{fig:c6_2_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 
@@ -1632,7 +1643,7 @@ four extended Cayley classes:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,3}$ extended Cayley classes}
+\caption{$f_{6,3}$ extended Cayley classes.}
 \label{tab-c6_3_EC_classes}
 \end{table}
 
@@ -1660,7 +1671,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,3}$ Two-weight projective codes}
+\caption{$f_{6,3}$ Two-weight projective codes.}
 \label{tab-c6_3_codes}
 \end{table}
 
@@ -1670,14 +1681,14 @@ codes as listed by Tonchev \cite{Ton07codes}:
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_3_weight_class_matrix.png}
   \captionof{figure}{$[f_{6,3}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:6_3_weight_class_matrix}
+  \label{fig:c6_3_weight_class_matrix}
 \end{minipage}%
 ~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_3_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{6,3}]$: extended Cayley classes.}
-  \label{fig:6_3_bent_cayley_graph_index_matrix}
+  \label{fig:c6_3_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 
@@ -1750,7 +1761,7 @@ three extended Cayley classes:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,4}$ extended Cayley classes}
+\caption{$f_{6,4}$ extended Cayley classes.}
 \label{tab-c6_4_EC_classes}
 \end{table}
 
@@ -1776,7 +1787,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{6,4}$ Two-weight projective codes}
+\caption{$f_{6,4}$ Two-weight projective codes.}
 \label{tab-c6_4_codes}
 \end{table}
 
@@ -1790,13 +1801,14 @@ codes as listed by Tonchev \cite{Ton07codes}:
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_4_weight_class_matrix.png}
   \captionof{figure}{$[f_{6,4}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:6_4_weight_class_matrix}
+  \label{fig:c6_4_weight_class_matrix}
 \end{minipage}%
+~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re6_4_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{6,4}]$: extended Cayley classes.}
-  \label{fig:6_4_bent_cayley_graph_index_matrix}
+  \label{fig:c6_4_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 
@@ -1890,7 +1902,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \end{array}
 \end{align*}
 \normalsize{}
-\caption{8 dimensions: extended translation classes}
+\caption{8 dimensions: extended translation classes.}
 \label{tab-c8_ET_classes}
 \end{table}
 % \end{frame}
@@ -1945,7 +1957,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,1}$ extended Cayley classes}
+\caption{$f_{8,1}$ extended Cayley classes.}
 \label{tab-c8_1_EC_classes}
 \end{table}
 
@@ -1955,13 +1967,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,1}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_1_weight_class_matrix}
+  \label{fig:c8_1_weight_class_matrix}
 \end{minipage}%
+~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_1_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,1}]$: extended Cayley classes.}
-  \label{fig:8_1_bent_cayley_graph_index_matrix}
+  \label{fig:c8_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 
@@ -2050,7 +2063,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,2}$ extended Cayley classes}
+\caption{$f_{8,2}$ extended Cayley classes.}
 \label{tab-c8_2_EC_classes}
 \end{table}
 
@@ -2061,13 +2074,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,2}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_2_weight_class_matrix}
+  \label{fig:c8_2_weight_class_matrix}
 \end{minipage}%
+~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_2_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,2}]$: extended Cayley classes.}
-  \label{fig:8_2_bent_cayley_graph_index_matrix}
+  \label{fig:c8_2_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 ~
@@ -2188,7 +2202,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,3}$ extended Cayley classes}
+\caption{$f_{8,3}$ extended Cayley classes.}
 \label{tab-c8_3_EC_classes}
 \end{table}
 
@@ -2198,13 +2212,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,3}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_3_weight_class_matrix}
+  \label{fig:c8_3_weight_class_matrix}
 \end{minipage}%
+~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_3_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,3}]$: extended Cayley classes.}
-  \label{fig:8_3_bent_cayley_graph_index_matrix}
+  \label{fig:c8_3_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 ~
@@ -2328,7 +2343,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,4}$ extended Cayley classes}
+\caption{$f_{8,4}$ extended Cayley classes.}
 \label{tab-c8_4_EC_classes}
 \end{table}
 
@@ -2338,13 +2353,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,4}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_4_weight_class_matrix}
+  \label{fig:c8_4_weight_class_matrix}
 \end{minipage}%
+~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_4_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,4}]$: extended Cayley classes.}
-  \label{fig:8_4_bent_cayley_graph_index_matrix}
+  \label{fig:c8_4_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 ~
@@ -2448,7 +2464,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,5}$ extended Cayley classes (part 1)}
+\caption{$f_{8,5}$ extended Cayley classes (part 1).}
 \label{tab-c8_5_EC_classes}
 \end{table}
 
@@ -2535,7 +2551,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,5}$ extended Cayley classes (part 2)}
+\caption{$f_{8,5}$ extended Cayley classes (part 2).}
 \label{tab-c8_5_EC_classes_2}
 \end{table}
 
@@ -2545,13 +2561,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,5}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_5_weight_class_matrix}
+  \label{fig:c8_5_weight_class_matrix}
 \end{minipage}%
+~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,5}]$: extended Cayley classes.}
-  \label{fig:8_5_bent_cayley_graph_index_matrix}
+  \label{fig:c8_5_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 ~
@@ -2658,7 +2675,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,6}$ extended Cayley classes (part 1)}
+\caption{$f_{8,6}$ extended Cayley classes (part 1).}
 \label{tab-c8_6_EC_classes}
 \end{table}
 
@@ -2742,7 +2759,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,6}$ extended Cayley classes (part 2)}
+\caption{$f_{8,6}$ extended Cayley classes (part 2).}
 \label{tab-c8_6_EC_classes_2}
 \end{table}
 
@@ -2752,13 +2769,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,6}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_6_weight_class_matrix}
+  \label{fig:c8_6_weight_class_matrix}
 \end{minipage}%
+~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,6}]$: extended Cayley classes.}
-  \label{fig:8_6_bent_cayley_graph_index_matrix}
+  \label{fig:c8_6_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 The same 9 classes as $[f_{8,5}]$, with the same frequencies!
@@ -2878,7 +2896,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,7}$ extended Cayley classes}
+\caption{$f_{8,7}$ extended Cayley classes.}
 \label{tab-c8_7_EC_classes}
 \end{table}
 
@@ -2888,14 +2906,14 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,7}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_7_weight_class_matrix}
+  \label{fig:c8_7_weight_class_matrix}
 \end{minipage}%
 ~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_7_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,7}]$: extended Cayley classes.}
-  \label{fig:8_7_bent_cayley_graph_index_matrix}
+  \label{fig:c8_7_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 ~
@@ -3015,7 +3033,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,8}$ extended Cayley classes}
+\caption{$f_{8,8}$ extended Cayley classes.}
 \label{tab-c8_8_EC_classes}
 \end{table}
 
@@ -3025,14 +3043,14 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_weight_class_matrix.png}
   \captionof{figure}{$[f_{8,8}]$: weight classes. ~~~~\\~~~~}
-  \label{fig:8_8_weight_class_matrix}
+  \label{fig:c8_8_weight_class_matrix}
 \end{minipage}%
 ~~~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_8_bent_cayley_graph_index_matrix.png}
   \captionof{figure}{$[f_{8,8}]$: extended Cayley classes.}
-  \label{fig:8_8_bent_cayley_graph_index_matrix}
+  \label{fig:c8_8_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
 ~
@@ -3136,7 +3154,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,9}$ extended Cayley classes (part 1)}
+\caption{$f_{8,9}$ extended Cayley classes (part 1).}
 \label{tab-c8_9_EC_classes}
 \end{table}
 \newpage
@@ -3206,7 +3224,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,9}$ extended Cayley classes (part 2)}
+\caption{$f_{8,9}$ extended Cayley classes (part 2).}
 \label{tab-c8_9_EC_classes_2}
 \end{table}
 
@@ -3218,6 +3236,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
   \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
   \label{fig:c8_9_bent_cayley_graph_index_matrix}
 \end{minipage}
+~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/re8_9_dual_cayley_graph_index_matrix.png}
@@ -3326,7 +3345,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,10}$ extended Cayley classes (part 1)}
+\caption{$f_{8,10}$ extended Cayley classes (part 1).}
 \label{tab-c8_10_EC_classes}
 \end{table}
 \newpage
@@ -3428,7 +3447,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,10}$ extended Cayley classes (part 2)}
+\caption{$f_{8,10}$ extended Cayley classes (part 2).}
 \label{tab-c8_10_EC_classes_2}
 \end{table}
 
