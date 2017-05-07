@@ -1797,7 +1797,7 @@ as shown in Figures~\ref{fig:c6_4_weight_class_matrix} and~\ref{fig:c6_4_bent_ca
   \label{fig:c6_4_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-\newpage
+%\newpage
 \subsection{Bent functions in 8 dimensions}
 
 There are
@@ -1811,7 +1811,7 @@ let alone a list of representative bent functions.
 The lists of extended affine classes of bent functions that have so far been published include those
 for the bent functions up to degree 3 \cite[Section 5.5.2]{Bra06thesis} \cite[Section 7.3]{Tok15bent},
 the partial spread bent functions \cite{LanH11counting} [TBD],
-and the bent functions used in the S-boxes of the CAST-128 encryption protocol \cite{Ada97} [TBD].
+and the bent functions used in the S-boxes of the CAST-128 encryption algorithm \cite{Ada97} [TBD].
 
 \paragraph*{Extended affine classes up to degree 3.}
 %
@@ -1970,8 +1970,18 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 %
 \paragraph*{ET class $[f_{8,2}]$.}
 %
+This is the extended translation class of the bent function
+\begin{align*}
+f_{ 8 , 2 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}.
+\end{array}
+\end{align*}
+
+The extended translation class contains four extended Cayley classes as per Table~\ref{tab-c8_2_EC_classes}.
 % f8_2
 \begin{table}[!bhpt] % [H]
+% f_{8,2}:
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2042,6 +2052,8 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \label{tab-c8_2_EC_classes}
 \end{table}
 
+The four extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -2068,6 +2080,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % f8_3
 \begin{table}[!bhpt] % [H]
 %
+% f_{8,3}:
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2160,6 +2173,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
+%
 \caption{$[f_{8,3}]$ extended Cayley classes.}
 \label{tab-c8_3_EC_classes}
 \end{table}
@@ -2230,13 +2244,13 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-1536t^{10} + 15360t^{9} + 209920t^{8} + 1280000t^{7}
+1536t^{10} + 15360t^{9} + 209920t^{8}
 \,+
 \\
- 3751936t^{6} + 4227072t^{5} + 1843200t^{4}
+ 1280000t^{7} + 3751936t^{6} + 4227072t^{5}
 \,+
 \\
- 286720t^{3} + 15360t^{2} + 256t + 1
+ 1843200t^{4} + 286720t^{3} + 15360t^{2} + 256t + 1
 \end{array}
 \\
 3 &
@@ -2265,21 +2279,6 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
  417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
-% \hline
-% \end{array}
-% \end{align*}
-% \newpage
-% \small{}
-% \begin{align*}
-% \def\arraystretch{1.2}
-% \begin{array}{|cccl|}
-% \hline
-% \text{Class} &
-% \text{Parameters} &
-% \text{2-rank} &
-% \text{Clique polynomial}
-% \\
-% \hline
 5 &
 (256, 120, 56, 56) &
 14 &
@@ -2406,8 +2405,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \caption{$[f_{8,5}]$ extended Cayley classes (part 1).}
 \label{tab-c8_5_EC_classes}
 \end{table}
-
-\newpage
+%\newpage
 \begin{table}[!bhpt] % [H]
 \small{}
 \begin{align*}
@@ -2450,13 +2448,13 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-1536t^{10} + 19456t^{9} + 279552t^{8} + 1394688t^{7}
+1536t^{10} + 19456t^{9} + 279552t^{8}
 \,+
 \\
- 3751936t^{6} + 4227072t^{5} + 1843200t^{4}
+ 1394688t^{7} + 3751936t^{6} + 4227072t^{5}
 \,+
 \\
- 286720t^{3} + 15360t^{2} + 256t + 1
+ 1843200t^{4} + 286720t^{3} + 15360t^{2} + 256t + 1
 \end{array}
 \\
 8 &
@@ -2557,13 +2555,13 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-1536t^{10} + 19456t^{9} + 279552t^{8} + 1394688t^{7}
+1536t^{10} + 19456t^{9} + 279552t^{8}
 \,+
 \\
- 3751936t^{6} + 4227072t^{5} + 1843200t^{4}
+ 1394688t^{7} + 3751936t^{6} + 4227072t^{5}
 \,+
 \\
- 286720t^{3} + 15360t^{2} + 256t + 1
+ 1843200t^{4} + 286720t^{3} + 15360t^{2} + 256t + 1
 \end{array}
 \\
 4 &
@@ -2582,11 +2580,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,6}$ extended Cayley classes (part 1).}
+\caption{$[f_{8,6}]$ extended Cayley classes (part 1).}
 \label{tab-c8_6_EC_classes}
 \end{table}
-
-\newpage
+%\newpage
 \begin{table}[!bhpt] % [H]
 \small{}
 \begin{align*}
@@ -2654,9 +2651,12 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,6}$ extended Cayley classes (part 2).}
+%
+\caption{$[f_{8,6}]$ extended Cayley classes (part 2).}
 \label{tab-c8_6_EC_classes_2}
 \end{table}
+
+The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -2674,7 +2674,6 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
   \label{fig:c8_6_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,7}]$.}
@@ -2696,13 +2695,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-29696t^{9} + 655360t^{8}
+29696t^{9} + 655360t^{8} + 2789376t^{7}
 \,+
 \\
- 2789376t^{7} + 5332992t^{6}
-\,+
-\\
- 4816896t^{5} + 1892352t^{4}
+ 5332992t^{6} + 4816896t^{5} + 1892352t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2712,13 +2708,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-20480t^{9} + 409600t^{8}
+20480t^{9} + 409600t^{8} + 1837056t^{7}
 \,+
 \\
- 1837056t^{7} + 4235264t^{6}
-\,+
-\\
- 4423680t^{5} + 1859584t^{4}
+ 4235264t^{6} + 4423680t^{5} + 1859584t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2728,13 +2721,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-143360t^{9} + 3981312t^{8}
+143360t^{9} + 3981312t^{8} + 16697344t^{7}
 \,+
 \\
- 16697344t^{7} + 25108480t^{6}
-\,+
-\\
- 15302656t^{5} + 3940352t^{4}
+ 25108480t^{6} + 15302656t^{5} + 3940352t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2744,13 +2734,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-64512t^{9} + 2316288t^{8}
+64512t^{9} + 2316288t^{8} + 10932224t^{7}
 \,+
 \\
- 10932224t^{7} + 19783680t^{6}
-\,+
-\\
- 13991936t^{5} + 3874816t^{4}
+ 19783680t^{6} + 13991936t^{5} + 3874816t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2760,13 +2747,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-92160t^{9} + 2979840t^{8}
+92160t^{9} + 2979840t^{8} + 13608960t^{7}
 \,+
 \\
- 13608960t^{7} + 22388736t^{6}
-\,+
-\\
- 14647296t^{5} + 3907584t^{4}
+ 22388736t^{6} + 14647296t^{5} + 3907584t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2779,19 +2763,17 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 6144t^{9} + 124928t^{8} + 944128t^{7}
 \,+
 \\
- 3219456t^{6} + 4030464t^{5}
+ 3219456t^{6} + 4030464t^{5} + 1826816t^{4}
 \,+
 \\
- 1826816t^{4} + 286720t^{3}
-\,+
-\\
- 15360t^{2} + 256t + 1
+ 286720t^{3} + 15360t^{2} + 256t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,7}$ extended Cayley classes.}
+
+\caption{$[f_{8,7}]$ extended Cayley classes.}
 \label{tab-c8_7_EC_classes}
 \end{table}
 
@@ -2833,13 +2815,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-32768t^{9} + 712704t^{8}
+32768t^{9} + 712704t^{8} + 3014656t^{7}
 \,+
 \\
- 3014656t^{7} + 5734400t^{6}
-\,+
-\\
- 5013504t^{5} + 1908736t^{4}
+ 5734400t^{6} + 5013504t^{5} + 1908736t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2849,13 +2828,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-24576t^{9} + 466944t^{8}
+24576t^{9} + 466944t^{8} + 2064384t^{7}
 \,+
 \\
- 2064384t^{7} + 4685824t^{6}
-\,+
-\\
- 4620288t^{5} + 1875968t^{4}
+ 4685824t^{6} + 4620288t^{5} + 1875968t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2865,13 +2841,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-172032t^{9} + 5332992t^{8}
+172032t^{9} + 5332992t^{8} + 20283392t^{7}
 \,+
 \\
- 20283392t^{7} + 27295744t^{6}
-\,+
-\\
- 15630336t^{5} + 3956736t^{4}
+ 27295744t^{6} + 15630336t^{5} + 3956736t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2881,13 +2854,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-147456t^{9} + 3858432t^{8}
+147456t^{9} + 3858432t^{8} + 15990784t^{7}
 \,+
 \\
- 15990784t^{7} + 24150016t^{6}
-\,+
-\\
- 14974976t^{5} + 3923968t^{4}
+ 24150016t^{6} + 14974976t^{5} + 3923968t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2897,13 +2867,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-16384t^{9} + 270336t^{8}
+16384t^{9} + 270336t^{8} + 1376256t^{7}
 \,+
 \\
- 1376256t^{7} + 3768320t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3768320t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2913,13 +2880,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-163840t^{9} + 3858432t^{8}
+163840t^{9} + 3858432t^{8} + 15532032t^{7}
 \,+
 \\
- 15532032t^{7} + 23887872t^{6}
-\,+
-\\
- 14974976t^{5} + 3923968t^{4}
+ 23887872t^{6} + 14974976t^{5} + 3923968t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2928,7 +2892,7 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,8}$ extended Cayley classes.}
+\caption{$[f_{8,8}]$ extended Cayley classes.}
 \label{tab-c8_8_EC_classes}
 \end{table}
 
@@ -2970,13 +2934,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-45056t^{9} + 780288t^{8}
+45056t^{9} + 780288t^{8} + 2998272t^{7}
 \,+
 \\
- 2998272t^{7} + 5505024t^{6}
-\,+
-\\
- 4816896t^{5} + 1892352t^{4}
+ 5505024t^{6} + 4816896t^{5} + 1892352t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2986,13 +2947,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-45056t^{9} + 780288t^{8}
+45056t^{9} + 780288t^{8} + 2998272t^{7}
 \,+
 \\
- 2998272t^{7} + 5505024t^{6}
-\,+
-\\
- 4816896t^{5} + 1892352t^{4}
+ 5505024t^{6} + 4816896t^{5} + 1892352t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -3002,13 +2960,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-184320t^{9} + 3852288t^{8}
+184320t^{9} + 3852288t^{8} + 14893056t^{7}
 \,+
 \\
- 14893056t^{7} + 23003136t^{6}
-\,+
-\\
- 14647296t^{5} + 3907584t^{4}
+ 23003136t^{6} + 14647296t^{5} + 3907584t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -3018,13 +2973,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-184320t^{9} + 3852288t^{8}
+184320t^{9} + 3852288t^{8} + 14893056t^{7}
 \,+
 \\
- 14893056t^{7} + 23003136t^{6}
-\,+
-\\
- 14647296t^{5} + 3907584t^{4}
+ 23003136t^{6} + 14647296t^{5} + 3907584t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -3034,13 +2986,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-105984t^{8} + 976896t^{7}
+105984t^{8} + 976896t^{7} + 3440640t^{6}
 \,+
 \\
- 3440640t^{6} + 4128768t^{5}
-\,+
-\\
- 1835008t^{4} + 286720t^{3}
+ 4128768t^{5} + 1835008t^{4} + 286720t^{3}
 \,+
 \\
  15360t^{2} + 256t + 1
@@ -3049,10 +2998,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,9}$ extended Cayley classes (part 1).}
+\caption{$[f_{8,9}]$ extended Cayley classes (part 1).}
 \label{tab-c8_9_EC_classes}
 \end{table}
-\newpage
+%%\newpage
 \begin{table}[!bhpt] % [H]
 \small{}
 \begin{align*}
@@ -3069,19 +3018,13 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-9216t^{10} + 264192t^{9}
+9216t^{10} + 264192t^{9} + 4468224t^{8}
 \,+
 \\
- 4468224t^{8} + 16803840t^{7}
+ 16803840t^{7} + 24772608t^{6} + 15138816t^{5}
 \,+
 \\
- 24772608t^{6} + 15138816t^{5}
-\,+
-\\
- 3932160t^{4} + 417792t^{3}
-\,+
-\\
- 17408t^{2} + 256t + 1
+ 3932160t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
 6 &
@@ -3091,26 +3034,20 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 9216t^{9} + 124416t^{8} + 976896t^{7}
 \,+
 \\
- 3440640t^{6} + 4128768t^{5}
+ 3440640t^{6} + 4128768t^{5} + 1835008t^{4}
 \,+
 \\
- 1835008t^{4} + 286720t^{3}
-\,+
-\\
- 15360t^{2} + 256t + 1
+ 286720t^{3} + 15360t^{2} + 256t + 1
 \end{array}
 \\
 7 &
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-193536t^{9} + 4449792t^{8}
+193536t^{9} + 4449792t^{8} + 16803840t^{7}
 \,+
 \\
- 16803840t^{7} + 24772608t^{6}
-\,+
-\\
- 15138816t^{5} + 3932160t^{4}
+ 24772608t^{6} + 15138816t^{5} + 3932160t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -3119,9 +3056,11 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,9}$ extended Cayley classes (part 2).}
+\caption{$[f_{8,9}]$ extended Cayley classes (part 2).}
 \label{tab-c8_9_EC_classes_2}
 \end{table}
+
+4 of the 8 classes form 2 dual pairs of classes.
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -3139,7 +3078,6 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
   \label{fig:c8_9_dual_cayley_graph_index_matrix}
 \end{minipage}%
 \end{figure}
-4 of the 8 classes form 2 dual pairs of classes.
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,10}]$.}
@@ -3161,13 +3099,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-16384t^{9} + 464896t^{8}
+16384t^{9} + 464896t^{8} + 2310144t^{7}
 \,+
 \\
- 2310144t^{7} + 5046272t^{6}
-\,+
-\\
- 4816896t^{5} + 1892352t^{4}
+ 5046272t^{6} + 4816896t^{5} + 1892352t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -3177,13 +3112,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-16384t^{9} + 464896t^{8}
+16384t^{9} + 464896t^{8} + 2310144t^{7}
 \,+
 \\
- 2310144t^{7} + 5046272t^{6}
-\,+
-\\
- 4816896t^{5} + 1892352t^{4}
+ 5046272t^{6} + 4816896t^{5} + 1892352t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -3193,13 +3125,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-12288t^{9} + 301056t^{8}
+12288t^{9} + 301056t^{8} + 1589248t^{7}
 \,+
 \\
- 1589248t^{7} + 4128768t^{6}
-\,+
-\\
- 4423680t^{5} + 1859584t^{4}
+ 4128768t^{6} + 4423680t^{5} + 1859584t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -3209,13 +3138,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 120, 56, 56) &
 16 &
 \begin{array}{l}
-12288t^{9} + 301056t^{8}
+12288t^{9} + 301056t^{8} + 1589248t^{7}
 \,+
 \\
- 1589248t^{7} + 4128768t^{6}
-\,+
-\\
- 4423680t^{5} + 1859584t^{4}
+ 4128768t^{6} + 4423680t^{5} + 1859584t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -3225,13 +3151,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-110592t^{9} + 4159488t^{8}
+110592t^{9} + 4159488t^{8} + 17285120t^{7}
 \,+
 \\
- 17285120t^{7} + 25296896t^{6}
-\,+
-\\
- 15302656t^{5} + 3940352t^{4}
+ 25296896t^{6} + 15302656t^{5} + 3940352t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -3240,10 +3163,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,10}$ extended Cayley classes (part 1).}
+\caption{$[f_{8,10}]$ extended Cayley classes (part 1).}
 \label{tab-c8_10_EC_classes}
 \end{table}
-\newpage
+%\newpage
 \begin{table}[!bhpt] % [H]
 \small{}
 \begin{align*}
@@ -3260,13 +3183,10 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-110592t^{9} + 4159488t^{8}
+110592t^{9} + 4159488t^{8} + 17285120t^{7}
 \,+
 \\
- 17285120t^{7} + 25296896t^{6}
-\,+
-\\
- 15302656t^{5} + 3940352t^{4}
+ 25296896t^{6} + 15302656t^{5} + 3940352t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -3279,32 +3199,23 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 2048t^{9} + 167424t^{8} + 1091584t^{7}
 \,+
 \\
- 3440640t^{6} + 4128768t^{5}
+ 3440640t^{6} + 4128768t^{5} + 1835008t^{4}
 \,+
 \\
- 1835008t^{4} + 286720t^{3}
-\,+
-\\
- 15360t^{2} + 256t + 1
+ 286720t^{3} + 15360t^{2} + 256t + 1
 \end{array}
 \\
 7 &
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-7168t^{10} + 143360t^{9}
+7168t^{10} + 143360t^{9} + 3804672t^{8}
 \,+
 \\
- 3804672t^{8} + 15886336t^{7}
+ 15886336t^{7} + 24313856t^{6} + 15138816t^{5}
 \,+
 \\
- 24313856t^{6} + 15138816t^{5}
-\,+
-\\
- 3932160t^{4} + 417792t^{3}
-\,+
-\\
- 17408t^{2} + 256t + 1
+ 3932160t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
 8 &
@@ -3314,26 +3225,20 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 9216t^{9} + 181760t^{8} + 1091584t^{7}
 \,+
 \\
- 3440640t^{6} + 4128768t^{5}
+ 3440640t^{6} + 4128768t^{5} + 1835008t^{4}
 \,+
 \\
- 1835008t^{4} + 286720t^{3}
-\,+
-\\
- 15360t^{2} + 256t + 1
+ 286720t^{3} + 15360t^{2} + 256t + 1
 \end{array}
 \\
 9 &
 (256, 136, 72, 72) &
 16 &
 \begin{array}{l}
-107520t^{9} + 3790336t^{8}
+107520t^{9} + 3790336t^{8} + 15886336t^{7}
 \,+
 \\
- 15886336t^{7} + 24313856t^{6}
-\,+
-\\
- 15138816t^{5} + 3932160t^{4}
+ 24313856t^{6} + 15138816t^{5} + 3932160t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -3342,7 +3247,8 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,10}$ extended Cayley classes (part 2).}
+%
+\caption{$[f_{8,10}]$ extended Cayley classes (part 2).}
 \label{tab-c8_10_EC_classes_2}
 \end{table}
 
@@ -3408,6 +3314,35 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 \end{figure}
 6 of the 16 classes form 3 dual pairs of classes.
 % \end{frame}
+
+\paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$}
+
+The CAST-128 encryption algorithm is used in PGP and elsewhere \cite{Ada97}.
+The algorithm uses 8 S-boxes, each of which consists of 32 binary bent functions in 8 dimensions,
+with degree 4.
+CAST-128, including the S-boxes, is specified by IETF RFC 2144:
+\begin{verbatim}
+https://www.ietf.org/rfc/rfc2144.txt
+\end{verbatim}
+
+Dual bent functions yield another $65\,536$ extended Cayley classes!
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast_128_1_0_weight_class_matrix.png}
+  \captionof{figure}{$[cast128_{1,0}]$: weight classes ~~~~~~ ~~~~~~~~}
+  \label{fig:cast128_1_1_weight_class_matrix}
+\end{minipage}
+~~
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast_128_1_0_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{1,0}]$: $65\,536$ extended Cayley classes}
+  \label{fig:cast_128_1_1_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
 
 \section{SageMath and Sage\-Math\-Cloud code}
 \label{sec-Code}
@@ -4131,7 +4066,7 @@ and concluded while the author was a Visiting Fellow and a Casual Academic at th
 
 %\addtocontents{toc}{\vspace{0.5cm}}
 
-%\newpage
+%%\newpage
 
 \bibliographystyle{abbrv-par}
 
