@@ -289,7 +289,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         return cb_list
 
 
-    def report(self):
+    def report(self, report_on_graph_details=True):
         r"""
         Print a report on the attributes of `self`.
 
@@ -298,6 +298,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         INPUT:
 
         `self`: the current object.
+        `report_on_graph_details`: an optional Boolean switch, default=True.
+        If True, produce a deatiled report for each Cayley graph.
 
         OUTPUT:
 
@@ -309,6 +311,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         - dual_cayley_graph_index_matrix
           (only if this is not None and is different from bent_cayley_graph_index_matrix)
         - weight_class_matrix
+        - If report_on_graph_details is True:
+          - details of each graph in cayley_graph_class_list,
 
         EXAMPLES::
 
@@ -409,6 +413,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         """
         def graph_and_linear_code_report(
             bentf,
+            report_on_graph_details,
             cayley_graph_class_list,
             pair_c_b_list,
             bent_cayley_graph_index_matrix,
@@ -439,7 +444,11 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
             print ""
             print "There are", nbr_cayley_graph_classes,
-            print "extended Cayley classes in the extended translation class:"
+            print "extended Cayley classes in the extended translation class."
+
+            if not report_on_graph_details:
+                return
+
             print ""
             print "For each extended Cayley class in the extended translation class:"
             print "Clique polynomial, strongly regular parameters,",
@@ -521,6 +530,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
                     print dict([
                         (w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
 
+
         p = self.algebraic_normal_form
         print "Algebraic normal form of Boolean function:", p
         bentf = BentFunction(p)
@@ -549,19 +559,21 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         if di_matrix == None:
             print "Classification of Cayley graphs:"
 
-            graph_and_linear_code_report(bentf, cg_list, cb_list, ci_matrix)
+            graph_and_linear_code_report(bentf, report_on_graph_details,
+                                         cg_list, cb_list, ci_matrix)
         else:
             print "Classification of Cayley graphs and",
             print "classification of Cayley graphs of duals",
             if ci_matrix == di_matrix:
                 print "are the same:"
 
-                graph_and_linear_code_report(bentf, cg_list, cb_list, ci_matrix)
+                graph_and_linear_code_report(bentf,  report_on_graph_details,
+                                             cg_list, cb_list, ci_matrix)
             else:
                 print "differ in matrices of indexes:"
 
-                graph_and_linear_code_report(bentf, cg_list, cb_list, ci_matrix,
-                                            di_matrix)
+                graph_and_linear_code_report(bentf,  report_on_graph_details,
+                                             cg_list, cb_list, ci_matrix, di_matrix)
 
 
     def print_latex_table_of_cayley_classes(self, width=40, rows_per_table=6):
