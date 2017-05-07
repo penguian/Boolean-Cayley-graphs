@@ -77,7 +77,7 @@ In 1999 Bernasconi and Codenotti noted that the Cayley graph of a bent function 
 This paper describes the concept of extended Cayley equivalence of bent functions,
 discusses some connections between bent functions, designs, and codes,
 and explores the relationship between extended Cayley equivalence and extended affine equivalence.
-SageMath scripts and SageMathCloud worksheets are used to compute and display some of these relationships,
+SageMath scripts and Sage\-Math\-Cloud worksheets are used to compute and display some of these relationships,
 for bent functions up to dimension 8.
 %
 \end{abstract}
@@ -116,7 +116,7 @@ functions, in particular, the relationship between the extended affine
 equivalence classes and equivalence classes defined by isomorphism of Cayley graphs.
 As well as a theoretical study of bent functions of all dimensions, an computational study is conducted
 into bent functions of dimension at most 8,
-using SageMath \cite{SageMath7517} and SageMathCloud \cite{SageMathCloud}.
+using SageMath \cite{SageMath7517} and Sage\-Math\-Cloud \cite{SageMathCloud}.
 
 
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
@@ -143,7 +143,7 @@ functions.
 %Section \ref{sec-Equivalence} introduces various concepts of equivalence of bent functions.
 Section \ref{sec-Results} contains the main theoretical results of the paper.
 Section \ref{sec-Empirical} lists some of the properties of the equivalence classes of bent functions for dimension up to 8.
-Section \ref{sec-Code} describes the SageMath and SageMathCloud code that has been used to obtain
+Section \ref{sec-Code} describes the SageMath and Sage\-Math\-Cloud code that has been used to obtain
 and display these computational results.
 Section~\ref{sec-Discussion} puts these results in the context of questions that are still open.
 %
@@ -177,7 +177,7 @@ Section~\ref{sec-Discussion} puts these results in the context of questions that
 % ~
 %
 % \item
-% SageMathCloud worksheet.
+% Sage\-Math\-Cloud worksheet.
 % \end{itemize}
 
 %\end{center}
@@ -1093,9 +1093,9 @@ is well defined.
 \label{sec-Empirical}
 This section lists some properties of bent functions and their extended translation classes and extended Cayley classes
 that have been computed for 2, 4, 6 and 8 dimensions.
-The computations were made using Sage \cite{SageMath7517} and SageMathCloud \cite{SageMathCloud}.
-Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and SageMathCloud \cite{Leo16SMC}.
-Some SageMathCloud worksheets also illustrate these and related computations \cite{Leo16SMC}.
+The computations were made using Sage \cite{SageMath7517} and Sage\-Math\-Cloud \cite{SageMathCloud}.
+Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and Sage\-Math\-Cloud \cite{Leo16SMC}.
+Some Sage\-Math\-Cloud worksheets also illustrate these and related computations \cite{Leo16SMC}.
 The Sage and Python code is described in more detail in Section \ref{sec-Code}.
 
 In the tables below, each bent function is defined by its algebraic normal form, and each Cayley class is described by
@@ -1902,6 +1902,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 %
 % f8_1
 \begin{table}[!bhpt] % [H]
+%
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1917,13 +1918,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 10 &
 \begin{array}{l}
-245760t^{9} + 3317760t^{8}
+245760t^{9} + 3317760t^{8} + 8847360t^{7}
 \,+
 \\
- 8847360t^{7} + 10321920t^{6}
-\,+
-\\
- 6193152t^{5} + 2007040t^{4}
+ 10321920t^{6} + 6193152t^{5} + 2007040t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -1933,13 +1931,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 10 &
 \begin{array}{l}
-417792t^{8} + 3342336t^{7}
+417792t^{8} + 3342336t^{7} + 11698176t^{6}
 \,+
 \\
- 11698176t^{6} + 11698176t^{5}
-\,+
-\\
- 3760128t^{4} + 417792t^{3}
+ 11698176t^{5} + 3760128t^{4} + 417792t^{3}
 \,+
 \\
  17408t^{2} + 256t + 1
@@ -1948,7 +1943,8 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,1}$ extended Cayley classes.}
+%
+\caption{$[f_{8,1}]$ extended Cayley classes.}
 \label{tab-c8_1_EC_classes}
 \end{table}
 
@@ -1991,13 +1987,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 10 &
 \begin{array}{l}
-245760t^{9} + 3317760t^{8}
+245760t^{9} + 3317760t^{8} + 8847360t^{7}
 \,+
 \\
- 8847360t^{7} + 10321920t^{6}
-\,+
-\\
- 6193152t^{5} + 2007040t^{4}
+ 10321920t^{6} + 6193152t^{5} + 2007040t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2007,13 +2000,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 10 &
 \begin{array}{l}
-49152t^{9} + 663552t^{8}
+49152t^{9} + 663552t^{8} + 2555904t^{7}
 \,+
 \\
- 2555904t^{7} + 5079040t^{6}
-\,+
-\\
- 4620288t^{5} + 1875968t^{4}
+ 5079040t^{6} + 4620288t^{5} + 1875968t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2023,13 +2013,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 10 &
 \begin{array}{l}
-327680t^{9} + 4055040t^{8}
+327680t^{9} + 4055040t^{8} + 13828096t^{7}
 \,+
 \\
- 13828096t^{7} + 22183936t^{6}
-\,+
-\\
- 14319616t^{5} + 3891200t^{4}
+ 22183936t^{6} + 14319616t^{5} + 3891200t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2039,13 +2026,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 10 &
 \begin{array}{l}
-417792t^{8} + 3342336t^{7}
+417792t^{8} + 3342336t^{7} + 11698176t^{6}
 \,+
 \\
- 11698176t^{6} + 11698176t^{5}
-\,+
-\\
- 3760128t^{4} + 417792t^{3}
+ 11698176t^{5} + 3760128t^{4} + 417792t^{3}
 \,+
 \\
  17408t^{2} + 256t + 1
@@ -2054,7 +2038,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,2}$ extended Cayley classes.}
+\caption{$[f_{8,2}]$ extended Cayley classes.}
 \label{tab-c8_2_EC_classes}
 \end{table}
 
@@ -2083,6 +2067,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 %
 % f8_3
 \begin{table}[!bhpt] % [H]
+%
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2098,13 +2083,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 12 &
 \begin{array}{l}
-81920t^{9} + 1368064t^{8}
+81920t^{9} + 1368064t^{8} + 4653056t^{7}
 \,+
 \\
- 4653056t^{7} + 7176192t^{6}
-\,+
-\\
- 5406720t^{5} + 1941504t^{4}
+ 7176192t^{6} + 5406720t^{5} + 1941504t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2114,13 +2096,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 12 &
 \begin{array}{l}
-294912t^{9} + 6299648t^{8}
+294912t^{9} + 6299648t^{8} + 21692416t^{7}
 \,+
 \\
- 21692416t^{7} + 27951104t^{6}
-\,+
-\\
- 15630336t^{5} + 3956736t^{4}
+ 27951104t^{6} + 15630336t^{5} + 3956736t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2130,13 +2109,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 12 &
 \begin{array}{l}
-16384t^{9} + 221184t^{8}
+16384t^{9} + 221184t^{8} + 1277952t^{7}
 \,+
 \\
- 1277952t^{7} + 3768320t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3768320t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2146,13 +2122,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 12 &
 \begin{array}{l}
-262144t^{9} + 4399104t^{8}
+262144t^{9} + 4399104t^{8} + 16220160t^{7}
 \,+
 \\
- 16220160t^{7} + 24281088t^{6}
-\,+
-\\
- 14974976t^{5} + 3923968t^{4}
+ 24281088t^{6} + 14974976t^{5} + 3923968t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2162,13 +2135,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 12 &
 \begin{array}{l}
-49152t^{9} + 729088t^{8}
+49152t^{9} + 729088t^{8} + 2686976t^{7}
 \,+
 \\
- 2686976t^{7} + 5079040t^{6}
-\,+
-\\
- 4620288t^{5} + 1875968t^{4}
+ 5079040t^{6} + 4620288t^{5} + 1875968t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2178,13 +2148,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 12 &
 \begin{array}{l}
-196608t^{9} + 3399680t^{8}
+196608t^{9} + 3399680t^{8} + 13172736t^{7}
 \,+
 \\
- 13172736t^{7} + 21659648t^{6}
-\,+
-\\
- 14319616t^{5} + 3891200t^{4}
+ 21659648t^{6} + 14319616t^{5} + 3891200t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2193,7 +2160,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,3}$ extended Cayley classes.}
+\caption{$[f_{8,3}]$ extended Cayley classes.}
 \label{tab-c8_3_EC_classes}
 \end{table}
 
@@ -2221,6 +2188,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 %
 % f8_4
 \begin{table}[!bhpt] % [H]
+%
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2236,13 +2204,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-69632t^{9} + 1099776t^{8}
+69632t^{9} + 1099776t^{8} + 3784704t^{7}
 \,+
 \\
- 3784704t^{7} + 6160384t^{6}
-\,+
-\\
- 5013504t^{5} + 1908736t^{4}
+ 6160384t^{6} + 5013504t^{5} + 1908736t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2252,13 +2217,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-225280t^{9} + 4319232t^{8}
+225280t^{9} + 4319232t^{8} + 16203776t^{7}
 \,+
 \\
- 16203776t^{7} + 24313856t^{6}
-\,+
-\\
- 14974976t^{5} + 3923968t^{4}
+ 24313856t^{6} + 14974976t^{5} + 3923968t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2268,13 +2230,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-1536t^{10} + 15360t^{9} + 209920t^{8}
+1536t^{10} + 15360t^{9} + 209920t^{8} + 1280000t^{7}
 \,+
 \\
- 1280000t^{7} + 3751936t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3751936t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2284,48 +2243,51 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-7680t^{10} + 230400t^{9}
+7680t^{10} + 230400t^{9} + 4228096t^{8}
 \,+
 \\
- 4228096t^{8} + 16058368t^{7}
+ 16058368t^{7} + 24166400t^{6} + 14974976t^{5}
 \,+
 \\
- 24166400t^{6} + 14974976t^{5}
-\,+
-\\
- 3923968t^{4} + 417792t^{3}
-\,+
-\\
- 17408t^{2} + 256t + 1
+ 3923968t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
 4 &
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-110592t^{9} + 2344960t^{8}
+110592t^{9} + 2344960t^{8} + 10305536t^{7}
 \,+
 \\
- 10305536t^{7} + 18939904t^{6}
-\,+
-\\
- 13664256t^{5} + 3858432t^{4}
+ 18939904t^{6} + 13664256t^{5} + 3858432t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
+% \hline
+% \end{array}
+% \end{align*}
+% \newpage
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
 5 &
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-20480t^{9} + 337920t^{8}
+20480t^{9} + 337920t^{8} + 1556480t^{7}
 \,+
 \\
- 1556480t^{7} + 3932160t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3932160t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2334,7 +2296,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,4}$ extended Cayley classes.}
+\caption{$[f_{8,4]}$ extended Cayley classes.}
 \label{tab-c8_4_EC_classes}
 \end{table}
 
@@ -2361,6 +2323,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 %
 % f8_5
 \begin{table}[!bhpt] % [H]
+%
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2376,13 +2339,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-32768t^{9} + 731136t^{8}
+32768t^{9} + 731136t^{8} + 3096576t^{7}
 \,+
 \\
- 3096576t^{7} + 5767168t^{6}
-\,+
-\\
- 5013504t^{5} + 1908736t^{4}
+ 5767168t^{6} + 5013504t^{5} + 1908736t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2392,13 +2352,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-28672t^{9} + 534528t^{8}
+28672t^{9} + 534528t^{8} + 2211840t^{7}
 \,+
 \\
- 2211840t^{7} + 4718592t^{6}
-\,+
-\\
- 4620288t^{5} + 1875968t^{4}
+ 4718592t^{6} + 4620288t^{5} + 1875968t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2408,13 +2365,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-159744t^{9} + 4753408t^{8}
+159744t^{9} + 4753408t^{8} + 19021824t^{7}
 \,+
 \\
- 19021824t^{7} + 26804224t^{6}
-\,+
-\\
- 15630336t^{5} + 3956736t^{4}
+ 26804224t^{6} + 15630336t^{5} + 3956736t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2424,13 +2378,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-24576t^{9} + 526336t^{8}
+24576t^{9} + 526336t^{8} + 2342912t^{7}
 \,+
 \\
- 2342912t^{7} + 4849664t^{6}
-\,+
-\\
- 4620288t^{5} + 1875968t^{4}
+ 4849664t^{6} + 4620288t^{5} + 1875968t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2440,13 +2391,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-90112t^{9} + 2795520t^{8}
+90112t^{9} + 2795520t^{8} + 12402688t^{7}
 \,+
 \\
- 12402688t^{7} + 21168128t^{6}
-\,+
-\\
- 14319616t^{5} + 3891200t^{4}
+ 21168128t^{6} + 14319616t^{5} + 3891200t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2455,7 +2403,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,5}$ extended Cayley classes (part 1).}
+\caption{$[f_{8,5}]$ extended Cayley classes (part 1).}
 \label{tab-c8_5_EC_classes}
 \end{table}
 
@@ -2476,13 +2424,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-16384t^{9} + 284672t^{8}
+16384t^{9} + 284672t^{8} + 1392640t^{7}
 \,+
 \\
- 1392640t^{7} + 3735552t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3735552t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2492,13 +2437,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-131072t^{9} + 3577856t^{8}
+131072t^{9} + 3577856t^{8} + 15319040t^{7}
 \,+
 \\
- 15319040t^{7} + 23855104t^{6}
-\,+
-\\
- 14974976t^{5} + 3923968t^{4}
+ 23855104t^{6} + 14974976t^{5} + 3923968t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2508,13 +2450,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-1536t^{10} + 19456t^{9} + 279552t^{8}
+1536t^{10} + 19456t^{9} + 279552t^{8} + 1394688t^{7}
 \,+
 \\
- 1394688t^{7} + 3751936t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3751936t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2524,25 +2463,19 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-5632t^{10} + 148480t^{9}
+5632t^{10} + 148480t^{9} + 3621888t^{8}
 \,+
 \\
- 3621888t^{8} + 15206400t^{7}
+ 15206400t^{7} + 23773184t^{6} + 14974976t^{5}
 \,+
 \\
- 23773184t^{6} + 14974976t^{5}
-\,+
-\\
- 3923968t^{4} + 417792t^{3}
-\,+
-\\
- 17408t^{2} + 256t + 1
+ 3923968t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-\caption{$f_{8,5}$ extended Cayley classes (part 2).}
+\caption{$[f_{8,5}]$ extended Cayley classes (part 2).}
 \label{tab-c8_5_EC_classes_2}
 \end{table}
 
@@ -2569,6 +2502,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 %
 % f8_6
 \begin{table}[!bhpt] % [H]
+%
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -2584,13 +2518,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-32768t^{9} + 731136t^{8}
+32768t^{9} + 731136t^{8} + 3096576t^{7}
 \,+
 \\
- 3096576t^{7} + 5767168t^{6}
-\,+
-\\
- 5013504t^{5} + 1908736t^{4}
+ 5767168t^{6} + 5013504t^{5} + 1908736t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2600,13 +2531,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-28672t^{9} + 534528t^{8}
+28672t^{9} + 534528t^{8} + 2211840t^{7}
 \,+
 \\
- 2211840t^{7} + 4718592t^{6}
-\,+
-\\
- 4620288t^{5} + 1875968t^{4}
+ 4718592t^{6} + 4620288t^{5} + 1875968t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2616,13 +2544,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-159744t^{9} + 4753408t^{8}
+159744t^{9} + 4753408t^{8} + 19021824t^{7}
 \,+
 \\
- 19021824t^{7} + 26804224t^{6}
-\,+
-\\
- 15630336t^{5} + 3956736t^{4}
+ 26804224t^{6} + 15630336t^{5} + 3956736t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2632,13 +2557,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-1536t^{10} + 19456t^{9} + 279552t^{8}
+1536t^{10} + 19456t^{9} + 279552t^{8} + 1394688t^{7}
 \,+
 \\
- 1394688t^{7} + 3751936t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3751936t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2648,19 +2570,13 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-5632t^{10} + 148480t^{9}
+5632t^{10} + 148480t^{9} + 3621888t^{8}
 \,+
 \\
- 3621888t^{8} + 15206400t^{7}
+ 15206400t^{7} + 23773184t^{6} + 14974976t^{5}
 \,+
 \\
- 23773184t^{6} + 14974976t^{5}
-\,+
-\\
- 3923968t^{4} + 417792t^{3}
-\,+
-\\
- 17408t^{2} + 256t + 1
+ 3923968t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
 \hline
@@ -2687,13 +2603,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-24576t^{9} + 526336t^{8}
+24576t^{9} + 526336t^{8} + 2342912t^{7}
 \,+
 \\
- 2342912t^{7} + 4849664t^{6}
-\,+
-\\
- 4620288t^{5} + 1875968t^{4}
+ 4849664t^{6} + 4620288t^{5} + 1875968t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2703,13 +2616,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 120, 56, 56) &
 14 &
 \begin{array}{l}
-16384t^{9} + 284672t^{8}
+16384t^{9} + 284672t^{8} + 1392640t^{7}
 \,+
 \\
- 1392640t^{7} + 3735552t^{6}
-\,+
-\\
- 4227072t^{5} + 1843200t^{4}
+ 3735552t^{6} + 4227072t^{5} + 1843200t^{4}
 \,+
 \\
  286720t^{3} + 15360t^{2} + 256t + 1
@@ -2719,13 +2629,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-131072t^{9} + 3577856t^{8}
+131072t^{9} + 3577856t^{8} + 15319040t^{7}
 \,+
 \\
- 15319040t^{7} + 23855104t^{6}
-\,+
-\\
- 14974976t^{5} + 3923968t^{4}
+ 23855104t^{6} + 14974976t^{5} + 3923968t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -2735,13 +2642,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 (256, 136, 72, 72) &
 14 &
 \begin{array}{l}
-90112t^{9} + 2795520t^{8}
+90112t^{9} + 2795520t^{8} + 12402688t^{7}
 \,+
 \\
- 12402688t^{7} + 21168128t^{6}
-\,+
-\\
- 14319616t^{5} + 3891200t^{4}
+ 21168128t^{6} + 14319616t^{5} + 3891200t^{4}
 \,+
 \\
  417792t^{3} + 17408t^{2} + 256t + 1
@@ -3505,67 +3409,130 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 6 of the 16 classes form 3 dual pairs of classes.
 % \end{frame}
 
-\section{SageMath and SageMathCloud code}
+\section{SageMath and Sage\-Math\-Cloud code}
 \label{sec-Code}
 % \begin{frame}[fragile]
-%\subsection{Public worksheet on SageMathCloud}
-~
-
-Bliss: \cite{JunK07Bliss,JukN11conflict}
-
-Boolean-Cayley-graphs: GitHub repository \cite{Leo16GitHub} and SageMathCloud folder
+%\subsection{Public worksheet on Sage\-Math\-Cloud}
+As mentioned in the previous section, the computational results listed there were obtained by the
+use of code written in Sage \cite{JoyEtAl13Sage} \cite{SageMath7517} and Python.
+This code base is called \texttt{Boolean-Cayley-graphs} and it is available both as a GitHub
+repository \cite{Leo16GitHub} and as a public Sage\-Math\-Cloud \cite{SageMathCloud} folder
 \cite{Leo16SMC}.
 
-Nauty: \cite{McKP13nauty,McKP14practical}
+For an introduction to other aspects of coding theory and cryptography in Sage,
+see the article by Joyner et al. \cite{JoyEtAl13Sage}.
 
-Coding theory and cryptography in Sage: \cite{JoyEtAl13Sage}
+\paragraph*{Description of the Sage code.}
 
-SageMath: \cite{SageMath7517}
+This section contains a brief description of some of the code included in
+\texttt{Boolean-Cayley-graphs}.
+More detailed documentation is being developed and this is intended to be included as part of the code base.
+The code itself is subject to review and revision, and may change as a result of the advice of
+those more experienced with Sage code.
+The description in this section applies to the code base as it exists in May 2017.
 
-SageMathCloud: \cite{SageMathCloud}.
+The code base is structured as a set of Sage script files. % in the \texttt{sage-code} subdirectory.
+These in turn use Python scripts, found in a  subdirectory called \texttt{Boolean\_Cayley\_graphs}.
+% of \texttt{sage-code}.
+
+The Python code is used to define a number of useful Python classes.
+The key class is \texttt{BentFunctionCayleyGraphClassification}.
+This class is used to store the classification of Cayley graphs within the extended translation
+class of a given bent function $f$, as well as the classification of Cayley graphs of the duals of
+each function in the extended translation class.
+
+The class therefore contains the algebraic normal form of the given bent function
+%(as attribute \texttt{algebraic\_normal\_form}),
+a list of graphs
+%(\texttt{cayley\_graph\_class\_list})
+stored as strings obtained via the \texttt{graph6\_string} \cite{McKP13nauty}
+method of the \texttt{Graph} class, and two matrices,
+%(\texttt{bent\_cayley\_graph\_index\_matrix} and \texttt{bent\_cayley\_graph\_index\_matrix})
+used to store the list indices corresponding to
+the Cayley graph for each bent function in the extended translation class, and the dual of each bent
+function, respectively.
+The class also contains the weight class matrix
+%(\texttt{weight\_class\_matrix})
+corresponding to the given bent function.
+
+The class is initialized by enumerating the bent functions of the form
+$x \mapsto f(x+b) + \langle c, x \rangle + f(b)$,
+and determining the Cayley graph of each.
+For each Cayley graph, the \texttt{Graph} method \texttt{canonical\_label} is used
+to invoke the Bliss package \cite{JunK07Bliss,JukN11conflict} to calculate the canonical label
+of the graph, and then \texttt{graph6\_string} is used to obtain a string.
+Each new graph is compared for isomorphism to each of the graphs in the current list,
+by simply comparing the string against each of the existing strings.
+If the new graph is not isomorphic to any existing graph, it is added to the list.
+Each list of non-isomorphic graphs can be checked by a function called \texttt{check\_graph\_class\_list}
+which uses the Nauty package to check the non-isomorphism \cite{McKP13nauty,McKP14practical}.
+
+For an 8 dimensional bent function, the initialization of its Cayley graph classification
+can take more than 24 hours on an Intel\textregistered Core\texttrademark i7 CPU 870 running at 2.93GHz.
+For this reason, each computed classification is saved, and a class method (\texttt{load\_mangled})
+is provided to load existing saved classifications.
 
 % \end{frame}
+\paragraph*{History of the Sage code.}
 
-\begin{itemize}
- \item 2015-04 to 2015-05 SageMathCloud: Cliques-Automorphisms project starts looking at Cayley
-classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
- \item 2015-12 SageMathCloud: Cliques-Automorphisms project
-worksheets produced initial results used in the ACCMCC presentation.
-The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
- \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
- \item 2016-08 GitHub: Uploaded refactored Sage code to new Boolean-Cayley-graphs project.
- \item 2016-08 SageMath: Began using canonical labels rather than directly testing for isomorphism
-between Cayley graphs.
-Canonical labelling uses the Bliss algorithm, speeding up computation in comparison to the default
-Sage algorithm,
-and allows comparison between graphs using equality of canonically labelled graphs rather than
-isomorphism, also giving a speed boost.
-This finally made it feasible to check bent functions in 8 dimensions up to degree 3.
- \item 2016-09 SageMath: Changed many Sage code files into Python modules.
-Introduced a BentFunction class.
- \item 2016-11 SageMath: \verb!check_graphs_using_gap!
-\end{itemize}
+The Sage code originated in 2015 as a series of worksheets on Sage\-Math\-Cloud.
+While these were useful for investigating extended Cayley classes for bent functions in up to 6 dimensions,
+they were too slow to use for bent functions in 8 dimensions.
 
+The \texttt{Boolean-Cayley-graphs} GitHub project and public Sage\-Math\-Cloud folder was begun in 2016
+with the intention of refactoring the code to make it fast enough to use for bent functions in 8 dimensions
+up to degree 3.
+The use of canonical labelling via the Bliss algorithm is what made this possible.
+
+Further improvements were made in 2017 to enable the classification of any bent function in up to 8 dimensions
+to be computed.
+% \begin{itemize}
+%  \item 2015-04 to 2015-05 Sage\-Math\-Cloud: Cliques-Automorphisms project starts looking at Cayley
+% classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
+%  \item 2015-12 Sage\-Math\-Cloud: Cliques-Automorphisms project
+% worksheets produced initial results used in the ACCMCC presentation.
+% The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
+%  \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
+%  \item 2016-08 GitHub: Uploaded refactored Sage code to new Boolean-Cayley-graphs project.
+%  \item 2016-08 SageMath: Began using canonical labels rather than directly testing for isomorphism
+% between Cayley graphs.
+% Canonical labelling uses the Bliss algorithm, speeding up computation in comparison to the default
+% Sage algorithm,
+% and allows comparison between graphs using equality of canonically labelled graphs rather than
+% isomorphism, also giving a speed boost.
+% This finally made it feasible to check bent functions in 8 dimensions up to degree 3.
+%  \item 2016-09 SageMath: Changed many Sage code files into Python modules.
+% Introduced a BentFunction class.
+%  \item 2016-11 SageMath: \verb!check_graphs_using_gap!
+% \end{itemize}
 
 \section{Discussion}
 \label{sec-Discussion}
 % \begin{frame}
 %\subsection{Questions (1)}
-The following questions have been settled only for $m \leqslant 3$:
+The investigation of the extended Cayley classes of bent functions is just beginning, and there are many open questions.
+This section lists some of these questions.
+
+The following questions have been settled only for dimensions 2, 4 and 6.
 \begin{enumerate}
 \item
-How many EC classes are there for each $m$?
-Are there ``Exponential numbers'' of classes \cite{Kan83exponential}?
+How many extended Cayley classes are there for each dimension?
+Are there ``Exponential numbers'' of classes  \cite{Kan83exponential}?
 \item
-Are there any ET classes that contain the maximum number, $16^m$, different EC classes?
+In $n$ dimensions,
+which extended translation classes contain the maximum number, $4^n$, of different extended Cayley classes?
 \item
-Which EC classes overlap more than one ET class?
+Which extended Cayley classes overlap more than one extended translation class?
 \item
 Which bent functions are Cayley equivalent to their dual?
+\item
+Which bent functions are extended affine equivalent to their dual?
 \end{enumerate}
 
-Also, what are the remaining EA and EC classes for $m=4$,
-i.e. the EA and EC classes of binary bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
+Also, what are the extended affine and extended Cayley classes of bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
+
+Finally, how does the concept of extended Cayley classes of bent functions generalize to bent functions over number fields of prime order $p \neq 2$
+\cite{CheTZ11}?
 
 % \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
 % \end{frame}
