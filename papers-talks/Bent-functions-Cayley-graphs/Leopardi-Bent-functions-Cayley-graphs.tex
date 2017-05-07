@@ -60,7 +60,7 @@ Classifying bent functions by their Cayley graphs}
 \author{
 Paul~Leopardi
 %\thanks{Australian Government -- Bureau of Meteorology
-\thanks{University of Melbourne, Australian Government -- Bureau of Meteorology
+\thanks{University of Melbourne; Australian Government -- Bureau of Meteorology
 \protect\url{mailto:paul.leopardi@gmail.com}}
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
@@ -1109,6 +1109,7 @@ and its clique polynomial \cite{HoeL94}.
 The bent functions on $\Z_2^2$ consist of one extended affine class, containing the extended translation class: $[f_{2,1}]$
 where $f_{2,1}(x) := x_0 x_1$ is self dual.
 The extended translation class contains two extended Cayley classes as per Table~\ref{tab-c2_1_EC_classes}.
+Note that the Cayley graph for class 1 is $K_4$, which is not considered to be strongly regular, by convention.
 \begin{table}[!bhpt] % [H]
 \small{
 \begin{align*}
@@ -1143,11 +1144,6 @@ t^{4} + 4t^{3} + 6t^{2} + 4t + 1
 \label{tab-c2_1_EC_classes}
 \end{table}
 
-Note that the Cayley graph for class 1 is $K_4$, which is not considered to be strongly regular, by convention.
-
-As expected from Theorem~\ref{th-Quadratic-Classes},
-the two extended Cayley classes correspond to the two weight classes,
-as shown in Figures~\ref{fig:c2_1_weight_class_matrix} and~\ref{fig:c2_1_bent_cayley_graph_index_matrix}.
 \begin{figure}[!ht]
 \centering
 \begin{minipage}{.48\textwidth}
@@ -1164,6 +1160,9 @@ as shown in Figures~\ref{fig:c2_1_weight_class_matrix} and~\ref{fig:c2_1_bent_ca
   \label{fig:c2_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+As expected from Theorem~\ref{th-Quadratic-Classes},
+the two extended Cayley classes correspond to the two weight classes,
+as shown in Figures~\ref{fig:c2_1_weight_class_matrix} and~\ref{fig:c2_1_bent_cayley_graph_index_matrix}.
 
 % \end{frame}
 % \begin{frame}
@@ -1255,10 +1254,6 @@ The extended translation class contains two extended Cayley classes as per Table
 % \label{tab-c4_1_codes}
 % \end{table}
 
-
-The two extended Cayley classes correspond to the two weight classes,
-as shown in Figures~\ref{fig:c4_1_weight_class_matrix} and~\ref{fig:c4_1_bent_cayley_graph_index_matrix}.
-
 \begin{figure}[!bhpt] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
@@ -1275,6 +1270,8 @@ as shown in Figures~\ref{fig:c4_1_weight_class_matrix} and~\ref{fig:c4_1_bent_ca
   \label{fig:c4_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+The two extended Cayley classes correspond to the two weight classes,
+as shown in Figures~\ref{fig:c4_1_weight_class_matrix} and~\ref{fig:c4_1_bent_cayley_graph_index_matrix}.
 
 % \end{frame}
 % \begin{frame}
@@ -1351,7 +1348,8 @@ $f_{6,1}(x) := x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
 The extended translation class contains two extended Cayley classes as per Table~\ref{tab-c6_1_EC_classes}.
 
 \begin{table}[!bhpt] % [H]
-\small{
+%
+\small{}
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1366,29 +1364,26 @@ The extended translation class contains two extended Cayley classes as per Table
 (64, 28, 12, 12) &
 8 &
 \begin{array}{l}
-64t^{8} + 512t^{7} + 1792t^{6}
+64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5}
 \,+
 \\
- 3584t^{5} + 5376t^{4} + 3584t^{3}
-\,+
-\\
- 896t^{2} + 64t + 1
+ 5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 1 &
 (64, 36, 20, 20) &
 8 &
 \begin{array}{l}
-2304t^{6} + 13824t^{5} + 19200t^{4}
+2304t^{6} + 13824t^{5} + 19200t^{4} + 7680t^{3}
 \,+
 \\
- 7680t^{3} + 1152t^{2} + 64t + 1
+ 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-}
+%
 \caption{$[f_{6,1}]$ extended Cayley classes.}
 \label{tab-c6_1_EC_classes}
 \end{table}
@@ -1453,7 +1448,8 @@ $f_{6,2}(x) := x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
 The extended translation class contains three extended Cayley classes as per Table~\ref{tab-c6_2_EC_classes}.
 
 \begin{table}[!bhpt] % [H]
-\small{
+%
+\small{}
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|cccl|}
@@ -1468,42 +1464,36 @@ The extended translation class contains three extended Cayley classes as per Tab
 (64, 28, 12, 12) &
 8 &
 \begin{array}{l}
-64t^{8} + 512t^{7} + 1792t^{6}
+64t^{8} + 512t^{7} + 1792t^{6} + 3584t^{5}
 \,+
 \\
- 3584t^{5} + 5376t^{4} + 3584t^{3}
-\,+
-\\
- 896t^{2} + 64t + 1
+ 5376t^{4} + 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 1 &
 (64, 28, 12, 12) &
 8 &
 \begin{array}{l}
-256t^{6} + 1536t^{5} + 4352t^{4}
+256t^{6} + 1536t^{5} + 4352t^{4} + 3584t^{3}
 \,+
 \\
- 3584t^{3} + 896t^{2} + 64t + 1
+ 896t^{2} + 64t + 1
 \end{array}
 \\
 2 &
 (64, 36, 20, 20) &
 8 &
 \begin{array}{l}
-192t^{8} + 1536t^{7} + 8960t^{6}
+192t^{8} + 1536t^{7} + 8960t^{6} + 19968t^{5}
 \,+
 \\
- 19968t^{5} + 20224t^{4} + 7680t^{3}
-\,+
-\\
- 1152t^{2} + 64t + 1
+ 20224t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
-}
+%
 \caption{$[f_{6,2}]$ extended Cayley classes.}
 \label{tab-c6_2_EC_classes}
 \end{table}
@@ -1511,6 +1501,8 @@ The extended translation class contains three extended Cayley classes as per Tab
 Graph 0 is isomorphic to graph 0 of ET class $[f_{6,1}]$,
 and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular graph $X$
 \cite{Roy08normal}.
+This reflects the fact that $f_{6,0} \equiv f_{6,1}$, even though these two functions are not
+extended affine equivalent.
 %
 %~
 %
@@ -1542,9 +1534,12 @@ Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6
 \end{array}
 \end{align*}
 }
-\caption{$[f_{6,2}]$ Two-weight projective codes}
+\caption{$[f_{6,2}]$ Two-weight projective codes.}
 \label{tab-c6_2_codes}
 \end{table}
+
+The three extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c6_2_weight_class_matrix} and~\ref{fig:c6_2_bent_cayley_graph_index_matrix}.
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -1576,10 +1571,10 @@ f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
            &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
 \end{align*}
 
-The extended translation class contains
-four extended Cayley classes:
+The extended translation class contains four extended Cayley classes as per Table~\ref{tab-c6_3_EC_classes}.
 
 \begin{table}[!bhpt] % [H]
+%
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1595,63 +1590,55 @@ four extended Cayley classes:
 (64, 28, 12, 12) &
 12 &
 \begin{array}{l}
-32t^{8} + 256t^{7} + 896t^{6}
+32t^{8} + 256t^{7} + 896t^{6} + 2048t^{5} + 4608t^{4}
 \,+
 \\
- 2048t^{5} + 4608t^{4} + 3584t^{3}
-\,+
-\\
- 896t^{2} + 64t + 1
+ 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 1 &
 (64, 36, 20, 20) &
 12 &
 \begin{array}{l}
-160t^{8} + 1280t^{7} + 9344t^{6}
+160t^{8} + 1280t^{7} + 9344t^{6} + 21504t^{5}
 \,+
 \\
- 21504t^{5} + 20480t^{4} + 7680t^{3}
-\,+
-\\
- 1152t^{2} + 64t + 1
+ 20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
 \end{array}
 \\
 2 &
 (64, 28, 12, 12) &
 12 &
 \begin{array}{l}
-64t^{6} + 1024t^{5} + 4096t^{4}
+64t^{6} + 1024t^{5} + 4096t^{4} + 3584t^{3}
 \,+
 \\
- 3584t^{3} + 896t^{2} + 64t + 1
+ 896t^{2} + 64t + 1
 \end{array}
 \\
 3 &
 (64, 36, 20, 20) &
 12 &
 \begin{array}{l}
-160t^{8} + 1664t^{7} + 9792t^{6}
+160t^{8} + 1664t^{7} + 9792t^{6} + 21504t^{5}
 \,+
 \\
- 21504t^{5} + 20480t^{4} + 7680t^{3}
-\,+
-\\
- 1152t^{2} + 64t + 1
+ 20480t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
 \end{array}
 \end{align*}
+%
 \caption{$f_{6,3}$ extended Cayley classes.}
 \label{tab-c6_3_EC_classes}
 \end{table}
 
-The Cayley graphs for classes 0 to 3 are isomorphic to those those obtained from the following
-projective two-weight
-codes as listed by Tonchev \cite{Ton07codes}:
+The Cayley graphs for classes 0 to 3 are isomorphic to those those obtained from the
+Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6_3_codes}.
 
 \begin{table}[!bhpt] % [H]
+\small{
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1671,9 +1658,13 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \hline
 \end{array}
 \end{align*}
+}
 \caption{$f_{6,3}$ Two-weight projective codes.}
 \label{tab-c6_3_codes}
 \end{table}
+
+The four extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c6_3_weight_class_matrix} and~\ref{fig:c6_3_bent_cayley_graph_index_matrix}.
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -1704,10 +1695,10 @@ f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} 
            &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
 \end{align*}
 
-The extended translation class contains
-three extended Cayley classes:
+The extended translation class contains three extended Cayley classes as per Table~\ref{tab-c6_4_EC_classes}.
 
 \begin{table}[!bhpt] % [H]
+%
 \small{}
 \begin{align*}
 \def\arraystretch{1.2}
@@ -1723,39 +1714,30 @@ three extended Cayley classes:
 (64, 28, 12, 12) &
 14 &
 \begin{array}{l}
-32t^{8} + 256t^{7} + 896t^{6}
+32t^{8} + 256t^{7} + 896t^{6} + 1792t^{5} + 4480t^{4}
 \,+
 \\
- 1792t^{5} + 4480t^{4} + 3584t^{3}
-\,+
-\\
- 896t^{2} + 64t + 1
+ 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 1 &
 (64, 28, 12, 12) &
 14 &
 \begin{array}{l}
-16t^{8} + 128t^{7} + 448t^{6}
+16t^{8} + 128t^{7} + 448t^{6} + 1280t^{5} + 4224t^{4}
 \,+
 \\
- 1280t^{5} + 4224t^{4} + 3584t^{3}
-\,+
-\\
- 896t^{2} + 64t + 1
+ 3584t^{3} + 896t^{2} + 64t + 1
 \end{array}
 \\
 2 &
 (64, 36, 20, 20) &
 14 &
 \begin{array}{l}
-176t^{8} + 1408t^{7} + 9664t^{6}
+176t^{8} + 1408t^{7} + 9664t^{6} + 22272t^{5}
 \,+
 \\
- 22272t^{5} + 20608t^{4} + 7680t^{3}
-\,+
-\\
- 1152t^{2} + 64t + 1
+ 20608t^{4} + 7680t^{3} + 1152t^{2} + 64t + 1
 \end{array}
 \\
 \hline
@@ -1765,11 +1747,11 @@ three extended Cayley classes:
 \label{tab-c6_4_EC_classes}
 \end{table}
 
-The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from the following
-projective two-weight
-codes as listed by Tonchev \cite{Ton07codes}:
+The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from the
+Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6_2_codes}.
 
 \begin{table}[!bhpt] % [H]
+\small{
 \begin{align*}
 \def\arraystretch{1.2}
 \begin{array}{|ccl|}
@@ -1787,6 +1769,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
 \hline
 \end{array}
 \end{align*}
+}
 \caption{$f_{6,4}$ Two-weight projective codes.}
 \label{tab-c6_4_codes}
 \end{table}
@@ -1795,7 +1778,10 @@ codes as listed by Tonchev \cite{Ton07codes}:
 % \end{frame}
 % \begin{frame}
 
-\begin{figure}[!bhpt] % [H]
+The three extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c6_4_weight_class_matrix} and~\ref{fig:c6_4_bent_cayley_graph_index_matrix}.
+
+\begin{figure}[!hpt] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -1811,7 +1797,7 @@ codes as listed by Tonchev \cite{Ton07codes}:
   \label{fig:c6_4_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-
+\newpage
 \subsection{Bent functions in 8 dimensions}
 
 There are
