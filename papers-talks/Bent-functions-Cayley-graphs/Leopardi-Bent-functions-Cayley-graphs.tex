@@ -65,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{INCOMPLETE DRAFT: 7 May 2017}
+\date{INCOMPLETE DRAFT: 8 May 2017}
 
 \begin{document}
 
@@ -1342,8 +1342,9 @@ Tonchev's strongly regular graphs were checked using the function
 %
 \paragraph*{ET class $[f_{6,1}]$.}
 %
-The function
-$f_{6,1}(x) := x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
+This is the extended translation class of the bent function
+$f_{6,1}(x) := x_0 x_1 + x_2 x_3 + x_4 x_5.$
+This function is quadratic and self-dual.
 
 The extended translation class contains two extended Cayley classes as per Table~\ref{tab-c6_1_EC_classes}.
 
@@ -1809,15 +1810,14 @@ according to Langevin and Leander \cite{LanL11counting}.
 The number of extended affine classes has not yet been published,
 let alone a list of representative bent functions.
 The lists of extended affine classes of bent functions that have so far been published include those
-for the bent functions up to degree 3 \cite[Section 5.5.2]{Bra06thesis} \cite[Section 7.3]{Tok15bent},
+for the bent functions of degree at most 3 \cite[Section 5.5.2]{Bra06thesis} \cite[Section 7.3]{Tok15bent},
 the partial spread bent functions \cite{LanH11counting} [TBD],
 and the bent functions used in the S-boxes of the CAST-128 encryption algorithm \cite{Ada97} [TBD].
 
-\paragraph*{Extended affine classes up to degree 3.}
+\paragraph*{Extended affine classes of degree at most 3.}
 %
-Up to degree 3:
-Ten extended affine classes, containing the following extended translation classes:
-
+The bent functions on $\Z_2^8$, of degree at most 3, consist of 10
+extended affine classes, containing the extended translation classes as listed in Table~\ref{tab-c8_ET_classes}.
 \begin{table}[!bhpt] % [H]
 \small{}
 \begin{align*}
@@ -1900,6 +1900,18 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 % \begin{frame}
 \paragraph*{ET class $[f_{8,1}]$.}
 %
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 1 } &=
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5} + x_{6} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+This function is quadratic and self-dual.
+The extended translation class contains two extended Cayley classes as per Table~\ref{tab-c8_1_EC_classes}.
+
 % f8_1
 \begin{table}[!bhpt] % [H]
 %
@@ -1948,6 +1960,13 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \label{tab-c8_1_EC_classes}
 \end{table}
 
+As expected from Theorem~\ref{th-Quadratic-Classes},
+the two extended Cayley classes correspond to the two weight classes,
+as shown in Figures~\ref{fig:c8_1_weight_class_matrix} and~\ref{fig:c8_1_bent_cayley_graph_index_matrix}.
+
+Remark: The fractal-like self-similar quality of Figures~\ref{fig:c2_1_weight_class_matrix}, \ref{fig:c4_1_weight_class_matrix},
+and \ref{fig:c6_1_weight_class_matrix} continues with Figure~\ref{fig:c8_1_weight_class_matrix}.
+
 \begin{figure}[!bhpt] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
@@ -1971,14 +1990,19 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \paragraph*{ET class $[f_{8,2}]$.}
 %
 This is the extended translation class of the bent function
+\small{}
 \begin{align*}
 f_{ 8 , 2 } &=
 \begin{array}{l}
 x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}.
 \end{array}
 \end{align*}
-
+\normalsize{}
 The extended translation class contains four extended Cayley classes as per Table~\ref{tab-c8_2_EC_classes}.
+
+The four extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
+
 % f8_2
 \begin{table}[!bhpt] % [H]
 % f_{8,2}:
@@ -2052,9 +2076,6 @@ The extended translation class contains four extended Cayley classes as per Tabl
 \label{tab-c8_2_EC_classes}
 \end{table}
 
-The four extended Cayley classes are distributed between the two weight classes,
-as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
-
 \begin{figure}[!bhpt] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
@@ -2077,6 +2098,20 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 %
 \paragraph*{ET class $[f_{8,3}]$.}
 %
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 3 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{4} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains six extended Cayley classes as per Table~\ref{tab-c8_3_EC_classes}.
+
+The six extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_3_weight_class_matrix} and~\ref{fig:c8_3_bent_cayley_graph_index_matrix}.
+
 % f8_3
 \begin{table}[!bhpt] % [H]
 %
@@ -2199,7 +2234,21 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 % \begin{frame}
 %
 \paragraph*{ET class $[f_{8,4}]$.}
-%
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 4 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} +
+x_{6} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains six extended Cayley classes as per Table~\ref{tab-c8_4_EC_classes}.
+
+The six extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_4_weight_class_matrix} and~\ref{fig:c8_4_bent_cayley_graph_index_matrix}.
+
 % f8_4
 \begin{table}[!bhpt] % [H]
 %
@@ -2320,6 +2369,20 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 % \begin{frame}
 \paragraph*{ET class $[f_{8,5}]$.}
 %
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 5 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
++ x_{2} x_{4} + x_{3} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains 9 extended Cayley classes as per Table~\ref{tab-c8_5_EC_classes}.
+
+The 9 extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_5_weight_class_matrix} and~\ref{fig:c8_5_bent_cayley_graph_index_matrix}.
 % f8_5
 \begin{table}[!bhpt] % [H]
 %
@@ -2498,6 +2561,26 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 % \begin{frame}
 \paragraph*{ET class $[f_{8,6}]$.}
 %
+%
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 6 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5}
++ x_{2} x_{4} + x_{5} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains 9 extended Cayley classes as per Table~\ref{tab-c8_6_EC_classes}.
+
+The 9 Cayley graphs corresponding to the 9 classes are isomorphic to those for the extended Cayley classes for $[f_{8,5}]$.
+The corresponding Cayley classes have the same frequency within each of these two extended translation classes.
+This correspondence is shown in Table~\ref{tab-c8_5-c8_6_EC_classes}.
+
+The 9 extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_6_weight_class_matrix} and~\ref{fig:c8_6_bent_cayley_graph_index_matrix}.
+
 % f8_6
 \begin{table}[!bhpt] % [H]
 %
@@ -2656,7 +2739,42 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 \label{tab-c8_6_EC_classes_2}
 \end{table}
 
-The same 9 classes as $[f_{8,5}]$, with the same frequencies!
+\begin{table}[!bhpt] % [H]
+%
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccr|}
+\hline
+[f_{8,5}] &
+[f_{8,6}] &
+\text{Frequency}
+\\
+\hline
+  0 &    0 &  4096
+\\
+  1 &    1 &  6144
+\\
+  2 &    2 &  6144
+\\
+  3 &    5 &  2048
+\\
+  4 &    8 &  2048
+\\
+  5 &    6 &  6144
+\\
+  6 &    7 &  6144
+\\
+  7 &    3 & 16384
+\\
+  8 &    4 & 16384
+\\
+\hline
+\end{array}
+\end{align*}
+\caption{Correspondence between $[f_{8,5}]$ and $[f_{8,6}]$ extended Cayley classes.}
+\label{tab-c8_5-c8_6_EC_classes}
+\end{table}
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -2678,6 +2796,23 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 % \begin{frame}
 \paragraph*{ET class $[f_{8,7}]$.}
 %
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 7 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} +
+x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
++\,  x_{2} x_{4} + x_{6} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains six extended Cayley classes as per Table~\ref{tab-c8_7_EC_classes}.
+
+The six extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_7_weight_class_matrix} and~\ref{fig:c8_7_bent_cayley_graph_index_matrix}.
+
 % f8_7
 \begin{table}[!bhpt] % [H]
 \small{}
@@ -2793,11 +2928,26 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
   \label{fig:c8_7_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-~
+
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,8}]$.}
 %
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 8 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4}
++ x_{3} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains six extended Cayley classes as per Table~\ref{tab-c8_8_EC_classes}.
+
+The six extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_8_weight_class_matrix} and~\ref{fig:c8_8_bent_cayley_graph_index_matrix}.
+
 % f8_8
 \begin{table}[!bhpt] % [H]
 \small{}
@@ -2912,11 +3062,32 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
   \label{fig:c8_8_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-~
+
 % \end{frame}
 % \begin{frame}
 \paragraph*{ET class $[f_{8,9}]$.}
 %
+%
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 9 } &=
+\begin{array}{l}
+x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} +
+x_{4} x_{5} x_{6} + x_{6} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains 8 extended Cayley classes as per Table~\ref{tab-c8_9_EC_classes}.
+In 4 of these 8 classes, each bent function is extended Cayley equivalent to its dual.
+In the remaining 4 extended Cayley classes, the dual of every bent function in the class has a Cayley graph
+that is isomorphic to that of one other class. That is, the 4 Cayley classes form two duality pairs of classes.
+This correspondence between Cayley classes and Cayley classes of duals is shown in Table~\ref{tab-c8_9-dual_EC_classes}.
+
+The 8 extended Cayley classes are distributed
+as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:c8_9_dual_cayley_graph_index_matrix}
+(classes of duals).
+
 % f8_9
 \begin{table}[!bhpt] % [H]
 \small{}
@@ -3060,7 +3231,42 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_9_EC_classes_2}
 \end{table}
 
-4 of the 8 classes form 2 dual pairs of classes.
+\begin{table}
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccc|}
+\hline
+[f_{8,9}] &
+[f_{8,9}] &
+\text{Frequency}
+\\
+&
+\text{duals} &
+\\
+\hline
+0 &   1 & 9216
+\\
+1 &   0 & 9216
+\\
+2 &   3 & 7168
+\\
+3 &   2 & 7168
+\\
+4 &   4 & 8192
+\\
+5 &   5 & 8192
+\\
+6 &   6 & 8192
+\\
+7 &   7 & 8192
+\\
+\hline
+\end{array}
+\end{align*}
+\caption{Correspondence between $[f_{8,9}]$ extended Cayley classes and $[f_{8,9}]$ dual extended Cayley classes.}
+\label{tab-c8_9-dual-EC_classes}
+\end{table}
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -3082,6 +3288,27 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 % \begin{frame}
 \paragraph*{ET class $[f_{8,10}]$.}
 %
+This is the extended translation class of the bent function
+\small{}
+\begin{align*}
+f_{ 8 , 10 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6}
++ x_{2} x_{3} x_{5}
+\\
++\, x_{2} x_{4} + x_{3} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+The extended translation class contains 10 extended Cayley classes as per Table~\ref{tab-c8_10_EC_classes}.
+In 4 of these 10 classes, each bent function is extended Cayley equivalent to its dual.
+In the remaining 6 extended Cayley classes, the dual of every bent function in the class has a Cayley graph
+that is isomorphic to that of one other class. That is, the 6 Cayley classes form three duality pairs of classes.
+This correspondence between Cayley classes and Cayley classes of duals is shown in Table~\ref{tab-c8_10-dual-EC_classes}.
+
+The 10 extended Cayley classes are distributed
+as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:c8_10_dual_cayley_graph_index_matrix}
+(classes of duals).
 % f8_10
 \begin{table}[!bhpt] % [H]
 \small{}
@@ -3252,6 +3479,47 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \label{tab-c8_10_EC_classes_2}
 \end{table}
 
+\begin{table}
+\small{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccr|}
+\hline
+[f_{8,10}] &
+[f_{8,10}] &
+\text{Frequency}
+\\
+&
+\text{duals} &
+\\
+\hline
+  0 &    1 & 2048
+\\
+  1 &    0 & 2048
+\\
+  2 &    3 & 7168
+\\
+  3 &    2 & 7168
+\\
+  4 &    5 & 7168
+\\
+  5 &    4 & 7168
+\\
+  6 &    6 & 8192
+\\
+  7 &    7 & 8192
+\\
+  8 &    8 & 8192
+\\
+  9 &    9 & 8192
+\\
+\hline
+\end{array}
+\end{align*}
+\caption{Correspondence between $[f_{8,10}]$ extended Cayley classes and $[f_{8,10}]$ dual extended Cayley classes.}
+\label{tab-c8_10-dual-EC_classes}
+\end{table}
+
 \begin{figure}[!bhpt] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
@@ -3268,7 +3536,6 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
   \label{fig:c8_10_dual_cayley_graph_index_matrix}
 \end{minipage}%
 \end{figure}
-6 of the 10 classes form 3 dual pairs of classes.
 % \end{frame}
 % \end{colortheme}
 % \begin{colortheme}{seagull}
