@@ -54,7 +54,7 @@
 %
 \newenvironment{proofof}[1]{\noindent\emph{Proof of #1.}}{\qed}
 
-\title{INCOMPLETE DRAFT: \\
+\title{DRAFT ONLY: \\
 Classifying bent functions by their Cayley graphs}
 
 \author{
@@ -65,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{INCOMPLETE DRAFT: 8 May 2017}
+\date{DRAFT ONLY: 9 May 2017}
 
 \begin{document}
 
@@ -275,7 +275,7 @@ For a bent function $f : \Z_2^{2m} \To \Z_2$, the function $\dual{f}$, defined b
 \begin{align*}
 (-1)^{\dual{f}(x)} &:= 2^{-m} W_f(x)
 \end{align*}
-is called the \Emph{dual} of $f$ \cite{Tok11number}.
+is called the \Emph{dual} of $f$ \cite{CarDPS10self}.
 
 Remark: The function $\dual{f}$ is also a bent function on $\Z_2^{2m}$ \cite[p. 301]{Rot76}.
 \end{Definition}
@@ -838,7 +838,7 @@ Remark: Functions of the form
 f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
 \end{align*}
 are self dual bent functions, $f=\dual{f}$ \cite[Remark 6.3.2]{Dil74}.
-There are many other self dual bent functions \cite{CarDEPP10self,FeuSSW2013}.
+There are many other self dual bent functions \cite{CarDPS10self,FeuSSW2013}.
 
 Secondly, the following proposition displays a relationship between the extended translation
 class of a bent function $f$, and that of its dual $\dual{f}$.
@@ -1303,14 +1303,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}
 \\
 \,[f_{6,3}] & f_{6,3} :=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} +
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5}\, +
 \\
 x_{2} x_{4} + x_{3} x_{4}
 \end{array}
 \\
 \,[f_{6,4}] & f_{6,4} :=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} +
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}\, +
 \\
 x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 \end{array}
@@ -1845,7 +1845,7 @@ x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \\
 \,[f_{ 8 , 4 }] & f_{ 8 , 4 } :=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} +
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3}\, +
 x_{6} x_{7}
 \end{array}
 \\
@@ -1863,10 +1863,10 @@ x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} 
 \\
 \,[f_{ 8 , 7 }] & f_{ 8 , 7 } :=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} +
-x_{1} x_{5} + x_{2} x_{3} x_{5}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4}\, +
+x_{1} x_{5}\, +
 \\
-+\,  x_{2} x_{4} + x_{6} x_{7}
+x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{6} x_{7}
 \end{array}
 \\
 \,[f_{ 8 , 8 }] & f_{ 8 , 8 } :=
@@ -1877,16 +1877,16 @@ x_{0} x_{1} x_{2} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} 
 \\
 \,[f_{ 8 , 9 }] & f_{ 8 , 9 } :=
 \begin{array}{l}
-x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} +
+x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4}\, +
 x_{4} x_{5} x_{6} + x_{6} x_{7}
 \end{array}
 \\
 \,[f_{ 8 , 10 }] & f_{ 8 , 10 } :=
 \begin{array}{l}
 x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6}
-+ x_{2} x_{3} x_{5}
++ x_{2} x_{3} x_{5}\, +
 \\
-+\, x_{2} x_{4} + x_{3} x_{7}
+x_{2} x_{4} + x_{3} x_{7}
 \end{array}
 \\
 \hline
@@ -2239,7 +2239,7 @@ This is the extended translation class of the bent function
 \begin{align*}
 f_{ 8 , 4 } &=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} +
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3}\, +
 x_{6} x_{7}.
 \end{array}
 \end{align*}
@@ -2801,10 +2801,10 @@ This is the extended translation class of the bent function
 \begin{align*}
 f_{ 8 , 7 } &=
 \begin{array}{l}
-x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} +
-x_{1} x_{5} + x_{2} x_{3} x_{5}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4}\, +
+x_{1} x_{5}\, +
 \\
-+\,  x_{2} x_{4} + x_{6} x_{7}.
+x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{6} x_{7}.
 \end{array}
 \end{align*}
 \normalsize{}
@@ -3073,7 +3073,7 @@ This is the extended translation class of the bent function
 \begin{align*}
 f_{ 8 , 9 } &=
 \begin{array}{l}
-x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} +
+x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4}\, +
 x_{4} x_{5} x_{6} + x_{6} x_{7}.
 \end{array}
 \end{align*}
@@ -3082,7 +3082,7 @@ The extended translation class contains 8 extended Cayley classes as per Table~\
 In 4 of these 8 classes, each bent function is extended Cayley equivalent to its dual.
 In the remaining 4 extended Cayley classes, the dual of every bent function in the class has a Cayley graph
 that is isomorphic to that of one other class. That is, the 4 Cayley classes form two duality pairs of classes.
-This correspondence between Cayley classes and Cayley classes of duals is shown in Table~\ref{tab-c8_9-dual_EC_classes}.
+This correspondence between Cayley classes and Cayley classes of duals is shown in Table~\ref{tab-c8_9-dual-EC_classes}.
 
 The 8 extended Cayley classes are distributed
 as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:c8_9_dual_cayley_graph_index_matrix}
@@ -3166,25 +3166,25 @@ as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~
  15360t^{2} + 256t + 1
 \end{array}
 \\
-\hline
-\end{array}
-\end{align*}
-\caption{$[f_{8,9}]$ extended Cayley classes (part 1).}
-\label{tab-c8_9_EC_classes}
-\end{table}
-%%\newpage
-\begin{table}[!bhpt] % [H]
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$[f_{8,9}]$ extended Cayley classes (part 1).}
+% \label{tab-c8_9_EC_classes}
+% \end{table}
+% %%\newpage
+% \begin{table}[!bhpt] % [H]
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
 5 &
 (256, 136, 72, 72) &
 16 &
@@ -3227,8 +3227,10 @@ as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~
 \hline
 \end{array}
 \end{align*}
-\caption{$[f_{8,9}]$ extended Cayley classes (part 2).}
-\label{tab-c8_9_EC_classes_2}
+%\caption{$[f_{8,9}]$ extended Cayley classes (part 2).}
+\caption{$[f_{8,9}]$ extended Cayley classes.}
+%\label{tab-c8_9_EC_classes_2}
+\label{tab-c8_9_EC_classes}
 \end{table}
 
 \begin{table}
@@ -3294,9 +3296,9 @@ This is the extended translation class of the bent function
 f_{ 8 , 10 } :=
 \begin{array}{l}
 x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6}
-+ x_{2} x_{3} x_{5}
++ x_{2} x_{3} x_{5}\, +
 \\
-+\, x_{2} x_{4} + x_{3} x_{7}.
+x_{2} x_{4} + x_{3} x_{7}.
 \end{array}
 \end{align*}
 \normalsize{}
@@ -3387,25 +3389,25 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
  417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
-\hline
-\end{array}
-\end{align*}
-\caption{$[f_{8,10}]$ extended Cayley classes (part 1).}
-\label{tab-c8_10_EC_classes}
-\end{table}
-%\newpage
-\begin{table}[!bhpt] % [H]
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$[f_{8,10}]$ extended Cayley classes (part 1).}
+% \label{tab-c8_10_EC_classes}
+% \end{table}
+% %\newpage
+% \begin{table}[!bhpt] % [H]
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
 5 &
 (256, 136, 72, 72) &
 16 &
@@ -3474,9 +3476,10 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 \hline
 \end{array}
 \end{align*}
-%
-\caption{$[f_{8,10}]$ extended Cayley classes (part 2).}
-\label{tab-c8_10_EC_classes_2}
+%\caption{$[f_{8,10}]$ extended Cayley classes (part 2).}
+\caption{$[f_{8,10}]$ extended Cayley classes.}
+%\label{tab-c8_10_EC_classes_2}
+\label{tab-c8_10_EC_classes}
 \end{table}
 
 \begin{table}
@@ -3546,23 +3549,32 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 According to Langevin and Hou \cite{LanH11counting}
 there are $70576747237594114392064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in
 dimension 8,
-contained in $14758$ EA classes, of which $14756$ classes have degree 4.
-%
-%~
-%
-The EA class representatives are listed at Langevin's web site
-%
-\begin{verbatim}
-http://langevin.univ-tln.fr/project/spread/psp.html
-\end{verbatim}
+contained in $14758$ extended affine classes.
+The extended affine class representatives are listed at Langevin's web page \cite{Lan10psf}.
+On this web page,
+the file \texttt{psf-8.txt} contains details of $9316$ representatives that are
+$\mathcal{PS}^{(-)}$ bent functions, all of degree 4; and
+the file \texttt{psf-9.txt} contains details of $5442$ representatives that are
+$\mathcal{PS}^{(+)}$ bent functions, of which $5440$ are of degree 4.
 
 %\slidecite{Langevin and Hou 2011}
 % \end{frame}
 % \end{colortheme}
 % \begin{colortheme}{jubata}
 % \begin{frame}
-\paragraph*{Example partial spread ET class $[psf_{9,5439}]$.}
-%
+%\paragraph*{Example partial spread ET class $[psf_{9,5439}]$.}
+
+There are obviously too many bent functions of these two types to list here, but there is room for one example.
+
+The bent function $psf_{9,5439}$ is listed as function number $5439$ in \texttt{psf-9.txt},
+and is a $\mathcal{PS}^{(+)}$ bent function of degree 4.
+Its extended translation class $[psf_{9,5439}]$ contains 16 extended Cayley classes,
+of which 6 form three duality pairs similar to those seen in $[f_{8,9}]$ and $[f_{8,10}]$ above.
+
+The 16 extended Cayley classes are distributed
+as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:psf_9_5439_dual_cayley_graph_index_matrix}
+(classes of duals).
+
 \begin{figure}[!bhpt] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
@@ -3579,7 +3591,7 @@ http://langevin.univ-tln.fr/project/spread/psp.html
   \label{fig:psf_9_5439_dual_cayley_graph_index_matrix}
 \end{minipage}%
 \end{figure}
-6 of the 16 classes form 3 dual pairs of classes.
+
 % \end{frame}
 
 \paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$}
@@ -3587,12 +3599,44 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 The CAST-128 encryption algorithm is used in PGP and elsewhere \cite{Ada97}.
 The algorithm uses 8 S-boxes, each of which consists of 32 binary bent functions in 8 dimensions,
 with degree 4.
-CAST-128, including the S-boxes, is specified by IETF RFC 2144:
-\begin{verbatim}
-https://www.ietf.org/rfc/rfc2144.txt
-\end{verbatim}
+The full CAST-128 algorithm, including the contents of the S-boxes,
+is published as IETF Request For Comments 2144 \cite{RFC2144}.
 
-Dual bent functions yield another $65\,536$ extended Cayley classes!
+The bent function $cast128_{1,0}$ is the first bent function of S-box number 1 of CAST-128.
+Its definition by algebraic normal form is
+\footnotesize{}
+\begin{align*}
+cast128_{1,0} :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} x_{3} + x_{0} x_{1} x_{2} x_{4} + x_{0} x_{1} x_{2} x_{5} + x_{0} x_{1} x_{2} + x_{0} x_{1} x_{3} x_{5} + x_{0} x_{1} x_{3} x_{6}\, +
+\\
+x_{0} x_{1} x_{3} + x_{0} x_{1} x_{5} x_{6} + x_{0} x_{1} x_{6} + x_{0} x_{1} x_{7} + x_{0} x_{2} x_{3} x_{4} + x_{0} x_{2} x_{3}\, +
+\\
+x_{0} x_{2} x_{4} x_{5} + x_{0} x_{2} x_{5} x_{7} + x_{0} x_{2} x_{6} + x_{0} x_{2} x_{7} + x_{0} x_{2} + x_{0} x_{3} x_{4} x_{5}\, +
+\\
+x_{0} x_{3} x_{4} x_{6} + x_{0} x_{3} x_{5} x_{6} + x_{0} x_{3} + x_{0} x_{4} x_{5} x_{6} + x_{0} x_{4} x_{5} x_{7} + x_{0} x_{4} x_{5}\, +
+\\
+x_{0} x_{4} x_{6} + x_{0} x_{4} + x_{0} x_{5} x_{6} + x_{0} x_{5} x_{7} + x_{0} x_{6} + x_{0} x_{7} + x_{0} + x_{1} x_{2} x_{4} x_{6}\, +
+\\
+x_{1} x_{2} x_{4} x_{7} + x_{1} x_{2} x_{5} x_{6} + x_{1} x_{2} x_{7} + x_{1} x_{3} x_{4} x_{6} + x_{1} x_{3} x_{4} x_{7} + x_{1} x_{3} x_{5}\, +
+\\
+x_{1} x_{3} x_{7} + x_{1} x_{4} x_{5} x_{7} + x_{1} x_{4} x_{6} + x_{1} x_{5} x_{6} + x_{1} + x_{2} x_{3} x_{4} x_{6} + x_{2} x_{3} x_{4}\, +
+\\
+x_{2} x_{3} x_{5} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{3} x_{7} + x_{2} x_{4} + x_{2} x_{5} x_{6} + x_{2} x_{5} + x_{2} + x_{3} x_{4} x_{5} x_{6}\, +
+\\
+x_{3} x_{5} x_{6} + x_{3} x_{5} x_{7} + x_{3} x_{6} + x_{3} + x_{4} + x_{6} x_{7}.
+\end{array}
+\end{align*}
+\normalsize{}
+
+The extended translation class $[cast128_{1,0}]$ contains the maximum possible number of Cayley classes,
+that is $65\,536$.
+The duals of the bent functions $[cast128_{1,0}]$ give another $65\,536$ extended Cayley classes.
+In other words, no bent function in $[cast128_{1,0}]$ is extended affine equivalent to its dual.
+
+The two weight classes and the $65\,536$ extended Cayley classes are
+shown in Figures~\ref{fig:cast128_1_1_weight_class_matrix} and~\ref{fig:cast_128_1_1_bent_cayley_graph_index_matrix} respectively.
+
 \begin{figure}
 \centering
 \begin{minipage}{.48\textwidth}
@@ -3811,8 +3855,8 @@ x^T Z x
 \sum_{i=0}^{2m-1} \sum_{j=0}^{2m-1} x_i Z_{i,j} x_j
 \\
 &=
-\sum_{i=0}^{2m-1} \sum_{j<i} x_i Z_{i,j} x_j +
-\sum_{i=0}^{2m-1} x_i Z_{i,i} x_i +
+\sum_{i=0}^{2m-1} \sum_{j<i} x_i Z_{i,j} x_j\, +
+\sum_{i=0}^{2m-1} x_i Z_{i,i} x_i\, +
 \sum_{i=0}^{2m-1} \sum_{j>i} x_i Z_{i,j} x_j
 \\
 &=
@@ -4305,7 +4349,7 @@ $f(x) = q(x) + \langle c,x \rangle$
 for some $c \in \Z_2^{2m}$.
 Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to
 $q$.
-Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x) +
+Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x)\, +
 \langle c', x \rangle$
 with $q(c)=q(c')=1$ are Cayley equivalent to each other.
 
@@ -4322,11 +4366,31 @@ since $q$ is self-dual.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph*{Acknowledgements.}
 
-Thanks to Christine Leopardi for her hospitality at Long Beach.
-Thanks to Robert Craigen, Joanne Hall, William Martin,
-Padraig {\'O} Cath{\'a}in and Judy-anne Osborn for valuable discussions.
 This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University,
-and concluded while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia.
+continued while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia,
+and concluded while the author was an Honorary Fellow at the University of Melbourne,
+and an employee of the Australian Government, Bureau of Meteorology.
+
+Thanks to Christine Leopardi for her hospitality at Long Beach.
+Thanks to
+Robert Craigen,
+Joanne Hall,
+Kathy Horadam,
+David Joyner,
+Philippe Langevin,
+William Martin,
+Padraig {\'O} Cath{\'a}in,
+Judy-anne Osborn,
+Dima Pasechnik and
+William Stein.
+for valuable questions, discussions and advice;
+Nathan Clisby, for the opportunity to become an Honorary Fellow at the University of Melbourne;
+Kodlu, a member of MathOverflow, for asking Philippe Langevin about the affine classification
+of bent functions of degree 4 in 8 dimensions;
+Gray Chan for a citation tool for IETF RFCs;
+and finally, the authors of SageMath, Bliss, and Nauty for these valuable tools
+without which I would not have been able to conduct this research.
+
 %Thanks also to the anonymous reviewer of the previous draft of this paper.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
