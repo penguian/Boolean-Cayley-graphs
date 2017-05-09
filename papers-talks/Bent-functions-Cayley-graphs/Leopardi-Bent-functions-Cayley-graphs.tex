@@ -1099,7 +1099,7 @@ Some Sage\-Math\-Cloud worksheets also illustrate these and related computations
 The Sage and Python code is described in more detail in Section \ref{sec-Code}.
 
 In the tables below, each bent function is defined by its algebraic normal form, and each Cayley class is described by
-its number within the extended translation class of the bent function (from 0 in the order in which Sage identified non-isomorphic graphs),
+its number within the extended translation class of the bent function (from 0, in the order in which Sage identified non-isomorphic graphs),
 followed by three properties of the Cayley graph: its parameters as a strongly regular graph, the 2-rank of its adjacency matrix \cite{Brov92},
 and its clique polynomial \cite{HoeL94}.
 
@@ -3710,7 +3710,7 @@ of the graph, and then \texttt{graph6\_string} is used to obtain a string.
 Each new graph is compared for isomorphism to each of the graphs in the current list,
 by simply comparing the string against each of the existing strings.
 If the new graph is not isomorphic to any existing graph, it is added to the list.
-Each list of non-isomorphic graphs can be checked by a function called \texttt{check\_graph\_class\_list}
+Each list of pairwise non-isomorphic graphs can be checked by a function called \texttt{check\_graph\_class\_list}
 which uses the Nauty package to check the non-isomorphism \cite{McKP13nauty,McKP14practical}.
 
 For an 8 dimensional bent function, the initialization of its Cayley graph classification
