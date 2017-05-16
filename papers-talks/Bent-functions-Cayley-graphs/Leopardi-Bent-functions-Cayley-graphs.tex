@@ -444,13 +444,19 @@ each nonadjacent pair of vertices has $\mu$ common neighbours.
 \begin{Proposition}
 \label{pr-Cayley-bent-strongly-regular}
 The Cayley graph $\Cay{f}$ of a bent function $f$ on $\F_2^{2m}$
-(with $f(0)=0$) is a strongly regular graph with $\lambda = \mu$ \cite[Lemma 12]{BerC99}.
+with $f(0)=0$ is a strongly regular graph with $\lambda = \mu$ \cite[Lemma 12]{BerC99}.
 
-The parameters of $\Cay{f}$ are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{HuaY04}
+In addition, any Boolean function $f$ on $\F_2^{2m}$ with $f(0)=0$,
+whose Cayley graph $\Cay{f}$ is a strongly regular graph with $\lambda = \mu$ is a bent function
+\cite[Theorem 3]{BerCV01} \cite[Theorem 3.1]{Sta07}.
+
+For a bent function $f$ on $\F_2^{2m}$,
+the parameters of $\Cay{f}$ as a strongly regular graph
+are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{HuaY04}
 \begin{align*}
-(v,k,\lambda) = &(4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1})
+(v,k,\lambda,\mu) = &(4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1})
 \\
-  \text{or} \quad &(4^m, 2^{2 m - 1} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}).
+  \text{or} \quad &(4^m, 2^{2 m - 1} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}).
 \end{align*}
 \end{Proposition}
 
@@ -463,7 +469,7 @@ The parameters of $\Cay{f}$ are \cite[Theorem 6.2.10]{Dil74} \cite[Theorem 3.2]{
 \subsection{Bent functions, linear codes and strongly regular graphs}
 Another way to obtain a strongly regular graph from a bent function is via a projective two-weight
 code.
-\paragraph*{Projective two-weight binary codes}
+\paragraph*{Projective two-weight binary codes.}
 
 \begin{Definition}
 \label{def-two-weight-codes}
@@ -567,14 +573,15 @@ $R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
 % \end{frame}
 \subsection{More concepts of equivalence of bent functions}
 %\label{sec-Equivalence}
-The following concepts of equivalence of bent functions are used in this paper.
+The following concepts of equivalence of Boolean functions are used in this paper,
+usually in the case where the Boolean functions are bent.
 
 % \begin{frame}
 \paragraph*{Extended affine equivalence.}
 
 \begin{Definition}
-For bent functions $f,g : \F_2^{2m} \To \F_2$,
-$f$ is \Emph{extended affine equivalent} \cite[Section 1.4]{Tok15bent} to $g$ if and only if
+For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
+$f$ is \Emph{extended affine equivalent} to $g$ \cite[Section 1.4]{Tok15bent} if and only if
 \begin{align*}
 g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 \end{align*}
@@ -585,7 +592,7 @@ for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \paragraph*{General linear equivalence.}
 
 \begin{Definition}
-For bent functions $f,g : \F_2^{2m} \To \F_2$,
+For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
 $f$ is \Emph{general linear equivalent} to $g$ if and only if
 \begin{align*}
 g(x) &= f(A x)
@@ -597,7 +604,7 @@ for some $A \in GL(2m,2)$.
 \paragraph*{Extended translation equivalence.}
 
 \begin{Definition}
-For bent functions $f,g : \F_2^{2m} \To \F_2$,
+For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
 $f$ is \Emph{extended translation equivalent} to $g$ if and only if
 \begin{align*}
 g(x) &= f(x + b) + \langle c, x \rangle + \delta
@@ -612,29 +619,40 @@ for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \paragraph*{Cayley equivalence.}
 \begin{Definition}
 %
-For $f, g : \F_2^{2m} \To \F_2$, with both $f$ and $g$ bent,
-
+For Boolean functions $f, g : \F_2^{2m} \To \F_2$, with $f(0)=g(0)=0$,
 we call $f$ and $g$ \Emph{Cayley equivalent},
 and write $f \equiv g$,
+if and only if the graphs $\Cay{f}$ and $\Cay{g}$ are isomorphic.
 
-if and only if $f(0)=g(0)=0$ and $\Cay{f} \equiv \Cay{g}$ as graphs.
-
-Equivalently, $f \equiv g$ if and only if $f(0)=g(0)=0$ and
+Equivalently, $f \equiv g$ if and only if
 there exists a bijection $\pi : \F_2^{2m} \To \F_2^{2m}$ such that
 \begin{align*}
 g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \F_2^{2m}.
 \end{align*}
 \end{Definition}
 % \end{frame}
+Remark: Note that the bijection $\pi$ is not necessarily linear on $\F_2^{2m}$.
+Examples of bent functions $f$ and $g$ where $f \equiv g$ but the bijection is not linear
+are given in Section~\ref{sec-Empirical}.
 % \begin{frame}
 \paragraph*{Extended Cayley equivalence.}
+%
+While Bernasconi and Codenotti \cite{BerC99} define Cayley graphs for Boolean functions with
+$f(0)=1$ and allow Cayley graphs to have loops, this paper defines Cayley
+graphs only for Boolean functions where $f(0)=0$.
+This has the disadvantage that Cayley equivalence is an equivalence relation on half
+of the Boolean functions rather than all of them.
+To extend this equivalence relation to all Boolean functions,
+we just declare the functions $f$ and $f+1$ to be ``extended'' Cayley equivalent,
+resulting in the following definition.
 \begin{Definition}
-For $f, g : \F_2^{2m} \To \F_2$, with both $f$ and $g$ bent,
+For Boolean functions $f, g : \F_2^{2m} \To \F_2$,
 if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
 we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
 \end{Definition}
-Extended Cayley equivalence is an equivalence relation on the set of all bent functions on
+Extended Cayley equivalence is thus an equivalence relation on the set of all Boolean functions on
 $\F_2^{2m}$.
+It is easy to verify that $f \cong g$ if and only if $f+f(0) \equiv g+g(0)$.
 
 Remark: While extended affine equivalence has been well studied,
 general linear equivalence and extended translation equivalence are less often used,
@@ -3600,7 +3618,7 @@ as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes
 
 % \end{frame}
 
-\paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$}
+\paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$.}
 
 The CAST-128 encryption algorithm is used in PGP and elsewhere \cite{Ada97}.
 The algorithm uses 8 S-boxes, each of which consists of 32 binary bent functions in 8 dimensions,
