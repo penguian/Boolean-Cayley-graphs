@@ -947,8 +947,10 @@ Finally, from Lemma~\ref{lm-notes-9b} we know that
 
 The following characterization of the SDP design of a bent function $f$ also relies on
 Lemma~\ref{lm-notes-9b} for its proof.
-\begin{Theorem}
-\label{th-Dillon-Schatz}
+We first define the matrix of weight classes corresponding to the extended translation class of $f$.
+\begin{Definition}
+\label{def-weight-class-matrix}
+
 For a bent function $f : \F_2^{2m} \To \F_2$,
 define the \Emph{weight class matrix} of $f$ by
 \begin{align*}
@@ -957,8 +959,11 @@ M_{wc}(f)_{c,b}
 \weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
 \end{align*}
 for $b,c \in \F_2^{2m}$.
+\end{Definition}
 
-Then the weight class matrix of $f$
+\begin{Theorem}
+\label{th-Dillon-Schatz}
+The weight class matrix of $f$ as given by Definition~\ref{def-weight-class-matrix}
 equals the incidence matrix of the SDP design of $f$.
 Specifically,
 \begin{align*}
@@ -1126,6 +1131,16 @@ In the tables below, each bent function is defined by its algebraic normal form,
 its number within the extended translation class of the bent function (from 0, in the order in which Sage identified non-isomorphic graphs),
 followed by three properties of the Cayley graph: its parameters as a strongly regular graph, the 2-rank of its adjacency matrix \cite{Brov92},
 and its clique polynomial \cite{HoeL94}.
+
+The plots below are produced by the function \texttt{sage.}\texttt{plot.}\texttt{matrix\_plot},
+with \texttt{"gist\_stern"} as the \texttt{colormap}.
+Thus the smallest number is coloured black and the largest number is coloured white.
+
+The plotted matrices all contain non-negative integers.
+The weight class matrices are defined by Definition~\ref{def-weight-class-matrix}, and are $\{0,1\}$ matrices,
+so their matrix plots are therefore black and white, with black representing 0 and white representing 1.
+The other matrices record the number of the Cayley class within the
+extended translation class, starting from 0, as per corresponding table of extended Cayley classes.
 
 % \begin{frame}
 \subsection{Bent functions in 2 dimensions}
@@ -1523,11 +1538,15 @@ The extended translation class contains three extended Cayley classes as per Tab
 \label{tab-c6_2_EC_classes}
 \end{table}
 
-Graph 0 is isomorphic to graph 0 of ET class $[f_{6,1}]$,
-and is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular graph $X$
-\cite{Roy08normal}.
+The Cayley graph for class 0 is isomorphic to graph 0 of ET class $[f_{6,1}]$,
 This reflects the fact that $f_{6,1} \equiv f_{6,2}$, even though these two functions are not
 extended affine equivalent.
+This is therefore an example of an isomorphism between Cayley graphs of bent functions on
+$\F_2^6$ that is not a linear function.
+
+The Cayley graph for class 0 is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular graph $X$
+\cite{Roy08normal}.
+
 %
 %~
 %
@@ -1711,6 +1730,7 @@ as shown in Figures~\ref{fig:c6_3_weight_class_matrix} and~\ref{fig:c6_3_bent_ca
 %\slidecite{Tonchev 1996, 2006}
 % \end{frame}
 % \begin{frame}
+\newpage
 \paragraph*{ET class $[f_{6,4}]$.}
 %
 This is the extended translation class of the bent function
@@ -2023,6 +2043,12 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}.
 \end{align*}
 \normalsize{}
 The extended translation class contains four extended Cayley classes as per Table~\ref{tab-c8_2_EC_classes}.
+
+The Cayley graph for class 0 is isomorphic to graph 0 of ET class $[f_{8,1}]$,
+This reflects the fact that $f_{8,1} \equiv f_{8,2}$, even though these two functions are not
+extended affine equivalent.
+This is therefore an example of an isomorphism between Cayley graphs of bent functions on
+$\F_2^8$ that is not a linear function.
 
 The four extended Cayley classes are distributed between the two weight classes,
 as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
@@ -2601,6 +2627,9 @@ The extended translation class contains 9 extended Cayley classes as per Table~\
 The 9 Cayley graphs corresponding to the 9 classes are isomorphic to those for the extended Cayley classes for $[f_{8,5}]$.
 The corresponding Cayley classes have the same frequency within each of these two extended translation classes.
 This correspondence is shown in Table~\ref{tab-c8_5-c8_6_EC_classes}.
+Each such isomorphism between
+the Cayley graph of a function in $[f_{8,5}]$ and
+the Cayley graph of a function in $[f_{8,6}]$ is not a linear function on $\F_2^8$.
 
 The 9 extended Cayley classes are distributed between the two weight classes,
 as shown in Figures~\ref{fig:c8_6_weight_class_matrix} and~\ref{fig:c8_6_bent_cayley_graph_index_matrix}.
@@ -2684,25 +2713,25 @@ as shown in Figures~\ref{fig:c8_6_weight_class_matrix} and~\ref{fig:c8_6_bent_ca
  3923968t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
-\hline
-\end{array}
-\end{align*}
-\caption{$[f_{8,6}]$ extended Cayley classes (part 1).}
-\label{tab-c8_6_EC_classes}
-\end{table}
-%\newpage
-\begin{table}[!bhpt] % [H]
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$[f_{8,6}]$ extended Cayley classes (part 1).}
+% \label{tab-c8_6_EC_classes}
+% \end{table}
+% %\newpage
+% \begin{table}[!bhpt] % [H]
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
 5 &
 (256, 120, 56, 56) &
 14 &
@@ -2759,8 +2788,10 @@ as shown in Figures~\ref{fig:c8_6_weight_class_matrix} and~\ref{fig:c8_6_bent_ca
 \end{array}
 \end{align*}
 %
-\caption{$[f_{8,6}]$ extended Cayley classes (part 2).}
-\label{tab-c8_6_EC_classes_2}
+%\caption{$[f_{8,6}]$ extended Cayley classes (part 2).}
+\caption{$[f_{8,6}]$ extended Cayley classes.}
+%\label{tab-c8_6_EC_classes_2}
+\label{tab-c8_6_EC_classes}
 \end{table}
 
 \begin{table}[!bhpt] % [H]
