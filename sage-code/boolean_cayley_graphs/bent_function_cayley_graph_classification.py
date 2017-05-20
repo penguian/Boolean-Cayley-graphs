@@ -1,5 +1,6 @@
 r"""
-The Cayley graphs within the extended translation equivalence class of a bent function.
+Classification of the Cayley graphs within the
+extended translation equivalence class of a bent function.
 
 AUTHORS:
 
@@ -75,7 +76,7 @@ import boolean_cayley_graphs.cayley_graph_controls as controls
 
 class BentFunctionCayleyGraphClassification(SageObject, Saveable):
     r"""
-    Attributes of the Cayley graphs within the
+    Classification of the Cayley graphs within the
     extended translation equivalence class of a bent function.
     """
 
@@ -257,11 +258,18 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
     def first_matrix_index_list(self):
         r"""
-        Return a list of tuples (i_n,j_n), each of which is the first index into
-        the matrix self.bent_cayley_graph_index_matrix that contains the entry n.
-        The "first" is determined by argwhere.
         This function is used to obtain a representative bent function
         corresponding to each extended Cayley class.
+
+        INPUT:
+
+        `self`: the current object.
+
+        OUTPUT:
+
+        A list of tuples (i_n,j_n), each of which is the first index into
+        the matrix self.bent_cayley_graph_index_matrix that contains the entry n.
+        The first index is determined by argwhere.
 
         EXAMPLES::
 
@@ -370,7 +378,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
             [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
             <BLANKLINE>
-            There are 2 extended Cayley classes in the extended translation class:
+            There are 2 extended Cayley classes in the extended translation class.
             <BLANKLINE>
             For each extended Cayley class in the extended translation class:
             Clique polynomial, strongly regular parameters, rank, and order of a representative graph; and
@@ -595,6 +603,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             sage: f = BentFunction(p)
             sage: c = BentFunctionCayleyGraphClassification(f)
             sage: c.print_latex_table_of_cayley_classes()
+            \small{}
             \begin{align*}
             \def\arraystretch{1.2}
             \begin{array}{|cccl|}
