@@ -43,7 +43,6 @@ EXAMPLES::
 
 
 from datetime import datetime
-
 from numpy import array, argwhere
 from sage.arith.srange import xsrange
 from sage.coding.linear_code import LinearCode
@@ -56,6 +55,7 @@ from sage.misc.latex import latex
 from sage.plot.matrix_plot import matrix_plot
 from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
+from sys import stdout
 
 from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_27_6_12
@@ -194,6 +194,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             if timing:
                 print datetime.now(), b,
                 print len(cayley_graph_class_bijection)
+                stdout.flush()
 
             fb = f(b)
             for c in xsrange(v):
@@ -251,6 +252,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         if timing:
             print datetime.now()
+            stdout.flush()
 
 
     def first_matrix_index_list(self):
