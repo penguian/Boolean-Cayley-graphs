@@ -9,6 +9,8 @@ r"""
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from sage.parallel.decorate import parallel
+
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
 from boolean_cayley_graphs.bent_function import BentFunction
 
@@ -16,8 +18,6 @@ from boolean_cayley_graphs.bent_function import BentFunction
 def classify(n, form):
     r"""
     """
-    import boolean_cayley_graphs.cayley_graph_controls as controls
-    controls.timimg = True
     return BentFunctionCayleyGraphClassification(BentFunction(form))
 
 
