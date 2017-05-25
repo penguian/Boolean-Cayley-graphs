@@ -58,6 +58,8 @@ from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
 from sys import stdout
 
+import numpy as np
+
 from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_27_6_12
 from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_35_6_16
@@ -87,9 +89,9 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         INPUT:
 
-        - `self`: the current object. Uninitialized.
-        - `bentf`: an object of class `BentFunction`.
-        - `list_dual_graphs`: a flag indicating whether to list dual graphs.
+        - ``self`` -- the current object. Uninitialized.
+        - ``bentf`` -- an object of class `BentFunction`.
+        - ``list_dual_graphs`` -- a flag indicating whether to list dual graphs.
 
         OUTPUT:
 
@@ -122,6 +124,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         EXAMPLES::
 
             The classification of the bent function defined by the polynomial x1 + x2 + x1*x2.
+
+        ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
             sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
@@ -263,17 +267,19 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         INPUT:
 
-        `self`: the current object.
+        ``self`` -- the current object.
 
         OUTPUT:
 
-        A list of tuples (i_n,j_n), each of which is the first index into
-        the matrix self.bent_cayley_graph_index_matrix that contains the entry n.
-        The first index is determined by argwhere.
+        A list of tuples `(i_n,j_n)`, each of which is the first index into
+        the matrix `self.bent_cayley_graph_index_matrix` that contains the entry `n`.
+        The first index is determined by `argwhere`.
 
         EXAMPLES::
 
             The result for the bent function defined by the polynomial x1 + x2 + x1*x2.
+
+        ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
             sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
@@ -284,18 +290,18 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             sage: c.first_matrix_index_list()
             [(0, 0), (0, 1)]
         """
-        nbr_cayley_graph_classes = len(self.cayley_graph_class_list)
+        tot_cayley_graph_classes = len(self.cayley_graph_class_list)
         ci_matrix = self.bent_cayley_graph_index_matrix
 
         ci_array  = array(ci_matrix)
         ci_where  = [
             argwhere(ci_array == index)
-            for index in xsrange(nbr_cayley_graph_classes)]
+            for index in xsrange(tot_cayley_graph_classes)]
         cb_list = [
             (None
             if ci_where[index].shape[0] == 0
             else tuple(ci_where[index][0,:]))
-            for index in xsrange(nbr_cayley_graph_classes)]
+            for index in xsrange(tot_cayley_graph_classes)]
         return cb_list
 
 
@@ -307,26 +313,29 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         INPUT:
 
-        `self`: the current object.
-        `report_on_graph_details`: an optional Boolean switch, default=True.
-        If True, produce a deatiled report for each Cayley graph.
+        ``self`` -- the current object.
+        ``report_on_graph_details`` -- optional, Boolean (default: True).
+        If True, produce a detailed report for each Cayley graph.
 
         OUTPUT:
 
         (To standard output)
         A report on the following attributes of `self`:
-        - algebraic_normal_form
-        - cayley_graph_class_list
-        - bent_cayley_graph_index_matrix
-        - dual_cayley_graph_index_matrix
-          (only if this is not None and is different from bent_cayley_graph_index_matrix)
-        - weight_class_matrix
-        - If report_on_graph_details is True:
-          - details of each graph in cayley_graph_class_list,
+        - `algebraic_normal_form`
+        - `cayley_graph_class_list`
+        - `bent_cayley_graph_index_matrix`
+        - `dual_cayley_graph_index_matrix`
+          (only if this is not `None` and is different from
+          `bent_cayley_graph_index_matrix`)
+        - `weight_class_matrix`
+        - If report_on_graph_details is `True`:
+          - details of each graph in `cayley_graph_class_list`,
 
         EXAMPLES::
 
             Report on the classification of the bent function defined by the polynomial x0+x0*x1+x2*x3.
+
+        ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
             sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
@@ -360,6 +369,8 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             <BLANKLINE>
             Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
             <BLANKLINE>
+            There are 2 extended Cayley classes in the extended translation class.
+            <BLANKLINE>
             Matrix of indices of Cayley graphs:
             [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
             [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
@@ -377,8 +388,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
             [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
             [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
-            <BLANKLINE>
-            There are 2 extended Cayley classes in the extended translation class.
             <BLANKLINE>
             For each extended Cayley class in the extended translation class:
             Clique polynomial, strongly regular parameters, rank, and order of a representative graph; and
@@ -442,19 +451,31 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
             verbose = controls.verbose
 
+            nbr_bent_cayley_graph_classes = len(
+                np.unique(bent_cayley_graph_index_matrix))
+            print ""
+            print "There are", nbr_bent_cayley_graph_classes,
+            print "extended Cayley classes in the extended translation class."
+
+            tot_cayley_graph_classes = len(cayley_graph_class_list)
+
+            if dual_cayley_graph_index_matrix != None:
+                nbr_dual_cayley_graph_classes = len(
+                    np.unique(dual_cayley_graph_index_matrix))
+                print "There are", nbr_dual_cayley_graph_classes,
+                print "extended Cayley classes of dual bent functions",
+                print "in the extended translation class,"
+                print "and", tot_cayley_graph_classes,
+                print "extended Cayley classes in the union of the two."
+
             print ""
             print "Matrix of indices of Cayley graphs:"
             print bent_cayley_graph_index_matrix
+
             if dual_cayley_graph_index_matrix != None:
                 print "Matrix of indices of Cayley graphs",
                 print "of dual bent functions:"
                 print dual_cayley_graph_index_matrix
-
-            nbr_cayley_graph_classes = len(cayley_graph_class_list)
-
-            print ""
-            print "There are", nbr_cayley_graph_classes,
-            print "extended Cayley classes in the extended translation class."
 
             if not report_on_graph_details:
                 return
@@ -465,7 +486,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             print "rank, and order of a representative graph; and"
             print "linear code and generator matrix for a representative bent function:"
 
-            for index in xsrange(nbr_cayley_graph_classes):
+            for index in xsrange(tot_cayley_graph_classes):
                 print ""
                 print "EC class", index, ":"
                 c_b = pair_c_b_list[index]
@@ -591,10 +612,18 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         For a given classification, print, in LaTeX format, the table
         of selected properties of the Cayley classes of that classification.
 
+        INPUT:
+
+        - ``self`` --
+        - ``width`` -- integer (default: 40)
+        - ``rows_per_table`` -- integer (default: 6)
+
         EXAMPLES::
 
             Print the table of Cayley classes for the classification of the bent
             function defined by the polynomial x0+x0*x1+x2*x3.
+
+        ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
             sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
@@ -634,7 +663,6 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             \hline
             \end{array}
             \end{align*}
-
         """
         def print_latex_header():
             print "\\small{}"
