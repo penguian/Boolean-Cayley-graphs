@@ -1,3 +1,24 @@
+r"""
+Some specific binary projective two-weight codes as published by Tonchev.
+
+AUTHORS:
+
+- Paul Leopardi (2016-09-15): initial version
+
+EXAMPLES:
+
+::
+
+    sage: from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_27_6_12
+    sage: c27=binary_projective_two_weight_27_6_12()
+    sage: c27[1]
+    ('000000000000000111111111111',
+    '000000000111111000000111111',
+    '000111111000011000011000011',
+    '001000111011101000101000101',
+    '010001011101110011101011101',
+    '100010101000101001111101000')
+"""
 #*****************************************************************************
 #       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -10,10 +31,43 @@
 
 def binary_projective_two_weight_27_6_12():
     r"""
+    Return the binary projective two-weight [27,6,12] codes as published by Tonchev.
+
     Return a tuple that encodes the generator matrices
     of the binary projective two-weight [27,6,12] codes,
-    listed as codes 1, 2, 3a, 3b and 4 in Table 1 of [Tonchev 1996],
-    and repeated as codes 1 to 5 in Table 1.155 of [Tonchev 2006].
+    listed as codes 1, 2, 3a, 3b and 4 in Table 1 of Tonchev [Ton1996]_,
+    and repeated as codes 1 to 5 in Table 1.155 of Tonchev [Ton2007]_.
+
+    INPUT:
+
+    - None.
+
+    OUTPUT:
+
+    A tuple of tuples of strings. Each tuple of strings encodes a generator matrix
+    of a binary projective two-weight code.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_27_6_12
+        sage: c27=binary_projective_two_weight_27_6_12()
+        sage: c27[0]
+        ('000000000001111111111111111',
+        '000000011110000000011111111',
+        '000001100110000111100001111',
+        '000111111110011001100110011',
+        '011010101010111011101110100',
+        '101010101100001110111011101')
+
+
+    REFERENCES:
+
+    - [Ton1996]_
+
+    - [Ton2007]_
+
     """
     c1=("000000000001111111111111111",
         "000000011110000000011111111",
@@ -51,10 +105,44 @@ def binary_projective_two_weight_27_6_12():
 
 def binary_projective_two_weight_35_6_16():
     r"""
+    Return the binary projective two-weight [35,6,16] codes as published by Tonchev.
+
     Return a tuple that encodes the generator matrices
     of the binary projective two-weight [35,6,16] codes, listed
-    as codes 1, 2a, 2b, 3a, 3b, 4a and 4b in Table 2 of [Tonchev 1996],
-    and repeated as codes 1 to 7 in Table 1.156 of [Tonchev 2006].
+    as codes 1, 2a, 2b, 3a, 3b, 4a and 4b in Table 2 of Tonchev [Ton1996]_,
+    and repeated as codes 1 to 7 in Table 1.156 of Tonchev [Ton2007]_.
+
+
+    INPUT:
+
+    - None.
+
+    OUTPUT:
+
+    A tuple of tuples of strings. Each tuple of strings encodes a generator matrix
+    of a binary projective two-weight code.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.binary_projective_two_weight_codes import binary_projective_two_weight_35_6_16
+        sage: c35=binary_projective_two_weight_35_6_16()
+        sage: c35[2]
+        ('00000000000000011111111111111111111',
+        '00000000011111100000000001111111111',
+        '00011111100001100001111110000111111',
+        '00100011101110101110001110111000111',
+        '01000101110111000010110010001011001',
+        '10001010100010110100010100011101011')
+
+    REFERENCES:
+
+    - [Ton1996]_
+
+    - [Ton2007]_
+
+
     """
     c1=("00000000000000000001111111111111111",
         "00000000000111111110000000011111111",
