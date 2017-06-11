@@ -1,11 +1,11 @@
 r"""
-Cayley graph of a Boolean function.
+The Cayley graph of a Boolean function.
 
 AUTHORS:
 
-- Paul Leopardi (2016-11-23): initial version
+- Paul Leopardi (2016-08-21): initial version
 
-EXAMPLE:
+EXAMPLES:
 
 ::
 
@@ -15,7 +15,6 @@ EXAMPLE:
     [0, 0, 1, 1]
     sage: g = boolean_cayley_graph(2, f)
     sage: g.adjacency_matrix()
-
     [0 0 1 1]
     [0 0 1 1]
     [1 1 0 0]
@@ -68,7 +67,6 @@ def boolean_cayley_graph(dim, f):
         sage: f = lambda n: n % 2
         sage: g = boolean_cayley_graph(2, f)
         sage: g.adjacency_matrix()
-
         [0 1 0 1]
         [1 0 1 0]
         [0 1 0 1]
