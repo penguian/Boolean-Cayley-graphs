@@ -6,7 +6,9 @@ AUTHORS:
 
 - Paul Leopardi (2016-08-02): initial version
 
-EXAMPLES::
+EXAMPLES
+
+::
 
     The classification of the bent function defined by the polynomial x2 + x1*x2.
 
@@ -85,13 +87,14 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
     def __init__(self, bentf, list_dual_graphs=True):
         r"""
-        Initialize `self` from the `BentFunction` `bentf`.
+        Initialize ``self`` from the ``BentFunction`` ``bentf``.
 
         INPUT:
 
         - ``self`` -- the current object. Uninitialized.
         - ``bentf`` -- an object of class `BentFunction`.
-        - ``list_dual_graphs`` -- a flag indicating whether to list dual graphs.
+        - ``list_dual_graphs`` -- boolean. a flag indicating
+          whether to list dual graphs.
 
         OUTPUT:
 
@@ -99,31 +102,31 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         EFFECT:
 
-        The current object `self` is initialized as follows.
+        The current object ``self`` is initialized as follows.
 
-        - `algebraic_normal_form` is set to `bentf.algebraic_normal_form()`,
-        - `cayley_graph_class_list` is set to a list of `graph6_string` stings
+        - ``algebraic_normal_form`` is set to ``bentf.algebraic_normal_form()``,
+        - ``cayley_graph_class_list`` is set to a list of ``graph6_string`` stings
           corresponding to the complete set of non-isomorphic Cayley graphs
           of the bent functions within the extended translation equivalence
-          class of `bentf` (and their duals, if `list_dual_graphs` is `True`),
-        - `bent_cayley_graph_index_matrix` is set to a matrix of indices
-          into `cayley_graph_class_list` corresponding
+          class of ``bentf`` (and their duals, if ``list_dual_graphs`` is ``True``),
+        - ``bent_cayley_graph_index_matrix`` is set to a matrix of indices
+          into ``cayley_graph_class_list`` corresponding
           to these bent functions,
-        - `dual_cayley_graph_index_matrix` is set to `None`
-          if `list_dual_graphs` is `False`, otherwise it is set to
+        - ``dual_cayley_graph_index_matrix`` is set to ``None``
+          if ``list_dual_graphs`` is ``False``, otherwise it is set to
           a matrix of indices into `cayley_graph_class_list` corresponding
           to the duals of these bent functions, and
-        - `weight_class_matrix` is set to the 0-1 matrix of weight classes
-          corresponding to `bent_cayley_graph_index_matrix`.
+        - ``weight_class_matrix`` is set to the 0-1 matrix of weight classes
+          corresponding to ``bent_cayley_graph_index_matrix``.
 
-        Each entry `bent_cayley_graph_index_matrix[c,b]` corresponds to
+        Each entry ``bent_cayley_graph_index_matrix[c,b]`` corresponds to
         the Cayley graph of the bent function
-        $x \mapsto \mathtt{bentf}(x+b) + \langle c, x \rangle + \mathtt{bentf}(b)$.
-        This enumerates all of the extended translates of `bentf`.
+        :math:`x \mapsto \mathtt{bentf}(x+b) + \langle c, x \rangle + \mathtt{bentf}(b)`.
+        This enumerates all of the extended translates of ``bentf``.
 
-        EXAMPLES::
+        EXAMPLES:
 
-            The classification of the bent function defined by the polynomial x1 + x2 + x1*x2.
+            The classification of the bent function defined by the polynomial ``x1 + x2 + x1*x2``.
 
         ::
 
@@ -262,8 +265,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
     def first_matrix_index_list(self):
         r"""
-        This function is used to obtain a representative bent function
-        corresponding to each extended Cayley class.
+        Obtain a representative bent function corresponding to each extended Cayley class.
 
         INPUT:
 
@@ -275,7 +277,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         the matrix `self.bent_cayley_graph_index_matrix` that contains the entry `n`.
         The first index is determined by `argwhere`.
 
-        EXAMPLES::
+        EXAMPLES:
 
             The result for the bent function defined by the polynomial x1 + x2 + x1*x2.
 
@@ -325,11 +327,11 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         - `cayley_graph_class_list`
         - `bent_cayley_graph_index_matrix`
         - `dual_cayley_graph_index_matrix`
-          (only if this is not `None` and is different from
-          `bent_cayley_graph_index_matrix`)
+        (only if this is not `None` and is different from
+        `bent_cayley_graph_index_matrix`)
         - `weight_class_matrix`
         - If report_on_graph_details is `True`:
-          - details of each graph in `cayley_graph_class_list`,
+        details of each graph in `cayley_graph_class_list`,
 
         EXAMPLES::
 
@@ -618,7 +620,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         - ``width`` -- integer (default: 40)
         - ``rows_per_table`` -- integer (default: 6)
 
-        EXAMPLES::
+        EXAMPLES:
 
             Print the table of Cayley classes for the classification of the bent
             function defined by the polynomial x0+x0*x1+x2*x3.
