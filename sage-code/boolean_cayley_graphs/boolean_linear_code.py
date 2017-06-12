@@ -1,4 +1,4 @@
-"""
+r"""
 Linear code of a Boolean function.
 
 Paul Leopardi.
@@ -23,6 +23,24 @@ from integer_bits import inner
 
 def boolean_linear_code(dim, f):
     r"""
+    Return the Boolean linear code corresponding to ``f``, assuming dimension ``dim``.
+
+    INPUT:
+
+    - ``dim`` -- positive integer. The assumed dimension of ``f``.
+    - ``f`` -- a Python function that takes a positive integer and returns 0 or 1.
+
+    OUTPUT:
+
+    An object of class ``LinearCode`` representing the Boolean linear code
+    corresponding to ``f``.
+
+    REFERENCES:
+
+    [Car2010]_
+
+    [Din2015]_ Corollary 10.
+
     """
     v = 2 ** dim
     support = [

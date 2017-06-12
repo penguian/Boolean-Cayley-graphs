@@ -8,14 +8,15 @@ AUTHORS:
 EXAMPLES:
 
 ::
+
     sage: from sage.crypto.boolean_function import BooleanFunction
     sage: bf = BooleanFunction([0,1,0,0])
     sage: bf.algebraic_normal_form()
     x0*x1 + x0
     sage: from boolean_cayley_graphs.bent_function import BentFunction
     sage: bentf = BentFunction(bf)
-    sage: type(bf)
-    <type 'sage.crypto.boolean_function.BooleanFunction'>
+    sage: type(bentf)
+    <class 'boolean_cayley_graphs.bent_function.BentFunction'>
     sage: bentf.algebraic_normal_form()
     x0*x1 + x0
 """

@@ -41,14 +41,15 @@ def boolean_cayley_graph(dim, f):
     Given the non-negative integer ``dim`` and the function ``f``,
     a Boolean function that takes a non-negative integer argument,
     the function ``Boolean_Cayley_graph`` constructs the Cayley graph of ``f``
-    as a Boolean function on :math:`\mathbb{Z}_2^{dim}`, with the canonical ordering.
+    as a Boolean function on :math:`\mathbb{F}_2^{dim}`,
+    with the lexicographica ordering.
     The value ``f(0)`` is assumed to be ``0``, so the graph is always simple.
 
     INPUT:
 
     - ``dim`` -- integer. The Boolean dimension of the given function.
-    - ``f`` -- function. A Boolean function expressed as a Python function taking
-      non-negative integer arguments.
+    - ``f`` -- function. A Boolean function expressed as a Python function
+      taking non-negative integer arguments.
 
     OUTPUT:
 
