@@ -1,0 +1,63 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%% Please do not modify the preamble  %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,12pt]{article}
+\usepackage[top=3.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+
+\usepackage{amsmath,amsthm,amsfonts,amssymb,latexsym,enumerate,graphicx,parskip}
+
+\newcommand{\titleoftalk}[1]{{\LARGE \textbf{#1}}\\ [20pt]}
+\newcommand{\speaker}[1]{{\large #1}\\ [10pt]}
+\newcommand{\university}[1]{\textsc{#1}\\ [10pt]}
+\newcommand{\email}[1]{{\texttt{\small #1}}\\ [20pt]}
+\newcommand{\joint}[1]{{\small #1}\\ [40pt]}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Fill in the required details below. %%%%
+
+
+\begin{centering}
+\titleoftalk{Classifying bent functions by their Cayley graphs}  %%% input title of talk
+\speaker{{Paul} {Leopardi}}      %%% input first-name and surname of presenting author
+\university{University of Melbourne, \\ Australian Government - Bureau of Meteorology}   %%% input affiliation of presenting author
+\email{paul.leopardi@gmail.com}     %%% input e-mail address of presenting author
+%\joint{(\textit{joint work with }{Name} {Coauthor1}, {Name} {Coauthor2})} %%%comment or delete this line if not relevant
+\end{centering}
+
+\
+
+\begin{abstract}
+Bent Boolean functions are fascinating and useful combinatorial objects, whose applications include
+coding theory and cryptography. The number of bent functions explodes with dimension, and various
+concepts of equivalence are used to classify them. In 1999 Bernasconi and Codenotti [1] noted that the
+Cayley graph of a bent function is strongly regular. This talk describes the concept of extended
+Cayley equivalence of bent functions, discusses some connections between bent functions, designs,
+and codes, and explores the relationship between extended Cayley equivalence and extended affine
+equivalence. SageMath scripts and SageMathCloud worksheets [2] are used to compute and display some
+of these relationships, for bent functions up to dimension 8.
+
+%% No references are required, but if you give any, please use the following format and arrange in ALPHABETICAL ORDER according to surname.
+
+%% Delete the following if no references are given.
+%%% *****************
+
+\vspace{25pt}
+
+ \setlength{\parindent}{0cm}{\textbf{References:}
+
+% Journal paper
+[1] A.~Bernasconi and B.~Codenotti, Spectral analysis of {Boolean} functions as a graph eigenvalue
+  problem, \textit{IEEE Transactions on Computers} \textbf{48(3)} (1999) 345--351.
+A.~Bernasconi and B.~Codenotti.
+
+[2] SageMath, Inc. \textit{SageMathCloud Online Computational Mathematics}, (2016).
+}
+%%% *****************
+
+\end{abstract}
+
+
+\end{document}
