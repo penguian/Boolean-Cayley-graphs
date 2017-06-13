@@ -20,7 +20,6 @@ EXAMPLES:
     sage: bentf.algebraic_normal_form()
     x0*x1 + x0
 """
-
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -36,8 +35,8 @@ from sage.graphs.graph import Graph
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.matrix.constructor import matrix
 
-from boolean_function_improved import BooleanFunctionImproved
-from walsh_hadamard_dual import walsh_hadamard_dual
+from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+from boolean_cayley_graphs.walsh_hadamard_dual import walsh_hadamard_dual
 
 import weight_class as wc
 

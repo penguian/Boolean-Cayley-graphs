@@ -1,11 +1,13 @@
 r"""
 Linear code of a Boolean function.
 
-Paul Leopardi.
-"""
+AUTHORS:
 
+- Paul Leopardi (2016-10-28): initial version
+
+"""
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -18,7 +20,7 @@ from sage.coding.linear_code import LinearCode
 from sage.matrix.constructor import matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
 
-from integer_bits import inner
+from boolean_cayley_graphs.integer_bits import inner
 
 
 def boolean_linear_code(dim, f):
@@ -27,13 +29,15 @@ def boolean_linear_code(dim, f):
 
     INPUT:
 
-    - ``dim`` -- positive integer. The assumed dimension of ``f``.
+    - ``dim`` -- positive integer. The assumed dimension of function ``f``.
     - ``f`` -- a Python function that takes a positive integer and returns 0 or 1.
+      This is assumed to represent a Boolean function on :math:`\mathbb{F}_2^{dim}`
+      via lexicographical ordering.
 
     OUTPUT:
 
-    An object of class ``LinearCode`` representing the Boolean linear code
-    corresponding to ``f``.
+    An object of class ``LinearCode``, representing the Boolean linear code
+    corresponding to the Boolean function represented by ``f``.
 
     REFERENCES:
 
@@ -41,6 +45,22 @@ def boolean_linear_code(dim, f):
 
     [Din2015]_ Corollary 10.
 
+    EXAMPLES:
+
+    ::
+
+        sage: from sage.crypto.boolean_function import BooleanFunction
+        sage: bf = BooleanFunction([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
+        sage: dim = bf.nvariables()
+        sage: from boolean_cayley_graphs.boolean_linear_code import boolean_linear_code
+        sage: bc = boolean_linear_code(dim, bf)
+        sage: bc.basis()
+        [
+        (1, 0, 0, 0, 1),
+        (0, 1, 0, 0, 0),
+        (0, 0, 1, 0, 0),
+        (0, 0, 0, 1, 1)
+        ]
     """
     v = 2 ** dim
     support = [
@@ -54,19 +74,71 @@ def boolean_linear_code(dim, f):
     return LinearCode(M)
 
 
-def linear_code_from_code_gens(c):
+def linear_code_from_code_gens(gens):
     r"""
+    Return the Boolean linear code corresponding to ``gens``.
+
+    INPUT:
+
+    - ``gens`` -- list. A list of strings of 0,1 characters.
+      This is assumed to represent the generators of a linear code.
+
+    OUTPUT:
+
+    An object of class ``LinearCode`` representing the Boolean linear code
+    corresponding to the generators represented by ``gens``.
+
+    EXAMPLE:
+
+    ::
+
+        sage: from boolean_cayley_graphs.boolean_linear_code import linear_code_from_code_gens
+        sage: gens = (
+        ....: "10001",
+        ....: "01000",
+        ....: "00100",
+        ....: "00011")
+        sage: c = linear_code_from_code_gens(gens)
+        sage: c.basis()
+        [
+        (1, 0, 0, 0, 1),
+        (0, 1, 0, 0, 0),
+        (0, 0, 1, 0, 0),
+        (0, 0, 0, 1, 1)
+        ]
     """
-    M = matrix(GF(2), [list(s) for s in c])
+    M = matrix(GF(2), [list(s) for s in gens])
     return LinearCode(M)
 
 
 def print_latex_code_parameters(c):
     r"""
+    Print the standard parameters of a linear code.
+
+    INPUT:
+
+    - ``c`` -- ``LinearCode``.
+
+    OUTPUT:
+
+    A string representing the standard parameters of the linear code ``c``.
+
+    EXAMPLE:
+
+    ::
+
+        sage: from boolean_cayley_graphs.boolean_linear_code import linear_code_from_code_gens
+        sage: from boolean_cayley_graphs.boolean_linear_code import print_latex_code_parameters
+        sage: gens = (
+        ....: "10001",
+        ....: "01000",
+        ....: "00100",
+        ....: "00011")
+        sage: c = linear_code_from_code_gens(gens)
+        sage: print_latex_code_parameters(c)
+        [5,4,1]
     """
     print (
         "[" + str(c.length()) +
         "," + str(c.dimension()) +
         "," + str(c.minimum_distance()) + "]"),
-
-

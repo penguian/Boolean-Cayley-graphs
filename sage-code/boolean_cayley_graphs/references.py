@@ -1,7 +1,14 @@
 # -*- coding: utf-8 -*-
+r"""
+The bibliographic references for the project, as a collection of functions.
 
+AUTHORS:
+
+- Paul Leopardi (2017-05-20): initial version
+
+"""
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -9,7 +16,12 @@
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from __future__ import print_function
+
 from collections import OrderedDict
+from string import ascii_uppercase
+from sys import stdout
+
 
 bibitem = OrderedDict()
 
@@ -56,7 +68,7 @@ Ergebnisse der Mathematik und Ihrer Grenzgebiete, 3 Folge / A Series of
 Modern Surveys in Mathematics. Springer London, (2011).
 """)
 
-bibitem["Brov1992"] = ("""A. E. Brouwer and C. A. Van Eijl.
+bibitem["BV1992"] = ("""A. E. Brouwer and C. A. Van Eijl.
 "On the p-rank of the adjacency matrices of strongly regular graphs".
 Journal of Algebraic Combinatorics, 1(4):329--346, (1992).
 """)
@@ -133,7 +145,7 @@ Combinatorics*,  135--149, New Orleans, LA, (2007). Society for Industrial
 and Applied Mathematics.
 """)
 
-bibitem["Ju2011"] = ("""T. Junttila and P. Kaski.
+bibitem["JK2011"] = ("""T. Junttila and P. Kaski.
 "Conflict propagation and component recursion for canonical labeling".
 In *Theory and Practice of Algorithms in (Computer) Systems*,
 151--162. Springer, (2011).
@@ -152,7 +164,7 @@ Discrete Mathematics, 46(1):95--98, (1983).
 
 bibitem["Lan2010"] = ("""P. Langevin.
 "Classification of partial spread functions in eight variables", (2010).
-\url{http://langevin.univ-tln.fr/project/spread/psp.html}
+http://langevin.univ-tln.fr/project/spread/psp.html
 Last accessed 9 May 2017.
 """)
 
@@ -174,6 +186,18 @@ Applications, July 9-13, 2007, Melbourne, Australia*, Contemporary
 mathematics,  187--198. American Mathematical Society, (2008).
 """)
 
+bibitem["Leo2016GitHub"] = ("""P. Leopardi.
+*Boolean-cayley-graphs*, (2016).
+https://github.com/penguian/Boolean-Cayley-graphs
+GitHub repository. Last accessed 9 May 2017.
+""")
+
+bibitem["Leo2016SMC"] = ("""P. Leopardi.
+*Boolean-cayley-graphs*, (2016).
+http://tinyurl.com/Boolean-Cayley-graphs
+SageMathCloud public folder. Last accessed 9 May 2017.
+""")
+
 bibitem["Leo2017Hurwitz"] = ("""P. Leopardi.
 "Twin bent functions, strongly regular Cayley graphs, and Hurwitz-Radon theory".
 Submitted October 2016 to Journal of Algebra Combinatorics Discrete
@@ -181,16 +205,10 @@ Structures and Applications, accepted April 2017.
 Preprint: arXiv:1504.02827 [math.CO].
 """)
 
-bibitem["Leo2016GitHub"] = ("""P. Leopardi.
-*Boolean-cayley-graphs*, (2016).
-\url{https://github.com/penguian/Boolean-Cayley-graphs}
-GitHub repository. Last accessed 9 May 2017.
-""")
-
-bibitem["Leo2016SMC"] = ("""P. Leopardi.
-*Boolean-cayley-graphs*, (2016).
-\url{http://tinyurl.com/Boolean-Cayley-graphs}
-SageMathCloud public folder. Last accessed 9 May 2017.
+bibitem["Leo2017"] = ("""P. Leopardi.
+"Classifying bent functions by their Cayley graphs".
+DRAFT ONLY, May 2017.
+Preprint: arXiv:1705.04507 [math.CO].
 """)
 
 bibitem["MP2013"] = ("""B. D. McKay and A. Piperno.
@@ -229,7 +247,7 @@ bibitem["Roy2008"] = ("""G. F. Royle.
 
 bibitem["SageMathCloud"] = ("""SageMath, Inc.
 *SageMathCloud Online Computational Mathematics*, (2016).
-\url{https://cloud.sagemath.com}.
+https://cloud.sagemath.com
 """)
 
 bibitem["Sei1979"] = ("""J. J. Seidel.
@@ -253,7 +271,7 @@ Springer Science \& Business Media, (2007).
 
 bibitem["SageMath7517"] = ("""The Sage Developers.
 *SageMath, the Sage Mathematics Software System (Version 7.5)*, (2017).
-\url{http://www.sagemath.org}.
+http://www.sagemath.org
 """)
 
 bibitem["Tok2015"] = ("""N. Tokareva.
@@ -288,5 +306,28 @@ def sage_reference(citation):
 
 def print_sage_references():
     for citation in bibitem.iterkeys():
-        print sage_reference(citation)
-        print ""
+        print(sage_reference(citation))
+        print()
+
+def print_sage_references_index_rst(file=stdout):
+    print("References", file=file)
+    print("==========", file=file)
+    print("", file=file)
+    print("References, sorted alphabetically by first author.", file=file)
+    print("", file=file)
+    citations_starting_with = dict()
+    for letter in ascii_uppercase:
+        citations_starting_with[letter] = [
+            cite for cite in bibitem.iterkeys() if cite[0] == letter]
+        if len(citations_starting_with[letter]) > 0:
+            print(":ref:`"+letter+" <ref-"+letter+">`", file=file)
+    print("", file=file)
+    for letter in ascii_uppercase:
+        if len(citations_starting_with[letter]) > 0:
+            print(".. _ref-"+letter+":", file=file)
+            print("", file=file)
+            print("**"+letter+"**", file=file)
+            print("", file=file)
+            for citation in citations_starting_with[letter]:
+                print(sage_reference(citation), file=file)
+                print("", file=file)

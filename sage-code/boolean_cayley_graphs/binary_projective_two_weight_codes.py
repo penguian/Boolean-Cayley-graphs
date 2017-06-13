@@ -20,7 +20,7 @@ EXAMPLES:
     '100010101000101001111101000')
 """
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of

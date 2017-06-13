@@ -18,9 +18,8 @@ EXAMPLES:
     (0, 0, 0, 1)
 
 """
-
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -202,7 +201,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         [Car2010]_
 
-        [Din2015]_ Corollary 10.
+        [DD2015]_ Corollary 10.
 
         """
         dim = self.nvariables()
