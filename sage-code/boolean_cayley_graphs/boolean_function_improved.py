@@ -1,4 +1,4 @@
-"""
+r"""
 A subclass of BooleanFunction that adds extra methods.
 
 

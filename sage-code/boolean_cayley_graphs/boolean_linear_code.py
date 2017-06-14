@@ -25,7 +25,7 @@ from boolean_cayley_graphs.integer_bits import inner
 
 def boolean_linear_code(dim, f):
     r"""
-    Return the Boolean linear code corresponding to ``f``, assuming dimension ``dim``.
+    Return the Boolean linear code corresponding to a Boolean function.
 
     INPUT:
 
