@@ -24,6 +24,7 @@ Enable built-in diagnostic tests that may be time consuming.
 EXAMPLE:
 
 ::
+
     sage: import boolean_cayley_graphs.cayley_graph_controls as controls
     sage: controls.checking = True
     sage: if controls.checking:
@@ -40,6 +41,7 @@ Enable timers.
 EXAMPLE:
 
 ::
+
     sage: import boolean_cayley_graphs.cayley_graph_controls as controls
     sage: controls.timing = True
     sage: if controls.timing:
@@ -53,10 +55,10 @@ verbose  = False
 r"""
 Increase verbosity: print extra details.
 
-
 EXAMPLE:
 
 ::
+
     sage: import boolean_cayley_graphs.cayley_graph_controls as controls
     sage: controls.verbose = True
     sage: if controls.verbose:
