@@ -76,7 +76,7 @@ def boolean_linear_code(dim, f):
 
 def linear_code_from_code_gens(gens):
     r"""
-    Return the Boolean linear code corresponding to ``gens``.
+    Return the Boolean linear code corresponding to a list of generators.
 
     INPUT:
 
