@@ -1,11 +1,13 @@
 r"""
 Containers, such as lists.
 
-Paul Leopardi.
-"""
+AUTHORS:
 
+- Paul Leopardi (2016-08-21): initial version
+
+"""
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -23,9 +25,41 @@ class List(list):
     Subclass of list with added methods, such as index_append.
     """
     def index_append(self, item):
-        """
+        r"""
+        Return the index of a given item, appending it if necessary.
+
         If the inherited list index() method for self yields a ValueError,
-         then set result to the length of self, and append item to self.
+        then set result to the length of self, and append item to self.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``item`` -- the item to look up, and append if necessary.
+
+        OUTPUT:
+
+        A non-negative integer indicating the index of ``item`` within ``self``.
+
+        EFFECT:
+
+        The item ``item`` may be appended to ``self``.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import List
+            sage: L = List([1,2,4])
+            sage: I = L.index_append(2)
+            sage: I
+            1
+            sage: L
+            [1, 2, 4]
+            sage: I = L.index_append(3)
+            sage: I
+            3
+            sage: L
+            [1, 2, 4, 3]
         """
         try:
             result = self.index(item)
@@ -37,16 +71,19 @@ class List(list):
 
 class BijectiveList(object):
     r"""
-    Replacement for list class with only a few methods, such as __getitem__()
-    index(), and index_append().
+    Replacement for the list class with only a few methods,
+    such as __getitem__(), index(), and index_append().
+
     List lookup for __getitem__ uses a list named _item.
     Index lookup for index() and index_append() uses a dict named _index.
     This class is used for 1-1 relationships where index lookup via dict makes sense.
     """
     def __init__(self, other_list=None, file_prefix=None):
-        """
-        *** Warning *** Initialization from a non-empty list can easily break
-                        the 1-1 relationship between index and item in a BijectiveList.
+        r"""
+        NOTE:
+
+        Initialization from a non-empty list can easily break
+        the 1-1 relationship between index and item in a BijectiveList.
         """
         if other_list == None:
             self._item = []
@@ -87,7 +124,8 @@ class BijectiveList(object):
 
     def index(self,item):
         r"""
-        Replacement for list index() method.
+        Return the index of a given item.
+
         Use a dict lookup using _index instead of calling index() on the list.
         If the dict lookup yields a KeyError then raise a ValueError.
         """
@@ -98,11 +136,33 @@ class BijectiveList(object):
         return result
 
 
-    def index_append(self,item):
+    def index_append(self, item):
         r"""
+        Return the index of a given item, appending it if necessary.
+
         Use a dict lookup using _index instead of calling index() on the list.
         If the dict lookup yields a KeyError then set result to the length of self,
         append item to self, and add result to _index.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList([1,2,4])
+            sage: BI = BL.index_append(2)
+            sage: BI
+            1
+            sage: BL.get_list()
+            [1, 2, 4]
+            sage: BI = BL.index_append(3)
+            sage: BI
+            3
+            sage: BL.get_list()
+            [1, 2, 4, 3]
+            sage: BL.get_dict()
+            {1: 0, 2: 1, 3: 3, 4: 2}
+
         """
         try:
             result = self._index[item]
@@ -127,18 +187,23 @@ class BijectiveList(object):
 
 class ShelveBijectiveList(BijectiveList):
     r"""
-    Replacement for list class with only a few methods, such as __getitem__()
-    index(), and index_append().
+    Replacement for the list class with only a few methods,
+    such as __getitem__() index(), and index_append().
+
     List lookup for __getitem__ uses a list named _item.
     Index lookup for index() and index_append() uses a dict named _index.
     This class is used for 1-1 relationships where index lookup via dict makes sense.
-    *** NOTE ***
+
+    NOTE:
+
     This class uses shelve for persistence.
     """
     def __init__(self, other_list=None, file_prefix=None):
         """
-        *** Warning *** Initialization from a non-empty list can easily break
-                        the 1-1 relationship between index and item in a BijectiveList.
+        NOTE:
+
+        Initialization from a non-empty list can easily break
+        the 1-1 relationship between index and item in a BijectiveList.
         """
         self.file_prefix = file_prefix
         # Work around http://bugs.python.org/issue18039 not fixed in 2.7*

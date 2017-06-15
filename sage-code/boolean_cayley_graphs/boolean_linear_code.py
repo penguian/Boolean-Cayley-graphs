@@ -43,7 +43,7 @@ def boolean_linear_code(dim, f):
 
     [Car2010]_
 
-    [Din2015]_ Corollary 10.
+    [DD2015]_ Corollary 10.
 
     EXAMPLES:
 

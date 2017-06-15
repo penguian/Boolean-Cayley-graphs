@@ -23,20 +23,20 @@ import cayley_graph_controls as controls
 
 def cayley_graphs_of_c_translates(bentf):
     r"""
-    Obtain a List of Cayley graphs from the functions `bentf(x)+<c,x>`.
+    Obtain a List of Cayley graphs from the functions :math:`bentf(x)+<c,x>`.
 
     INPUT:
 
-    - `bentf`: an object of class `BentFunction`.
+    - ``bentf`` -- an object of class ``BentFunction``.
 
     OUTPUT:
 
-    A List of Graph corresponding to the complete set of
+    A ``List`` of objects of class ``Graph`` corresponding to the complete set of
     non-isomorphic Cayley graphs of the bent functions of the form
-    x \mapsto \mathtt{bentf}(x) + \langle c, x \rangle$.
+    :math:`x \mapsto \mathtt{bentf}(x) + \langle c, x \rangle`.
 
 
-    EXAMPLES::
+    EXAMPLES:
 
     """
     checking = controls.checking

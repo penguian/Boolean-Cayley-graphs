@@ -1,6 +1,13 @@
+r"""
+A Graph and some of its computed properties, including its clique polynomial.
 
+AUTHORS:
+
+- Paul Leopardi (2016-10-05): initial version
+
+"""
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-17 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -9,14 +16,29 @@
 #*****************************************************************************
 
 from sage.graphs.graph import Graph
-from saveable import Saveable
+
+from boolean_cayley_graphs.saveable import Saveable
 
 
 class GraphImproved(Graph, Saveable):
     r"""
-    The class `GraphImproved` is used to store a  graph
-    and some of its computed properties, including
-    its clique polynomial.
+    A Graph and some of its computed properties, including its clique polynomial.
+
+    EXAMPLES:
+
+    ::
+
+        sage: P = graphs.PetersenGraph()
+        sage: P.clique_polynomial()
+        15*t^2 + 10*t + 1
+        sage: from boolean_cayley_graphs.graph_improved import GraphImproved
+        sage: PI = GraphImproved(P)
+        sage: PI.stored_clique_polynomial
+        15*t^2 + 10*t + 1
+        sage: PI.save_mangled('PetersenGraph')
+        sage: LPI = GraphImproved.load_mangled('PetersenGraph')
+        sage: LPI.stored_clique_polynomial
+        15*t^2 + 10*t + 1
     """
     def __init__(self, graph=None, **kwargs):
         Graph.__init__(self, graph, **kwargs)
