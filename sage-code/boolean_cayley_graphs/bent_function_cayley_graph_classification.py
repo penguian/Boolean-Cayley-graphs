@@ -8,7 +8,7 @@ AUTHORS:
 
 - Paul Leopardi (2016-08-02): initial version
 
-EXAMPLES
+EXAMPLES:
 
 ::
 

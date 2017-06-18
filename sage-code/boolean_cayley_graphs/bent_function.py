@@ -1,5 +1,5 @@
 r"""
-Bent Boolean functions.
+Bent Boolean functions and some of their properties.
 
 AUTHORS:
 
@@ -38,18 +38,70 @@ from sage.matrix.constructor import matrix
 from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
 from boolean_cayley_graphs.walsh_hadamard_dual import walsh_hadamard_dual
 
-import weight_class as wc
+import boolean_cayley_graphs.weight_class as wc
 
 
 class BentFunction(BooleanFunctionImproved):
     r"""
-    A bent Boolean function.
+    A bent Boolean function, with methods corresponding to some of its properties.
 
+    The class inherits from BooleanFunctionImproved and is initialized
+    in the same way as BooleanFunction.
+    Since BooleanFunctionImproved inherits from Savable, so does BentFunction.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: bentf.algebraic_normal_form()
+        x0*x1
+        sage: bentf.save_mangled('example')
+        sage: ex = BentFunction.load_mangled('example')
+        sage: type(ex)
+        <class 'boolean_cayley_graphs.bent_function.BentFunction'>
+        sage: ex is bentf
+        False
+        sage: ex == bentf
+        True
     """
 
 
     def is_partial_spread_minus(self, certify=False):
         r"""
+        Determine if a bent function is in the partial spread (-) class.
+
+        Partial spread (-) is Dillon's :math:`\mathcal{PS}^{(-)}` class [Dil1974]_.
+
+        INPUTS:
+
+        - ``self`` -- the current object.
+        - ``certify`` -- boolean (default: False):
+
+        OUTPUT:
+
+        If certify is False, then return True if the bent function
+        represented by ``self`` is in :math:`\mathcal{PS}^{(-)}`,
+        otherwise return False.
+        If certify is True then return two values,
+        where the first is True or False as above,
+        and if the first value is True, the second value is
+        a list of intersections between maximal cliques,
+        otherwie the second value is an empty list.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: bentf = BentFunction([0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0])
+            sage: bentf.is_bent()
+            True
+            sage: bentf.is_partial_spread_minus()
+            True
+            sage: bentf.is_partial_spread_minus(certify=True)
+            (True, [{7, 11, 12}, {3, 13, 14}])
         """
         dim = self.nvariables()
         reqd_clique_size = 2 ** (dim / 2)
@@ -97,6 +149,28 @@ class BentFunction(BooleanFunctionImproved):
 
     def linear_code_graph(self):
         r"""
+        Return the graph of the linear code corresponding to the bent function.
+
+        INPUTS:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        The graph of the linear code corresponding to ``self``.
+        This is a strongly regular graph [Car2007]_, [Del1972]_, [DD2015].
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: bentf = BentFunction([0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0])
+            sage: lcg = bentf.linear_code_graph()
+            sage: type(lcg)
+            <class 'sage.graphs.graph.Graph'>
+            sage: lcg.is_strongly_regular(parameters=True)
+            (16, 6, 2, 2)
         """
         L = self.linear_code()
         return strongly_regular_from_two_weight_code(L)
@@ -104,9 +178,48 @@ class BentFunction(BooleanFunctionImproved):
 
     def sdp_design_matrix(self):
         r"""
-        The function `sdp_design_matrix` returns
-        the incidence matrix of the design of type $R(\mathtt{self})$,
-        as described by Dillon and Schatz (1987).
+        Return the incidence matrix of the SDP design of the bent function.
+
+        This method returns the incidence matrix of the design of type
+        :math:`R(\mathtt{self})`, as described by Dillon and Schatz [DS1987]_.
+        This is a design with the symmetric difference property [Kan1983]_.
+
+        INPUTS:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        The incidence matrix of the SDP design corresponding to ``self``.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: bentf = BentFunction([0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0])
+            sage: sdp = bentf.sdp_design_matrix()
+            sage: print sdp
+            [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
+            [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
+            [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
+            [1 0 0 0 1 0 0 0 1 0 0 0 0 1 1 1]
+            [0 0 0 1 1 1 1 0 0 0 0 1 0 0 0 1]
+            [0 1 0 0 1 0 1 1 0 1 0 0 0 1 0 0]
+            [0 0 1 0 1 1 0 1 0 0 1 0 0 0 1 0]
+            [1 0 0 0 0 1 1 1 1 0 0 0 1 0 0 0]
+            [0 0 0 1 0 0 0 1 1 1 1 0 0 0 0 1]
+            [0 1 0 0 0 1 0 0 1 0 1 1 0 1 0 0]
+            [0 0 1 0 0 0 1 0 1 1 0 1 0 0 1 0]
+            [1 0 0 0 1 0 0 0 0 1 1 1 1 0 0 0]
+            [1 1 1 0 0 0 0 1 0 0 0 1 0 0 0 1]
+            [1 0 1 1 0 1 0 0 0 1 0 0 0 1 0 0]
+            [1 1 0 1 0 0 1 0 0 0 1 0 0 0 1 0]
+            [0 1 1 1 1 0 0 0 1 0 0 0 1 0 0 0]
+            sage: from sage.combinat.designs.incidence_structures import IncidenceStructure
+            sage: sdp_design = IncidenceStructure(sdp)
+            sage: sdp_design.is_t_design(return_parameters=True)
+            (True, (2, 16, 6, 2))
         """
         dim = self.nvariables()
         v = 2 ** dim
@@ -121,15 +234,40 @@ class BentFunction(BooleanFunctionImproved):
 
     def walsh_hadamard_dual(self):
         r"""
-        The function `walsh_hadamard_dual` returns a `BentFunction`
-        based on the Walsh Hadamard transform of `self`.
-        Since `self` is a bent function, the returned `BentFunction` is
-        well-defined and is bent, being the *dual* bent function (Hou 1999)
-        or *Fourier transform* of `self` (Rothaus 1976).
+        Return the Walsh Hadamard dual of the bent function.
 
-        *NOTE* The use of `1 + x/scale` here is to compensate for
-        an incorrect sign in BooleanFunction.walsh_hadamard_transform(self).
-        If this is ever fixed, then this must be changed to `1 - x/scale`.
+        This method returns a ``BentFunction`` based on the Walsh Hadamard
+        transform of ``self``. Since ``self`` is a bent function, the returned
+        ``BentFunction` is well-defined and is bent, being the *dual*
+        bent function [Hou1999]_ or *Fourier transform* of ``self`` [Rot1976]_.
+
+        INPUTS:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        An object of class ``BentFunction``, being the dual of ``self``.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: bentf = BentFunction([0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0])
+            sage: dual_bentf = bentf.walsh_hadamard_dual()
+            sage: type(dual_bentf)
+            <class 'boolean_cayley_graphs.bent_function.BentFunction'>
+            sage: dual_bentf.is_bent()
+            True
+            sage: dual_bentf.algebraic_normal_form()
+            x0*x1 + x2*x3
+
+        NOTE:
+
+        The use of ``1 + x/scale`` in this method is to compensate for
+        an incorrect sign in ``BooleanFunction.walsh_hadamard_transform(self)``.
+        If this is ever fixed, then this must be changed to ``1 - x/scale``.
         """
         dim = self.nvariables()
         scale = 2 ** (dim/2)
@@ -138,6 +276,24 @@ class BentFunction(BooleanFunctionImproved):
 
     def weight_class(self):
         r"""
+        Return the weight class of the bent function.
+
+        INPUTS:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        The value 0 or 1, being the weight class of ``self``.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: bentf = BentFunction([0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0])
+            sage: bentf.weight_class()
+            0
         """
         length = len(self)
         weight = self.weight()
