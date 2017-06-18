@@ -38,7 +38,7 @@ class Saveable(object):
     def load_mangled(cls, name):
         r"""
         """
-        return load(cls.mangled_name(name))
+        return cls(load(cls.mangled_name(name)))
 
 
     def save_mangled(self, name):
