@@ -1,7 +1,6 @@
 r"""
 A subclass of BooleanFunction that adds extra methods.
 
-
 AUTHORS:
 
 - Paul Leopardi (2016-08-23): initial version
@@ -199,7 +198,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         REFERENCES:
 
-        [Car2010]_
+        [Car2010]_ Section 8.6.
 
         [DD2015]_ Corollary 10.
 
@@ -240,6 +239,5 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             5
             sage: bf2.weight()
             5
-
         """
         return sum(self.truth_table(format='int'))

@@ -29,14 +29,12 @@ EXAMPLES:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-
 from sage.arith.srange import xsrange
 from sage.graphs.graph import Graph
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.matrix.constructor import matrix
 
 from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
-from boolean_cayley_graphs.walsh_hadamard_dual import walsh_hadamard_dual
 
 import boolean_cayley_graphs.weight_class as wc
 
@@ -158,7 +156,7 @@ class BentFunction(BooleanFunctionImproved):
         OUTPUT:
 
         The graph of the linear code corresponding to ``self``.
-        This is a strongly regular graph [Car2007]_, [Del1972]_, [DD2015].
+        This is a strongly regular graph [Car2010]_, [Del1972]_, [DD2015].
 
         EXAMPLES:
 
@@ -171,6 +169,15 @@ class BentFunction(BooleanFunctionImproved):
             <class 'sage.graphs.graph.Graph'>
             sage: lcg.is_strongly_regular(parameters=True)
             (16, 6, 2, 2)
+
+        REFERENCES:
+
+        [Car2010]_ Section 8.6 Proposition 8.29.
+
+        [Del1972]_
+
+        [DD2015]_ Corollary 10.
+
         """
         L = self.linear_code()
         return strongly_regular_from_two_weight_code(L)
@@ -182,7 +189,7 @@ class BentFunction(BooleanFunctionImproved):
 
         This method returns the incidence matrix of the design of type
         :math:`R(\mathtt{self})`, as described by Dillon and Schatz [DS1987]_.
-        This is a design with the symmetric difference property [Kan1983]_.
+        This is a design with the symmetric difference property [Kan1975]_.
 
         INPUTS:
 
@@ -220,6 +227,13 @@ class BentFunction(BooleanFunctionImproved):
             sage: sdp_design = IncidenceStructure(sdp)
             sage: sdp_design.is_t_design(return_parameters=True)
             (True, (2, 16, 6, 2))
+
+        REFERENCES:
+
+        [DS1987]_.
+
+        [Kan1975]_.
+
         """
         dim = self.nvariables()
         v = 2 ** dim

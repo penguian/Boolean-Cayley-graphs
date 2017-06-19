@@ -10,7 +10,7 @@
 
 from sage.crypto.boolean_function import BooleanFunction
 
-from boolean_cayley_graphs.boolean_cayley_graph import boolean_function_cayley_graph
+from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
 
 
 def check_bent_isomorphism(dim, k, certify=False):
@@ -35,11 +35,11 @@ def check_bent_isomorphism(dim, k, certify=False):
     nbent = 0
     for a in Combinations(xrange(1, v), k):
         t = [1 if x in a else 0 for x in xrange(v)]
-        f = BooleanFunction(t)
+        f = BooleanFunctionImproved(t)
         f_is_bent = f.is_bent()
         if f_is_bent:
             nbent += 1
-            g = boolean_function_cayley_graph(f)
+            g = f.cayley_graph()
             if nbent == 1:
                 g0 = g
                 print g.is_strongly_regular(parameters=True)

@@ -1,6 +1,13 @@
+r"""
+A strongly regular graph, as described by Royle in 2008.
 
+AUTHORS:
+
+- Paul Leopardi (2016-10-19): initial version
+
+"""
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -16,10 +23,31 @@ from sage.modules.vector_integer_dense import vector
 
 def royle_x_graph():
     r"""
+    A strongly regular graph, as described by Royle in 2008.
 
-    REFERENCE:
+    INPUTS:
 
-    Royle 2008
+    None.
+
+    OUTPUT:
+
+    An object of class ``Graph``, representing Royle's X graph [Roy2008]_.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.royle_x_graph import royle_x_graph
+        sage: g = royle_x_graph()
+        sage: g.is_strongly_regular()
+        True
+        sage: g.is_strongly_regular(parameters=True)
+        (64, 35, 18, 20)
+
+    REFERENCES:
+
+    [Roy2008]_.
+
     """
     n = 8
     order = 64
