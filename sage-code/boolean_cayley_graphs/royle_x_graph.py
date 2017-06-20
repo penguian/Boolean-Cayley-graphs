@@ -25,7 +25,7 @@ def royle_x_graph():
     r"""
     A strongly regular graph, as described by Royle in 2008.
 
-    INPUTS:
+    INPUT:
 
     None.
 
@@ -46,7 +46,7 @@ def royle_x_graph():
 
     REFERENCES:
 
-    [Roy2008]_.
+    .. [Roy2008]_.
 
     """
     n = 8

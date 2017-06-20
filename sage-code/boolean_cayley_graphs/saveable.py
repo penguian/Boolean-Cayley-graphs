@@ -1,5 +1,5 @@
 r"""
-A mixin class with methods that load and save SageObject objects with standardized names.
+A mixin class with methods that load and save objects with standardized names.
 
 AUTHORS:
 
@@ -21,12 +21,15 @@ from sage.structure.sage_object import load
 
 class Saveable(object):
     r"""
+    A mixin class with methods that load and save objects with standardized names.
     """
 
 
     @classmethod
     def mangled_name(cls, name):
         r"""
+        Convert a name for an object into a standardized name.
+
         """
         return cls.__name__ + "__" + name
 
@@ -34,12 +37,17 @@ class Saveable(object):
     @classmethod
     def load_mangled(cls, name):
         r"""
+        Load an object based on its standardized name.
+
         """
         return cls(load(cls.mangled_name(name)))
 
 
     def save_mangled(self, name):
         r"""
+        Save an object using its standardized name.
+
+
         """
         self.save(self.__class__.mangled_name(name))
 

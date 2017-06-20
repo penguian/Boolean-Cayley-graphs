@@ -127,7 +127,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         EXAMPLES:
 
-            The classification of the bent function defined by the polynomial ``x1 + x2 + x1*x2``.
+        The classification of the bent function defined by the polynomial :math:`x_1 + x_2 + x_1 x_2`.
 
         ::
 
@@ -270,7 +270,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         INPUT:
 
-        ``self`` -- the current object.
+        - ``self`` -- the current object.
 
         OUTPUT:
 
@@ -280,7 +280,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         EXAMPLES:
 
-            The result for the bent function defined by the polynomial x1 + x2 + x1*x2.
+        The result for the bent function defined by the polynomial :math:`x_1 + x_2 + x_1 x_2`.
 
         ::
 
@@ -310,33 +310,34 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
     def report(self, report_on_graph_details=True):
         r"""
-        Print a report on the attributes of `self`.
+        Print a report on the classification.
 
-        This includes various computed quantities.
+        The report includes attributes and various computed quantities.
 
         INPUT:
 
-        ``self`` -- the current object.
-        ``report_on_graph_details`` -- optional, Boolean (default: True).
-        If True, produce a detailed report for each Cayley graph.
+        - ``self`` -- the current object.
+        - ``report_on_graph_details`` -- optional, Boolean (default: True).
+           If True, produce a detailed report for each Cayley graph.
 
         OUTPUT:
 
         (To standard output)
-        A report on the following attributes of `self`:
-        - `algebraic_normal_form`
-        - `cayley_graph_class_list`
-        - `bent_cayley_graph_index_matrix`
-        - `dual_cayley_graph_index_matrix`
-        (only if this is not `None` and is different from
-        `bent_cayley_graph_index_matrix`)
-        - `weight_class_matrix`
-        - If report_on_graph_details is `True`:
-        details of each graph in `cayley_graph_class_list`,
+        A report on the following attributes of ``self``:
+        - ``algebraic_normal_form``
+        - ``cayley_graph_class_list``
+        - ``bent_cayley_graph_index_matrix``
+        - ``dual_cayley_graph_index_matrix``
+        (only if this is not ``None`` and is different from
+        ``bent_cayley_graph_index_matrix``)
+        - ``weight_class_matrix``
+        - If report_on_graph_details is ``True``:
+        details of each graph in ``cayley_graph_class_list``.
 
-        EXAMPLES::
+        EXAMPLES:
 
-            Report on the classification of the bent function defined by the polynomial x0+x0*x1+x2*x3.
+        Report on the classification of the bent function defined by
+        the polynomial :math:`x_0 + x_0 x_1 + x_2 x_3`.
 
         ::
 
@@ -430,7 +431,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         REFERENCES:
 
-        .. [Leo2017]_.
+        - [Leo2017]_.
 
         """
         def graph_and_linear_code_report(
@@ -612,19 +613,26 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
     def print_latex_table_of_cayley_classes(self, width=40, rows_per_table=6):
         r"""
+        Print a table of Cayley classes in LaTeX format.
+
         For a given classification, print, in LaTeX format, the table
         of selected properties of the Cayley classes of that classification.
 
         INPUT:
 
-        - ``self`` --
-        - ``width`` -- integer (default: 40)
-        - ``rows_per_table`` -- integer (default: 6)
+        - ``self`` -- the current object.
+        - ``width`` -- integer (default: 40): the table width.
+        - ``rows_per_table`` -- integer (default: 6): the number of rows to
+          include before starting a new table.
+
+        OUTPUT:
+
+        (To standard output.) A table in LaTeX format.
 
         EXAMPLES:
 
-            Print the table of Cayley classes for the classification of the bent
-            function defined by the polynomial x0+x0*x1+x2*x3.
+        Print the table of Cayley classes for the classification of the bent
+        function defined by the polynomial :math:`x_0 + x_0 x_1 + x_2 x_3`.
 
         ::
 
@@ -720,6 +728,64 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
     def print_latex_table_of_tonchev_graphs(self, width=40):
         r"""
+        Print a table comparing Cayley graphs with graphs from Tonchev's codes.
+
+        Tonchev's codes are binary projective two-weight codes
+        as published by Tonchev [Ton1996]_, [Ton2007]_.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``width`` -- integer (default: 40): the table width.
+
+        OUTPUT:
+
+        (To standard output.) A table in LaTeX format.
+
+        .. NOTE::
+
+            The comparison displayed in this table really only makes sense for
+            bent functions in 6 dimensions.
+
+        EXAMPLES:
+
+        The classification for the bent function defined by the polynomial
+        :math:`x_0 x_1 + x_2 x_3 + x_4 x_5`.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: R6.<x0,x1,x2,x3,x4,x5> = BooleanPolynomialRing(6)
+            sage: p = x0*x1 + x2*x3 + x4*x5
+            sage: f = BentFunction(p)
+            sage: c = BentFunctionCayleyGraphClassification(f) # long time (60 seconds)
+            sage: c.print_latex_table_of_tonchev_graphs() # long time (depends on line above)
+            \begin{align*}
+            \def\arraystretch{1.2}
+            \begin{array}{|ccl|}
+            \hline
+            \text{Class} &
+            \text{Parameters} &
+            \text{Reference}
+            \\
+            \hline
+            0 & [35,6,16] & \text{Table 1.156 1 (complement)}
+            \\
+            0 & [35,6,16] & \text{Table 1.156 2 (complement)}
+            \\
+            1 & [27,6,12] & \text{Table 1.155 1 }
+            \\
+            \hline
+            \end{array}
+            \end{align*}
+
+        REFERENCES:
+
+        - [Ton1996]_.
+
+        - [Ton2007]_.
+
         """
         print "\\begin{align*}"
         print "\\def\\arraystretch{1.2}"
@@ -774,9 +840,28 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
     def save_matrix_plots(self, figure_name, cmap='gist_stern'):
         r"""
-        Use matrix_plot to plot the matrices bent_cayley_graph_index_matrix,
-        dual_cayley_graph_index_matrix, and weight_class_matrix
-        to a figure file.
+        Plot the matrix attributes to figure files.
+
+        Use ``matrix_plot`` to plot the matrix attributes
+        ``bent_cayley_graph_index_matrix``, ``dual_cayley_graph_index_matrix``,
+        and ``weight_class_matrix`` to corresponding figure files.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``figure_name`` -- string: the prefix to use in the file names for
+          the figures.
+        - ``cmap`` -- string (default: 'gist_stern'): the colormap to use with
+          ``matrixplot``.
+
+        OUTPUT:
+
+        (To figure files:
+        ``figure_name`` + ``"_bent_cayley_graph_index_matrix.png"``,
+        ``figure_name`` + ``"dual_cayley_graph_index_matrix"``,
+        ``figure_name`` + ``"weight_class_matrix"``) Plots of the corresponding
+        matrix attributes.
+
         """
         matrix_names = (
             "bent_cayley_graph_index_matrix",

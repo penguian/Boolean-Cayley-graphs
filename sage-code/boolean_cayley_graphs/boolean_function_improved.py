@@ -146,11 +146,11 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         where ``dim`` is the number of variables of ``self`` as a
         ``BooleanFunction.``
 
-        NOTE:
+        .. NOTE::
 
-        While ``self`` is a ``BooleanFunction``, the result of
-        ``extended_translate`` is *not* a ``BooleanFunction``,
-        but rather a Python function that takes an ``integer`` argument.
+            While ``self`` is a ``BooleanFunction``, the result of
+            ``extended_translate`` is *not* a ``BooleanFunction``,
+            but rather a Python function that takes an ``integer`` argument.
 
         EXAMPLES:
 
@@ -198,9 +198,9 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         REFERENCES:
 
-        [Car2010]_ Section 8.6.
+        .. [Car2010]_ Section 8.6.
 
-        [DD2015]_ Corollary 10.
+        .. [DD2015]_ Corollary 10.
 
         """
         dim = self.nvariables()

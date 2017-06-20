@@ -33,7 +33,7 @@ def weight_class(length, weight):
     The length is the length of the truth table of a Boolean function.
     The weight is the Hamming weight of the Boolean function.
 
-    INPUTS:
+    INPUT:
 
     - ``length`` -- positive integer:
     - ``weight`` -- positive integer: the given Hamming weight.
@@ -61,14 +61,14 @@ def weight_class(length, weight):
         sage: weight_class(65,35)
         0
 
-    NOTE:
+    .. NOTE::
 
-    The weight class really only makes sense for bent functions, for which
-    the weight class is either 0 or 1 [Leo2017]_.
+        The weight class really only makes sense for bent functions, for which
+        the weight class is either 0 or 1 [Leo2017]_.
 
     REFERENCES:
 
-    [Leo2017]_ Section 2.2 Definition 5.
+    .. [Leo2017]_ Section 2.2 Definition 5.
 
     """
     sqrtlength = sqrt(length)

@@ -38,21 +38,21 @@ def boolean_linear_code_graph(dim, f):
     An object of class ``Graph``, representing the graph corresponding to
     the linear code of the bent Boolean function represented by ``f``.
 
-    NOTE:
+    .. WARNING::
 
-    This function raises a ``ValueError`` if ``f`` is not bent.
+        This function raises a ``ValueError`` if ``f`` is not bent.
 
     REFERENCES:
 
-    [Car2010]_
+    .. [Car2010]_
 
-    [DD2015]_ Corollary 10.
+    .. [DD2015]_ Corollary 10.
 
     EXAMPLES:
 
-    ::
+    Where bf is a bent function.
 
-        Where bf is a bent function.
+    ::
 
         sage: from sage.crypto.boolean_function import BooleanFunction
         sage: bf = BooleanFunction([0,1,0,0,0,1,0,0,0,1,0,0,1,0,1,1])
@@ -64,9 +64,9 @@ def boolean_linear_code_graph(dim, f):
         sage: bg.is_strongly_regular()
         True
 
-    ::
+    Where f is not a bent function.
 
-        Where f is not a bent function.
+    ::
 
         sage: from sage.crypto.boolean_function import BooleanFunction
         sage: f = BooleanFunction([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
@@ -99,11 +99,11 @@ def strongly_regular_from_code_gens(gens):
     An object of class ``Graph``, representing the graph corresponding to
     the generators represented by ``gens``.
 
-    NOTE:
+    .. WARNING::
 
-    This function raises a ``ValueError`` if ``gens`` is not a list of
-    generators of a projective two-weight linear code which yields a
-    strongly regular graph.
+        This function raises a ``ValueError`` if ``gens`` is not a list of
+        generators of a projective two-weight linear code which yields a
+        strongly regular graph.
 
     EXAMPLES:
 

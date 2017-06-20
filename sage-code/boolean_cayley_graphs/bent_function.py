@@ -72,7 +72,7 @@ class BentFunction(BooleanFunctionImproved):
 
         Partial spread (-) is Dillon's :math:`\mathcal{PS}^{(-)}` class [Dil1974]_.
 
-        INPUTS:
+        INPUT:
 
         - ``self`` -- the current object.
         - ``certify`` -- boolean (default: False):
@@ -149,7 +149,7 @@ class BentFunction(BooleanFunctionImproved):
         r"""
         Return the graph of the linear code corresponding to the bent function.
 
-        INPUTS:
+        INPUT:
 
         - ``self`` -- the current object.
 
@@ -172,11 +172,11 @@ class BentFunction(BooleanFunctionImproved):
 
         REFERENCES:
 
-        [Car2010]_ Section 8.6 Proposition 8.29.
+        .. [Car2010]_ Section 8.6 Proposition 8.29.
 
-        [Del1972]_
+        .. [Del1972]_.
 
-        [DD2015]_ Corollary 10.
+        .. [DD2015]_ Corollary 10.
 
         """
         L = self.linear_code()
@@ -191,7 +191,7 @@ class BentFunction(BooleanFunctionImproved):
         :math:`R(\mathtt{self})`, as described by Dillon and Schatz [DS1987]_.
         This is a design with the symmetric difference property [Kan1975]_.
 
-        INPUTS:
+        INPUT:
 
         - ``self`` -- the current object.
 
@@ -230,9 +230,9 @@ class BentFunction(BooleanFunctionImproved):
 
         REFERENCES:
 
-        [DS1987]_.
+        .. [DS1987]_.
 
-        [Kan1975]_.
+        .. [Kan1975]_.
 
         """
         dim = self.nvariables()
@@ -255,7 +255,7 @@ class BentFunction(BooleanFunctionImproved):
         ``BentFunction` is well-defined and is bent, being the *dual*
         bent function [Hou1999]_ or *Fourier transform* of ``self`` [Rot1976]_.
 
-        INPUTS:
+        INPUT:
 
         - ``self`` -- the current object.
 
@@ -277,11 +277,11 @@ class BentFunction(BooleanFunctionImproved):
             sage: dual_bentf.algebraic_normal_form()
             x0*x1 + x2*x3
 
-        NOTE:
+        .. NOTE::
 
-        The use of ``1 + x/scale`` in this method is to compensate for
-        an incorrect sign in ``BooleanFunction.walsh_hadamard_transform(self)``.
-        If this is ever fixed, then this must be changed to ``1 - x/scale``.
+            The use of ``1 + x/scale`` in this method is to compensate for
+            an incorrect sign in ``BooleanFunction.walsh_hadamard_transform(self)``.
+            If this is ever fixed, then this must be changed to ``1 - x/scale``.
         """
         dim = self.nvariables()
         scale = 2 ** (dim/2)
@@ -292,7 +292,7 @@ class BentFunction(BooleanFunctionImproved):
         r"""
         Return the weight class of the bent function.
 
-        INPUTS:
+        INPUT:
 
         - ``self`` -- the current object.
 

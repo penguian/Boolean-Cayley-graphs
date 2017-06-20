@@ -77,13 +77,18 @@ class BijectiveList(object):
     List lookup for __getitem__ uses a list named _item.
     Index lookup for index() and index_append() uses a dict named _index.
     This class is used for 1-1 relationships where index lookup via dict makes sense.
-    """
-    def __init__(self, other_list=None, file_prefix=None):
-        r"""
-        NOTE:
+
+    .. WARNING::
 
         Initialization from a non-empty list can easily break
         the 1-1 relationship between index and item in a BijectiveList.
+    """
+    def __init__(self, other_list=None, file_prefix=None):
+        r"""
+        .. WARNING::
+
+            Initialization from a non-empty list can easily break
+            the 1-1 relationship between index and item in a BijectiveList.
         """
         if other_list == None:
             self._item = []
@@ -194,16 +199,18 @@ class ShelveBijectiveList(BijectiveList):
     Index lookup for index() and index_append() uses a dict named _index.
     This class is used for 1-1 relationships where index lookup via dict makes sense.
 
-    NOTE:
+    .. NOTE::
 
-    This class uses shelve for persistence.
-    """
-    def __init__(self, other_list=None, file_prefix=None):
-        """
-        NOTE:
+        This class uses shelve for persistence.
+
+    .. WARNING::
 
         Initialization from a non-empty list can easily break
         the 1-1 relationship between index and item in a BijectiveList.
+
+    """
+    def __init__(self, other_list=None, file_prefix=None):
+        r"""
         """
         self.file_prefix = file_prefix
         # Work around http://bugs.python.org/issue18039 not fixed in 2.7*
