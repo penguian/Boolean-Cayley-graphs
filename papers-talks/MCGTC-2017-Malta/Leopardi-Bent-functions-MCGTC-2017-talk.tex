@@ -109,39 +109,46 @@ SageMath, Bliss, Nauty.
 %\begin{center}
 \begin{itemize}
 \item
-Key concepts.
+Preliminaries.
 
 ~
 
 \item
-Equivalence.
+Cayley graphs and linear codes.
 
 ~
 
 \item
-Some results.
+Equivalence of bent functions.
 
 ~
 
 \item
-Observations for small dimensions.
+Block designs.
 
 ~
 
 \item
-Some questions.
+Computational results for low dimensions.
 
 ~
 
 \item
-SageMath code.
+Questions.
+
+~
+
+\item
+Source code.
 \end{itemize}
 
 %\end{center}
 \end{frame}
 
-\section{Key concepts}
+\section{Preliminaries}
+
 \begin{colortheme}{seagull}
+
 \begin{frame}
 \frametitle{Bent functions}
 % Bent functions can be defined in a number of equivalent ways.
@@ -187,7 +194,10 @@ The function $\dual{f}$ is also a bent function on $\F_2^{2m}$.
 \slidecite{Dillon 1974; Rothaus 1976; Tokareva 2011}
 \end{frame}
 
+\end{colortheme}
+
 \begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{Weights and weight classes}
 \begin{Def}
@@ -206,7 +216,12 @@ A bent function $f$ on $\F_2^{2m}$ has weight
 % If $f(0)=0$ then $\weightclass{\Cay{f}} := \weightclass{f}$.
 \end{Def}
 \end{frame}
+
 \end{colortheme}
+
+\section{Cayley graphs and linear codes}
+
+\begin{colortheme}{seagull}
 
 \begin{frame}
 \frametitle{The Cayley graph of a Boolean function}
@@ -286,8 +301,7 @@ The parameters of $\Cay{f}$ are
 \slidecite{Menon 1962; Dillon 1974; Bernasconi and Codenotti 1999}
 %\end{center}
 \end{frame}
-\end{colortheme}
-\begin{colortheme}{seagull}
+
 \begin{frame}
 \frametitle{Projective two-weight binary codes}
 
@@ -316,9 +330,7 @@ In the case of $\F_2$, no two columns are equal.
 \slidecite{Tonchev 1996; Bouyukliev, Fack, Willems and Winne 2006}
 
 \end{frame}
-\end{colortheme}
 
-\begin{colortheme}{seagull}
 \begin{frame}
 \frametitle{From bent function to linear code (1)}
 \begin{Def}
@@ -365,6 +377,7 @@ The possible weights of non-zero code words are:
 \slidecite{Carlet 2007, Prop. 20; Ding and Ding 2015, Corollary 10}
 
 \end{frame}
+
 \begin{frame}
 \frametitle{From linear code to strongly regular graph}
 \begin{Def}
@@ -391,34 +404,28 @@ $R(f)$ is a strongly regular graph.
 \slidecite{Delsarte 1972, Theorem 2}
 \end{frame}
 
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
 \begin{frame}
-\frametitle{The two block designs of a bent function}
+\frametitle{The strongly regular graph $R(f)$ is \\ the Cayley graph of the dual}
 
-The first block design of a bent function $f$ is obtained by interpreting
-the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
-In this case we do not need $f(0)=0$.
-
-~
-\begin{Def}
-The second block design of a bent function $f$ is defined by the incidence matrix
-$D(f)$ where
+\begin{Theorem}
+For $f : \F_2^{2m} \To \F_2$, with $f(0)=0$,
 \begin{align*}
-D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
+R(f) &\equiv \Cay{\dual{f} + \weightclass{f}}.
 \end{align*}
-This is a symmetric block design with the \Emph{symmetric difference property},
-called the \Emph{SDP design} of $f$.
-\end{Def}
+\end{Theorem}
 
-~
-
-\slidecite{Kantor 1975; Dillon and Schatz 1987; Neumann 2006}
 \end{frame}
 
 \end{colortheme}
 
-\section{Equivalence}
+\section{Equivalence of bent functions}
 
 \begin{colortheme}{seagull}
+
 \begin{frame}
 \frametitle{Extended affine equivalence}
 
@@ -433,11 +440,13 @@ for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \end{Def}
 ~
 
-\slidecite{Tokareva 2014}
+\slidecite{Tokareva 2015}
 \end{frame}
+
 \end{colortheme}
 
 \begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{General linear equivalence}
 
@@ -463,9 +472,7 @@ g(x) &= f(x + b) + \langle c, x \rangle + \delta
 for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \end{Def}
 \end{frame}
-\end{colortheme}
 
-\begin{colortheme}{jubata}
 \begin{frame}
 \frametitle{Cayley equivalence}
 \begin{Def}
@@ -498,7 +505,6 @@ we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$
 \end{Def}
 Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\F_2^{2m}$.
 \end{frame}
-\section{Theoretical results}
 
 \begin{frame}
 \frametitle{General linear equivalence \\ implies Cayley equivalence}
@@ -554,18 +560,38 @@ corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle 
 
 \end{frame}
 
+\end{colortheme}
+
+\section{Block designs}
+
+\begin{colortheme}{seagull}
 
 \begin{frame}
-\frametitle{The strongly regular graph $R(f)$ is \\ the Cayley graph of the dual}
+\frametitle{The two block designs of a bent function}
 
-\begin{Theorem}
-For $f : \F_2^{2m} \To \F_2$, with $f(0)=0$,
+The first block design of a bent function $f$ is obtained by interpreting
+the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
+In this case we do not need $f(0)=0$.
+
+~
+\begin{Def}
+The second block design of a bent function $f$ is defined by the incidence matrix
+$D(f)$ where
 \begin{align*}
-R(f) &\equiv \Cay{\dual{f} + \weightclass{f}}.
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
 \end{align*}
-\end{Theorem}
+This is a symmetric block design with the \Emph{symmetric difference property},
+called the \Emph{SDP design} of $f$.
+\end{Def}
 
+~
+
+\slidecite{Kantor 1975; Dillon and Schatz 1987; Neumann 2006}
 \end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
 
 \begin{frame}
 \frametitle{The weight class matrix is \\ the SDP design matrix}
@@ -591,9 +617,10 @@ D(f)_{c,b}.
 
 \end{colortheme}
 
-%\begin{colortheme}{jubata}
 \section{Computational results for low dimensions}
+
 \begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{For 2 dimensions: classes}
 
@@ -697,6 +724,11 @@ Two extended Cayley classes:
 \end{minipage}
 \end{figure}
 \end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{seagull}
+
 \begin{frame}
 \frametitle{For 6 dimensions: ET classes}
 
@@ -737,7 +769,13 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \hline
 \end{array}
 \end{align*}
+\slidecite{Rothaus 1976; Tokareva 2015}
 \end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{For ET class $[f_{6,1}]$: EC classes}
 
@@ -935,7 +973,11 @@ Three extended Cayley classes corresponding to Tonchev's projective two-weight c
 \end{minipage}
 \end{figure}
 \end{frame}
+
+\end{colortheme}
+
 \begin{colortheme}{seagull}
+
 \begin{frame}
 \frametitle{For 8 dimensions: \\ number of bent functions and EA classes}
 
@@ -948,7 +990,7 @@ The number of EA classes has not yet been published, let alone a list of represe
 
 \slidecite{Langevin and Leander 2011}
 \end{frame}
-\end{colortheme}
+
 \begin{frame}
 \frametitle{For 8 dimensions, up to degree 3: \\ extended translation classes}
 
@@ -1022,8 +1064,14 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 \hline
 \end{array}
 \end{align*}
+\slidecite{Braeken 2006; Tokareva 2015}
 \normalsize{}
 \end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{For ET class $[f_{8,1}]$: matrices}
 \begin{figure}
@@ -1214,8 +1262,11 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \end{figure}
 6 of the 10 classes form 3 dual pairs of classes.
 \end{frame}
+
 \end{colortheme}
+
 \begin{colortheme}{seagull}
+
 \begin{frame}[fragile]
 \frametitle{For 8 dimensions: number of partial spread \\ bent functions and EA classes}
 
@@ -1233,8 +1284,11 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 
 \slidecite{Langevin and Hou 2011}
 \end{frame}
+
 \end{colortheme}
+
 \begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{Example partial spread ET class $[psf_{9,5439}]$}
 \begin{figure}
@@ -1254,7 +1308,11 @@ http://langevin.univ-tln.fr/project/spread/psp.html
 \end{figure}
 6 of the 16 classes form 3 dual pairs of classes.
 \end{frame}
+
+\end{colortheme}
+
 \begin{colortheme}{seagull}
+
 \begin{frame}[fragile]
 \frametitle{For 8 dimensions: Bent functions from CAST-128 S-boxes}
 
@@ -1272,7 +1330,11 @@ with degree 4.
 
 \slidecite{Adams 1997}
 \end{frame}
+
 \end{colortheme}
+
+\begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{Example CAST-128 ET class $[cast128_{1,0}]$}
 \begin{figure}
@@ -1293,9 +1355,15 @@ with degree 4.
 \end{figure}
 Dual bent functions yield another $65\,536$ extended Cayley classes!
 \end{frame}
+
+\end{colortheme}
+
 \section{Questions}
+
+\begin{colortheme}{jubata}
+
 \begin{frame}
-\frametitle{Open problems}
+\frametitle{Open problems (1)}
 Settled only for dimensions up to 6:
 \begin{enumerate}
 \item
@@ -1311,19 +1379,35 @@ Which bent functions are Cayley equivalent to their dual?
 \item
 Which bent functions are EA equivalent to their dual?
 \end{enumerate}
+
+\slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin, Leander and McGuire 2008}
+\end{frame}
+
+\begin{frame}
+\frametitle{Open problems (2)}
 Also:
+
+~
+
 \begin{enumerate}
 \item
 What are the remaining EA and EC classes of binary bent functions of dimension 8 and degree 4?
+
+~
+
 \item
 How do extended Cayley classes of bent functions generalize to bent functions over $\F_p$, $p \neq 2$?
 \end{enumerate}
 
-\slidecite{Chee, Tan and Zhang 2011; Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
+\slidecite{Langevin and Leander 2011; Chee, Tan and Zhang 2011}
 \end{frame}
+
 \end{colortheme}
+
 \section{Source code}
+
 \begin{colortheme}{jubata}
+
 \begin{frame}[fragile]
 \frametitle{Source code on GitHub and CoCalc}
 ~
@@ -1343,9 +1427,13 @@ http://tinyurl.com/Boolean-Cayley-graphs
 \end{verbatim}
 
 \end{frame}
+
 \end{colortheme}
+
 \section{Last}
+
 \begin{colortheme}{jubata}
+
 \begin{frame}
 \frametitle{Thank you.}
 
@@ -1367,4 +1455,5 @@ http://tinyurl.com/Boolean-Cayley-graphs
 \end{frame}
 
 \end{colortheme}
+
 \end{document}
