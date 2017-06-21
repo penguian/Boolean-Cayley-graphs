@@ -209,29 +209,6 @@ A bent function $f$ on $\F_2^{2m}$ has weight
 \end{colortheme}
 
 \begin{frame}
-\frametitle{The two block designs of a bent function}
-
-The first block design of a bent function $f$ is obtained by interpreting
-the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
-In this case we do not need $f(0)=0$.
-
-~
-\begin{Def}
-The second block design of a bent function $f$ is defined by the incidence matrix
-$D(f)$ where
-\begin{align*}
-D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
-\end{align*}
-This is a symmetric block design with the \Emph{symmetric difference property},
-called the \Emph{SDP design} of $f$.
-\end{Def}
-
-~
-
-\slidecite{Kantor 1975; Dillon and Schatz 1987; Neumann 2006}
-\end{frame}
-
-\begin{frame}
 \frametitle{The Cayley graph of a Boolean function}
 %\begin{center}
 The \Emph{Cayley graph} $\Cay{f}$ of a Boolean function
@@ -413,6 +390,30 @@ $R(f)$ is a strongly regular graph.
 
 \slidecite{Delsarte 1972, Theorem 2}
 \end{frame}
+
+\begin{frame}
+\frametitle{The two block designs of a bent function}
+
+The first block design of a bent function $f$ is obtained by interpreting
+the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
+In this case we do not need $f(0)=0$.
+
+~
+\begin{Def}
+The second block design of a bent function $f$ is defined by the incidence matrix
+$D(f)$ where
+\begin{align*}
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
+\end{align*}
+This is a symmetric block design with the \Emph{symmetric difference property},
+called the \Emph{SDP design} of $f$.
+\end{Def}
+
+~
+
+\slidecite{Kantor 1975; Dillon and Schatz 1987; Neumann 2006}
+\end{frame}
+
 \end{colortheme}
 
 \section{Equivalence}
@@ -544,28 +545,6 @@ for each $b, c \in \F_2^{2m}$.
 \end{frame}
 
 \begin{frame}
-\frametitle{The weight class matrix is \\ the SDP design matrix}
-\begin{Theorem}
-For every bent function $f$, the \Emph{weight class matrix} of the ET class of $f$
-equals the incidence matrix of the SDP design of $f$.
-
-~
-
-Specifically,
-\begin{align*}
-\weightclass{\Cay{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}}
-&=
-f(b) + \langle c, b \rangle + \dual{f}(c)
-\\
-&=
-D(f)_{c,b}.
-\end{align*}
-
-\end{Theorem}
-
-\end{frame}
-
-\begin{frame}
 \frametitle{Quadratic bent functions have two \\ extended Cayley classes}
 \begin{Theorem}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
@@ -584,6 +563,28 @@ For $f : \F_2^{2m} \To \F_2$, with $f(0)=0$,
 \begin{align*}
 R(f) &\equiv \Cay{\dual{f} + \weightclass{f}}.
 \end{align*}
+\end{Theorem}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The weight class matrix is \\ the SDP design matrix}
+\begin{Theorem}
+For every bent function $f$, the \Emph{weight class matrix} of the ET class of $f$
+equals the incidence matrix of the SDP design of $f$.
+
+~
+
+Specifically,
+\begin{align*}
+\weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
+&=
+f(b) + \langle c, b \rangle + \dual{f}(c)
+\\
+&=
+D(f)_{c,b}.
+\end{align*}
+
 \end{Theorem}
 
 \end{frame}
