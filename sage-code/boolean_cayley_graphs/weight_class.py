@@ -8,6 +8,7 @@ AUTHORS:
 EXAMPLES:
 
 ::
+
     sage: from boolean_cayley_graphs.weight_class import weight_class
     sage: weight_class(4,1)
     0
