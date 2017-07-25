@@ -55,8 +55,7 @@
 %
 \newenvironment{proofof}[1]{\noindent\emph{Proof of #1.}}{\qed}
 
-\title{arXiv DRAFT ONLY: \\
-Classifying bent functions by their Cayley graphs}
+\title{Classifying bent functions by their Cayley graphs}
 
 \author{
 Paul~Leopardi
@@ -66,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{21 June 2017}
+\date{24 July 2017}
 
 \begin{document}
 
@@ -78,7 +77,7 @@ In 1999 Bernasconi and Codenotti noted that the Cayley graph of a bent function 
 This paper describes the concept of extended Cayley equivalence of bent functions,
 discusses some connections between bent functions, designs, and codes,
 and explores the relationship between extended Cayley equivalence and extended affine equivalence.
-SageMath scripts and Sage\-Math\-Cloud worksheets are used to compute and display some of these relationships,
+SageMath scripts and CoCalc worksheets are used to compute and display some of these relationships,
 for bent functions up to dimension 8.
 %
 \end{abstract}
@@ -106,9 +105,10 @@ with dimension.
 This result suggests that the number of strongly regular graphs obtained as Cayley graphs of bent
 functions also increases at least exponentially with dimension.
 
-In a recent paper, the author found an example of two infinite series of bent functions whose
+In a recent paper \cite{Leo17Hurwitz},
+the author found an example of two infinite series of bent functions whose
 Cayley graphs have the same strongly regular parameters at each dimension,
-but are not isomorphic if the dimension 8 or more \cite{Leo17Hurwitz}.
+but are not isomorphic if the dimension 8 or more.
 
 The goal of the current paper is to further explore the connections between bent functions, their
 Cayley graphs, and related combinatorial objects,
@@ -117,8 +117,19 @@ functions, in particular, the relationship between the extended affine
 equivalence classes and equivalence classes defined by isomorphism of Cayley graphs.
 As well as a theoretical study of bent functions of all dimensions, an computational study is conducted
 into bent functions of dimension at most 8,
-using SageMath \cite{SageMath7517} and Sage\-Math\-Cloud \cite{SageMathCloud}.
+using SageMath \cite{SageMath7517} and CoCalc \cite{SageMathCloud}.
 
+The theoretical results of this paper serve a few purposes.
+Firstly, in order to classify bent functions by their Cayley graphs,
+it helps to understand the relationship between Cayley equivalence and other concepts of equivalence
+of bent functions, especially if this helps to cut down the search space needed for the
+classification.
+A similar consideration applies to the duals of bent functions.
+Secondly, some of the empirical observations made in the classification of bent functions in small
+dimensions can be explained by these theoretical results.
+Thirdly, these theoretical results can improve our understanding of the relationships between
+bent functions, projective two-weight codes, strongly regular graphs, and
+symmetric block designs with the symmetric difference property.
 
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
 % The bent function $\sigma_m$ on $\F_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on
@@ -141,10 +152,13 @@ The remainder of the paper is organized as follows.
 Section \ref{sec-Preliminaries} covers the concepts, definitions and known results used later in the paper.
 Some of these concepts and definitions are novel, such as new notions of equivalence of bent
 functions.
-%Section \ref{sec-Equivalence} introduces various concepts of equivalence of bent functions.
-Section \ref{sec-Results} contains the main theoretical results of the paper.
+Section \ref{sec-Bent-graphs} discusses the relationship between bent functions and strongly regular graphs.
+Section \ref{sec-Equivalence} introduces various concepts of equivalence of bent functions,
+and discusses their relationships.
+Section \ref{sec-Bent-designs} discusses the relationship between bent functions and block designs.
+%Section \ref{sec-Results} contains the main theoretical results of the paper.
 Section \ref{sec-Empirical} lists some of the properties of the equivalence classes of bent functions for dimension up to 8.
-Section \ref{sec-Code} describes the SageMath and Sage\-Math\-Cloud code that has been used to obtain
+Section \ref{sec-Code} describes the SageMath and CoCalc code that has been used to obtain
 and display these computational results.
 Section~\ref{sec-Discussion} puts these results in the context of questions that are still open.
 %
@@ -178,7 +192,7 @@ Section~\ref{sec-Discussion} puts these results in the context of questions that
 % ~
 %
 % \item
-% Sage\-Math\-Cloud worksheet.
+% CoCalc worksheet.
 % \end{itemize}
 
 %\end{center}
@@ -233,7 +247,8 @@ Section~\ref{sec-Discussion} puts these results in the context of questions that
 % The main result of this paper, Theorem \ref{HR-non-imomorphic-theorem} leads to the resolution of
 %these conjectures and this question.
 
-\section{Key concepts}
+%\section{Key concepts}
+\section{Preliminaries}
 \label{sec-Preliminaries}
 
 % \begin{frame}
@@ -314,6 +329,89 @@ A bent function $f$ on $\F_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74}
 \end{Definition}
 % \end{frame}
 
+\paragraph*{Weight classes and dual bent functions.}
+%\subsection{Weight classes and dual bent functions.}
+
+We now note a connection between weight classes and dual bent functions that
+makes it a little easier to reason about dual bent functions.
+The following lemma expresses the dual bent function in terms of weight classes.
+
+\begin{Lemma}
+\label{lm-notes-9b}
+For a bent function $f : \F_2^{2m} \To \F_2$, and $x \in \F_2^{2m}$,
+\begin{align*}
+\dual{f}(x)
+&=
+\weightclass{y \mapsto f(y) + \langle x, y \rangle}
+\end{align*}
+
+\end{Lemma}
+
+The proof of Lemma~\ref{lm-notes-9b} relies on the following lemma about weight classes.
+\begin{Lemma}
+\label{lm-notes-9a}
+For a bent function $f : \F_2^{2m} \To \F_2$,
+\begin{align*}
+\weightclass{f}
+&=
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1},
+\intertext{so that}
+\weight{f}
+&=
+2^{m} \weightclass{f} + 2^{2m-1} - 2^{m-1}.
+\end{align*}
+
+\end{Lemma}
+
+\begin{proof}
+If $\weight{f} = 2^{2 m - 1} - 2^{m-1}$ then
+\begin{align*}
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
+&=
+2^{-m} (2^{2 m - 1} - 2^{m-1}) - 2^{m-1} + 2^{-1}
+\\
+&=
+2^{m-1} - 2^{-1}  - 2^{m-1} + 2^{-1} = 0.
+\end{align*}
+If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
+\begin{align*}
+2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
+&=
+2^{-m} (2^{2 m - 1} + 2^{m-1}) - 2^{m-1} + 2^{-1}
+\\
+&=
+2^{m-1} + 2^{-1}  - 2^{m-1} + 2^{-1} = 1.
+\end{align*}
+\end{proof}
+
+\begin{proofof}{Lemma~\ref{lm-notes-9b}}
+Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
+Then
+\begin{align*}
+(-1)^{\dual{f}(x)}
+&=
+2^{-m} \sum_{y \in \F_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
+\\
+&=
+2^{-m} \left( \sum_{f(y) + \langle x, y \rangle = 0} 1 - \sum_{f(y) + \langle x, y \rangle = 1} 1
+\right)
+\\
+&=
+2^{-m} \left( 2^{2m} - 2 \weight{h} \right)
+=
+2^m - 2^{1-m} \weight{h}
+\\
+&=
+2^m - 2^{1-m} (2^{m} \weightclass{h} + 2^{2m-1} - 2^{m-1})
+\\
+&=
+2^m - 2 \weightclass{h} - 2^m + 1
+=
+1 - 2 \weightclass{h} = (-1)^{\weightclass{h}},
+\end{align*}
+where we have used Lemma~\ref{lm-notes-9a}.
+\end{proofof}
+
 %
 %~
 %
@@ -321,74 +419,8 @@ A bent function $f$ on $\F_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74}
 % \end{frame}
 
 % \begin{frame}
-\subsection{The two block designs of a bent function}
-
-The first block design of a bent function $f$ on $\F_2^{2m}$ is obtained by interpreting
-the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
-In this case we do not need $f(0)=0$ \cite[p. 160]{DilS87block}.
-
-The second block design of a bent function $f$ involves the
-\Emph{symmetric difference property}, which was first investigated by Kantor
-\cite[Section 5]{Kan75symplectic}.
-\begin{Definition}
-\label{def-Symmetric-difference-property}
-\cite[p. 49]{Kan75symplectic}.
-
-A symmetric block design $\mathcal{D}$ has the symmetric difference property (SDP)
-if, for any three blocks, $B, C, D$ of $\mathcal{D},$ the symmetric difference
-$B \bigtriangleup C \bigtriangleup D$ is either a block or the complement of a block.
-\end{Definition}
-
-This second block design is defined as follows.
-\begin{Definition}
-\label{def-SDP-design}
-For a bent function  $f$ on $\F_2^{2m}$, define the matrix $M_D(f) \in \F_2^{2^{2m} \times 2^{2m}}$ where
-\begin{align}
-M_D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c),
-\label{D-f-def}
-\end{align}
-and use it as the incidence matrix of a symmetric block design, which
-we call it the \emph{SDP design} of $f$.
-\end{Definition}
-
-Kantor describes the special case where $f$ is quadratic
-\cite[Section 5]{Kan75symplectic},
-and Dillon and Schatz \cite{DilS87block} describe the general case.
-
-Definition~\ref{def-SDP-design} is different from but equivalent to the one given by Dillon and Schatz \cite[p. 160]{DilS87block}:
-\begin{Lemma}
-\label{lm-SDP-design-rows}
-\cite[3.29]{Neu06bent}
-
-For any bent function $f$ on $\F_2^{2m}$, the rows of the incidence matrix $M_D(f)$
-are given by the words of minimum weight in the code spanned by the support of $f$ and the Reed-Muller code $RM(1,2m)$.
-\end{Lemma}
-The proof of Lemma~\ref{lm-SDP-design-rows} is deferred to Section~\ref{sec-Results}.
-
-The following properties of SDP designs of bent functions are well known.
-\begin{Proposition}
-\label{prop-SDP-design}
-\cite[p. 160]{DilS87block} \cite[Theorem 3.29]{Neu06bent}
-
-For any bent function $f$ on $\F_2^{2m}$, the SDP design of $f$ has the symmetric difference property.
-\end{Proposition}
-
-\begin{Proposition}
-\label{prop-SDP-design-affine-equivalence}
-\cite[p. 161]{DilS87block} \cite{Kan83exponential}
-
-For bent functions $f, g$ on $\F_2^{2m}$,
-the two SDP designs $D(f)$ and $D(g)$ are isomorphic as symmetric block designs if and only if $f$ and $g$ are affine equivalent.
-\end{Proposition}
-
-%
-%~
-%
-%\slidecite{Dillon and Schatz 1987; Neumann 2006}
-% \end{frame}
-
-% \begin{frame}
-
+\section{Bent functions and strongly regular graphs}
+\label{sec-Bent-graphs}
 \subsection{The Cayley graph of a Bent function}
 
 The Cayley graph of a bent function $f$ with $f(0)=0$ is defined
@@ -571,443 +603,10 @@ $R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
 % \end{frame}
 
 % \end{frame}
-\subsection{More concepts of equivalence of bent functions}
-%\label{sec-Equivalence}
-The following concepts of equivalence of Boolean functions are used in this paper,
-usually in the case where the Boolean functions are bent.
 
-% \begin{frame}
-\paragraph*{Extended affine equivalence.}
-
-\begin{Definition}
-For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
-$f$ is \Emph{extended affine equivalent} to $g$ \cite[Section 1.4]{Tok15bent} if and only if
-\begin{align*}
-g(x) &= f(A x + b) + \langle c, x \rangle + \delta
-\end{align*}
-for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
-\end{Definition}
-
-% \begin{frame}
-\paragraph*{General linear equivalence.}
-
-\begin{Definition}
-For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
-$f$ is \Emph{general linear equivalent} to $g$ if and only if
-\begin{align*}
-g(x) &= f(A x)
-\end{align*}
-for some $A \in GL(2m,2)$.
-\end{Definition}
-
-% \begin{frame}
-\paragraph*{Extended translation equivalence.}
-
-\begin{Definition}
-For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
-$f$ is \Emph{extended translation equivalent} to $g$ if and only if
-\begin{align*}
-g(x) &= f(x + b) + \langle c, x \rangle + \delta
-\end{align*}
-for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
-\end{Definition}
-% \end{frame}
-
-%\slidecite{Tokareva 2014}
-% \end{frame}
-% \begin{frame}
-\paragraph*{Cayley equivalence.}
-\begin{Definition}
-%
-For Boolean functions $f, g : \F_2^{2m} \To \F_2$, with $f(0)=g(0)=0$,
-we call $f$ and $g$ \Emph{Cayley equivalent},
-and write $f \equiv g$,
-if and only if the graphs $\Cay{f}$ and $\Cay{g}$ are isomorphic.
-
-Equivalently, $f \equiv g$ if and only if
-there exists a bijection $\pi : \F_2^{2m} \To \F_2^{2m}$ such that
-\begin{align*}
-g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \F_2^{2m}.
-\end{align*}
-\end{Definition}
-% \end{frame}
-Remark: Note that the bijection $\pi$ is not necessarily linear on $\F_2^{2m}$.
-Examples of bent functions $f$ and $g$ where $f \equiv g$ but the bijection is not linear
-are given in Section~\ref{sec-Empirical}.
-% \begin{frame}
-\paragraph*{Extended Cayley equivalence.}
-%
-While Bernasconi and Codenotti \cite{BerC99} define Cayley graphs for Boolean functions with
-$f(0)=1$ and allow Cayley graphs to have loops, this paper defines Cayley
-graphs only for Boolean functions where $f(0)=0$.
-This has the disadvantage that Cayley equivalence is an equivalence relation on half
-of the Boolean functions rather than all of them.
-To extend this equivalence relation to all Boolean functions,
-we just declare the functions $f$ and $f+1$ to be ``extended'' Cayley equivalent,
-resulting in the following definition.
-\begin{Definition}
-For Boolean functions $f, g : \F_2^{2m} \To \F_2$,
-if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
-we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
-\end{Definition}
-Extended Cayley equivalence is thus an equivalence relation on the set of all Boolean functions on
-$\F_2^{2m}$.
-It is easy to verify that $f \cong g$ if and only if $f+f(0) \equiv g+g(0)$.
-
-Remark: While extended affine equivalence has been well studied,
-general linear equivalence and extended translation equivalence are less often used,
-and the two notions of Cayley equivalence are apparently new.
 
 % \end{frame}
-\section{Theoretical results}
-\label{sec-Results}
-% \begin{frame}
-
-This section contains a number of theoretical results that serve a few purposes.
-Firstly, in order to classify bent functions by their Cayley graphs,
-it helps to understand the relationship between Cayley equivalence and other concepts of equivalence
-of bent functions, especially if this helps to cut down the search space needed for the
-classification.
-A similar consideration applies to the duals of bent functions.
-Secondly, some empirical observations made in the classification of bent functions in small
-dimensions can be explained by theoretical results.
-Thirdly, theoretical results can improve our understanding of the relationships between
-some of the concepts introduced in the previous section, notably dual bent functions, SDP designs,
-projective two-weight codes, and strongly regular graphs.
-
-% \begin{frame}
-\subsection{Different concepts of equivalence}
-
-\paragraph*{General linear equivalence implies Cayley equivalence.}
-
-Firstly, general linear equivalence implies Cayley equivalence.
-Specifically, the following result applies.
-\begin{Theorem}
-\label{th-Linear-Cayley}
-If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
-then $g$ is bent with $g(0)=0$ and $f \equiv g$.
-\end{Theorem}
-\begin{proof}
-\begin{align*}
-g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \F_2^{2m}.
-\end{align*}
-\end{proof}
-
-% \end{frame}
-
-% \begin{frame}
-\paragraph*{Extended affine, translation, and Cayley equivalence.}
-
-Secondly, if $f$ is bent with $f(0)=0$, and a bent function $h$ is extended affine equivalent to
-$f$,
-then a bent function $g$ can be found that is Cayley equivalent to $h$ and extended translation
-equivalent to $f$.
-\begin{Theorem}
-\label{th-Affine-Translate-Cayley}
-For $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$,
-$f : \F_2^{2m} \To \F_2$,
-
-the function
-\begin{align*}
-h(x) &:= f(A x + b) + \langle c, x \rangle + \delta
-\intertext{can be expressed as $h(x) = g(A x)$ where}
-g(x) &:= f(x+b) + \langle (A^{-1})^T c, x \rangle + \delta,
-\end{align*}
-and therefore if $f$ is bent and $h(0)=0$ then $h \equiv g$.
-\end{Theorem}
-% \end{frame}
-\begin{proof}
-Let $y:= A x$. Then
-\begin{align*}
-g(A x) = g(y) &= f(y+b) + \langle (A^{-1})^T c, y \rangle + \delta
-\\
-&= f(y+b) + \langle c, A^{-1} y \rangle + \delta
-\\
-&= f(A x + b) + \langle c, x \rangle + \delta = h(x).
-\end{align*}
-If $f$ is bent, then so are $g$ and $h$.
-Therefore, by Theorem \ref{th-Linear-Cayley},
-if $h(0)=0$ then $h \equiv g$.
-\end{proof}
-
-
-% \begin{frame}
-% \subsection{Extended affine equivalence}
-
-Therefore, to determine
-which strongly regular graphs occur in
-the extended Cayley equivalence classes within the extended affine
-equivalence class of
-a bent function $f : \F_2^{2m} \To \F_2$, for which $f(0)=0$, we need only examine
-the extended translation equivalent functions of the form
-\begin{align*}
-f(x+b) + \langle c, x \rangle + f(b),
-\end{align*}
-for each $b, c \in \F_2^{2m}$.
-This cuts down the required search space considerably.
-
-% \end{frame}
-% \begin{frame}
-
-% \begin{frame}
-\subsection{Weight classes, dual functions, and SDP designs}
-\paragraph*{Weight classes and dual bent functions.}
-
-We first note a connection between weight classes and dual bent functions that
-makes it a little easier to reason about dual bent functions.
-The following lemma expresses the dual bent function in terms of weight classes.
-
-\begin{Lemma}
-\label{lm-notes-9b}
-For a bent function $f : \F_2^{2m} \To \F_2$, and $x \in \F_2^{2m}$,
-\begin{align*}
-\dual{f}(x)
-&=
-\weightclass{y \mapsto f(y) + \langle x, y \rangle}
-\end{align*}
-
-\end{Lemma}
-
-The proof of Lemma~\ref{lm-notes-9b} relies on the following lemma about weight classes.
-\begin{Lemma}
-\label{lm-notes-9a}
-For a bent function $f : \F_2^{2m} \To \F_2$,
-\begin{align*}
-\weightclass{f}
-&=
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1},
-\intertext{so that}
-\weight{f}
-&=
-2^{m} \weightclass{f} + 2^{2m-1} - 2^{m-1}.
-\end{align*}
-
-\end{Lemma}
-
-\begin{proof}
-If $\weight{f} = 2^{2 m - 1} - 2^{m-1}$ then
-\begin{align*}
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
-&=
-2^{-m} (2^{2 m - 1} - 2^{m-1}) - 2^{m-1} + 2^{-1}
-\\
-&=
-2^{m-1} - 2^{-1}  - 2^{m-1} + 2^{-1} = 0.
-\end{align*}
-If $\weight{f} = 2^{2 m - 1} + 2^{m-1}$ then
-\begin{align*}
-2^{-m} \weight{f} - 2^{m-1} + 2^{-1}
-&=
-2^{-m} (2^{2 m - 1} + 2^{m-1}) - 2^{m-1} + 2^{-1}
-\\
-&=
-2^{m-1} + 2^{-1}  - 2^{m-1} + 2^{-1} = 1.
-\end{align*}
-\end{proof}
-
-\begin{proofof}{Lemma~\ref{lm-notes-9b}}
-Let $h(y) := y \mapsto f(y) + \langle x, y \rangle.$
-Then
-\begin{align*}
-(-1)^{\dual{f}(x)}
-&=
-2^{-m} \sum_{y \in \F_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
-\\
-&=
-2^{-m} \left( \sum_{f(y) + \langle x, y \rangle = 0} 1 - \sum_{f(y) + \langle x, y \rangle = 1} 1
-\right)
-\\
-&=
-2^{-m} \left( 2^{2m} - 2 \weight{h} \right)
-=
-2^m - 2^{1-m} \weight{h}
-\\
-&=
-2^m - 2^{1-m} (2^{m} \weightclass{h} + 2^{2m-1} - 2^{m-1})
-\\
-&=
-2^m - 2 \weightclass{h} - 2^m + 1
-=
-1 - 2 \weightclass{h} = (-1)^{\weightclass{h}},
-\end{align*}
-where we have used Lemma~\ref{lm-notes-9a}.
-\end{proofof}
-
-The following propositions are based on well known results,
-but are useful in understanding the relationship
-between the duality of bent functions and various concepts of equivalence.
-% \begin{frame}
-%\subsection{Dual functions}
-
-Firstly, general linear equivalence of bent functions $f$ and $g$
-implies general linear equivalence of their duals, $\dual{f}$ and $\dual{g}$,
-which implies Cayley equivalence of $\dual{f}$ and $\dual{g}$.
-\begin{Proposition}
-\label{prop-dual-linear-equivalence}
-\cite[Remark 6.2.7]{Dil74}
-
-For a bent function $f : \F_2^{2m} \To \F_2$, and $A \in GL(2 m, 2)$, if
-\begin{align*}
-g(x) &:= f(A x)
-\intertext{then}
-\dual{g}(x) &= \dual{f}\big((A^T)^{-1} x \big),
-\end{align*}
-and therefore by Theorem \ref{th-Linear-Cayley}, $\dual{g} \equiv \dual{f}$.
-
-If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
-\end{Proposition}
-
-Remark: Functions of the form
-\begin{align*}
-f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
-\end{align*}
-are self dual bent functions, $f=\dual{f}$ \cite[Remark 6.3.2]{Dil74}.
-There are many other self dual bent functions \cite{CarDPS10self,FeuSSW2013}.
-
-Secondly, the following proposition displays a relationship between the extended translation
-class of a bent function $f$, and that of its dual $\dual{f}$.
-\begin{Proposition}
-\label{prop-dual-affine-equivalence}
-\cite[Remark 6.2.7]{Dil74} \cite[Proposition 8.7]{Car10boolean}.
-%\smallcite{Carlet 2007, Proposition 4}
-%
-%~
-
-For a bent function $f$ on $\F_2^{2m}$, and $b,c \in \F_2^{2m}$,
-if
-\begin{align*}
-g(x) &:= f(x+b) + \langle c, x \rangle
-\intertext{then}
-\dual{g}(x) &= \dual{f}(x+c) + \langle b, x \rangle + \langle b, c \rangle.
-\end{align*}
-\end{Proposition}
-
-This result has an implication for the relationship between the set of bent functions within
-an extended translation (ET) equivalence class, and the set of their duals.
-Recall that a bent function is not necessarily extended affine (EA) equivalent to its dual
-\cite{LanLM08Kasami}.
-The following ``all or nothing'' property holds within an extended translation equivalence class of bent functions.
-\begin{Corollary}
-\label{cor-dual-ET-EC}
-For bent functions $f, g$ on $\F_2^{2m}$,
-if $f$ is EA equivalent to $\dual{f}$ and $g$ is ET equivalent to $f$,
-then $\dual{g}$ is EA equivalent to $g$.
-Thus, by Theorem~\ref{th-Affine-Translate-Cayley},
-the set of isomorphism classes of Cayley graphs of the \Emph{duals} of the bent functions in
-the ET class of $f$ equals the set of isomorphism classes of Cayley graphs of
-the bent functions themselves.
-
-Conversely, for a bent function $f$ on $\F_2^{2m}$,
-if there is any bent function $g$ that is ET equivalent to $f$,
-such that $\dual{g}$ is not EA equivalent to $g$, then no bent function in the ET class is EA
-equivalent to its dual, including $f$ itself.
-\end{Corollary}
-
-% \end{frame}
-
-% \end{frame}
-% \begin{frame}
-%\subsection{Dual functions}
-
-%~
-%
-%\slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} %
-%FeuSSW2013
-% \end{frame}
-% \begin{frame}
-\paragraph*{Weight classes and the SDP design matrix.}
-
-With Lemma~\ref{lm-notes-9b} in hand, it is easy to prove Lemma~\ref{lm-SDP-design-rows} on
-the equivalence of the definitions of the SDP design of a bent function $f$ on $Z_2^{2m}$.
-
-\begin{proofof}{Lemma~\ref{lm-SDP-design-rows}}
-Firstly, it is well known (e.g. \cite[10.5.2]{Sti07combinatorial})
-that the Reed-Muller code $RM(1,2m)$ consists of the words spanned by the affine functions on $Z_2^{2m}$,
-that is, the incidence matrix $M_{RM(1,2m)}$ is defined by
-\begin{align*}
-{M_{RM(1,2m)}}_{c,x} &:= \langle c, x \rangle + d,
-\end{align*}
-where $d \in \F_2$.
-
-Thus the incidence matrix of the code spanned by the support of $f$ and $RM(1,2m)$ is defined by
-\begin{align*}
-{M_{f,RM(1,2m)}}_{c,x} &:= f(x) + \langle c, x \rangle + d.
-\end{align*}
-Finally, from Lemma~\ref{lm-notes-9b} we know that
-\begin{align*}
-\weightclass{x \mapsto f(x) + \langle c, x \rangle}
-&=
-\dual{f}(c),
-\intertext{so that}
-\weightclass{x \mapsto f(x) + \langle c, x \rangle + \dual{f}(c)}
-&=
-0.
-\end{align*}
-\end{proofof}
-
-The following characterization of the SDP design of a bent function $f$ also relies on
-Lemma~\ref{lm-notes-9b} for its proof.
-We first define the matrix of weight classes corresponding to the extended translation class of $f$.
-\begin{Definition}
-\label{def-weight-class-matrix}
-
-For a bent function $f : \F_2^{2m} \To \F_2$,
-define the \Emph{weight class matrix} of $f$ by
-\begin{align*}
-M_{wc}(f)_{c,b}
-&:=
-\weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
-\end{align*}
-for $b,c \in \F_2^{2m}$.
-\end{Definition}
-
-\begin{Theorem}
-\label{th-Dillon-Schatz}
-The weight class matrix of $f$ as given by Definition~\ref{def-weight-class-matrix}
-equals the incidence matrix of the SDP design of $f$.
-Specifically,
-\begin{align*}
-M_{wc}(f)_{c,b}
-&=
-f(b) + \langle c, b \rangle + \dual{f}(c)
-\\
-&=
-M_D(f)_{c,b},
-\end{align*}
-where $M_D(f)$ is defined by \eqref{D-f-def}.
-\end{Theorem}
-
-\begin{proof}
-Let $g(x) := f(x+b) + \langle c, x \rangle + f(b)$.
-Then by change of variable $y:=x+b$,
-\begin{align*}
-\weightclass{g}
-&=
-\weightclass{y \mapsto f(y) + \langle c, y \rangle + \langle c, b \rangle + f(b)}
-\\
-&=
-\weightclass{y \mapsto f(y) + \langle c, y \rangle} + \langle c, b \rangle + f(b)
-\\
-&=
-\dual{f}(c) + \langle c, b \rangle + f(b),
-\end{align*}
-as a consequence of Lemma~\ref{lm-notes-9b}.
-\end{proof}
-
-
-\paragraph*{Quadratic bent functions have only two extended Cayley classes.}
-\begin{Theorem}
-\label{th-Quadratic-Classes}
-For each $m>0$, the extended affine equivalence class of quadratic bent functions
-$q : \F_2^{2m} \To \F_2$ contains exactly two extended Cayley equivalence classes,
-corresponding to the two possible weight classes of
-$x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
-\end{Theorem}
-
-The proof of this theorem is given in Appendix~\ref{app-proof-of}.
-
-% \end{frame}
-\subsection{Bent functions, linear codes and strongly regular graphs}
+%\subsection{Bent functions, linear codes and strongly regular graphs}
 % \begin{frame}
 \paragraph*{The graph $R(f)$ is the Cayley graph of the extended dual.}
 Recall the strongly regular graph $R(f)$ of bent function $f$ as defined by Definition
@@ -1117,14 +716,439 @@ so if $g(y) := \dual{f}(y) + \weightclass{f}$ then $g(0)=0$ and therefore the Ca
 is well defined.
 \end{proof}
 
+\section{Equivalence of bent functions}
+\label{sec-Equivalence}
+The following concepts of equivalence of Boolean functions are used in this paper,
+usually in the case where the Boolean functions are bent.
+
+% \begin{frame}
+\paragraph*{Extended affine equivalence.}
+
+\begin{Definition}
+For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
+$f$ is \Emph{extended affine equivalent} to $g$ \cite[Section 1.4]{Tok15bent} if and only if
+\begin{align*}
+g(x) &= f(A x + b) + \langle c, x \rangle + \delta
+\end{align*}
+for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
+\end{Definition}
+
+% \begin{frame}
+\paragraph*{General linear equivalence.}
+
+\begin{Definition}
+For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
+$f$ is \Emph{general linear equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(A x)
+\end{align*}
+for some $A \in GL(2m,2)$.
+\end{Definition}
+
+% \begin{frame}
+\paragraph*{Extended translation equivalence.}
+
+\begin{Definition}
+For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
+$f$ is \Emph{extended translation equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(x + b) + \langle c, x \rangle + \delta
+\end{align*}
+for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
+\end{Definition}
+% \end{frame}
+
+%\slidecite{Tokareva 2014}
+% \end{frame}
+% \begin{frame}
+\paragraph*{Cayley equivalence.}
+\begin{Definition}
+%
+For Boolean functions $f, g : \F_2^{2m} \To \F_2$, with $f(0)=g(0)=0$,
+we call $f$ and $g$ \Emph{Cayley equivalent},
+and write $f \equiv g$,
+if and only if the graphs $\Cay{f}$ and $\Cay{g}$ are isomorphic.
+
+Equivalently, $f \equiv g$ if and only if
+there exists a bijection $\pi : \F_2^{2m} \To \F_2^{2m}$ such that
+\begin{align*}
+g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \F_2^{2m}.
+\end{align*}
+\end{Definition}
+% \end{frame}
+Remark: Note that the bijection $\pi$ is not necessarily linear on $\F_2^{2m}$.
+Examples of bent functions $f$ and $g$ where $f \equiv g$ but the bijection is not linear
+are given in Section~\ref{sec-Empirical}.
+% \begin{frame}
+\paragraph*{Extended Cayley equivalence.}
+%
+While Bernasconi and Codenotti \cite{BerC99} define Cayley graphs for Boolean functions with
+$f(0)=1$ and allow Cayley graphs to have loops, this paper defines Cayley
+graphs only for Boolean functions where $f(0)=0$.
+This has the disadvantage that Cayley equivalence is an equivalence relation on half
+of the Boolean functions rather than all of them.
+To extend this equivalence relation to all Boolean functions,
+we just declare the functions $f$ and $f+1$ to be ``extended'' Cayley equivalent,
+resulting in the following definition.
+\begin{Definition}
+For Boolean functions $f, g : \F_2^{2m} \To \F_2$,
+if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
+we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
+\end{Definition}
+Extended Cayley equivalence is thus an equivalence relation on the set of all Boolean functions on
+$\F_2^{2m}$.
+It is easy to verify that $f \cong g$ if and only if $f+f(0) \equiv g+g(0)$.
+
+Remark: While extended affine equivalence has been well studied,
+general linear equivalence and extended translation equivalence are less often used,
+and the two notions of Cayley equivalence are apparently new.
+
+% \end{frame}
+
+% \begin{frame}
+\subsection{Relationships between different concepts of equivalence}
+%\section{Theoretical results}
+%\label{sec-Results}
+% \begin{frame}
+
+% This section contains a number of theoretical results that serve a few purposes.
+% Firstly, in order to classify bent functions by their Cayley graphs,
+% it helps to understand the relationship between Cayley equivalence and other concepts of equivalence
+% of bent functions, especially if this helps to cut down the search space needed for the
+% classification.
+% A similar consideration applies to the duals of bent functions.
+% Secondly, some empirical observations made in the classification of bent functions in small
+% dimensions can be explained by theoretical results.
+% Thirdly, theoretical results can improve our understanding of the relationships between
+% some of the concepts introduced in the previous section, notably dual bent functions, SDP designs,
+% projective two-weight codes, and strongly regular graphs.
+
+\paragraph*{General linear equivalence implies Cayley equivalence.}
+
+Firstly, general linear equivalence of bent functions implies Cayley equivalence.
+Specifically, the following result applies.
+\begin{Theorem}
+\label{th-Linear-Cayley}
+If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
+then $g$ is bent with $g(0)=0$ and $f \equiv g$.
+\end{Theorem}
+\begin{proof}
+\begin{align*}
+g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \F_2^{2m}.
+\end{align*}
+\end{proof}
+
+% \end{frame}
+
+% \begin{frame}
+\paragraph*{Extended affine, translation, and Cayley equivalence.}
+
+Secondly, if $f$ is bent with $f(0)=0$, and a bent function $h$ is extended affine equivalent to
+$f$,
+then a bent function $g$ can be found that is Cayley equivalent to $h$ and extended translation
+equivalent to $f$.
+\begin{Theorem}
+\label{th-Affine-Translate-Cayley}
+For $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$,
+$f : \F_2^{2m} \To \F_2$,
+
+the function
+\begin{align*}
+h(x) &:= f(A x + b) + \langle c, x \rangle + \delta
+\intertext{can be expressed as $h(x) = g(A x)$ where}
+g(x) &:= f(x+b) + \langle (A^{-1})^T c, x \rangle + \delta,
+\end{align*}
+and therefore if $f$ is bent and $h(0)=0$ then $h \equiv g$.
+\end{Theorem}
+% \end{frame}
+\begin{proof}
+Let $y:= A x$. Then
+\begin{align*}
+g(A x) = g(y) &= f(y+b) + \langle (A^{-1})^T c, y \rangle + \delta
+\\
+&= f(y+b) + \langle c, A^{-1} y \rangle + \delta
+\\
+&= f(A x + b) + \langle c, x \rangle + \delta = h(x).
+\end{align*}
+If $f$ is bent, then so are $g$ and $h$.
+Therefore, by Theorem \ref{th-Linear-Cayley},
+if $h(0)=0$ then $h \equiv g$.
+\end{proof}
+
+
+% \begin{frame}
+% \subsection{Extended affine equivalence}
+
+Therefore, to determine
+which strongly regular graphs occur in
+the extended Cayley equivalence classes within the extended affine
+equivalence class of
+a bent function $f : \F_2^{2m} \To \F_2$, for which $f(0)=0$, we need only examine
+the extended translation equivalent functions of the form
+\begin{align*}
+f(x+b) + \langle c, x \rangle + f(b),
+\end{align*}
+for each $b, c \in \F_2^{2m}$.
+This cuts down the required search space considerably.
+
+% \end{frame}
+
+\paragraph*{Quadratic bent functions have only two extended Cayley classes.}
+\begin{Theorem}
+\label{th-Quadratic-Classes}
+For each $m>0$, the extended affine equivalence class of quadratic bent functions
+$q : \F_2^{2m} \To \F_2$ contains exactly two extended Cayley equivalence classes,
+corresponding to the two possible weight classes of
+$x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
+\end{Theorem}
+
+The proof of this theorem is given in Appendix~\ref{app-proof-of}.
+
+% \begin{frame}
+
+% \begin{frame}
+\section{Bent functions and block designs}
+\label{sec-Bent-designs}
+% \begin{frame}
+%\subsection{Weight classes, dual functions, and SDP designs}
+
+The following propositions are based on well known results,
+but are useful in understanding the relationship
+between the duality of bent functions and various concepts of equivalence.
+% \begin{frame}
+%\subsection{Dual functions}
+
+Firstly, general linear equivalence of bent functions $f$ and $g$
+implies general linear equivalence of their duals, $\dual{f}$ and $\dual{g}$,
+which implies Cayley equivalence of $\dual{f}$ and $\dual{g}$.
+\begin{Proposition}
+\label{prop-dual-linear-equivalence}
+\cite[Remark 6.2.7]{Dil74}
+
+For a bent function $f : \F_2^{2m} \To \F_2$, and $A \in GL(2 m, 2)$, if
+\begin{align*}
+g(x) &:= f(A x)
+\intertext{then}
+\dual{g}(x) &= \dual{f}\big((A^T)^{-1} x \big),
+\end{align*}
+and therefore by Theorem \ref{th-Linear-Cayley}, $\dual{g} \equiv \dual{f}$.
+
+If, in addition, $f=\dual{f}$ then $\dual{g} \equiv g$.
+\end{Proposition}
+
+Remark: Functions of the form
+\begin{align*}
+f(x) := \sum_{k=0}^{m-1} x_{2k} x_{2k+1}
+\end{align*}
+are self dual bent functions, $f=\dual{f}$ \cite[Remark 6.3.2]{Dil74}.
+There are many other self dual bent functions \cite{CarDPS10self,FeuSSW2013}.
+
+Secondly, the following proposition displays a relationship between the extended translation
+class of a bent function $f$, and that of its dual $\dual{f}$.
+\begin{Proposition}
+\label{prop-dual-affine-equivalence}
+\cite[Remark 6.2.7]{Dil74} \cite[Proposition 8.7]{Car10boolean}.
+%\smallcite{Carlet 2007, Proposition 4}
+%
+%~
+
+For a bent function $f$ on $\F_2^{2m}$, and $b,c \in \F_2^{2m}$,
+if
+\begin{align*}
+g(x) &:= f(x+b) + \langle c, x \rangle
+\intertext{then}
+\dual{g}(x) &= \dual{f}(x+c) + \langle b, x \rangle + \langle b, c \rangle.
+\end{align*}
+\end{Proposition}
+
+This result has an implication for the relationship between the set of bent functions within
+an extended translation (ET) equivalence class, and the set of their duals.
+Recall that a bent function is not necessarily extended affine (EA) equivalent to its dual
+\cite{LanLM08Kasami}.
+The following ``all or nothing'' property holds within an extended translation equivalence class of bent functions.
+\begin{Corollary}
+\label{cor-dual-ET-EC}
+For bent functions $f, g$ on $\F_2^{2m}$,
+if $f$ is EA equivalent to $\dual{f}$ and $g$ is ET equivalent to $f$,
+then $\dual{g}$ is EA equivalent to $g$.
+Thus, by Theorem~\ref{th-Affine-Translate-Cayley},
+the set of isomorphism classes of Cayley graphs of the \Emph{duals} of the bent functions in
+the ET class of $f$ equals the set of isomorphism classes of Cayley graphs of
+the bent functions themselves.
+
+Conversely, for a bent function $f$ on $\F_2^{2m}$,
+if there is any bent function $g$ that is ET equivalent to $f$,
+such that $\dual{g}$ is not EA equivalent to $g$, then no bent function in the ET class is EA
+equivalent to its dual, including $f$ itself.
+\end{Corollary}
+
+% \end{frame}
+
+% \end{frame}
+% \begin{frame}
+%\subsection{Dual functions}
+
+%~
+%
+%\slidecite{Carlet, Danielson, Parker and Sol\'e 2008; Feulner, Sok, Sol\'e and Wassermann 2011} %
+%FeuSSW2013
+% \end{frame}
+\subsection{The two block designs of a bent function}
+
+The first block design of a bent function $f$ on $\F_2^{2m}$ is obtained by interpreting
+the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
+In this case we do not need $f(0)=0$ \cite[p. 160]{DilS87block}.
+
+The second block design of a bent function $f$ involves the
+\Emph{symmetric difference property}, which was first investigated by Kantor
+\cite[Section 5]{Kan75symplectic}.
+\begin{Definition}
+\label{def-Symmetric-difference-property}
+\cite[p. 49]{Kan75symplectic}.
+
+A symmetric block design $\mathcal{D}$ has the symmetric difference property (SDP)
+if, for any three blocks, $B, C, D$ of $\mathcal{D},$ the symmetric difference
+$B \bigtriangleup C \bigtriangleup D$ is either a block or the complement of a block.
+\end{Definition}
+
+This second block design is defined as follows.
+\begin{Definition}
+\label{def-SDP-design}
+For a bent function  $f$ on $\F_2^{2m}$, define the matrix $M_D(f) \in \F_2^{2^{2m} \times 2^{2m}}$ where
+\begin{align}
+M_D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c),
+\label{D-f-def}
+\end{align}
+and use it as the incidence matrix of a symmetric block design, which
+we call it the \emph{SDP design} of $f$.
+\end{Definition}
+
+Kantor describes the special case where $f$ is quadratic
+\cite[Section 5]{Kan75symplectic},
+and Dillon and Schatz \cite{DilS87block} describe the general case.
+
+The following properties of SDP designs of bent functions are well known.
+\begin{Proposition}
+\label{prop-SDP-design}
+\cite[p. 160]{DilS87block} \cite[Theorem 3.29]{Neu06bent}
+
+For any bent function $f$ on $\F_2^{2m}$, the SDP design of $f$ has the symmetric difference property.
+\end{Proposition}
+
+\begin{Proposition}
+\label{prop-SDP-design-affine-equivalence}
+\cite[p. 161]{DilS87block} \cite{Kan83exponential}
+
+For bent functions $f, g$ on $\F_2^{2m}$,
+the two SDP designs $D(f)$ and $D(g)$ are isomorphic as symmetric block designs if and only if $f$ and $g$ are affine equivalent.
+\end{Proposition}
+
+%
+%~
+%
+%\slidecite{Dillon and Schatz 1987; Neumann 2006}
+% \end{frame}
+
+% \begin{frame}
+\paragraph*{Weight classes and the SDP design matrix.}
+
+%With Lemma~\ref{lm-notes-9b} in hand, it is easy to prove Lemma~\ref{lm-SDP-design-rows} on
+%the equivalence of the definitions of the SDP design of a bent function $f$ on $Z_2^{2m}$.
+
+Definition~\ref{def-SDP-design} is different from but equivalent to the one given by Dillon and Schatz \cite[p. 160]{DilS87block}:
+\begin{Lemma}
+\label{lm-SDP-design-rows}
+\cite[3.29]{Neu06bent}
+
+For any bent function $f$ on $\F_2^{2m}$, the rows of the incidence matrix $M_D(f)$
+are given by the words of minimum weight in the code spanned by the support of $f$ and the Reed-Muller code $RM(1,2m)$.
+\end{Lemma}
+%The proof of Lemma~\ref{lm-SDP-design-rows} is deferred to Section~\ref{sec-Results}.
+
+%\begin{proofof}{Lemma~\ref{lm-SDP-design-rows}}
+\begin{proof}
+Firstly, it is well known (e.g. \cite[10.5.2]{Sti07combinatorial})
+that the Reed-Muller code $RM(1,2m)$ consists of the words spanned by the affine functions on $Z_2^{2m}$,
+that is, the incidence matrix $M_{RM(1,2m)}$ is defined by
+\begin{align*}
+{M_{RM(1,2m)}}_{c,x} &:= \langle c, x \rangle + d,
+\end{align*}
+where $d \in \F_2$.
+
+Thus the incidence matrix of the code spanned by the support of $f$ and $RM(1,2m)$ is defined by
+\begin{align*}
+{M_{f,RM(1,2m)}}_{c,x} &:= f(x) + \langle c, x \rangle + d.
+\end{align*}
+Finally, from Lemma~\ref{lm-notes-9b} we know that
+\begin{align*}
+\weightclass{x \mapsto f(x) + \langle c, x \rangle}
+&=
+\dual{f}(c),
+\intertext{so that}
+\weightclass{x \mapsto f(x) + \langle c, x \rangle + \dual{f}(c)}
+&=
+0.
+\end{align*}
+%\end{proofof}
+\end{proof}
+
+The following characterization of the SDP design of a bent function $f$ also relies on
+Lemma~\ref{lm-notes-9b} for its proof.
+We first define the matrix of weight classes corresponding to the extended translation class of $f$.
+\begin{Definition}
+\label{def-weight-class-matrix}
+
+For a bent function $f : \F_2^{2m} \To \F_2$,
+define the \Emph{weight class matrix} of $f$ by
+\begin{align*}
+M_{wc}(f)_{c,b}
+&:=
+\weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
+\end{align*}
+for $b,c \in \F_2^{2m}$.
+\end{Definition}
+
+\begin{Theorem}
+\label{th-Dillon-Schatz}
+The weight class matrix of $f$ as given by Definition~\ref{def-weight-class-matrix}
+equals the incidence matrix of the SDP design of $f$.
+Specifically,
+\begin{align*}
+M_{wc}(f)_{c,b}
+&=
+f(b) + \langle c, b \rangle + \dual{f}(c)
+\\
+&=
+M_D(f)_{c,b},
+\end{align*}
+where $M_D(f)$ is defined by \eqref{D-f-def}.
+\end{Theorem}
+
+\begin{proof}
+Let $g(x) := f(x+b) + \langle c, x \rangle + f(b)$.
+Then by change of variable $y:=x+b$,
+\begin{align*}
+\weightclass{g}
+&=
+\weightclass{y \mapsto f(y) + \langle c, y \rangle + \langle c, b \rangle + f(b)}
+\\
+&=
+\weightclass{y \mapsto f(y) + \langle c, y \rangle} + \langle c, b \rangle + f(b)
+\\
+&=
+\dual{f}(c) + \langle c, b \rangle + f(b),
+\end{align*}
+as a consequence of Lemma~\ref{lm-notes-9b}.
+\end{proof}
+
 
 \section{Computational results for low dimensions}
 \label{sec-Empirical}
 This section lists some properties of bent functions and their extended translation classes and extended Cayley classes
 that have been computed for 2, 4, 6 and 8 dimensions.
-The computations were made using Sage \cite{SageMath7517} and Sage\-Math\-Cloud \cite{SageMathCloud}.
-Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and Sage\-Math\-Cloud \cite{Leo16SMC}.
-Some Sage\-Math\-Cloud worksheets also illustrate these and related computations \cite{Leo16SMC}.
+The computations were made using Sage \cite{SageMath7517} and CoCalc \cite{SageMathCloud}.
+Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and CoCalc \cite{Leo16SMC}.
+Some CoCalc worksheets also illustrate these and related computations \cite{Leo16SMC}.
 The Sage and Python code is described in more detail in Section \ref{sec-Code}.
 
 In the tables below, each bent function is defined by its algebraic normal form, and each Cayley class is described by
@@ -1730,7 +1754,7 @@ as shown in Figures~\ref{fig:c6_3_weight_class_matrix} and~\ref{fig:c6_3_bent_ca
 %\slidecite{Tonchev 1996, 2006}
 % \end{frame}
 % \begin{frame}
-\newpage
+%\newpage
 \paragraph*{ET class $[f_{6,4}]$.}
 %
 This is the extended translation class of the bent function
@@ -2612,7 +2636,7 @@ as shown in Figures~\ref{fig:c8_5_weight_class_matrix} and~\ref{fig:c8_5_bent_ca
 \end{figure}
 ~
 % \end{frame}
-\newpage
+%\newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,6}]$.}
 %
@@ -2875,7 +2899,7 @@ given the same colour.
 \end{minipage}
 \end{figure}
 
-\newpage
+%\newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,7}]$.}
 %
@@ -3013,7 +3037,7 @@ as shown in Figures~\ref{fig:c8_7_weight_class_matrix} and~\ref{fig:c8_7_bent_ca
 \end{figure}
 
 % \end{frame}
-\newpage
+%\newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,8}]$.}
 %
@@ -3148,7 +3172,7 @@ as shown in Figures~\ref{fig:c8_8_weight_class_matrix} and~\ref{fig:c8_8_bent_ca
 \end{figure}
 
 % \end{frame}
-\newpage
+%\newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,9}]$.}
 %
@@ -3628,7 +3652,7 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 % \end{colortheme}
 % \begin{colortheme}{seagull}
 % \begin{frame}
-
+\newpage
 \paragraph*{Partial spread bent functions.}
 
 According to Langevin and Hou \cite{LanH11counting}
@@ -3678,7 +3702,7 @@ as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes
 \end{figure}
 
 % \end{frame}
-\newpage
+%\newpage
 \paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$.}
 
 The CAST-128 encryption algorithm is used in PGP and elsewhere \cite{Ada97}.
@@ -3740,14 +3764,14 @@ shown in Figures~\ref{fig:cast128_1_1_weight_class_matrix} and~\ref{fig:cast_128
 \end{minipage}%
 \end{figure}
 
-\section{SageMath and Sage\-Math\-Cloud code}
+\section{SageMath and CoCalc code}
 \label{sec-Code}
 % \begin{frame}[fragile]
-%\subsection{Public worksheet on Sage\-Math\-Cloud}
+%\subsection{Public worksheet on CoCalc}
 As mentioned in the previous section, the computational results listed there were obtained by the
 use of code written in Sage \cite{JoyEtAl13Sage} \cite{SageMath7517} and Python.
 This code base is called \texttt{Boolean-Cayley-graphs} and it is available both as a GitHub
-repository \cite{Leo16GitHub} and as a public Sage\-Math\-Cloud \cite{SageMathCloud} folder
+repository \cite{Leo16GitHub} and as a public CoCalc \cite{SageMathCloud} folder
 \cite{Leo16SMC}.
 
 For an introduction to other aspects of coding theory and cryptography in Sage,
@@ -3806,7 +3830,7 @@ is provided to load existing saved classifications.
 % \end{frame}
 \paragraph*{History of the Sage code.}
 
-The Sage code originated in 2015 as a series of worksheets on Sage\-Math\-Cloud.
+The Sage code originated in 2015 as a series of worksheets on Sage\-Math\-Cloud (now CoCalc).
 While these were useful for investigating extended Cayley classes for bent functions in up to 6 dimensions,
 they were too slow to use for bent functions in 8 dimensions.
 
@@ -3818,9 +3842,9 @@ The use of canonical labelling via the Bliss algorithm is what made this possibl
 Further improvements were made in 2017 to enable the classification of any bent function in 8 dimensions or less
 to be computed in a reasonable time on a commodity personal computer.
 % \begin{itemize}
-%  \item 2015-04 to 2015-05 Sage\-Math\-Cloud: Cliques-Automorphisms project starts looking at Cayley
+%  \item 2015-04 to 2015-05 CoCalc: Cliques-Automorphisms project starts looking at Cayley
 % classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
-%  \item 2015-12 Sage\-Math\-Cloud: Cliques-Automorphisms project
+%  \item 2015-12 CoCalc: Cliques-Automorphisms project
 % worksheets produced initial results used in the ACCMCC presentation.
 % The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
 %  \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
