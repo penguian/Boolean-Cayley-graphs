@@ -65,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{25 July 2017}
+\date{26 July 2017}
 
 \begin{document}
 
@@ -131,6 +131,8 @@ dimensions can be explained by these theoretical results.
 Thirdly, these theoretical results can improve our understanding of the relationships between
 bent functions, projective two-weight codes, strongly regular graphs, and
 symmetric block designs with the symmetric difference property.
+In what follows, known results are presented as propositions, with references;
+and apparently new results are presented as lemmas or theorems, with proofs.
 
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
 % The bent function $\sigma_m$ on $\F_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on
@@ -3844,7 +3846,8 @@ If the new graph is not isomorphic to any existing graph, it is added to the lis
 Each list of pairwise non-isomorphic graphs can be checked by a function called \texttt{check\_graph\_class\_list}
 which uses the Nauty package to check the non-isomorphism \cite{McKP13nauty,McKP14practical}.
 
-For an 8 dimensional bent function, the initialization of its Cayley graph classification
+It is the efficiency of the Bliss canonical labelling algorithm, and the speed of its implementation, that makes this approach feasible.
+Even so, for an 8 dimensional bent function, the initialization of its Cayley graph classification
 can take more than 24 hours on an Intel\textregistered Core\texttrademark i7 CPU 870 running at 2.93GHz.
 For this reason, each computed classification is saved, and a class method (\texttt{load\_mangled})
 is provided to load existing saved classifications.
@@ -4496,11 +4499,11 @@ since $q$ is self-dual.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph*{Acknowledgements.}
-
+\small{}
 This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University,
 continued while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia,
 and concluded while the author was an Honorary Fellow at the University of Melbourne,
-and an employee of the Australian Government, Bureau of Meteorology.
+and an employee of the Bureau of Meteorology.
 
 Thanks to Christine Leopardi for her hospitality at Long Beach.
 Thanks to
@@ -4513,7 +4516,7 @@ William Martin,
 Padraig {\'O} Cath{\'a}in,
 Judy-anne Osborn,
 Dima Pasechnik and
-William Stein.
+William Stein
 for valuable questions, discussions and advice;
 David Joyner and Caroline Melles for suggestions for improvements based on the first draft of this paper;
 Nathan Clisby, for the opportunity to become an Honorary Fellow at the University of Melbourne;
@@ -4522,7 +4525,7 @@ of bent functions of degree 4 in 8 dimensions;
 Gray Chan for a citation tool for IETF RFCs;
 and finally, thanks to the authors of SageMath, Bliss, and Nauty for these valuable tools
 without which I would not have been able to conduct this research.
-
+\normalsize{}
 %Thanks also to the anonymous reviewer of the previous draft of this paper.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
