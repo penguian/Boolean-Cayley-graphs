@@ -29,3 +29,20 @@ def classify_in_parallel(list_of_forms, ncpus=4):
         ((n, list_of_forms[n]))
         for n in range(len(list_of_forms))]
     return list(do_in_parallel(classify)(list_of_form_tuples))
+
+
+def save_classification(n, form, name):
+    r"""
+    """
+    c = BentFunctionCayleyGraphClassification(BentFunction(form))
+    c.save_mangled(name)
+
+
+def save_classification_in_parallel(list_of_forms, name, ncpus=4):
+    r"""
+    """
+    do_in_parallel = parallel(p_iter='fork', ncpus=ncpus)
+    list_of_form_tuples = [
+        ((n, list_of_forms[n], name+'_'+str(n)))
+        for n in range(len(list_of_forms))]
+    return list(do_in_parallel(save_classification)(list_of_form_tuples))
