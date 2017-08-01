@@ -15,20 +15,28 @@ from boolean_cayley_graphs.bent_function_cayley_graph_classification import Bent
 from boolean_cayley_graphs.bent_function import BentFunction
 
 
+def call_in_parallel(f, list_of_tuples, ncpus):
+    r"""
+    """
+    parallelize = parallel(p_iter='fork', ncpus=ncpus)
+    return list(parallelize(f)(list_of_tuples))
+
+
 def classify(n, form):
     r"""
     """
     return BentFunctionCayleyGraphClassification(BentFunction(form))
 
 
-def classify_in_parallel(list_of_forms, ncpus=4):
+def classify_in_parallel(forms, start=0, stop=None, ncpus=4):
     r"""
     """
-    do_in_parallel = parallel(p_iter='fork', ncpus=ncpus)
-    list_of_form_tuples = [
-        ((n, list_of_forms[n]))
-        for n in range(len(list_of_forms))]
-    return list(do_in_parallel(classify)(list_of_form_tuples))
+    if stop == None:
+        stop = len(forms)
+    list_of_tuples = [
+        ((n, forms[n]))
+        for n in range(start, stop)]
+    return call_in_parallel(classify, list_of_tuples, ncpus)
 
 
 def save_classification(n, form, name):
@@ -38,11 +46,12 @@ def save_classification(n, form, name):
     c.save_mangled(name)
 
 
-def save_classification_in_parallel(list_of_forms, name, ncpus=4):
+def save_classifications_in_parallel(forms, name, start=0, stop=None, ncpus=4):
     r"""
     """
-    do_in_parallel = parallel(p_iter='fork', ncpus=ncpus)
-    list_of_form_tuples = [
-        ((n, list_of_forms[n], name+'_'+str(n)))
-        for n in range(len(list_of_forms))]
-    return list(do_in_parallel(save_classification)(list_of_form_tuples))
+    if stop == None:
+        stop = len(forms)
+    list_of_tuples = [
+        ((n, forms[n], name+'_'+str(n)))
+        for n in range(start, stop)]
+    return call_in_parallel(save_classification, list_of_tuples, ncpus)
