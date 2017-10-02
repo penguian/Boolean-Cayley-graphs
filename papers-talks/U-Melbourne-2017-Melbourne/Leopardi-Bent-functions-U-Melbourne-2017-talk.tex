@@ -221,6 +221,32 @@ The function $\dual{f}$ is also a bent function on $\F_2^{2m}$.
 \begin{colortheme}{jubata}
 
 \begin{frame}
+\frametitle{Example}
+
+The function  $f : \F_2^2 \To \F_2$  defined by $f(x) := x_0 x_1$
+is bent, since
+\begin{align*}
+W_f(x)
+=&
+\sum_{y \in \F_2^2} (-1)^{f(y) + \langle x, y \rangle}
+\\
+=&\ (-1)^{f(0,0) + \langle x, (0,0) \rangle}
+ + (-1)^{f(1,0) + \langle x, (1,0) \rangle} +
+\\
+\phantom{=}&\ (-1)^{f(0,1) + \langle x, (0,1) \rangle}
+ + (-1)^{f(1,1) + \langle x, (1,1) \rangle}
+\\
+=&\ (-1)^{0 + 0} + (-1)^{0 + x_0} + (-1)^{0 + x_1} + (-1)^{1 + x_0 + x_1}
+\\
+=&\ 1 + (-1)^{x_0} + (-1)^{x_1} - (-1)^{x_0 + x_1}
+\\
+=&\ 2 \times (-1)^{f(x)},
+\end{align*}
+so $\dual{f} = f$, and $f$ is \Emph{self-dual}.
+%
+\end{frame}
+
+\begin{frame}
 \frametitle{Weights and weight classes}
 \begin{Def}
 The \Emph{weight} of a binary function is the cardinality of its \Emph{support}.
