@@ -17,7 +17,17 @@ AUTHORS:
 
 import glob
 import os
+import random
 import shelve
+import string
+
+default_alphabet = string.digits + string.ascii_letters
+default_length = 64
+
+
+def random_name(alphabet=default_alphabet, length=default_length):
+   return ''.join(random.choice(alphabet)
+                  for i in range(length))
 
 
 class List(list):
@@ -187,7 +197,14 @@ class BijectiveList(object):
 
 
     def remove_dict(self):
-        del self._index
+        try:
+            del self._index
+        except AttributeError:
+            pass
+
+
+    def __del__(self):
+        self.remove_dict()
 
 
 class ShelveBijectiveList(BijectiveList):
@@ -196,26 +213,46 @@ class ShelveBijectiveList(BijectiveList):
     such as __getitem__() index(), and index_append().
 
     List lookup for __getitem__ uses a list named _item.
-    Index lookup for index() and index_append() uses a dict named _index.
+    Index lookup for index() and index_append() uses a shelve named _index.
     This class is used for 1-1 relationships where index lookup via dict makes sense.
 
     .. NOTE::
 
-        This class uses shelve for persistence.
+        This class uses shelve to work around memory restrictions.
+
+    .. WARNING::
+
+    Initialization from a non-empty list works only for lists of strings.
 
     .. WARNING::
 
         Initialization from a non-empty list can easily break
-        the 1-1 relationship between index and item in a BijectiveList.
+        the 1-1 relationship between index and item in a ShelveBijectiveList.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+        sage: SBL = ShelveBijectiveList(["1","2","4"])
+        sage: SBL.get_list()
+        ['1', '2', '4']
+        sage: SBI = SBL.index_append("3")
+        sage: SBI
+        3
+        sage: SBL.get_list()
+        ['1', '2', '4', '3']
+        sage: SBL.get_dict()
+        {'1': 0, '3': 3, '2': 1, '4': 2}
 
     """
-    def __init__(self, other_list=None, file_prefix=None):
+    def __init__(self, other_list=None):
         r"""
         """
-        self.file_prefix = file_prefix
+        self.file_prefix = random_name()
         # Work around http://bugs.python.org/issue18039 not fixed in 2.7*
         self.remove_dict()
-        self._index = shelve.open(file_prefix+".index", flag='n')
+        self._index = shelve.open(self.file_prefix + ".index", flag='n')
         if other_list == None:
             self._item = []
         else:
@@ -234,6 +271,10 @@ class ShelveBijectiveList(BijectiveList):
 
 
     def remove_dict(self):
-        for fn in glob.glob(self.file_prefix+".index*"):
+        for fn in glob.glob(self.file_prefix + ".index*"):
             os.remove(fn)
+
+
+    def __del__(self):
+        self.remove_dict()
 
