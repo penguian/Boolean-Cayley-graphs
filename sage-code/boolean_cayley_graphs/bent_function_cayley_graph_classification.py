@@ -182,11 +182,10 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         v = 2 ** dim
         self.algebraic_normal_form = bentf.algebraic_normal_form()
 
-        file_prefix=self.mangled_name(bentf.truth_table(format='hex'))
         cayley_graph_class_bijection = (
             BijectiveList()
             if dim < 8 else
-            ShelveBijectiveList(file_prefix=file_prefix))
+            ShelveBijectiveList())
 
         self.bent_cayley_graph_index_matrix = matrix(v, v)
         if list_dual_graphs:
