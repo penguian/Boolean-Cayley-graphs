@@ -79,14 +79,18 @@ from boolean_cayley_graphs.weight_class import weight_class
 import boolean_cayley_graphs.cayley_graph_controls as controls
 
 
-class BentFunctionCayleyGraphClassification(SageObject, Saveable):
+class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
     r"""
-    Classification of the Cayley graphs within the
+    Partial classification of the Cayley graphs within the
     extended translation equivalence class of a bent function.
     """
 
 
-    def __init__(self, bentf, list_dual_graphs=True):
+    def __init__(self,
+                 bentf,
+                 list_dual_graphs=True,
+                 c_start=0,
+                 c_stop=None):
         r"""
         Initialize ``self`` from the ``BentFunction`` ``bentf``.
 
@@ -95,7 +99,11 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         - ``self`` -- the current object. Uninitialized.
         - ``bentf`` -- an object of class `BentFunction`.
         - ``list_dual_graphs`` -- boolean. a flag indicating
-          whether to list dual graphs.
+          whether to list dual graphs. Default is True.
+        - ``c_start`` -- smallest value of c to use for
+          extended translates. Integer. Default is 0.
+        - ``c_stop`` -- one more than largest value of c
+          to use for extended translates. Integer. Default is ``None``.
 
         OUTPUT:
 
@@ -105,14 +113,14 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
 
         The current object ``self`` is initialized as follows.
 
+        - ``c_start`` is set to smallest value of c used for extended translates.
         - ``algebraic_normal_form`` is set to ``bentf.algebraic_normal_form()``,
         - ``cayley_graph_class_list`` is set to a list of ``graph6_string`` stings
           corresponding to the complete set of non-isomorphic Cayley graphs
           of the bent functions within the extended translation equivalence
           class of ``bentf`` (and their duals, if ``list_dual_graphs`` is ``True``),
         - ``bent_cayley_graph_index_matrix`` is set to a matrix of indices
-          into ``cayley_graph_class_list`` corresponding
-          to these bent functions,
+          into ``cayley_graph_class_list`` corresponding to these bent functions,
         - ``dual_cayley_graph_index_matrix`` is set to ``None``
           if ``list_dual_graphs`` is ``False``, otherwise it is set to
           a matrix of indices into `cayley_graph_class_list` corresponding
@@ -120,14 +128,37 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         - ``weight_class_matrix`` is set to the 0-1 matrix of weight classes
           corresponding to ``bent_cayley_graph_index_matrix``.
 
-        Each entry ``bent_cayley_graph_index_matrix[c,b]`` corresponds to
+        Each entry ``bent_cayley_graph_index_matrix[c-c_start,b]`` corresponds to
         the Cayley graph of the bent function
         :math:`x \mapsto \mathtt{bentf}(x+b) + \langle c, x \rangle + \mathtt{bentf}(b)`.
-        This enumerates all of the extended translates of ``bentf``.
+        This enumerates all of the extended translates of ``bentf`` having ``c``
+        from ``c_start`` to but not including ``c_stop``.
 
         EXAMPLES:
 
-        The classification of the bent function defined by the polynomial :math:`x_1 + x_2 + x_1 x_2`.
+        A partial classification of the bent function defined by the polynomial :math:`x_1 + x_2 + x_1 x_2`.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: c1 = BentFunctionCayleyGraphClassPart(f,c_start=2,c_stop=4)
+            sage: c1.__dict__
+            {'algebraic_normal_form': x0*x1 + x0 + x1,
+            'bent_cayley_graph_index_matrix': [0 1 0 0]
+            [0 0 0 1],
+            'c_start': 2,
+            'cayley_graph_class_list': ['CK', 'C~'],
+            'dual_cayley_graph_index_matrix': [0 1 0 0]
+            [0 0 0 1],
+            'weight_class_matrix': [0 1 0 0]
+            [0 0 0 1]}
+
+        A partial classification of the bent function defined by the polynomial :math:`x1 + x2 + x1*x2`,
+        but with list_dual_graphs=False.
 
         ::
 
@@ -136,50 +167,27 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c1 = BentFunctionCayleyGraphClassification(f)
-            sage: c1.__dict__
-            {'algebraic_normal_form': x0*x1 + x0 + x1,
-             'bent_cayley_graph_index_matrix': [0 1 1 1]
-             [1 1 0 1]
-             [1 0 1 1]
-             [1 1 1 0],
-             'cayley_graph_class_list': ['C~', 'CK'],
-             'dual_cayley_graph_index_matrix': [0 1 1 1]
-             [1 1 0 1]
-             [1 0 1 1]
-             [1 1 1 0],
-             'weight_class_matrix': [1 0 0 0]
-             [0 0 1 0]
-             [0 1 0 0]
-             [0 0 0 1]}
-
-            The classification of the bent function defined by the polynomial x1 + x2 + x1*x2,
-            but with list_dual_graphs=False.
-
-            sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
-            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
-            sage: p = x1+x2+x1*x2
-            sage: f = BentFunction(p)
-            sage: c2 = BentFunctionCayleyGraphClassification(f,list_dual_graphs=False)
+            sage: c2 = BentFunctionCayleyGraphClassPart(f,list_dual_graphs=False,c_start=0,c_stop=2)
             sage: c2.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
-             'bent_cayley_graph_index_matrix': [0 1 1 1]
-             [1 1 0 1]
-             [1 0 1 1]
-             [1 1 1 0],
-             'cayley_graph_class_list': ['C~', 'CK'],
-             'dual_cayley_graph_index_matrix': None,
-             'weight_class_matrix': [1 0 0 0]
-             [0 0 1 0]
-             [0 1 0 0]
-             [0 0 0 1]}
+            'bent_cayley_graph_index_matrix': [0 1 1 1]
+            [1 1 0 1],
+            'c_start': 0,
+            'cayley_graph_class_list': ['C~', 'CK'],
+            'dual_cayley_graph_index_matrix': None,
+            'weight_class_matrix': [1 0 0 0]
+            [0 0 1 0]}
         """
         checking = controls.checking
         timing   = controls.timing
 
         dim = bentf.nvariables()
         v = 2 ** dim
+        self.c_start = c_start
+        if c_stop == None:
+            c_stop = v
+        else:
+            c_stop = min(c_stop, v)
         self.algebraic_normal_form = bentf.algebraic_normal_form()
 
         cayley_graph_class_bijection = (
@@ -187,12 +195,13 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
             if dim < 8 else
             ShelveBijectiveList())
 
-        self.bent_cayley_graph_index_matrix = matrix(v, v)
+        c_len = c_stop - c_start
+        self.bent_cayley_graph_index_matrix = matrix(c_len, v)
         if list_dual_graphs:
-            self.dual_cayley_graph_index_matrix = matrix(v, v)
+            self.dual_cayley_graph_index_matrix = matrix(c_len, v)
         else:
             self.dual_cayley_graph_index_matrix = None
-        self.weight_class_matrix = matrix(v, v)
+        self.weight_class_matrix = matrix(c_len, v)
 
         f = bentf.extended_translate()
         dual_bentf = bentf.walsh_hadamard_dual()
@@ -205,15 +214,15 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
                 stdout.flush()
 
             fb = f(b)
-            for c in xsrange(v):
+            for c in xsrange(c_start, c_stop):
                 fbc = bentf.extended_translate(b, c, fb)
                 cg = boolean_cayley_graph(dim, fbc).canonical_label()
                 cg_index = cayley_graph_class_bijection.index_append(cg.graph6_string())
-                self.bent_cayley_graph_index_matrix[c, b] = cg_index
+                self.bent_cayley_graph_index_matrix[c - c_start, b] = cg_index
 
                 weight = sum(fbc(x) for x in xsrange(v))
                 wc = weight_class(v, weight)
-                self.weight_class_matrix[c, b] = wc
+                self.weight_class_matrix[c - c_start, b] = wc
 
                 if checking:
                     if wc != 0 and wc != 1:
@@ -226,7 +235,7 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
                     dual_fbc = bentfbc.walsh_hadamard_dual().extended_translate(d=wc)
                     dg = boolean_cayley_graph(dim, dual_fbc).canonical_label()
                     dg_index = cayley_graph_class_bijection.index_append(dg.graph6_string())
-                    self.dual_cayley_graph_index_matrix[c, b] = dg_index
+                    self.dual_cayley_graph_index_matrix[c - c_start, b] = dg_index
 
                     if checking and dim > 2:
                         blcg = boolean_linear_code_graph(dim, fbc)
@@ -261,6 +270,112 @@ class BentFunctionCayleyGraphClassification(SageObject, Saveable):
         if timing:
             print datetime.now()
             stdout.flush()
+
+
+class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
+    r"""
+    Classification of the Cayley graphs within the
+    extended translation equivalence class of a bent function.
+    """
+
+
+    def __init__(self,
+                 bentf,
+                 list_dual_graphs=True):
+        r"""
+        Initialize ``self`` from the ``BentFunction`` ``bentf``.
+
+        INPUT:
+
+        - ``self`` -- the current object. Uninitialized.
+        - ``bentf`` -- an object of class `BentFunction`.
+        - ``list_dual_graphs`` -- boolean. a flag indicating
+          whether to list dual graphs.
+
+        OUTPUT:
+
+        None.
+
+        EFFECT:
+
+        The current object ``self`` is initialized as follows.
+
+        - ``algebraic_normal_form`` is set to ``bentf.algebraic_normal_form()``,
+        - ``cayley_graph_class_list`` is set to a list of ``graph6_string`` stings
+          corresponding to the complete set of non-isomorphic Cayley graphs
+          of the bent functions within the extended translation equivalence
+          class of ``bentf`` (and their duals, if ``list_dual_graphs`` is ``True``),
+        - ``bent_cayley_graph_index_matrix`` is set to a matrix of indices
+          into ``cayley_graph_class_list`` corresponding to these bent functions,
+        - ``dual_cayley_graph_index_matrix`` is set to ``None``
+          if ``list_dual_graphs`` is ``False``, otherwise it is set to
+          a matrix of indices into `cayley_graph_class_list` corresponding
+          to the duals of these bent functions, and
+        - ``weight_class_matrix`` is set to the 0-1 matrix of weight classes
+          corresponding to ``bent_cayley_graph_index_matrix``.
+
+        Each entry ``bent_cayley_graph_index_matrix[c,b]`` corresponds to
+        the Cayley graph of the bent function
+        :math:`x \mapsto \mathtt{bentf}(x+b) + \langle c, x \rangle + \mathtt{bentf}(b)`.
+        This enumerates all of the extended translates of ``bentf``.
+
+        EXAMPLES:
+
+        The classification of the bent function defined by the polynomial :math:`x_1 + x_2 + x_1 x_2`.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: c3 = BentFunctionCayleyGraphClassification(f)
+            sage: c3.__dict__
+            {'algebraic_normal_form': x0*x1 + x0 + x1,
+            'bent_cayley_graph_index_matrix': [0 1 1 1]
+            [1 1 0 1]
+            [1 0 1 1]
+            [1 1 1 0],
+            'cayley_graph_class_list': ['C~', 'CK'],
+            'dual_cayley_graph_index_matrix': [0 1 1 1]
+            [1 1 0 1]
+            [1 0 1 1]
+            [1 1 1 0],
+            'weight_class_matrix': [1 0 0 0]
+            [0 0 1 0]
+            [0 1 0 0]
+            [0 0 0 1]}
+
+
+        The classification of the bent function defined by the polynomial :math:`x1 + x2 + x1*x2`,
+        but with list_dual_graphs=False.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: c4 = BentFunctionCayleyGraphClassification(f,list_dual_graphs=False)
+            sage: c4.__dict__
+            {'algebraic_normal_form': x0*x1 + x0 + x1,
+            'bent_cayley_graph_index_matrix': [0 1 1 1]
+            [1 1 0 1]
+            [1 0 1 1]
+            [1 1 1 0],
+            'cayley_graph_class_list': ['C~', 'CK'],
+            'dual_cayley_graph_index_matrix': None,
+            'weight_class_matrix': [1 0 0 0]
+            [0 0 1 0]
+            [0 1 0 0]
+            [0 0 0 1]}
+        """
+        BentFunctionCayleyGraphClassPart.__init__(self,
+                                                  bentf,
+                                                  list_dual_graphs=list_dual_graphs)
+        del self.c_start
 
 
     def first_matrix_index_list(self):
