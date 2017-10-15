@@ -9,6 +9,7 @@ r"""
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from math import log
 from sage.crypto.boolean_function import BooleanFunction
 from sage.functions.other import Function_ceil
 
@@ -104,12 +105,11 @@ def save_class_parts_in_parallel(
     v = 2 ** dim
     ceil = Function_ceil()
     nbr_parts = ceil(v * 1.0 / c_len)
+    nbr_digits = ceil(log(nbr_parts, 10))
     for n in range(rank, nbr_parts, size):
-        c_start = c_len * n
-        c_stop  = c_len * (n + 1)
-        name = name_prefix + '_' + str(n)
+        n_str = '{0:0={width}}'.format(n, width=nbr_digits)
         save_one_class_part(
-            name=name_prefix + '_' + str(n),
+            name=name_prefix + '_' + n_str,
             bentf=bentf,
             c_start=c_len * n,
             c_stop=c_len * (n + 1))
