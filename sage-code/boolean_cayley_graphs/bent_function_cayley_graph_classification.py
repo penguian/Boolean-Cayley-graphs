@@ -61,6 +61,7 @@ from sage.rings.integer import Integer
 from sage.structure.sage_object import load, SageObject
 from sys import stdout
 
+import glob
 import numpy as np
 
 from boolean_cayley_graphs.bent_function import BentFunction
@@ -280,7 +281,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
 
     def __init__(self,
-                 bentf,
+                 value,
                  list_dual_graphs=True):
         r"""
         Initialize ``self`` from the ``BentFunction`` ``bentf``.
@@ -372,10 +373,73 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             [0 1 0 0]
             [0 0 0 1]}
         """
-        BentFunctionCayleyGraphClassPart.__init__(self,
-                                                  bentf,
-                                                  list_dual_graphs=list_dual_graphs)
-        del self.c_start
+        if type(value) == BentFunction:
+            # Initialize from a bent function.
+            bentf = value
+            BentFunctionCayleyGraphClassPart.__init__(self,
+                                                      bentf,
+                                                      list_dual_graphs=list_dual_graphs)
+            del self.c_start
+        else:
+            # Initialize from class parts.
+            part_prefix = value
+            mangled_part_prefix = BentFunctionCayleyGraphClassPart.mangled_name(part_prefix)
+            file_name_list = glob.glob(mangled_part_prefix + "_[0-9]*.sobj")
+            file_name_list.sort()
+            # Load the first part to see how large the matrices need to be.
+            part_nbr = 0
+            part = load(file_name_list[part_nbr])
+            self.algebraic_normal_form = part.algebraic_normal_form
+            bentf = BentFunction(self.algebraic_normal_form)
+            dim = bentf.nvariables()
+            v = 2 ** dim
+            # If the number of columns in the part must match
+            # (be 2 to the power of) the number of variables of the bent function.
+            if part.bent_cayley_graph_index_matrix.ncols() != v:
+                raise ValueError
+            # Initialize the graph class bijection to be empty.
+            cayley_graph_class_bijection = (
+                BijectiveList()
+                if dim < 8 else
+                ShelveBijectiveList())
+            # Initialize the matrix attributes to be empty and of the right size.
+            self.bent_cayley_graph_index_matrix = matrix(v, v)
+            list_dual_graphs = part.dual_cayley_graph_index_matrix != None
+            if list_dual_graphs:
+                self.dual_cayley_graph_index_matrix = matrix(v, v)
+            else:
+                self.dual_cayley_graph_index_matrix = None
+            self.weight_class_matrix = matrix(v,v)
+
+            for part_nbr in range(len(file_name_list)):
+                # In the main loop, map each part classification into
+                # the whole classification.
+                if part_nbr > 0:
+                    part = load(file_name_list[part_nbr])
+                whole_cg_index = dict()
+                for part_cg_index in range(len(part.cayley_graph_class_list)):
+                    cg_index = cayley_graph_class_bijection.index_append(
+                        part.cayley_graph_class_list[part_cg_index])
+                    whole_cg_index[part_cg_index] = cg_index
+                c_len = part.bent_cayley_graph_index_matrix.nrows()
+                for part_c in range(c_len):
+                    c = part.c_start + part_c
+                    for b in range(v):
+                        self.bent_cayley_graph_index_matrix[c, b] = (
+                            whole_cg_index[
+                                part.bent_cayley_graph_index_matrix[part_c, b]])
+                        self.dual_cayley_graph_index_matrix[c, b] = (
+                            whole_cg_index[
+                                part.dual_cayley_graph_index_matrix[part_c, b]])
+                        self.weight_class_matrix[c, b] = (
+                            part.weight_class_matrix[part_c, b])
+
+            # Retain the list part of cayley_graph_class_bijection, and
+            # close and remove the dict part.
+            self.cayley_graph_class_list = cayley_graph_class_bijection.get_list()
+            cayley_graph_class_bijection.close_dict()
+            cayley_graph_class_bijection.remove_dict()
+
 
 
     def first_matrix_index_list(self):
@@ -422,7 +486,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         return cb_list
 
 
-    def report(self, report_on_graph_details=True):
+    def report(self, report_on_graph_details=False):
         r"""
         Print a report on the classification.
 
@@ -431,7 +495,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         INPUT:
 
         - ``self`` -- the current object.
-        - ``report_on_graph_details`` -- optional, Boolean (default: True).
+        - ``report_on_graph_details`` -- optional, Boolean (default: False).
            If True, produce a detailed report for each Cayley graph.
 
         OUTPUT:
@@ -461,7 +525,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: p = x0+x0*x1+x2*x3
             sage: f = BentFunction(p)
             sage: c = BentFunctionCayleyGraphClassification(f)
-            sage: c.report()
+            sage: c.report(True)
             Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3
             Function is bent.
             <BLANKLINE>
