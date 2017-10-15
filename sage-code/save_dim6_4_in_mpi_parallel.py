@@ -23,5 +23,5 @@ load("bent_function_extended_affine_representative_polynomials.sage")
 list_of_f = bent_function_extended_affine_representative_polynomials_dimension_6()
 bentf = list_of_f[4]
 
-save_class_parts_in_parallel(comm, 'p6_4_test', bentf, c_len=8)
+save_class_parts_in_parallel(comm, 'p6_4_n_str_test', bentf, c_len=4)
 quit
