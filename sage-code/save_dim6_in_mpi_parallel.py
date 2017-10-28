@@ -17,13 +17,8 @@ from boolean_cayley_graphs.classify_in_mpi_parallel import save_classifications_
 r"""
 """
 comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
 
-if rank == 0:
-    load("bent_function_extended_affine_representative_polynomials.sage")
-    list_of_f = bent_function_extended_affine_representative_polynomials_dimension_6()
-else:
-    list_of_f = None
-
+load("bent_function_extended_affine_representative_polynomials.sage")
+list_of_f = bent_function_extended_affine_representative_polynomials_dimension_6()
 save_classifications_in_parallel(comm, 'p6_test_again', list_of_f, start=1)
 quit
