@@ -32,7 +32,7 @@ def classify(
     form):
     r"""
     """
-    return BentFunctionCayleyGraphClassification(BentFunction(form))
+    return BentFunctionCayleyGraphClassification.from_function(BentFunction(form))
 
 
 def classify_in_parallel(
@@ -55,7 +55,7 @@ def save_one_classification(
     form):
     r"""
     """
-    c = BentFunctionCayleyGraphClassification(BentFunction(form))
+    c = BentFunctionCayleyGraphClassification.from_function(BentFunction(form))
     c.save_mangled(name)
     return name
 
