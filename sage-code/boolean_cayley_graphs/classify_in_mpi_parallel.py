@@ -18,60 +18,6 @@ from boolean_cayley_graphs.classify_in_parallel import save_one_classification
 from boolean_cayley_graphs.classify_in_parallel import save_one_class_part
 
 
-def scatter_functions_to_classify(
-    comm,
-    list_of_f,
-    list_start,
-    list_stop):
-    r"""
-    """
-    size = comm.Get_size()
-    nbr_workers = size - 1
-
-    len_list = len(list_of_f)
-    list_stop = (
-        len_list
-        if list_stop == None
-        else min(list_stop, len_list))
-    comm.bcast(list_stop, root=0)
-
-    for start in range(list_start, list_stop, nbr_workers):
-        stop = min(start + nbr_workers, list_stop)
-        tuples_to_scatter = [
-            (n, BooleanFunction(list_of_f[n]).truth_table(format='hex'))
-            for n in range(start, stop)]
-
-        list_to_scatter = [None] * size
-        list_to_scatter[1 : 1 + stop - start] = tuples_to_scatter
-        comm.scatter(list_to_scatter, root=0)
-
-
-def save_some_classifications(
-    comm,
-    name_prefix):
-    r"""
-    """
-    rank = comm.Get_rank()
-    size = comm.Get_size()
-    nbr_workers = size - 1
-
-    list_stop  = comm.bcast(None, root=0)
-    more = True
-    while more:
-        table_tuple = comm.scatter(None, root=0)
-
-        if table_tuple == None:
-            more = False
-        else:
-            n = table_tuple[0]
-            name = name_prefix + '_' + str(n)
-            table = table_tuple[1]
-            save_one_classification(name, table)
-
-            start = n - rank + 1
-            more = start + nbr_workers < list_stop
-
-
 def save_classifications_in_parallel(
     comm,
     name_prefix,
@@ -82,12 +28,13 @@ def save_classifications_in_parallel(
     """
     rank = comm.Get_rank()
     size = comm.Get_size()
-    nbr_workers = size - 1
 
-    if rank == 0:
-        scatter_functions_to_classify(comm, list_of_f, start, stop)
-    else:
-        save_some_classifications(comm, name_prefix)
+    if stop == None:
+        stop = len(list_of_f)
+    for n in range(start + rank, stop, size):
+        name = name_prefix + '_' + str(n)
+        form = BooleanFunction(list_of_f[n]).truth_table(format='hex')
+        save_one_classification(name, form)
 
 
 def save_class_parts_in_parallel(
