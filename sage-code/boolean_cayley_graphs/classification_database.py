@@ -28,13 +28,24 @@ def create_classification_db(db_name):
     conn.row_factory = sqlite3.Row
     curs = conn.cursor()
     curs.execute('''CREATE TABLE bent_cayley_graph_index
-                (bent_function text, b integer, c integer, cayley_graph_index integer)''')
+                    (bent_function text, b integer, c integer, cayley_graph_index integer)''')
+    curs.execute('''CREATE INDEX idx_bent_cayley_graph_index
+                    ON bent_cayley_graph_index(bent_function)''')
+
     curs.execute('''CREATE TABLE dual_cayley_graph_index
-                (bent_function text, b integer, c integer, cayley_graph_index integer)''')
+                    (bent_function text, b integer, c integer, cayley_graph_index integer)''')
+    curs.execute('''CREATE INDEX idx_dual_cayley_graph_index
+                    ON dual_cayley_graph_index(bent_function)''')
+
     curs.execute('''CREATE TABLE cayley_graph_class
-                (bent_function text, cayley_graph_index integer, canonical_form text)''')
+                    (bent_function text, cayley_graph_index integer, canonical_form text)''')
+    curs.execute('''CREATE INDEX idx_cayley_graph_class
+                    ON cayley_graph_class(bent_function)''')
+
     curs.execute('''CREATE TABLE weight_class
-                (bent_function text, b integer, c integer, weight_class integer)''')
+                    (bent_function text, b integer, c integer, weight_class integer)''')
+    curs.execute('''CREATE INDEX idx_weight_class
+                    ON weight_class(bent_function)''')
     conn.commit()
     return conn
 
