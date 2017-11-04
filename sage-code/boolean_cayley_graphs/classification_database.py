@@ -27,23 +27,40 @@ def create_classification_db(db_name):
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
     curs = conn.cursor()
-    curs.execute('''CREATE TABLE bent_cayley_graph_index
-                    (bent_function text, b integer, c integer, cayley_graph_index integer)''')
+    curs.execute('''CREATE TABLE bent_cayley_graph_index(
+                    bent_function TEXT,
+                    b INTEGER,
+                    c INTEGER,
+                    cayley_graph_index INTEGER,
+                    PRIMARY KEY(bent_function, b, c))''')
     curs.execute('''CREATE INDEX idx_bent_cayley_graph_index
                     ON bent_cayley_graph_index(bent_function)''')
 
-    curs.execute('''CREATE TABLE dual_cayley_graph_index
-                    (bent_function text, b integer, c integer, cayley_graph_index integer)''')
+    curs.execute('''CREATE TABLE dual_cayley_graph_index(
+                    bent_function TEXT,
+                    b INTEGER,
+                    c INTEGER,
+                    cayley_graph_index INTEGER,
+                    PRIMARY KEY(bent_function, b, c))''')
     curs.execute('''CREATE INDEX idx_dual_cayley_graph_index
                     ON dual_cayley_graph_index(bent_function)''')
 
-    curs.execute('''CREATE TABLE cayley_graph_class
-                    (bent_function text, cayley_graph_index integer, canonical_form text)''')
-    curs.execute('''CREATE INDEX idx_cayley_graph_class
+    curs.execute('''CREATE TABLE cayley_graph_class(
+                    bent_function TEXT,
+                    cayley_graph_index INTEGER,
+                    canonical_form TEXT,
+                    PRIMARY KEY(bent_function, cayley_graph_index))''')
+    curs.execute('''CREATE INDEX idx_cayley_graph_class_bent_function
                     ON cayley_graph_class(bent_function)''')
+#   curs.execute('''CREATE INDEX idx_cayley_graph_class_canonical_form
+#                   ON cayley_graph_class(canonical_form)''')
 
-    curs.execute('''CREATE TABLE weight_class
-                    (bent_function text, b integer, c integer, weight_class integer)''')
+    curs.execute('''CREATE TABLE weight_class(
+                    bent_function TEXT,
+                    b INTEGER,
+                    c INTEGER,
+                    weight_class INTEGER,
+                    PRIMARY KEY(bent_function, b, c))''')
     curs.execute('''CREATE INDEX idx_weight_class
                     ON weight_class(bent_function)''')
     conn.commit()
@@ -69,16 +86,21 @@ def insert_classification(curs, bfcgc):
     wcm  = bfcgc.weight_class_matrix
 
     for b in range(v):
-        for c in range(v):
-            curs.execute("INSERT INTO bent_cayley_graph_index VALUES (?,?,?,?)",
-                         (bftt, b, c, int(bcim[c,b])))
-            curs.execute("INSERT INTO dual_cayley_graph_index VALUES (?,?,?,?)",
-                         (bftt, b, c, int(dcim[c,b])))
-            curs.execute("INSERT INTO weight_class VALUES (?,?,?,?)",
-                         (bftt, b, c, int(wcm[c,b])))
-    for n in range(len(cgcl)):
-        curs.execute("INSERT INTO cayley_graph_class VALUES (?,?,?)",
-                     (bftt, n, cgcl[n]))
+        bcim_b_row = ((bftt, b, c, int(bcim[c,b])) for c in range(v))
+        curs.executemany('''INSERT INTO bent_cayley_graph_index
+                            VALUES (?,?,?,?)''', bcim_b_row)
+
+        dcim_b_row = ((bftt, b, c, int(dcim[c,b])) for c in range(v))
+        curs.executemany('''INSERT INTO dual_cayley_graph_index
+                            VALUES (?,?,?,?)''', dcim_b_row)
+
+        wcm_b_row  = ((bftt, b, c, int(wcm[c,b])) for c in range(v))
+        curs.executemany('''INSERT INTO weight_class
+                            VALUES (?,?,?,?)''', wcm_b_row)
+
+    cgcl_row = ((bftt, n, cgcl[n]) for n in range(len(cgcl)))
+    curs.executemany('''INSERT INTO cayley_graph_class
+                        VALUES (?,?,?)''', cgcl_row)
 
     curs.connection.commit()
 
