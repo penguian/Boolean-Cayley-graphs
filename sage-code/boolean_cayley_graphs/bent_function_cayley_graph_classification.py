@@ -86,18 +86,83 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
     extended translation equivalence class of a bent function.
     """
 
-
-    def __init__(self,
-                 bentf,
-                 list_dual_graphs=True,
-                 c_start=0,
-                 c_stop=None):
+    def __init__(self, *args, **kwargs):
         r"""
-        Initialize ``self`` from the ``BentFunction`` ``bentf``.
+        Constructor from an object or from class attributes.
 
         INPUT:
 
-        - ``self`` -- the current object. Uninitialized.
+        - ``algebraic_normal_form`` -- a polynomial of the type
+          returned by ``BooleanFunction.algebraic_normal_form()``,
+          representing the ``BentFunction`` whose classification this is.
+        - ``cayley_graph_class_list`` -- a list of ``graph6_string`` strings
+          corresponding to the complete set of non-isomorphic Cayley graphs of
+          the bent functions within the extended translation equivalence class
+          of the ``BentFunction`` represented by ``algebraic_normal_form``,
+          and their duals, if ``dual_cayley_graph_index_matrix`` is not ``None``,
+        - ``bent_cayley_graph_index_matrix`` -- a ``Matrix` of integers,
+          which are indices into ``cayley_graph_class_list`` representing the
+          correspondence between bent functions and their Cayley graphs.
+        - ``dual_cayley_graph_index_matrix`` -- a ``Matrix` of integers,
+          which are indices into ``cayley_graph_class_list`` representing the
+          correspondence between dual bent functions and their Cayley graphs.
+        - ``weight_class_matrix`` -- a ``Matrix` of integers with value 0 or 1
+          corresponding to the weight class of each bent function.
+        - ``c_start`` -- an integer representing the Boolean vector
+          corresponding to the first row of each matrix.
+
+        OUTPUT:
+
+        None.
+
+        EFFECT:
+
+        The current object ``self`` is initialized as follows.
+
+        Each of
+        - ``algebraic_normal_form``
+        - ``cayley_graph_class_list``
+        - ``bent_cayley_graph_index_matrix``
+        - ``dual_cayley_graph_index_matrix``
+        - ``weight_class_matrix``
+        - ``c_start``
+        is set to the corresponding input parameter.
+        """
+        try:
+            sobj = args[0]
+            self.algebraic_normal_form=sobj.algebraic_normal_form
+            self.cayley_graph_class_list=sobj.cayley_graph_class_list
+            self.bent_cayley_graph_index_matrix=sobj.bent_cayley_graph_index_matrix
+            self.dual_cayley_graph_index_matrix=sobj.dual_cayley_graph_index_matrix
+            self.weight_class_matrix=sobj.weight_class_matrix
+            self.c_start=sobj.c_start
+        except:
+            self.algebraic_normal_form          = kwargs.pop(
+                'algebraic_normal_form')
+            self.cayley_graph_class_list        = kwargs.pop(
+                'cayley_graph_class_list')
+            self.bent_cayley_graph_index_matrix = kwargs.pop(
+                'bent_cayley_graph_index_matrix')
+            self.dual_cayley_graph_index_matrix = kwargs.pop(
+                'dual_cayley_graph_index_matrix', None)
+            self.weight_class_matrix            = kwargs.pop(
+                'weight_class_matrix')
+            self.c_start                        = kwargs.pop(
+                'c_start')
+
+
+    @classmethod
+    def from_function(
+        cls,
+        bentf,
+        list_dual_graphs=True,
+        c_start=0,
+        c_stop=None):
+        r"""
+        Constructor from the ``BentFunction`` ``bentf``.
+
+        INPUT:
+
         - ``bentf`` -- an object of class `BentFunction`.
         - ``list_dual_graphs`` -- boolean. a flag indicating
           whether to list dual graphs. Default is True.
@@ -108,13 +173,9 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
 
         OUTPUT:
 
-        None.
+        An object of class BentFunctionCayleyGraphClassPart,
+        initialized as follows.
 
-        EFFECT:
-
-        The current object ``self`` is initialized as follows.
-
-        - ``c_start`` is set to smallest value of c used for extended translates.
         - ``algebraic_normal_form`` is set to ``bentf.algebraic_normal_form()``,
         - ``cayley_graph_class_list`` is set to a list of ``graph6_string`` stings
           corresponding to the complete set of non-isomorphic Cayley graphs
@@ -127,7 +188,8 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
           a matrix of indices into `cayley_graph_class_list` corresponding
           to the duals of these bent functions, and
         - ``weight_class_matrix`` is set to the 0-1 matrix of weight classes
-          corresponding to ``bent_cayley_graph_index_matrix``.
+          corresponding to ``bent_cayley_graph_index_matrix``,
+        - ``c_start`` is set to smallest value of c used for extended translates.
 
         Each entry ``bent_cayley_graph_index_matrix[c-c_start,b]`` corresponds to
         the Cayley graph of the bent function
@@ -147,7 +209,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c1 = BentFunctionCayleyGraphClassPart(f,c_start=2,c_stop=4)
+            sage: c1 = BentFunctionCayleyGraphClassPart.from_function(f,c_start=2,c_stop=4)
             sage: c1.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 0 0]
@@ -169,7 +231,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c2 = BentFunctionCayleyGraphClassPart(f,list_dual_graphs=False,c_start=0,c_stop=2)
+            sage: c2 = BentFunctionCayleyGraphClassPart.from_function(f,list_dual_graphs=False,c_start=0,c_stop=2)
             sage: c2.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 1 1]
@@ -185,12 +247,12 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
 
         dim = bentf.nvariables()
         v = 2 ** dim
-        self.c_start = c_start
+        c_start
         if c_stop == None:
             c_stop = v
         else:
             c_stop = min(c_stop, v)
-        self.algebraic_normal_form = bentf.algebraic_normal_form()
+        algebraic_normal_form = bentf.algebraic_normal_form()
 
         cayley_graph_class_bijection = (
             BijectiveList()
@@ -198,12 +260,12 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             ShelveBijectiveList())
 
         c_len = c_stop - c_start
-        self.bent_cayley_graph_index_matrix = matrix(c_len, v)
+        bent_cayley_graph_index_matrix = matrix(c_len, v)
         if list_dual_graphs:
-            self.dual_cayley_graph_index_matrix = matrix(c_len, v)
+            dual_cayley_graph_index_matrix = matrix(c_len, v)
         else:
-            self.dual_cayley_graph_index_matrix = None
-        self.weight_class_matrix = matrix(c_len, v)
+            dual_cayley_graph_index_matrix = None
+        weight_class_matrix = matrix(c_len, v)
 
         f = bentf.extended_translate()
         dual_bentf = bentf.walsh_hadamard_dual()
@@ -220,11 +282,11 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
                 fbc = bentf.extended_translate(b, c, fb)
                 cg = boolean_cayley_graph(dim, fbc).canonical_label()
                 cg_index = cayley_graph_class_bijection.index_append(cg.graph6_string())
-                self.bent_cayley_graph_index_matrix[c - c_start, b] = cg_index
+                bent_cayley_graph_index_matrix[c - c_start, b] = cg_index
 
                 weight = sum(fbc(x) for x in xsrange(v))
                 wc = weight_class(v, weight)
-                self.weight_class_matrix[c - c_start, b] = wc
+                weight_class_matrix[c - c_start, b] = wc
 
                 if checking:
                     if wc != 0 and wc != 1:
@@ -237,7 +299,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
                     dual_fbc = bentfbc.walsh_hadamard_dual().extended_translate(d=wc)
                     dg = boolean_cayley_graph(dim, dual_fbc).canonical_label()
                     dg_index = cayley_graph_class_bijection.index_append(dg.graph6_string())
-                    self.dual_cayley_graph_index_matrix[c - c_start, b] = dg_index
+                    dual_cayley_graph_index_matrix[c - c_start, b] = dg_index
 
                     if checking and dim > 2:
                         blcg = boolean_linear_code_graph(dim, fbc)
@@ -255,23 +317,31 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
 
         # Retain the list part of cayley_graph_class_bijection, and
         # close and remove the dict part.
-        self.cayley_graph_class_list = cayley_graph_class_bijection.get_list()
+        cayley_graph_class_list = cayley_graph_class_bijection.get_list()
         cayley_graph_class_bijection.close_dict()
         cayley_graph_class_bijection.remove_dict()
 
         if checking:
             sdp_design_matrix = bentf.sdp_design_matrix()
-            if self.weight_class_matrix != sdp_design_matrix:
+            if weight_class_matrix != sdp_design_matrix:
                 raise ValueError, (
                     "weight_class_matrix != sdp_design_matrix"
                     + "\n"
-                    + str(self.weight_class_matrix)
+                    + str(weight_class_matrix)
                     + "\n"
                     + str(sdp_design_matrix))
 
         if timing:
             print datetime.now()
             stdout.flush()
+
+        return cls(
+            algebraic_normal_form=algebraic_normal_form,
+            cayley_graph_class_list=cayley_graph_class_list,
+            bent_cayley_graph_index_matrix=bent_cayley_graph_index_matrix,
+            dual_cayley_graph_index_matrix=dual_cayley_graph_index_matrix,
+            weight_class_matrix=weight_class_matrix,
+            c_start=c_start)
 
 
 class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
@@ -280,19 +350,63 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
     extended translation equivalence class of a bent function.
     """
 
-    def __init__(self,
-                 *args,
-                 **kwargs):
-        self.algebraic_normal_form          = kwargs.pop(
-            'algebraic_normal_form')
-        self.cayley_graph_class_list        = kwargs.pop(
-            'cayley_graph_class_list')
-        self.bent_cayley_graph_index_matrix = kwargs.pop(
-            'bent_cayley_graph_index_matrix')
-        self.dual_cayley_graph_index_matrix = kwargs.pop(
-            'dual_cayley_graph_index_matrix', None)
-        self.weight_class_matrix            = kwargs.pop(
-            'weight_class_matrix')
+    def __init__(self, *args, **kwargs):
+        r"""
+        Constructor from an object or from class attributes.
+
+        INPUT:
+
+        - ``algebraic_normal_form`` -- a polynomial of the type
+          returned by ``BooleanFunction.algebraic_normal_form()``,
+          representing the ``BentFunction`` whose classification this is.
+        - ``cayley_graph_class_list`` -- a list of ``graph6_string`` strings
+          corresponding to the complete set of non-isomorphic Cayley graphs of
+          the bent functions within the extended translation equivalence class
+          of the ``BentFunction`` represented by ``algebraic_normal_form``,
+          and their duals, if ``dual_cayley_graph_index_matrix`` is not ``None``,
+        - ``bent_cayley_graph_index_matrix`` -- a ``Matrix` of integers,
+          which are indices into ``cayley_graph_class_list`` representing the
+          correspondence between bent functions and their Cayley graphs.
+        - ``dual_cayley_graph_index_matrix`` -- a ``Matrix` of integers,
+          which are indices into ``cayley_graph_class_list`` representing the
+          correspondence between dual bent functions and their Cayley graphs.
+        - ``weight_class_matrix`` -- a ``Matrix` of integers with value 0 or 1
+          corresponding to the weight class of each bent function.
+
+        OUTPUT:
+
+        None.
+
+        EFFECT:
+
+        The current object ``self`` is initialized as follows.
+
+        Each of
+        - ``algebraic_normal_form``
+        - ``cayley_graph_class_list``
+        - ``bent_cayley_graph_index_matrix``
+        - ``dual_cayley_graph_index_matrix``
+        - ``weight_class_matrix``
+        is set to the corresponding input parameter.
+        """
+        try:
+            sobj = args[0]
+            self.algebraic_normal_form=sobj.algebraic_normal_form
+            self.cayley_graph_class_list=sobj.cayley_graph_class_list
+            self.bent_cayley_graph_index_matrix=sobj.bent_cayley_graph_index_matrix
+            self.dual_cayley_graph_index_matrix=sobj.dual_cayley_graph_index_matrix
+            self.weight_class_matrix=sobj.weight_class_matrix
+        except:
+            self.algebraic_normal_form          = kwargs.pop(
+                'algebraic_normal_form')
+            self.cayley_graph_class_list        = kwargs.pop(
+                'cayley_graph_class_list')
+            self.bent_cayley_graph_index_matrix = kwargs.pop(
+                'bent_cayley_graph_index_matrix')
+            self.dual_cayley_graph_index_matrix = kwargs.pop(
+                'dual_cayley_graph_index_matrix', None)
+            self.weight_class_matrix            = kwargs.pop(
+                'weight_class_matrix')
 
 
     @classmethod
@@ -386,13 +500,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             [0 1 0 0]
             [0 0 0 1]}
         """
-        cp = BentFunctionCayleyGraphClassPart(bentf,
-                                              list_dual_graphs=list_dual_graphs)
-        return cls(algebraic_normal_form=cp.algebraic_normal_form,
-                   cayley_graph_class_list=cp.cayley_graph_class_list,
-                   bent_cayley_graph_index_matrix=cp.bent_cayley_graph_index_matrix,
-                   dual_cayley_graph_index_matrix=cp.dual_cayley_graph_index_matrix,
-                   weight_class_matrix=cp.weight_class_matrix)
+        cp = BentFunctionCayleyGraphClassPart.from_function(
+            bentf,
+            list_dual_graphs=list_dual_graphs)
+        return cls(cp)
 
 
     @classmethod
@@ -460,11 +571,12 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         cayley_graph_class_bijection.close_dict()
         cayley_graph_class_bijection.remove_dict()
 
-        return cls(algebraic_normal_form=algebraic_normal_form,
-                   cayley_graph_class_list=cayley_graph_class_list,
-                   bent_cayley_graph_index_matrix=bent_cayley_graph_index_matrix,
-                   dual_cayley_graph_index_matrix=dual_cayley_graph_index_matrix,
-                   weight_class_matrix=weight_class_matrix)
+        return cls(
+            algebraic_normal_form=algebraic_normal_form,
+            cayley_graph_class_list=cayley_graph_class_list,
+            bent_cayley_graph_index_matrix=bent_cayley_graph_index_matrix,
+            dual_cayley_graph_index_matrix=dual_cayley_graph_index_matrix,
+            weight_class_matrix=weight_class_matrix)
 
 
 

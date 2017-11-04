@@ -83,7 +83,7 @@ def save_one_class_part(
     c_stop):
     r"""
     """
-    p = BentFunctionCayleyGraphClassPart(bentf,c_start=c_start,c_stop=c_stop)
+    p = BentFunctionCayleyGraphClassPart.from_function(bentf,c_start=c_start,c_stop=c_stop)
     p.save_mangled(name)
     return name
 
@@ -101,15 +101,15 @@ def save_class_parts_in_parallel(
         sage: import glob
         sage: import os
         sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart
         sage: R2.<x1,x2> = BooleanPolynomialRing(2)
         sage: p = x1+x2+x1*x2
         sage: f = BentFunction(p)
         sage: from boolean_cayley_graphs.classify_in_parallel import save_class_parts_in_parallel
         sage: s = save_class_parts_in_parallel('test_part', f)
-        sage: p1=load("BentFunctionCayleyGraphClassPart__test_part_1.sobj")
+        sage: p1=BentFunctionCayleyGraphClassPart.load_mangled("test_part_1.sobj")
         sage: p1.__dict__
-        {'_default_filename': '/home/leopardi/sync/src/sage-sandbox/Boolean-Cayley-graphs/sage-code/BentFunctionCayleyGraphClassPart__test_part_1.sobj',
-        'algebraic_normal_form': x0*x1 + x0 + x1,
+        {'algebraic_normal_form': x0*x1 + x0 + x1,
         'bent_cayley_graph_index_matrix': [0 0 1 0],
         'c_start': 1,
         'cayley_graph_class_list': ['CK', 'C~'],
