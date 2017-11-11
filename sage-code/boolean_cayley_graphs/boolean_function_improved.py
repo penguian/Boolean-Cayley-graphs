@@ -28,8 +28,12 @@ EXAMPLES:
 
 from sage.arith.srange import xsrange
 from sage.crypto.boolean_function import BooleanFunction
+from sage.modules.vector_mod2_dense import vector
+from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
+from sage.rings.integer import Integer
 
 from boolean_cayley_graphs.boolean_cayley_graph import boolean_cayley_graph
+from boolean_cayley_graphs.boolean_graph import BooleanGraph
 from boolean_cayley_graphs.boolean_linear_code import boolean_linear_code
 from boolean_cayley_graphs.integer_bits import inner
 from boolean_cayley_graphs.saveable import Saveable
@@ -130,9 +134,9 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         INPUT:
 
         - ``self`` -- the current object.
-        - ``b`` -- non-negtative integer (default: 0)
+        - ``b`` -- non-negative integer (default: 0)
           which is mapped to :math:`\mathbb{F}_2^{dim}`.
-        - ``c`` -- non-negtative integer (default: 0).
+        - ``c`` -- non-negative integer (default: 0).
         - ``d`` -- integer, 0 or 1 (default: 0).
 
         OUTPUT:
@@ -164,6 +168,46 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         """
         dim = self.nvariables()
         return lambda x: self(base2(dim, x ^ b)) ^ (0 if c == 0 else inner(c, x)) ^ d
+
+
+    def is_linear_equivalent(self, other, certificate=False):
+        r"""
+        Check if there is a linear equivalence between ``self`` and ``other``:
+
+        :math:`\mathtt{other}(M x) = \mathtt{self}(x)`,
+
+        where M is a GF(2) matrix.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``other`` -- another object of class BooleanFunctionImproved.
+        - ``certificate`` -- bool (default False). If true, return a GF(2) matrix
+           that defines the isomorphism.
+
+        OUTPUT:
+
+        If ``certificate`` is false, a bool value.
+        If ``certificate`` is true, a tuple consisting of either (False, None)
+        or (True, M), where M is a GF(2) matrix that defines the equivalence.
+
+        """
+        dim = self.nvariables()
+        v = 2 ** dim
+
+        self_bg  = BooleanGraph(self.cayley_graph())
+        other_bg = BooleanGraph(other.cayley_graph())
+        is_linear_isomorphic, M = self_bg.is_linear_isomorphic(
+            other_bg,
+            certificate=True)
+        if not is_linear_isomorphic:
+            return (False, None) if certificate else False
+        self_et = self.extended_translate()
+        for ix in xsrange(v):
+            x = vector(GF(2),base2(dim, ix))
+            if Integer(other(list(M * x))) != self_et(ix):
+                return (False, None) if certificate else False
+            return (True, M) if certificate else True
 
 
     def linear_code(self):
