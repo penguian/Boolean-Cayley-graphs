@@ -13,7 +13,9 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+import binascii
 import datetime
+import hashlib
 import sqlite3
 
 from sage.arith.srange import xsrange
@@ -23,20 +25,35 @@ from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
 from boolean_cayley_graphs.weight_class import weight_class
 
-def create_classification_db(db_name):
+
+def create_database(db_name):
 
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
+    return conn
+
+
+def connect_to_database(db_name):
+
+    conn = sqlite3.connect(db_name)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def create_classification_tables(db_name):
+
+    conn = connect_to_database(db_name)
     curs = conn.cursor()
 
     curs.execute("""
         CREATE TABLE graph(
         graph_id INTEGER,
-        canonical_label TEXT UNIQUE,
+        canonical_label_hash BLOB UNIQUE,
+        canonical_label TEXT,
         PRIMARY KEY(graph_id))""")
     curs.execute("""
         CREATE TABLE cayley_graph(
-        bent_function TEXT,
+        bent_function BLOB,
         cayley_graph_index INTEGER,
         graph_id INTEGER,
         FOREIGN KEY(graph_id) REFERENCES graph(graph_id),
@@ -49,7 +66,7 @@ def create_classification_db(db_name):
 #        ON cayley_graph(graph_id)""")
     curs.execute("""
         CREATE TABLE matrices(
-        bent_function TEXT,
+        bent_function BLOB,
         b INTEGER,
         c INTEGER,
         bent_cayley_graph_index INTEGER,
@@ -67,42 +84,39 @@ def create_classification_db(db_name):
     return conn
 
 
-def connect_to_classification_db(db_name):
-
-    conn = sqlite3.connect(db_name)
-    conn.row_factory = sqlite3.Row
-    return conn
-
-
-def insert_classification(curs, bfcgc):
+def insert_classification(conn, bfcgc):
 
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
     v = 2 ** dim
-    bftt = bentf.truth_table(format='hex')
+    bftt = bentf.tt_buffer()
     cgcl = bfcgc.cayley_graph_class_list
     bcim = bfcgc.bent_cayley_graph_index_matrix
     dcim = bfcgc.dual_cayley_graph_index_matrix
     wcm  = bfcgc.weight_class_matrix
 
+    curs = conn.cursor()
     for n in range(len(cgcl)):
         cgc = cgcl[n]
+        cgc_hash = buffer(hashlib.sha256(cgc).digest())
         curs.execute("""
             INSERT OR IGNORE INTO graph
-            VALUES (?,?)""", (None, cgc))
+            VALUES (?,?,?)""",
+            (None, cgc_hash, cgc))
+
         curs.execute("""
             SELECT graph_id
             FROM graph
-            WHERE canonical_label == (?)""", (cgc,))
+            WHERE canonical_label_hash = (?)""",
+            (cgc_hash,))
+
         row = curs.fetchone()
-        graph_id = row[0]
-        cgcl_row = (bftt, n, graph_id)
+        graph_id = row["graph_id"]
+
         curs.execute("""
             INSERT INTO cayley_graph
-            VALUES (?,?,?)""", cgcl_row)
-
-        if n % 16384 == 0:
-            print datetime.datetime.now(), n
+            VALUES (?,?,?)""",
+            (bftt, n, graph_id))
 
     for b in range(v):
         matrices_b_rows = (
@@ -110,22 +124,25 @@ def insert_classification(curs, bfcgc):
             for c in range(v))
         curs.executemany("""
             INSERT INTO matrices
-            VALUES (?,?,?,?,?,?)""", matrices_b_rows)
+            VALUES (?,?,?,?,?,?)""",
+            matrices_b_rows)
 
-    curs.connection.commit()
+    conn.commit()
     return curs
 
 
-def select_classification(curs, bentf):
+def select_classification(conn, bentf):
 
     dim = bentf.nvariables()
     v = 2 ** dim
-    bftt = (bentf.truth_table(format='hex'),)
+    bftt = (bentf.tt_buffer(),)
 
+    curs = conn.cursor()
     curs.execute("""
         SELECT COUNT(*)
         FROM cayley_graph
-        WHERE bent_function == (?)""", bftt)
+        WHERE bent_function == (?)""",
+        bftt)
     row = curs.fetchone()
     cgcl_len = row[0]
     cgcl = [None] * cgcl_len
@@ -133,7 +150,8 @@ def select_classification(curs, bentf):
         SELECT cayley_graph_index, canonical_label
         FROM cayley_graph, graph
         WHERE bent_function == (?)
-        AND cayley_graph.graph_id == graph.graph_id""", bftt)
+        AND cayley_graph.graph_id == graph.graph_id""",
+        bftt)
     for row in curs:
         cayley_graph_index = row["cayley_graph_index"]
         canonical_label = row["canonical_label"]
@@ -145,17 +163,20 @@ def select_classification(curs, bentf):
     curs.execute("""
         SELECT *
         FROM matrices
-        WHERE bent_function == (?)""", bftt)
+        WHERE bent_function == (?)""",
+        bftt)
     for row in curs:
         b = row["b"]
         c = row["c"]
+
         bent_cayley_graph_index = row["bent_cayley_graph_index"]
         bcim[c, b] = bent_cayley_graph_index
+
         dual_cayley_graph_index = row["dual_cayley_graph_index"]
         dcim[c, b] = dual_cayley_graph_index
+
         weight_class = row["weight_class"]
         wcm[c, b] = weight_class
-
 
     return BentFunctionCayleyGraphClassification(
         algebraic_normal_form=bentf.algebraic_normal_form(),
