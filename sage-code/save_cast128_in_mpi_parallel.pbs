@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -P y03
+#PBS -q normal
+#PBS -l ncpus=16
+#PBS -l mem=16GB
+#PBS -l walltime=3:00:00
+#PBS -l wd
+
+module load sage/8.0
+module load openmpi/3.0.0
+export PYTHONPATH=/short/y03/pcl851/lib/python2.7/site-packages/
+date
+mpirun -np $NCPUS --mca mpi_warn_on_fork 0 sage -python save_cast128_in_mpi_parallel.py $QSUB_BNBR $QSUB_FNBR $QSUB_C_LEN
+date

@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -P y03
+#PBS -q normal
+#PBS -l ncpus=1
+#PBS -l mem=8GB
+#PBS -l walltime=0:10:00
+#PBS -l wd
+#PBS -j oe
+
+module load sage/8.0
+export PYTHONPATH=/short/y03/pcl851/lib/python2.7/site-packages/
+mkdir -p parts
+date
+sage -python save_cast128_from_parts.py $QSUB_BNBR $QSUB_FNBR
+STATUS=$?
+date
+echo "Exit status is $STATUS"
+if [ "$STATUS" = "0" ]
+then
+ echo "Moving parts."
+ mv "BentFunctionCayleyGraphClassPart__cast128_${QSUB_BNBR}_${QSUB_FNBR}_"* parts
+ ls "parts/"*"cast128_${QSUB_BNBR}_${QSUB_FNBR}_"*
+else
+ echo "Saving failed."
+fi
