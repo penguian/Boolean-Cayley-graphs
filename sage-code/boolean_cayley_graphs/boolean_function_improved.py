@@ -26,6 +26,8 @@ EXAMPLES:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+import binascii
+
 from sage.arith.srange import xsrange
 from sage.crypto.boolean_function import BooleanFunction
 from sage.modules.vector_mod2_dense import vector
@@ -250,6 +252,29 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         dim = self.nvariables()
         f = self.extended_translate()
         return boolean_linear_code(dim, f)
+
+
+    def tt_buffer(self):
+        r"""
+        Return a buffer containing the binary version of the truth table.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        A buffer containing the binary version of the truth table of ``self``.
+
+        """
+        tt = self.truth_table(format='hex')
+        # Pad tt if it is an odd length string, so that a2b_hex works.
+        padding = (
+            "0"
+            if len(tt) % 2 == 1
+            else
+            "")
+        return buffer(binascii.a2b_hex(padding + tt))
 
 
     def weight(self):
