@@ -271,8 +271,8 @@ class ShelveBijectiveList(BijectiveList):
 
 
     def remove_dict(self):
-        for fn in glob.glob(self.file_prefix + ".index*"):
-            os.remove(fn)
+        for file_name in glob.glob(self.file_prefix + ".index*"):
+            os.remove(file_name)
 
 
     def __del__(self):

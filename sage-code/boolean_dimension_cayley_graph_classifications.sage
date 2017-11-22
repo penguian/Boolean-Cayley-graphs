@@ -35,7 +35,7 @@ def save_boolean_dimension_cayley_graph_classifications(dim, start=1, stop=None)
         if verbose:
             print 'Function', n, ':'
         f = BentFunction(p[n])
-        c[n] = BentFunctionCayleyGraphClassification(f)
+        c[n] = BentFunctionCayleyGraphClassification.from_function(f)
         name_n = 'p'+str(dim)+'_'+str(n)
         c[n].save_mangled(name_n)
         if verbose:
