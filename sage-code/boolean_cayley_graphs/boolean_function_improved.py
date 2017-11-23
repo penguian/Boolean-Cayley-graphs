@@ -33,6 +33,7 @@ from sage.crypto.boolean_function import BooleanFunction
 from sage.modules.vector_mod2_dense import vector
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
 from sage.rings.integer import Integer
+from sage.rings.integer_ring import ZZ
 
 from boolean_cayley_graphs.boolean_cayley_graph import boolean_cayley_graph
 from boolean_cayley_graphs.boolean_graph import BooleanGraph
@@ -89,6 +90,16 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         (False, True, False, False)
 
     """
+
+
+    @classmethod
+    def from_tt_buffer(
+        cls,
+        tt_buffer):
+        r"""
+        """
+        tt = binascii.b2a_hex(tt_buffer)
+        return BooleanFunctionImproved(tt)
 
 
     def cayley_graph(self):
@@ -266,14 +277,35 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         A buffer containing the binary version of the truth table of ``self``.
 
+        EXAMPLES:
+
+        ::
+
+            sage: import binascii
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf1 = BooleanFunctionImproved([0,1,0,0])
+            sage: bf2 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
+            sage: buff_bf1 = bf1.tt_buffer()
+            sage: binascii.b2a_hex(buff_bf1)
+            '02'
+            sage: buff_bf2 = bf2.tt_buffer()
+            sage: binascii.b2a_hex(buff_bf2)
+            'c122'
+            sage: hex_str3 = "0123456789112345678921234567893123456789412345678951234567896123"
+            sage: bf3 = BooleanFunctionImproved(hex_str3)
+            sage: buff_bf3 = bf3.tt_buffer()
+            sage: binascii.b2a_hex(buff_bf3)
+            '0123456789112345678921234567893123456789412345678951234567896123'
+            sage: binascii.b2a_hex(buff_bf3) == hex_str3
+            True
         """
-        tt = self.truth_table(format='hex')
-        # Pad tt if it is an odd length string, so that a2b_hex works.
-        padding = (
-            "0"
-            if len(tt) % 2 == 1
-            else
-            "")
+        # The following code is based on BooleanFunction.truth_table().
+        # Variable tt represents truth_table in hex.
+        tt = ZZ(self.truth_table(), 2).str(16)
+        # Pad buffer for tt so that length in hex is an even power of 2.
+        # This assumes that nvariables is at least 2.
+        buffer_len = max(2, 1 << (self.nvariables() - 2))
+        padding = "0" * (buffer_len - len(tt))
         return buffer(binascii.a2b_hex(padding + tt))
 
 
