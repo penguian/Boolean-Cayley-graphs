@@ -46,6 +46,11 @@ def create_classification_tables(db_name):
     curs = conn.cursor()
 
     curs.execute("""
+        CREATE TABLE bent_function(
+        bent_function BLOB,
+        name TEXT UNIQUE,
+        PRIMARY KEY(bent_function))""")
+    curs.execute("""
         CREATE TABLE graph(
         graph_id INTEGER,
         canonical_label_hash BLOB UNIQUE,
@@ -56,14 +61,11 @@ def create_classification_tables(db_name):
         bent_function BLOB,
         cayley_graph_index INTEGER,
         graph_id INTEGER,
-        FOREIGN KEY(graph_id) REFERENCES graph(graph_id),
+        FOREIGN KEY(bent_function)
+            REFERENCES bent_function(bent_function),
+        FOREIGN KEY(graph_id)
+            REFERENCES graph(graph_id),
         PRIMARY KEY(bent_function, cayley_graph_index))""")
-#    curs.execute("""
-#        CREATE INDEX idx_cayley_graph_bent_function
-#        ON cayley_graph(bent_function)""")
-#    curs.execute("""
-#        CREATE INDEX idx_cayley_graph_graph_index
-#        ON cayley_graph(graph_id)""")
     curs.execute("""
         CREATE TABLE matrices(
         bent_function BLOB,
@@ -72,19 +74,18 @@ def create_classification_tables(db_name):
         bent_cayley_graph_index INTEGER,
         dual_cayley_graph_index INTEGER,
         weight_class INTEGER,
+        FOREIGN KEY(bent_function)
+            REFERENCES bent_function(bent_function),
         FOREIGN KEY(bent_function, bent_cayley_graph_index)
             REFERENCES cayley_graph(bent_function, cayley_graph_index),
         FOREIGN KEY(bent_function, dual_cayley_graph_index)
             REFERENCES cayley_graph(bent_function, cayley_graph_index),
         PRIMARY KEY(bent_function, b, c))""")
-#    curs.execute("""
-#        CREATE INDEX idx_matrices
-#        ON matrices(bent_function)""")
     conn.commit()
     return conn
 
 
-def insert_classification(conn, bfcgc):
+def insert_classification(conn, bfcgc, name=None):
 
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
@@ -96,6 +97,10 @@ def insert_classification(conn, bfcgc):
     wcm  = bfcgc.weight_class_matrix
 
     curs = conn.cursor()
+    curs.execute("""
+        INSERT INTO bent_function
+        VALUES (?,?)""",
+        (bftt, name))
     for n in range(len(cgcl)):
         cgc = cgcl[n]
         cgc_hash = buffer(hashlib.sha256(cgc).digest())
@@ -131,7 +136,9 @@ def insert_classification(conn, bfcgc):
     return curs
 
 
-def select_classification(conn, bentf):
+def select_classification_where_bent_function(
+    conn,
+    bentf):
 
     dim = bentf.nvariables()
     v = 2 ** dim
@@ -144,6 +151,9 @@ def select_classification(conn, bentf):
         WHERE bent_function == (?)""",
         bftt)
     row = curs.fetchone()
+    if row == None:
+        return None
+
     cgcl_len = row[0]
     cgcl = [None] * cgcl_len
     curs.execute("""
@@ -184,3 +194,25 @@ def select_classification(conn, bentf):
         bent_cayley_graph_index_matrix=bcim,
         dual_cayley_graph_index_matrix=dcim,
         weight_class_matrix=wcm)
+
+
+def select_classification_where_name(
+    conn,
+    name):
+
+    curs = conn.cursor()
+    curs.execute("""
+        SELECT bent_function
+        FROM bent_function
+        WHERE name == (?)""",
+        (name,))
+    row = curs.fetchone()
+    if row == None:
+        return None
+
+    bftt = row["bent_function"]
+    bentf = BentFunction.from_tt_buffer(bftt)
+
+    return select_classification_where_bent_function(
+        conn,
+        bentf)
