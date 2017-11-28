@@ -109,9 +109,10 @@ SageMath, CoCalc, Bliss, Nauty, MPI4py, SQLite3, PostgreSQL, Psycopg2.
 \begin{frame}
 \frametitle{Serious Question}
 \begin{center}
-\vspace{+15mm}
+\vspace{+12mm}
+\large{}
 What would \Emph{you} do with a ``large'' database of strongly regular graphs?
-
+\normalsize{}
 \end{center}
 \end{frame}
 
@@ -1258,8 +1259,34 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} 
 The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Functions $f_{8,5}$ and $f_{8,6}$ are linearly equivalent}
+
+\Emph{Proof}
+
+~
+
+Apply the permutation $\pi := (x_0\ x_5\ x_4)(x_1\ x_2\ x_3)(x_6\ x_7)$ to
+\small{
+\begin{align*}
+f_{8,5}
+&=
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+\end{align*}
+}\normalsize{}
+to obtain
+\small{
+\begin{align*}
+\pi(f_{8,5})
+&=
+x_{5} x_{2} x_{3} + x_{5} x_{7} + x_{2} x_{1} x_{0} + x_{2} x_{0} + x_{2} x_{4} + x_{3} x_{1} x_{4} + x_{3} x_{0} + x_{1} x_{6}
+\\
+&=
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
+\\
+&= f_{8,6}.
+\end{align*}
+}\normalsize{}
 \end{frame}
 
 \end{colortheme}
@@ -1614,6 +1641,11 @@ Database size \Emph{195 GB}.
 
 \begin{itemize}
  \item
+Submit paper ``Classifying bent functions by their Cayley graphs.''
+
+~
+
+ \item
 Submit code to Sage project for review.
 
 ~
@@ -1630,8 +1662,6 @@ Arrange for hosting. Research Data Services?
 
  \item
 Scale up to cover the 14\,758 ET classes of partial spread bent functions?
-
-~
 
  \begin{itemize}
   \item
