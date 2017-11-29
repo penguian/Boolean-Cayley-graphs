@@ -102,14 +102,14 @@ National Computational Infrastructure.
 
 ~
 
-SageMath, CoCalc, Bliss, Nauty, MPI4py, SQLite3, PostgreSQL, Psycopg2.
+SageMath, CoCalc, Bliss, Nauty, MPI4py, SQLite3, DB Browser for SQLite, PostgreSQL, Psycopg2.
 \end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Serious Question}
 \begin{center}
-\vspace{+12mm}
+\vspace{+10mm}
 \large{}
 What would \Emph{you} do with a ``large'' database of strongly regular graphs?
 \normalsize{}
@@ -1149,7 +1149,7 @@ for each $b, c \in \F_2^{2m}$.
 \frametitle{For 8 dimensions: \\ number of bent functions and EA classes}
 
 According to Langevin and Leander (2011)
-there are $99270589265934370305785861242880 \approx 2^{106}$ bent functions in dimension 8.
+there are $99\,270\,589\,265\,934\,370\,305\,785\,861\,242\,880 \approx 2^{106}$ bent functions in dimension 8.
 
 ~
 
@@ -1267,16 +1267,16 @@ The same 9 classes as $[f_{8,5}]$, with the same frequencies!
 ~
 
 Apply the permutation $\pi := (x_0\ x_5\ x_4)(x_1\ x_2\ x_3)(x_6\ x_7)$ to
-\small{
+\footnotesize{
 \begin{align*}
 f_{8,5}
 &=
 x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
-\end{align*}
-}\normalsize{}
-to obtain
-\small{
-\begin{align*}
+%\end{align*}
+%}\normalsize{}
+\intertext{\normalsize{to obtain}}
+%\small{
+%\begin{align*}
 \pi(f_{8,5})
 &=
 x_{5} x_{2} x_{3} + x_{5} x_{7} + x_{2} x_{1} x_{0} + x_{2} x_{0} + x_{2} x_{4} + x_{3} x_{1} x_{4} + x_{3} x_{0} + x_{1} x_{6}
@@ -1285,6 +1285,8 @@ x_{5} x_{2} x_{3} + x_{5} x_{7} + x_{2} x_{1} x_{0} + x_{2} x_{0} + x_{2} x_{4} 
 x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
 \\
 &= f_{8,6}.
+\\
+&\ \Box
 \end{align*}
 }\normalsize{}
 \end{frame}
@@ -1630,6 +1632,19 @@ Database size \Emph{195 GB}.
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Using DB Browser with a prototype database}
+\begin{figure}
+\centering
+\begin{minipage}{\textwidth}
+  \centering
+\includegraphics[width=1.00\linewidth]{Browser-session-SQLite.png}
+%  \captionof{figure}{DB Browser session with a prototype classification database.}
+  \label{fig:Browser_session_SQLite}
+\end{minipage}%
+\end{figure}
+\end{frame}
+
 \end{colortheme}
 
 \section{Prospects}
@@ -1641,7 +1656,7 @@ Database size \Emph{195 GB}.
 
 \begin{itemize}
  \item
-Submit paper ``Classifying bent functions by their Cayley graphs.''
+Submit ``Classifying bent functions by their Cayley graphs.''
 
 ~
 
@@ -1661,7 +1676,7 @@ Arrange for hosting. Research Data Services?
 ~
 
  \item
-Scale up to cover the 14\,758 ET classes of partial spread bent functions?
+Scale up to store the 14\,758 ET classes of partial spread bent functions?
 
  \begin{itemize}
   \item
