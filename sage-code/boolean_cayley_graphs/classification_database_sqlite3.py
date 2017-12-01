@@ -13,8 +13,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-import binascii
-import datetime
 import hashlib
 import sqlite3
 
@@ -148,7 +146,7 @@ def select_classification_where_bent_function(
     curs.execute("""
         SELECT COUNT(*)
         FROM cayley_graph
-        WHERE bent_function == (?)""",
+        WHERE bent_function = (?)""",
         bftt)
     row = curs.fetchone()
     if row == None:
@@ -159,8 +157,8 @@ def select_classification_where_bent_function(
     curs.execute("""
         SELECT cayley_graph_index, canonical_label
         FROM cayley_graph, graph
-        WHERE bent_function == (?)
-        AND cayley_graph.graph_id == graph.graph_id""",
+        WHERE bent_function = (?)
+        AND cayley_graph.graph_id = graph.graph_id""",
         bftt)
     for row in curs:
         cayley_graph_index = row["cayley_graph_index"]
@@ -173,7 +171,7 @@ def select_classification_where_bent_function(
     curs.execute("""
         SELECT *
         FROM matrices
-        WHERE bent_function == (?)""",
+        WHERE bent_function = (?)""",
         bftt)
     for row in curs:
         b = row["b"]
@@ -204,7 +202,7 @@ def select_classification_where_name(
     curs.execute("""
         SELECT bent_function
         FROM bent_function
-        WHERE name == (?)""",
+        WHERE name = (?)""",
         (name,))
     row = curs.fetchone()
     if row == None:
