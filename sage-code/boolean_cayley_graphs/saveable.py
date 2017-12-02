@@ -16,6 +16,8 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+import os
+
 from sage.structure.sage_object import load
 
 
@@ -41,6 +43,17 @@ class Saveable(object):
 
         """
         return cls(load(cls.mangled_name(name)))
+
+
+    @classmethod
+    def remove_mangled(cls, name):
+        r"""
+        Remove a saved object based on its standardized name.
+
+        """
+        file_name = cls.mangled_name(name) + ".sobj"
+        if os.path.isfile(file_name):
+            os.remove(file_name)
 
 
     def save_mangled(self, name):
