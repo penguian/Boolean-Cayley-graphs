@@ -70,6 +70,7 @@ class List(list):
             3
             sage: L
             [1, 2, 4, 3]
+            sage: del L
         """
         try:
             result = self.index(item)
@@ -177,7 +178,7 @@ class BijectiveList(object):
             [1, 2, 4, 3]
             sage: BL.get_dict()
             {1: 0, 2: 1, 3: 3, 4: 2}
-
+        sage: del BL
         """
         try:
             result = self._index[item]
@@ -204,6 +205,7 @@ class BijectiveList(object):
 
 
     def __del__(self):
+        self.close_dict()
         self.remove_dict()
 
 
@@ -244,7 +246,8 @@ class ShelveBijectiveList(BijectiveList):
         ['1', '2', '4', '3']
         sage: SBL.get_dict()
         {'1': 0, '3': 3, '2': 1, '4': 2}
-
+        sage: SBL.remove_dict()
+        sage: del SBL
     """
     def __init__(self, other_list=None):
         r"""
@@ -271,10 +274,14 @@ class ShelveBijectiveList(BijectiveList):
 
 
     def remove_dict(self):
-        for file_name in glob.glob(self.file_prefix + ".index*"):
-            os.remove(file_name)
+        index_file_prefix = self.file_prefix + ".index"
+        for file_name in glob.glob(index_file_prefix + ".*"):
+            if os.path.isfile(file_name):
+                os.remove(file_name)
+
 
 
     def __del__(self):
+        self.close_dict()
         self.remove_dict()
 
