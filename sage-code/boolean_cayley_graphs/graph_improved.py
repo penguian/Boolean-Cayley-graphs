@@ -39,6 +39,7 @@ class GraphImproved(Graph, Saveable):
         sage: LPI = GraphImproved.load_mangled('PetersenGraph')
         sage: LPI.stored_clique_polynomial
         15*t^2 + 10*t + 1
+        sage: GraphImproved.remove_mangled('PetersenGraph')
     """
     def __init__(self, graph=None, **kwargs):
         Graph.__init__(self, graph, **kwargs)
