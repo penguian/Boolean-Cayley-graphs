@@ -28,7 +28,7 @@ EXAMPLE:
     sage: import boolean_cayley_graphs.cayley_graph_controls as controls
     sage: controls.checking = True
     sage: if controls.checking:
-    ....:     print "Checking!"
+    ....:     print("Checking!")
     ....:
     Checking!
 """
@@ -45,7 +45,7 @@ EXAMPLE:
     sage: import boolean_cayley_graphs.cayley_graph_controls as controls
     sage: controls.timing = True
     sage: if controls.timing:
-    ....:     print "Timing!"
+    ....:     print("Timing!")
     ....:
     Timing!
 """
@@ -62,7 +62,7 @@ EXAMPLE:
     sage: import boolean_cayley_graphs.cayley_graph_controls as controls
     sage: controls.verbose = True
     sage: if controls.verbose:
-    ....:     print "This message is verbose."
+    ....:     print("This message is verbose.")
     ....:
     This message is verbose.
 """
