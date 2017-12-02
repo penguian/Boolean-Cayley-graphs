@@ -1072,6 +1072,24 @@ Database size \Emph{195 GB}.
 \end{frame}
 
 \begin{frame}
+\frametitle{Time to create SQLite CAST-128 database}
+\begin{figure}
+\centering
+\begin{minipage}{.49\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{CAST128-database-insert-times-by-existing.png}
+  \label{fig:CAST128_database_insert_times_by_existing}
+\end{minipage}
+\begin{minipage}{.49\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{CAST128-database-insert-times-by-time-of-day.png}
+  \label{fig:CAST128_database_insert_times-By_time_of_day}
+\end{minipage}%
+\end{figure}
+It took almost 3 days to insert 256 classifications \Emph{sequentially} into the SQLite version of the CAST-128 database.
+\end{frame}
+
+\begin{frame}
 \frametitle{Using DB Browser with a prototype database}
 \begin{figure}
 \centering
