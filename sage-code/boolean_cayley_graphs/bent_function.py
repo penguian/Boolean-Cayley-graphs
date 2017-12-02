@@ -63,6 +63,7 @@ class BentFunction(BooleanFunctionImproved):
         False
         sage: ex == bentf
         True
+        sage: BentFunction.remove_mangled('example')
     """
 
 
@@ -206,7 +207,7 @@ class BentFunction(BooleanFunctionImproved):
             sage: from boolean_cayley_graphs.bent_function import BentFunction
             sage: bentf = BentFunction([0,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0])
             sage: sdp = bentf.sdp_design_matrix()
-            sage: print sdp
+            sage: print(sdp)
             [0 0 0 1 0 0 0 1 0 0 0 1 1 1 1 0]
             [0 1 0 0 0 1 0 0 0 1 0 0 1 0 1 1]
             [0 0 1 0 0 0 1 0 0 0 1 0 1 1 0 1]
