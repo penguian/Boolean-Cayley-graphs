@@ -9,6 +9,8 @@ r"""
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+import sys
+
 from mpi4py import MPI
 from sage.all_cmdline import *
 
@@ -16,12 +18,26 @@ from boolean_cayley_graphs.classify_in_mpi_parallel import save_class_parts_in_p
 
 r"""
 """
+# Check that the correct number arguments exist.
+if len(sys.argv) != 4:
+    print "Usage: save_dim_in_mpi_parallel dim fnbr c_len"
+    sys.exit(1)
+
+# Convert the arguments to int.
+dim   = int(sys.argv[1])
+fnbr  = int(sys.argv[2])
+c_len = int(sys.argv[3])
+
+# Get our MPI rank.
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
+# Load the required bent function.
 load("bent_function_extended_affine_representative_polynomials.sage")
-list_of_f = bent_function_extended_affine_representative_polynomials_dimension_6()
-bentf = list_of_f[4]
+list_of_f = bent_function_extended_affine_representative_polynomials(dim)
+bentf = list_of_f[fnbr]
 
-save_class_parts_in_parallel(comm, 'p6_4_n_str_test', bentf, c_len=4)
-quit
+# Save the classification in parts with c_len matrix rows each.
+save_class_parts_in_parallel(comm, "p"+str(dim)+"_"+str(fnbr)+"_test", bentf, c_len=c_len)
+sys.exit(0)
+
