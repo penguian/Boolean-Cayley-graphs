@@ -178,7 +178,8 @@ class BijectiveList(object):
             [1, 2, 4, 3]
             sage: BL.get_dict()
             {1: 0, 2: 1, 3: 3, 4: 2}
-        sage: del BL
+            sage: del BL
+
         """
         try:
             result = self._index[item]
@@ -224,7 +225,7 @@ class ShelveBijectiveList(BijectiveList):
 
     .. WARNING::
 
-    Initialization from a non-empty list works only for lists of strings.
+        Initialization from a non-empty list works only for lists of strings.
 
     .. WARNING::
 
@@ -248,6 +249,7 @@ class ShelveBijectiveList(BijectiveList):
         {'1': 0, '3': 3, '2': 1, '4': 2}
         sage: SBL.remove_dict()
         sage: del SBL
+
     """
     def __init__(self, other_list=None):
         r"""
@@ -278,7 +280,6 @@ class ShelveBijectiveList(BijectiveList):
         for file_name in glob.glob(index_file_prefix + ".*"):
             if os.path.isfile(file_name):
                 os.remove(file_name)
-
 
 
     def __del__(self):
