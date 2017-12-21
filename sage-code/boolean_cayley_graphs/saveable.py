@@ -57,7 +57,7 @@ class Saveable(object):
         standardized_name = cls.__name__ + "__" + name
         if directory == None:
             return standardized_name
-        else
+        else:
             return os.path.join(directory, standardized_name)
 
 
