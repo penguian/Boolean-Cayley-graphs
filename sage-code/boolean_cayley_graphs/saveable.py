@@ -17,6 +17,7 @@ AUTHORS:
 #*****************************************************************************
 
 import os
+import os.path
 
 from sage.structure.sage_object import load
 
@@ -28,40 +29,64 @@ class Saveable(object):
 
 
     @classmethod
-    def mangled_name(cls, name):
+    def mangled_name(cls, name, directory=None):
         r"""
         Convert a name for an object into a standardized name.
 
+        INPUT:
+
+        - ``cls`` -- The current class.
+        - ``name`` -- The name for the object.
+        - ``directory`` -- (Optional, default=None)
+            The directory name to be used for the file name of the object.
+            The default value of Noe means the current directory.
+
+        EXAMPLES:
+
+        ::
+            sage: from boolean_cayley_graphs.saveable import Saveable
+            sage: class ListSaveable(list, Saveable):
+            ....:     def __init__(self, value):
+            ....:         list.__init__(self, value)
+            ....:
+            sage: print ListSaveable.mangled_name('a')
+            ListSaveable__a
+            sage: print ListSaveable.mangled_name('a',directory='b')
+            b/ListSaveable__a
         """
-        return cls.__name__ + "__" + name
+        standardized_name = cls.__name__ + "__" + name
+        if directory == None:
+            return standardized_name
+        else
+            return os.path.join(directory, standardized_name)
 
 
     @classmethod
-    def load_mangled(cls, name):
+    def load_mangled(cls, name, directory=None):
         r"""
         Load an object based on its standardized name.
 
         """
-        return cls(load(cls.mangled_name(name)))
+        return cls(load(cls.mangled_name(name, directory)))
 
 
     @classmethod
-    def remove_mangled(cls, name):
+    def remove_mangled(cls, name, directory=None):
         r"""
         Remove a saved object based on its standardized name.
 
         """
-        file_name = cls.mangled_name(name) + ".sobj"
+        file_name = cls.mangled_name(name, directory) + ".sobj"
         if os.path.isfile(file_name):
             os.remove(file_name)
 
 
-    def save_mangled(self, name):
+    def save_mangled(self, name, directory=None):
         r"""
         Save an object using its standardized name.
 
 
         """
-        self.save(self.__class__.mangled_name(name))
+        self.save(self.__class__.mangled_name(name, directory))
 
 
