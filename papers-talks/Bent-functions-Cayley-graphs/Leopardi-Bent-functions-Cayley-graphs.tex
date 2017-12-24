@@ -288,7 +288,7 @@ if and only if its Walsh Hada\-mard transform has constant absolute value $2^{m}
 The remainder of this paper refers to bent Boolean functions simply as bent functions.
 
 Remark: Bent functions can also be characterized as those Boolean functions whose Hamming distance
-from any affine Boolean function is the maximum possible \cite[Theorem 3.3]{MeiS90}.
+from any affine Boolean function is the maximum possible \cite[Ch. 14 Theorem 6]{MacS77} \cite[Theorem 3.3]{MeiS90}.
 
 The characterization of bent functions given by Definition~\ref{def-Bent-function} immediately
 implies the existence of dual functions:
@@ -300,13 +300,13 @@ For a bent function $f : \F_2^{2m} \To \F_2$, the function $\dual{f}$, defined b
 \end{align*}
 is called the \Emph{dual} of $f$ \cite{CarDPS10self}.
 
-Remark: The function $\dual{f}$ is also a bent function on $\F_2^{2m}$ \cite[p. 301]{Rot76}.
+Remark: The function $\dual{f}$ is also a bent function on $\F_2^{2m}$ \cite[p. 427]{MacS77} \cite[p. 301]{Rot76}.
 \end{Definition}
 
 \subsection{Weights and weight classes}
 \begin{Definition}
 \label{def-weight}
-The \Emph{Hamming weight} of a Boolean function is the cardinality of its \Emph{support}.
+The \Emph{Hamming weight} of a Boolean function is the cardinality of its \Emph{support} \cite[p. 8]{MacS77}.
 For $f$ on $\F_2^{2m}$
 \begin{align*}
 \support{f} &:= \{x \in \F_2^{2m} \mid f(x)=1 \}, \quad \weight{f} := \abs{ \support{f} }.
@@ -423,7 +423,7 @@ where we have used Lemma~\ref{lm-notes-9a}.
 % \begin{frame}
 \section{Bent functions and strongly regular graphs}
 \label{sec-Bent-graphs}
-This section defines the Cayley graph of a boolean function,
+This section defines the Cayley graph of a Boolean function,
 and explores the relationships between bent functions, projective two-weight codes, and strongly regular graphs.
 \subsection{The Cayley graph of a Bent function}
 
@@ -745,6 +745,28 @@ g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \end{Definition}
 
+It is easily verified that $f$ is extended affine equivalent to $g$ 
+if and only if $f$ and $g$ are in the same orbit
+of the action of the \Emph{extended general affine group} $EGA(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
+
+\begin{Definition}
+\begin{align*}
+&EGA(2m, 2) := \{ (A,b,c,\delta) \mid A \in GL(2m,2),\ b, c \in \F_2^{2m},\ \delta \in \F_2 \}
+\intertext{with}
+&(A,b,c,\delta)(A',b',c',\delta') := (A A', A b' + b, A'^T c + c', \langle c, b' \rangle + \delta + \delta'),
+\end{align*}
+with action
+\begin{align*}
+(A,b,c,\delta)f(x) &:= f(A x + b) + \langle c, x \rangle + \delta,
+\\
+\left( (A,b,c,\delta)(A',b',c',\delta') f \right) 
+& := (A',b',c',\delta') \circ (A,b,c,\delta) f
+\\
+& = (A',b',c',\delta') \left( (A,b,c,\delta) f \right).
+\end{align*}
+\cite[Section 2]{Mai91}
+\end{Definition}
+
 % \begin{frame}
 \paragraph*{General linear equivalence.}
 
@@ -755,6 +777,19 @@ $f$ is \Emph{general linear equivalent} to $g$ if and only if
 g(x) &= f(A x)
 \end{align*}
 for some $A \in GL(2m,2)$.
+\end{Definition}
+
+Thus $f$ is general linear equivalent to $g$ 
+if and only if $f$ and $g$ are in the same orbit
+of the action of the general linear group $GL(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
+
+\begin{Definition}
+\begin{align*}
+A f(x) &:= f(A x),
+\\
+(A A') f & := A' \circ A f = A' (A f).
+\end{align*}
+\cite[Section 2]{Mai91}
 \end{Definition}
 
 % \begin{frame}
@@ -769,6 +804,27 @@ g(x) &= f(x + b) + \langle c, x \rangle + \delta
 for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \end{Definition}
 % \end{frame}
+
+Thus $f$ is extended translation equivalent to $g$ 
+if and only if $f$ and $g$ are in the same orbit
+of the action of the \Emph{extended translation group} $ET(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
+
+\begin{Definition}
+\begin{align*}
+&ET(2m, 2) := \{ (b,c,\delta) \mid \ b, c \in \F_2^{2m},\ \delta \in \F_2 \}
+\intertext{with}
+&(b,c,\delta)(b',c',\delta') := (b' + b, c + c', \langle c, b' \rangle + \delta + \delta'),
+\end{align*}
+with action
+\begin{align*}
+(b,c,\delta)f(x) &:= f(x + b) + \langle c, x \rangle + \delta,
+\\
+\left( (b,c,\delta)(b',c',\delta') \right) f
+& := (b',c',\delta') \circ (b,c,\delta) f
+\\
+& = (b',c',\delta') \left( (b,c,\delta) f \right).
+\end{align*}
+\end{Definition}
 
 %\slidecite{Tokareva 2014}
 % \end{frame}
@@ -811,7 +867,7 @@ Extended Cayley equivalence is thus an equivalence relation on the set of all Bo
 $\F_2^{2m}$.
 It is easy to verify that $f \cong g$ if and only if $f+f(0) \equiv g+g(0)$.
 
-Remark: While extended affine equivalence has been well studied,
+Remark: While extended affine equivalence has been well studied \cite{Mai91},
 general linear equivalence and extended translation equivalence are less often used,
 and the two notions of Cayley equivalence are apparently new.
 
