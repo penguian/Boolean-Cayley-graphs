@@ -769,7 +769,6 @@ with action
 
 % \begin{frame}
 \paragraph*{General linear equivalence.}
-
 \begin{Definition}
 For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
 $f$ is \Emph{general linear equivalent} to $g$ if and only if
@@ -789,9 +788,9 @@ A f(x) &:= f(A x),
 \\
 (A A') f & := A' \circ A f = A' (A f).
 \end{align*}
-\cite[Section 2]{Mai91}
 \end{Definition}
-
+Some references for the study of the general linear equivalence of Boolean functions
+include Harrison \cite{Har64}, Comerford \cite{Com80}, and Maiorana \cite[Section 2]{Mai91}.
 % \begin{frame}
 \paragraph*{Extended translation equivalence.}
 
@@ -907,6 +906,14 @@ then $g$ is bent with $g(0)=0$ and $f \equiv g$.
 g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \F_2^{2m}.
 \end{align*}
 \end{proof}
+Thus if $f$ is bent with $f(0)=0$, and $g$ is bent with $g(0)=0$, and $f \not\equiv g$,
+then $f$ is not linearly equivalent to $g$.
+\begin{Corollary}
+ \label{corr-no-Cayley-no-Linear}
+If $f$ is bent with $f(0)=0$, and if there is no pair $b, c \in \F_2^{2m}$ with
+$g(x) = f(x+b) + \langle c, x \rangle + f(b)$ such that $f \equiv g$, then there is no triple
+$A \in GL(2m,2)$, $b, c \in \F_2^{2m}$ with $f(Ax) = f(x+b) + \langle c, x \rangle + f(b)$.
+\end{Corollary}
 
 % \end{frame}
 
