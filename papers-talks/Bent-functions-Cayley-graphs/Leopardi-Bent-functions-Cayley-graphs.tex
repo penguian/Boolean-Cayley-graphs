@@ -65,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{26 July 2017}
+\date{26 December 2017}
 
 \begin{document}
 
@@ -745,7 +745,7 @@ g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \end{Definition}
 
-It is easily verified that $f$ is extended affine equivalent to $g$ 
+It is easily verified that $f$ is extended affine equivalent to $g$
 if and only if $f$ and $g$ are in the same orbit
 of the action of the \Emph{extended general affine group} $EGA(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
 
@@ -759,7 +759,7 @@ with action
 \begin{align*}
 (A,b,c,\delta)f(x) &:= f(A x + b) + \langle c, x \rangle + \delta,
 \\
-\left( (A,b,c,\delta)(A',b',c',\delta') f \right) 
+\left( (A,b,c,\delta)(A',b',c',\delta') f \right)
 & := (A',b',c',\delta') \circ (A,b,c,\delta) f
 \\
 & = (A',b',c',\delta') \left( (A,b,c,\delta) f \right).
@@ -778,7 +778,7 @@ g(x) &= f(A x)
 for some $A \in GL(2m,2)$.
 \end{Definition}
 
-Thus $f$ is general linear equivalent to $g$ 
+Thus $f$ is general linear equivalent to $g$
 if and only if $f$ and $g$ are in the same orbit
 of the action of the general linear group $GL(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
 
@@ -804,7 +804,7 @@ for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \end{Definition}
 % \end{frame}
 
-Thus $f$ is extended translation equivalent to $g$ 
+Thus $f$ is extended translation equivalent to $g$
 if and only if $f$ and $g$ are in the same orbit
 of the action of the \Emph{extended translation group} $ET(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
 
@@ -882,7 +882,7 @@ and the two notions of Cayley equivalence are apparently new.
 % Firstly,
 As stated in the Introduction, in order to classify bent functions by their Cayley graphs,
 it helps to understand the relationship between Cayley equivalence and other concepts of equivalence
-of bent functions, especially if this helps to cut down the search space needed for the classification.
+of Boolean functions, especially if this helps to cut down the search space needed for the classification.
 This section lists a few of these useful relationships.
 
 % A similar consideration applies to the duals of bent functions.
@@ -894,24 +894,38 @@ This section lists a few of these useful relationships.
 
 \paragraph*{General linear equivalence implies Cayley equivalence.}
 
-Firstly, general linear equivalence of bent functions implies Cayley equivalence.
+Firstly, general linear equivalence of Boolean functions implies Cayley equivalence.
 Specifically, the following result applies.
 \begin{Theorem}
 \label{th-Linear-Cayley}
-If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
-then $g$ is bent with $g(0)=0$ and $f \equiv g$.
+If $f$ is a Boolean function with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
+then $f \equiv g$.
 \end{Theorem}
 \begin{proof}
 \begin{align*}
 g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \F_2^{2m}.
 \end{align*}
 \end{proof}
+Thus, for bent functions, the following result holds.
+\begin{Corollary}
+\label{corr-bent-Linear-Cayley}
+If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
+then $g$ is bent with $g(0)=0$ and $f \equiv g$.
+\end{Corollary}
 Thus if $f$ is bent with $f(0)=0$, and $g$ is bent with $g(0)=0$, and $f \not\equiv g$,
 then $f$ is not linearly equivalent to $g$.
+This result immediately leads to another corollary.
+Here, and later in this paper, we make use of the following terminology.
+\begin{Definition}
+A Boolean function $f \mid \F_2^{n} \To \F_2$ is said to be \Emph{prolific} if
+there is no pair $b, c \in \F_2^{n}$ with $g(x) = f(x+b) + \langle c, x \rangle + f(b)$ such that $f \cong g$.
+Thus the number of extended Cayley classes in the extended translation class of a prolific Boolean function
+is $4^n$.
+\end{Definition}
+
 \begin{Corollary}
  \label{corr-no-Cayley-no-Linear}
-If $f$ is bent with $f(0)=0$, and if there is no pair $b, c \in \F_2^{2m}$ with
-$g(x) = f(x+b) + \langle c, x \rangle + f(b)$ such that $f \equiv g$, then there is no triple
+If $f \mid \F^{2m} \To \F_2$ is bent with $f(0)=0$, and $f$ is prolific, then there is no triple
 $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$ with $f(Ax) = f(x+b) + \langle c, x \rangle + f(b)$.
 \end{Corollary}
 
@@ -959,8 +973,7 @@ if $h(0)=0$ then $h \equiv g$.
 Therefore, to determine
 which strongly regular graphs occur in
 the extended Cayley equivalence classes within the extended affine
-equivalence class of
-a bent function $f : \F_2^{2m} \To \F_2$, for which $f(0)=0$, we need only examine
+equivalence class of a bent function $f : \F_2^{2m} \To \F_2$ with $f(0)=0$, we need only examine
 the extended translation equivalent functions of the form
 \begin{align*}
 f(x+b) + \langle c, x \rangle + f(b),
@@ -1123,7 +1136,8 @@ For any bent function $f$ on $\F_2^{2m}$, the SDP design of $f$ has the symmetri
 \cite[p. 161]{DilS87block} \cite{Kan83exponential}
 
 For bent functions $f, g$ on $\F_2^{2m}$,
-the two SDP designs $D(f)$ and $D(g)$ are isomorphic as symmetric block designs if and only if $f$ and $g$ are affine equivalent.
+the two SDP designs $D(f)$ and $D(g)$ are isomorphic as symmetric block designs
+if and only if $f$ and $g$ are affine equivalent.
 \end{Proposition}
 
 %
@@ -1138,7 +1152,8 @@ the two SDP designs $D(f)$ and $D(g)$ are isomorphic as symmetric block designs 
 %With Lemma~\ref{lm-notes-9b} in hand, it is easy to prove Lemma~\ref{lm-SDP-design-rows} on
 %the equivalence of the definitions of the SDP design of a bent function $f$ on $Z_2^{2m}$.
 
-Definition~\ref{def-SDP-design} is different from but equivalent to the one given by Dillon and Schatz \cite[p. 160]{DilS87block}:
+Definition~\ref{def-SDP-design} is different from
+but equivalent to the one given by Dillon and Schatz \cite[p. 160]{DilS87block}:
 \begin{Lemma}
 \label{lm-SDP-design-rows}
 \cite[3.29]{Neu06bent}
@@ -1230,6 +1245,8 @@ as a consequence of Lemma~\ref{lm-notes-9b}.
 This section lists some properties of bent functions and their extended translation classes and extended Cayley classes
 that have been computed for 2, 4, 6 and 8 dimensions.
 The computations were made using Sage \cite{SageMath7517} and CoCalc \cite{CoCalc}.
+Larger scale computations, involving thousands of extended translation classes,
+were conducted on the Raijin supercomputer of the National Computational Infrastructure.
 Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and CoCalc \cite{Leo17CoCalc}.
 Some CoCalc worksheets also illustrate these and related computations \cite{Leo17CoCalc}.
 The Sage and Python code is described in more detail in Section \ref{sec-Code}.
@@ -1955,7 +1972,7 @@ as shown in Figures~\ref{fig:c6_4_weight_class_matrix} and~\ref{fig:c6_4_bent_ca
 \subsection{Bent functions in 8 dimensions}
 
 There are
-$99 270 589 265 934 370 305 785 861 242 880 \approx 2^{106}$ bent functions in 8 dimensions,
+$99\,270\,589\,265\,934\,370\,305\,785\,861\,242\,880 \approx 2^{106}$ bent functions in 8 dimensions,
 according to Langevin and Leander \cite{LanL11counting}.
 %
 %~
@@ -1964,14 +1981,16 @@ The number of extended affine classes has not yet been published,
 let alone a list of representative bent functions.
 The lists of extended affine classes of bent functions that have so far been published include those
 for the bent functions of degree at most 3 \cite[Section 5.5.2]{Bra06thesis} \cite[Section 7.3]{Tok15bent},
-the partial spread bent functions \cite{Lan10psf,LanH11counting},
-and the bent functions used in the S-boxes of the CAST-128 encryption algorithm \cite{Ada97,RFC2144}.
+and the partial spread bent functions \cite{Lan10psf,LanH11counting}.
+The bent functions used in the S-boxes of the CAST-128 encryption algorithm \cite{Ada97,RFC2144}
+are also representatives of disjoint extended affine classes.
 \newpage
 \paragraph*{Extended affine classes of degree at most 3.}
 %
-The bent functions on $\F_2^8$, of degree at most 3, consist of 10
-extended affine classes, containing the extended translation classes as listed in Table~\ref{tab-c8_ET_classes}
-\cite[Section 5.5.2]{Bra06thesis} \cite[Section 7.3]{Tok15bent}.
+According to a list contained in Braeken's PhD thesis \cite[Section 5.5.2]{Bra06thesis},
+and repeated in Tokareva's table \cite[Section 7.3]{Tok15bent},
+the bent functions on $\F_2^8$, of degree at most 3, consist of 10
+extended affine classes, whose representatives are listed in Table~\ref{tab-c8_ET_classes}.
 \begin{table}[!bhpt] % [H]
 \small{}
 \begin{align*}
@@ -2047,10 +2066,11 @@ x_{2} x_{4} + x_{3} x_{7}
 \end{array}
 \end{align*}
 \normalsize{}
-\caption{8 dimensions: extended translation classes.}
+\caption{8 dimensions to degree 3: extended translation classes.}
 \label{tab-c8_ET_classes}
 \end{table}
 % \end{frame}
+We here examine the corresponding extended translation classes in detail.
 % \begin{frame}
 \paragraph*{ET class $[f_{8,1}]$.}
 %
@@ -2543,7 +2563,8 @@ x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} 
 \end{align*}
 \normalsize{}
 The extended translation class contains 9 extended Cayley classes as per
-Tables~\ref{tab-c8_5_EC_classes} and~\ref{tab-c8_5_EC_classes_2}.
+%Tables~\ref{tab-c8_5_EC_classes} and~\ref{tab-c8_5_EC_classes_2}.
+Table~\ref{tab-c8_5_EC_classes}.
 
 The 9 extended Cayley classes are distributed between the two weight classes,
 as shown in Figures~\ref{fig:c8_5_weight_class_matrix} and~\ref{fig:c8_5_bent_cayley_graph_index_matrix}.
@@ -2626,25 +2647,25 @@ as shown in Figures~\ref{fig:c8_5_weight_class_matrix} and~\ref{fig:c8_5_bent_ca
  417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
-\hline
-\end{array}
-\end{align*}
-\caption{$[f_{8,5}]$ extended Cayley classes (part 1).}
-\label{tab-c8_5_EC_classes}
-\end{table}
-%\newpage
-\begin{table}[!bhpt] % [H]
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$[f_{8,5}]$ extended Cayley classes (part 1).}
+% \label{tab-c8_5_EC_classes}
+% \end{table}
+% %\newpage
+% \begin{table}[!bhpt] % [H]
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
 5 &
 (256, 120, 56, 56) &
 14 &
@@ -2700,10 +2721,10 @@ as shown in Figures~\ref{fig:c8_5_weight_class_matrix} and~\ref{fig:c8_5_bent_ca
 \hline
 \end{array}
 \end{align*}
-\caption{$[f_{8,5}]$ extended Cayley classes (part 2).}
-%\caption{$[f_{8,5}]$ extended Cayley classes.}
-\label{tab-c8_5_EC_classes_2}
-%\label{tab-c8_5_EC_classes}
+%\caption{$[f_{8,5}]$ extended Cayley classes (part 2).}
+\caption{$[f_{8,5}]$ extended Cayley classes.}
+%\label{tab-c8_5_EC_classes_2}
+\label{tab-c8_5_EC_classes}
 \end{table}
 
 \begin{figure}[!bhpt] % [H]
@@ -2724,7 +2745,7 @@ as shown in Figures~\ref{fig:c8_5_weight_class_matrix} and~\ref{fig:c8_5_bent_ca
 \end{figure}
 ~
 % \end{frame}
-\newpage
+%\newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,6}]$.}
 %
@@ -2739,8 +2760,9 @@ x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} 
 \end{array}
 \end{align*}
 \normalsize{}
-The extended translation class contains 9 extended Cayley classes as per
-Tables~\ref{tab-c8_6_EC_classes} and~\ref{tab-c8_6_EC_classes_2}.
+The extended translation class contains 9 extended Cayley classes.
+% as per
+%Tables~\ref{tab-c8_6_EC_classes} and~\ref{tab-c8_6_EC_classes_2}.
 
 The 9 extended Cayley classes are distributed between the two weight classes,
 as shown in Figures~\ref{fig:c8_6_weight_class_matrix} and~\ref{fig:c8_6_bent_cayley_graph_index_matrix}.
@@ -2748,173 +2770,173 @@ as shown in Figures~\ref{fig:c8_6_weight_class_matrix} and~\ref{fig:c8_6_bent_ca
 The 9 Cayley graphs corresponding to the 9 classes are isomorphic to those for the extended Cayley classes for $[f_{8,5}]$.
 The corresponding Cayley classes have the same frequency within each of these two extended translation classes.
 This correspondence is shown in Table~\ref{tab-c8_5-c8_6_EC_classes}.
-Each such isomorphism between
-the Cayley graph of a function in $[f_{8,5}]$ and
-the Cayley graph of a function in $[f_{8,6}]$ is not a linear function on $\F_2^8$.
+%Each such isomorphism between
+%the Cayley graph of a function in $[f_{8,5}]$ and
+%the Cayley graph of a function in $[f_{8,6}]$ is not a linear function on $\F_2^8$.
 
 Figures~\ref{fig:re8_5_bent_cayley_graph_index_matrix} and~\ref{fig:re8_5_bent_cayley_graph_index_matrix}
 show the 9 extended Cayley classes of each of $[f_{8,5}]$ and $[f_{8,6}]$ with corresponding Cayley classes
 given the same colour.
-
-% f8_6
-\begin{table}[!bhpt] % [H]
 %
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-0 &
-(256, 120, 56, 56) &
-14 &
-\begin{array}{l}
-32768t^{9} + 731136t^{8} + 3096576t^{7}
-\,+
-\\
- 5767168t^{6} + 5013504t^{5} + 1908736t^{4}
-\,+
-\\
- 286720t^{3} + 15360t^{2} + 256t + 1
-\end{array}
-\\
-1 &
-(256, 120, 56, 56) &
-14 &
-\begin{array}{l}
-28672t^{9} + 534528t^{8} + 2211840t^{7}
-\,+
-\\
- 4718592t^{6} + 4620288t^{5} + 1875968t^{4}
-\,+
-\\
- 286720t^{3} + 15360t^{2} + 256t + 1
-\end{array}
-\\
-2 &
-(256, 136, 72, 72) &
-14 &
-\begin{array}{l}
-159744t^{9} + 4753408t^{8} + 19021824t^{7}
-\,+
-\\
- 26804224t^{6} + 15630336t^{5} + 3956736t^{4}
-\,+
-\\
- 417792t^{3} + 17408t^{2} + 256t + 1
-\end{array}
-\\
-3 &
-(256, 120, 56, 56) &
-14 &
-\begin{array}{l}
-1536t^{10} + 19456t^{9} + 279552t^{8}
-\,+
-\\
- 1394688t^{7} + 3751936t^{6} + 4227072t^{5}
-\,+
-\\
- 1843200t^{4} + 286720t^{3} + 15360t^{2} + 256t + 1
-\end{array}
-\\
-4 &
-(256, 136, 72, 72) &
-14 &
-\begin{array}{l}
-5632t^{10} + 148480t^{9} + 3621888t^{8}
-\,+
-\\
- 15206400t^{7} + 23773184t^{6} + 14974976t^{5}
-\,+
-\\
- 3923968t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-\caption{$[f_{8,6}]$ extended Cayley classes (part 1).}
-\label{tab-c8_6_EC_classes}
-\end{table}
-%\newpage
-\begin{table}[!bhpt] % [H]
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
-5 &
-(256, 120, 56, 56) &
-14 &
-\begin{array}{l}
-24576t^{9} + 526336t^{8} + 2342912t^{7}
-\,+
-\\
- 4849664t^{6} + 4620288t^{5} + 1875968t^{4}
-\,+
-\\
- 286720t^{3} + 15360t^{2} + 256t + 1
-\end{array}
-\\
-6 &
-(256, 120, 56, 56) &
-14 &
-\begin{array}{l}
-16384t^{9} + 284672t^{8} + 1392640t^{7}
-\,+
-\\
- 3735552t^{6} + 4227072t^{5} + 1843200t^{4}
-\,+
-\\
- 286720t^{3} + 15360t^{2} + 256t + 1
-\end{array}
-\\
-7 &
-(256, 136, 72, 72) &
-14 &
-\begin{array}{l}
-131072t^{9} + 3577856t^{8} + 15319040t^{7}
-\,+
-\\
- 23855104t^{6} + 14974976t^{5} + 3923968t^{4}
-\,+
-\\
- 417792t^{3} + 17408t^{2} + 256t + 1
-\end{array}
-\\
-8 &
-(256, 136, 72, 72) &
-14 &
-\begin{array}{l}
-90112t^{9} + 2795520t^{8} + 12402688t^{7}
-\,+
-\\
- 21168128t^{6} + 14319616t^{5} + 3891200t^{4}
-\,+
-\\
- 417792t^{3} + 17408t^{2} + 256t + 1
-\end{array}
-\\
-\hline
-\end{array}
-\end{align*}
-%
-\caption{$[f_{8,6}]$ extended Cayley classes (part 2).}
-%\caption{$[f_{8,6}]$ extended Cayley classes.}
-\label{tab-c8_6_EC_classes_2}
-%\label{tab-c8_6_EC_classes}
-\end{table}
+% % f8_6
+% \begin{table}[!bhpt] % [H]
+% %
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
+% 0 &
+% (256, 120, 56, 56) &
+% 14 &
+% \begin{array}{l}
+% 32768t^{9} + 731136t^{8} + 3096576t^{7}
+% \,+
+% \\
+%  5767168t^{6} + 5013504t^{5} + 1908736t^{4}
+% \,+
+% \\
+%  286720t^{3} + 15360t^{2} + 256t + 1
+% \end{array}
+% \\
+% 1 &
+% (256, 120, 56, 56) &
+% 14 &
+% \begin{array}{l}
+% 28672t^{9} + 534528t^{8} + 2211840t^{7}
+% \,+
+% \\
+%  4718592t^{6} + 4620288t^{5} + 1875968t^{4}
+% \,+
+% \\
+%  286720t^{3} + 15360t^{2} + 256t + 1
+% \end{array}
+% \\
+% 2 &
+% (256, 136, 72, 72) &
+% 14 &
+% \begin{array}{l}
+% 159744t^{9} + 4753408t^{8} + 19021824t^{7}
+% \,+
+% \\
+%  26804224t^{6} + 15630336t^{5} + 3956736t^{4}
+% \,+
+% \\
+%  417792t^{3} + 17408t^{2} + 256t + 1
+% \end{array}
+% \\
+% 3 &
+% (256, 120, 56, 56) &
+% 14 &
+% \begin{array}{l}
+% 1536t^{10} + 19456t^{9} + 279552t^{8}
+% \,+
+% \\
+%  1394688t^{7} + 3751936t^{6} + 4227072t^{5}
+% \,+
+% \\
+%  1843200t^{4} + 286720t^{3} + 15360t^{2} + 256t + 1
+% \end{array}
+% \\
+% 4 &
+% (256, 136, 72, 72) &
+% 14 &
+% \begin{array}{l}
+% 5632t^{10} + 148480t^{9} + 3621888t^{8}
+% \,+
+% \\
+%  15206400t^{7} + 23773184t^{6} + 14974976t^{5}
+% \,+
+% \\
+%  3923968t^{4} + 417792t^{3} + 17408t^{2} + 256t + 1
+% \end{array}
+% \\
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$[f_{8,6}]$ extended Cayley classes (part 1).}
+% \label{tab-c8_6_EC_classes}
+% \end{table}
+% %\newpage
+% \begin{table}[!bhpt] % [H]
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
+% 5 &
+% (256, 120, 56, 56) &
+% 14 &
+% \begin{array}{l}
+% 24576t^{9} + 526336t^{8} + 2342912t^{7}
+% \,+
+% \\
+%  4849664t^{6} + 4620288t^{5} + 1875968t^{4}
+% \,+
+% \\
+%  286720t^{3} + 15360t^{2} + 256t + 1
+% \end{array}
+% \\
+% 6 &
+% (256, 120, 56, 56) &
+% 14 &
+% \begin{array}{l}
+% 16384t^{9} + 284672t^{8} + 1392640t^{7}
+% \,+
+% \\
+%  3735552t^{6} + 4227072t^{5} + 1843200t^{4}
+% \,+
+% \\
+%  286720t^{3} + 15360t^{2} + 256t + 1
+% \end{array}
+% \\
+% 7 &
+% (256, 136, 72, 72) &
+% 14 &
+% \begin{array}{l}
+% 131072t^{9} + 3577856t^{8} + 15319040t^{7}
+% \,+
+% \\
+%  23855104t^{6} + 14974976t^{5} + 3923968t^{4}
+% \,+
+% \\
+%  417792t^{3} + 17408t^{2} + 256t + 1
+% \end{array}
+% \\
+% 8 &
+% (256, 136, 72, 72) &
+% 14 &
+% \begin{array}{l}
+% 90112t^{9} + 2795520t^{8} + 12402688t^{7}
+% \,+
+% \\
+%  21168128t^{6} + 14319616t^{5} + 3891200t^{4}
+% \,+
+% \\
+%  417792t^{3} + 17408t^{2} + 256t + 1
+% \end{array}
+% \\
+% \hline
+% \end{array}
+% \end{align*}
+% %
+% \caption{$[f_{8,6}]$ extended Cayley classes (part 2).}
+% %\caption{$[f_{8,6}]$ extended Cayley classes.}
+% \label{tab-c8_6_EC_classes_2}
+% %\label{tab-c8_6_EC_classes}
+% \end{table}
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -2987,6 +3009,44 @@ given the same colour.
   \label{fig:re8_6_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
+
+The explanation for the correspondence between the Cayley classes of $f_{8,5}$ and $f_{8,6}$
+turns out toe quite simple. The functions $f_{8,5}$ and $f_{8,6}$ are extended affine equivalent,
+in fact linearly equivalent, and therefore Braeken's list of extended affine equivalence classes
+\cite[Section 5.5.2]{Bra06thesis} contains an error.
+\begin{Theorem}
+\label{th-f8-5-f8-6-linearly-equiv}
+Functions $f_{8,5}$ and $f_{8,6}$ are linearly equivalent.
+\end{Theorem}
+
+\begin{proof}
+
+Apply the permutation $\pi := (x_0\ x_5\ x_4)(x_1\ x_2\ x_3)(x_6\ x_7)$ to
+\small{
+\begin{align*}
+f_{8,5}
+&=
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+%\end{align*}
+%}\normalsize{}
+\intertext{\normalsize{to obtain}}
+%\small{
+%\begin{align*}
+\pi(f_{8,5})
+&=
+x_{5} x_{2} x_{3} + x_{5} x_{7} + x_{2} x_{1} x_{0} + x_{2} x_{0} + x_{2} x_{4} + x_{3} x_{1} x_{4} + x_{3} x_{0} + x_{1} x_{6}
+\\
+&=
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
+\\
+&= f_{8,6}.
+\\
+&\ \Box
+\end{align*}
+}\normalsize{}
+
+\end{proof}
+
 \newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,7}]$.}
