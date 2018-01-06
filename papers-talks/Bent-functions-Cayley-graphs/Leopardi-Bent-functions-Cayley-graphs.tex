@@ -65,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{26 December 2017}
+\date{7 January 2018}
 
 \begin{document}
 
@@ -745,7 +745,7 @@ g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
 \end{Definition}
 
-It is easily verified that $f$ is extended affine equivalent to $g$
+The Boolean $f$ is extended affine equivalent to $g$
 if and only if $f$ and $g$ are in the same orbit
 of the action of the \Emph{extended general affine group} $EGA(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
 
@@ -930,47 +930,52 @@ $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$ with $f(Ax) = f(x+b) + \langle c, x \rang
 % \begin{frame}
 \paragraph*{Extended affine, translation, and Cayley equivalence.}
 
-Secondly, if $f$ is bent with $f(0)=0$, and a bent function $h$ is extended affine equivalent to
-$f$,
-then a bent function $g$ can be found that is Cayley equivalent to $h$ and extended translation
-equivalent to $f$.
+Secondly, if $f$ is a Boolean function,
+and $h$ is a Boolean function $h$ that is extended affine equivalent to $f$,
+then a Boolean function $g$ exists that is general linear equivalent to $h$
+and extended translation equivalent to $f$:
 \begin{Theorem}
-\label{th-Affine-Translate-Cayley}
+\label{th-Affine-Translate-Linear}
 For $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$,
 $f : \F_2^{2m} \To \F_2$,
-
 the function
 \begin{align*}
 h(x) &:= f(A x + b) + \langle c, x \rangle + \delta
 \intertext{can be expressed as $h(x) = g(A x)$ where}
-g(x) &:= f(x+b) + \langle (A^{-1})^T c, x \rangle + \delta,
+g(x) &:= f(x+b) + \langle (A^{-1})^T c, x \rangle + \delta.
 \end{align*}
-and therefore if $f$ is bent and $h(0)=0$ then $h \equiv g$.
 \end{Theorem}
 % \end{frame}
 \begin{proof}
 Let $y:= A x$. Then
 \begin{align*}
-g(A x) = g(y) &= f(y+b) + \langle (A^{-1})^T c, y \rangle + \delta
+g(A x) = g(y)
+&= f(y+b) + \langle (A^{-1})^T c, y \rangle + \delta
 \\
 &= f(y+b) + \langle c, A^{-1} y \rangle + \delta
 \\
 &= f(A x + b) + \langle c, x \rangle + \delta = h(x).
 \end{align*}
-If $f$ is bent, then so are $g$ and $h$.
-Therefore, by Theorem \ref{th-Linear-Cayley},
-if $h(0)=0$ then $h \equiv g$.
 \end{proof}
 
+\begin{Corollary}
+If $f$ is a bent Boolean function,
+and a bent function $h$ is extended affine equivalent to $f$,
+then a bent function $g$ can be found that is extended Cayley equivalent to $h$
+and extended translation equivalent to $f$.
+\end{Corollary}
+% \end{frame}
+\begin{proof}
+Let $f$, $g$, and $h$ be as per Theorem \ref{th-Affine-Translate-Linear}.
+If $f$ is bent, then so are $g$ and $h$.
+Since, by Theorem \ref{th-Affine-Translate-Linear}, $g$ is general linear equivalent to $h$,
+by Theorem \ref{th-Linear-Cayley}, $g$ is extended Cayley equivalent to $h$.
+\end{proof}
 
-% \begin{frame}
-% \subsection{Extended affine equivalence}
-
-Therefore, to determine
-which strongly regular graphs occur in
-the extended Cayley equivalence classes within the extended affine
-equivalence class of a bent function $f : \F_2^{2m} \To \F_2$ with $f(0)=0$, we need only examine
-the extended translation equivalent functions of the form
+As a consequence, to determine which strongly regular graphs occur, corresponding to each
+extended Cayley equivalence classes within the extended affine
+equivalence class of a bent function $f : \F_2^{2m} \To \F_2$ with $f(0)=0$,
+we need only examine the extended translation equivalent functions of the form
 \begin{align*}
 f(x+b) + \langle c, x \rangle + f(b),
 \end{align*}
@@ -1241,7 +1246,7 @@ as a consequence of Lemma~\ref{lm-notes-9b}.
 This section lists some properties of bent functions and their extended translation classes and extended Cayley classes
 that have been computed for 2, 4, 6 and 8 dimensions.
 The computations were made using Sage \cite{SageMath7517} and CoCalc \cite{CoCalc}.
-Larger scale computations, involving thousands of extended translation classes,
+Larger scale computations, involving millions of extended translation classes,
 were conducted on the Raijin supercomputer of the National Computational Infrastructure.
 Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and CoCalc \cite{Leo17CoCalc}.
 Some CoCalc worksheets also illustrate these and related computations \cite{Leo17CoCalc}.
@@ -3007,7 +3012,7 @@ given the same colour.
 \end{figure}
 
 The explanation for the correspondence between the Cayley classes of $f_{8,5}$ and $f_{8,6}$
-turns out toe quite simple. The functions $f_{8,5}$ and $f_{8,6}$ are extended affine equivalent,
+is quite simple. The functions $f_{8,5}$ and $f_{8,6}$ are extended affine equivalent,
 in fact general linear equivalent, and therefore Braeken's list of extended affine equivalence classes
 \cite[Section 5.5.2]{Bra06thesis} contains an error.
 \begin{Theorem}
@@ -3800,61 +3805,95 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 % \begin{colortheme}{seagull}
 % \begin{frame}
 \newpage
-\paragraph*{Partial spread bent functions.}
 
-According to Langevin and Hou \cite{LanH11counting}
-there are $70576747237594114392064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in
-dimension 8,
-contained in $14758$ extended affine classes.
-The extended affine class representatives are listed at Langevin's web page \cite{Lan10psf}.
-On this web page,
-the file \texttt{psf-8.txt} contains details of $9316$ representatives that are
-$\mathcal{PS}^{(-)}$ bent functions, all of degree 4; and
-the file \texttt{psf-9.txt} contains details of $5442$ representatives that are
-$\mathcal{PS}^{(+)}$ bent functions, of which $5440$ are of degree 4.
+\subsection{The bent function sequences $\sigma_m$ and $\tau_m$}
 
-%\slidecite{Langevin and Hou 2011}
-% \end{frame}
-% \end{colortheme}
-% \begin{colortheme}{jubata}
-% \begin{frame}
-%\paragraph*{Example partial spread ET class $[psf_{9,5439}]$.}
+%\begin{colortheme}{jubata}
 
-There are obviously too many bent functions of these two types to list here, but there is room for one example.
-
-The bent function $psf_{9,5439}$ is listed as function number $5439$ in \texttt{psf-9.txt},
-and is a $\mathcal{PS}^{(+)}$ bent function of degree 4.
-Its extended translation class $[psf_{9,5439}]$ contains 16 extended Cayley classes,
-of which 6 form three duality pairs similar to those seen in $[f_{8,9}]$ and $[f_{8,10}]$ above.
-
-The 16 extended Cayley classes are distributed
-as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:psf_9_5439_dual_cayley_graph_index_matrix}
-(classes of duals).
-
-\begin{figure}[!bhpt] % [H]
+%\begin{frame}
+%\frametitle{For 2 dimensions: $[\sigma_1]$ and $[\tau_1]$}
+\begin{figure}
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{psf_9_5439_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5439}]$: extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
-  \label{fig:psf_9_5439_bent_cayley_graph_index_matrix}
-\end{minipage}
-~~
+  \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\sigma_1]$: 2 extended Cayley classes}
+  \label{fig:sigma_1_bent_cayley_graph_index_matrix}
+\end{minipage}%
 \begin{minipage}{.48\textwidth}
   \centering
-  \includegraphics[width=.9\linewidth]{psf_9_5439_dual_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5439}]$: extended Cayley classes of dual bent functions}
-  \label{fig:psf_9_5439_dual_cayley_graph_index_matrix}
-\end{minipage}%
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_1]$: 2 extended Cayley classes}
+  \label{fig:tau_1_bent_cayley_graph_index_matrix}
+\end{minipage}
 \end{figure}
+%\end{frame}
 
-% \end{frame}
+%\begin{frame}
+%\frametitle{For 4 dimensions: $[\sigma_2]$ and $[\tau_2]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\sigma_2]$: 2 extended Cayley classes}
+  \label{fig:sigma_2_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_2]$: 2 extended Cayley classes}
+  \label{fig:tau_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{For 6 dimensions: $[\sigma_3]$ and $[\tau_3]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\sigma_3]$: 2 extended Cayley classes}
+  \label{fig:sigma_3_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_3]$: 3 extended Cayley classes}
+  \label{fig:tau_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{For 8 dimensions: $[\sigma_4]$ and $[\tau_4]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\sigma_4]$: 2 extended Cayley classes}
+  \label{fig:sigma_4_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_4]$: 5 extended Cayley classes}
+  \label{fig:tau_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+%\end{frame}
+%\end{colortheme}
+
 \newpage
-\paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$.}
-
+%\paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$.}
+\subsection{CAST-128 S-boxes}
+%
 The CAST-128 encryption algorithm is used in PGP and elsewhere \cite{Ada97}.
-The algorithm uses 8 S-boxes, each of which consists of 32 binary bent functions in 8 dimensions,
-with degree 4.
+The algorithm uses 8 S-boxes, each of which consists of 32 Boolean bent functions in 8 dimensions,
+with degree 4, making 256 bent functions in total.
 The full CAST-128 algorithm, including the contents of the S-boxes,
 is published as IETF Request For Comments 2144 \cite{RFC2144}.
 
@@ -3885,7 +3924,8 @@ x_{3} x_{5} x_{6} + x_{3} x_{5} x_{7} + x_{3} x_{6} + x_{3} + x_{4} + x_{6} x_{7
 \end{align*}
 \normalsize{}
 
-The extended translation class $[cast128_{1,0}]$ contains the maximum possible number of Cayley classes,
+This bent function $cast128_{1,0}$ is prolific:
+the extended translation class $[cast128_{1,0}]$ contains the maximum possible number of Cayley classes,
 that is $65\,536$.
 The duals of the bent functions $[cast128_{1,0}]$ give another $65\,536$ extended Cayley classes.
 In other words, no bent function in $[cast128_{1,0}]$ is extended affine equivalent to its dual.
@@ -3893,8 +3933,9 @@ In other words, no bent function in $[cast128_{1,0}]$ is extended affine equival
 %The two weight classes and the $65\,536$ extended Cayley classes are
 %shown in Figures~\ref{fig:cast128_1_1_weight_class_matrix} and~\ref{fig:cast_128_1_1_bent_cayley_graph_index_matrix} respectively.
 
-The two weight classes are
-shown in Figure~\ref{fig:cast128_1_1_weight_class_matrix}.
+The two weight classes of $[cast128_{1,0}]$ are
+shown in Figure~\ref{fig:cast128_1_0_weight_class_matrix}.
+
 
 \begin{figure}[!hb]
 \centering
@@ -3913,6 +3954,13 @@ shown in Figure~\ref{fig:cast128_1_1_weight_class_matrix}.
 \end{minipage}%
 \end{figure}
 %\frametitle{CAST-128 ET classes $[cast128_{2,1}]$ and $[cast128_{2,16}]$}
+
+Of the 256 bent functions that make up the 8 S-boxes of CAST-128, 248 are like $cast128_{1,0}$,
+they are prolific and are not extended affine equivalent to their duals.
+The remaining 8 bent functions are exceptional.
+Both $cast128_{4,27}$ and $cast128_{6,17}$ are prolific but both are extended affine equivalent to their duals.
+The other 6 bent functions are not prolific and the number of Cayley classes for each is given in the captions to
+Figures \ref{fig:cast128_2_1_bent_cayley_graph_index_matrix} to \ref{fig:cast128_7_21_bent_cayley_graph_index_matrix} below.
 \begin{figure}[!hb]
 \centering
 \begin{minipage}{.48\textwidth}
@@ -3986,6 +4034,75 @@ shown in Figure~\ref{fig:cast128_1_1_weight_class_matrix}.
 \end{figure}
 
 \newpage
+\subsection{Partial spread bent functions.}
+
+According to Langevin and Hou \cite{LanH11counting}
+there are $70\,576\,747\,237\,594\,114\,392\,064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in
+dimension 8,
+contained in $14\,758$ extended affine classes.
+The extended affine class representatives are listed at Langevin's web page \cite{Lan10psf}.
+On this web page,
+the file \texttt{psf-8.txt} contains details of $9316$ representatives that are
+$\mathcal{PS}^{(-)}$ bent functions, all of degree 4; and
+the file \texttt{psf-9.txt} contains details of $5442$ representatives that are
+$\mathcal{PS}^{(+)}$ bent functions, of which $5440$ are of degree 4.
+
+Preliminary calculations using SageMath on the NCI Raijin supercomputer indicate that
+\begin{enumerate}
+ \item
+The $5442$ extended affine classes of $\mathcal{PS}^{(+)}$ bent functions of dimension 8
+contain $296\,594\,720$ extended Cayley classes, assuming that each extended Cayley class appears in only one of the extended affine classes.
+ \item
+If the duals of the $5442$ representatives, and their corresponding extended affine classes are included,
+the total number of extended Cayley classes is $541\,700\,450$, under the same assumption.
+ \item
+Of the $5442$ representatives,
+$3434$ are prolific and not extended affine equivalent to their dual,
+$582$ are prolific and are EA equivalent to their dual,
+and the extended affine classes of the remaining $1426$ each contain less than $65\,536$ extended Cayley classes.
+\end{enumerate}
+The classifications of these $5442$ extended affine classes take up 2.1TB of space on the NCI Raijin supercomputer,
+and it is intended that these classifications will be incorporated into a public database, if support can be found to maintain it.
+\cite{Leo18Database}
+%\slidecite{Langevin and Hou 2011}
+% \end{frame}
+% \end{colortheme}
+% \begin{colortheme}{jubata}
+% \begin{frame}
+%\paragraph*{Example partial spread ET class $[psf_{9,5439}]$.}
+
+%There are obviously too many bent functions of these two types to list here, but there is room for one example.
+
+One example classification from $\mathcal{PS}^{(+)}$ in dimension 8 is that of $psf_{9,5439}$.
+The bent function $psf_{9,5439}$ is listed as function number $5439$ in \texttt{psf-9.txt},
+and is a $\mathcal{PS}^{(+)}$ bent function of degree 4.
+Its extended translation class $[psf_{9,5439}]$ contains 16 extended Cayley classes,
+of which 6 form three duality pairs similar to those seen in $[f_{8,9}]$ and $[f_{8,10}]$ above.
+
+The 16 extended Cayley classes are distributed
+as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:psf_9_5439_dual_cayley_graph_index_matrix}
+(classes of duals).
+
+\begin{figure}[!bhpt] % [H]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{psf_9_5439_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5439}]$: extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:psf_9_5439_bent_cayley_graph_index_matrix}
+\end{minipage}
+~~
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{psf_9_5439_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5439}]$: extended Cayley classes of dual bent functions}
+  \label{fig:psf_9_5439_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+
+% \end{frame}
+
+\newpage
 \section{SageMath and CoCalc code}
 \label{sec-Code}
 % \begin{frame}[fragile]
@@ -4006,10 +4123,10 @@ This section contains a brief description of some of the code included in
 More detailed documentation is being developed and this is intended to be included as part of the code base.
 The code itself is subject to review and revision, and may change as a result of the advice of
 those more experienced with Sage code.
-The description in this section applies to the code base as it exists in May 2017.
+The description in this section applies to the code base as it exists in January 2018.
 
 The code base is structured as a set of Sage script files. % in the \texttt{sage-code} subdirectory.
-These in turn use Python scripts, found in a  subdirectory called \texttt{Boolean\_Cayley\_graphs}.
+These in turn use Python scripts, found in a subdirectory called \texttt{Boolean\_Cayley\_graphs}.
 % of \texttt{sage-code}.
 
 The Python code is used to define a number of useful Python classes.
@@ -4064,6 +4181,15 @@ The use of canonical labelling via the Bliss algorithm is what made this possibl
 
 Further improvements were made in 2017 to enable the classification of any bent function in 8 dimensions or less
 to be computed in a reasonable time on a commodity personal computer.
+The code has been run on a personal computer, on CoCalc, and on the NCI Raijin supercomputer.
+
+In late 2017, code was added so that the Cayley graph classifications could be accessed via a relational database,
+with implementations using Sqlite3 and PostgreSQL \cite{Leo18Database}
+
+Also in late 2017, parallel versions of the classification functions were written using MPI4Py.
+These were used on the NCI Raijin supercomputer to complete the classifications for CAST-128 and compute
+the classifications for the $\mathcal{PS}^{(+)}$ bent functions in dimension 8.
+
 % \begin{itemize}
 %  \item 2015-04 to 2015-05 CoCalc: Cliques-Automorphisms project starts looking at Cayley
 % classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
