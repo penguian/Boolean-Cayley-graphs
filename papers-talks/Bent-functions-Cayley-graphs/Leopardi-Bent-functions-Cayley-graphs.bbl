@@ -2,12 +2,12 @@
 
 \bibitem{RFC2144}
 C.~M. Adams.
-\newblock The cast-128 encryption algorithm.
+\newblock The {CAST-128} encryption algorithm.
 \newblock RFC 2144, RFC Editor, May 1997.
 
 \bibitem{Ada97}
 C.~M. Adams.
-\newblock Constructing symmetric ciphers using the cast design procedure.
+\newblock Constructing symmetric ciphers using the {CAST} design procedure.
 \newblock In E.~Kranakis and P.~Van~Oorschot, editors, {\em Selected Areas in
   Cryptography},  71--104, Boston, MA, (1997). Springer US.
 
