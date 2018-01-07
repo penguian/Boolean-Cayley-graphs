@@ -121,18 +121,18 @@ into bent functions of dimension at most 8,
 using SageMath \cite{SageMath7517} and CoCalc \cite{CoCalc}.
 
 The theoretical results of this paper serve a few purposes.
-Firstly, in order to classify bent functions by their Cayley graphs,
+First, in order to classify bent functions by their Cayley graphs,
 it helps to understand the relationship between Cayley equivalence and other concepts of equivalence
 of bent functions, especially if this helps to cut down the search space needed for the
 classification.
 A similar consideration applies to the duals of bent functions.
-Secondly, some of the empirical observations made in the classification of bent functions in small
+Second, some of the empirical observations made in the classification of bent functions in small
 dimensions can be explained by these theoretical results.
-Thirdly, these theoretical results can improve our understanding of the relationships between
+Third, these theoretical results can improve our understanding of the relationships between
 bent functions, projective two-weight codes, strongly regular graphs, and
 symmetric block designs with the symmetric difference property.
 In what follows, known results are presented as propositions, with references;
-and apparently new results are presented as lemmas or theorems, with proofs.
+and new results are presented as lemmas or theorems, with proofs.
 
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
 % The bent function $\sigma_m$ on $\F_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on
@@ -152,16 +152,17 @@ and apparently new results are presented as lemmas or theorems, with proofs.
 %
 The remainder of the paper is organized as follows.
 % Section \ref{sec-Background} outlines some of the background of this investigation.
-Section \ref{sec-Preliminaries} covers the concepts, definitions and known results used later in the paper.
-Section \ref{sec-Bent-graphs} discusses the relationship between bent functions and strongly regular graphs.
-Section \ref{sec-Equivalence} introduces various concepts of equivalence of bent functions,
-and discusses their relationships.
-Section \ref{sec-Bent-designs} discusses the relationship between bent functions and block designs.
+Section~\ref{sec-Preliminaries} covers the concepts, definitions and known results used later in the paper.
+Section~\ref{sec-Bent-graphs} discusses the relationship between bent functions and strongly regular graphs.
+Section~\ref{sec-Equivalence} introduces various concepts of equivalence of bent functions.
+Section~\ref{sec-Bent-designs} discusses the relationship between bent functions and block designs.
 %Section \ref{sec-Results} contains the main theoretical results of the paper.
-Section \ref{sec-Empirical} lists some of the properties of the equivalence classes of bent functions for dimension up to 8.
-Section \ref{sec-Code} describes the SageMath and CoCalc code that has been used to obtain
-and display these computational results.
-Section~\ref{sec-Discussion} puts these results in the context of questions that are still open.
+Section~\ref{sec-Code} describes the SageMath and CoCalc code that has been used to obtain
+the computational results of this paper.
+Section~\ref{sec-Discussion} puts the results of this paper in the context of questions that are still open.
+The appendices contain the proof of one of the properties of quadratic bent functions,
+and list some of the properties of the equivalence classes of bent functions for dimension up to 8.
+
 %
 % % \begin{frame}
 % \subsection{Overview}
@@ -1242,6 +1243,761 @@ as a consequence of Lemma~\ref{lm-notes-9b}.
 \end{proof}
 
 
+\newpage
+\section{SageMath and CoCalc code}
+\label{sec-Code}
+% \begin{frame}[fragile]
+%\subsection{Public worksheet on CoCalc}
+The computational results listed in this paper were obtained by the
+use of code written in Sage \cite{JoyEtAl13Sage} \cite{SageMath7517} and Python.
+This code base is called \texttt{Boolean-Cayley-graphs} and it is available both as a GitHub
+repository \cite{Leo16GitHub} and as a public CoCalc \cite{CoCalc} folder
+\cite{Leo17CoCalc}.
+
+For an introduction to other aspects of coding theory and cryptography in Sage,
+see the article by Joyner et al. \cite{JoyEtAl13Sage}.
+
+\paragraph*{Description of the Sage code.}
+
+This section contains a brief description of some of the code included in
+\texttt{Boolean-Cayley-graphs}.
+More detailed documentation is being developed and this is intended to be included as part of the code base.
+The code itself is subject to review and revision, and may change as a result of the advice of
+those more experienced with Sage code.
+The description in this section applies to the code base as it exists in January 2018.
+
+The code base is structured as a set of Sage script files. % in the \texttt{sage-code} subdirectory.
+These in turn use Python scripts, found in a subdirectory called \texttt{Boolean\_Cayley\_graphs}.
+% of \texttt{sage-code}.
+
+The Python code is used to define a number of useful Python classes.
+The key class is \texttt{BentFunctionCayleyGraphClassification}.
+This class is used to store the classification of Cayley graphs within the extended translation
+class of a given bent function $f$, as well as the classification of Cayley graphs of the duals of
+each function in the extended translation class.
+
+The class therefore contains the algebraic normal form of the given bent function
+%(as attribute \texttt{algebraic\_normal\_form}),
+a list of graphs
+%(\texttt{cayley\_graph\_class\_list})
+stored as strings obtained via the \texttt{graph6\_string} \cite{McKP13nauty}
+method of the \texttt{Graph} class, and two matrices,
+%(\texttt{bent\_cayley\_graph\_index\_matrix} and \texttt{bent\_cayley\_graph\_index\_matrix})
+used to store the list indices corresponding to
+the Cayley graph for each bent function in the extended translation class, and the dual of each bent
+function, respectively.
+The class also contains the weight class matrix
+%(\texttt{weight\_class\_matrix})
+corresponding to the given bent function.
+
+The class is initialized by enumerating the bent functions of the form
+$x \mapsto f(x+b) + \langle c, x \rangle + f(b)$,
+and determining the Cayley graph of each.
+For each Cayley graph, the \texttt{Graph} method \texttt{canonical\_label} is used
+to invoke the Bliss package \cite{JunK07Bliss,JunK11conflict} to calculate the canonical label
+of the graph, and then \texttt{graph6\_string} is used to obtain a string.
+Each new graph is compared for isomorphism to each of the graphs in the current list,
+by simply comparing the string against each of the existing strings.
+If the new graph is not isomorphic to any existing graph, it is added to the list.
+Each list of pairwise non-isomorphic graphs can be checked by a function called \texttt{check\_graph\_class\_list}
+which uses the Nauty package to check the non-isomorphism \cite{McKP13nauty,McKP14practical}.
+
+It is the efficiency of the Bliss canonical labelling algorithm, and the speed of its implementation, that makes this approach feasible.
+Even so, for an 8 dimensional bent function, the initialization of its Cayley graph classification
+can take more than 24 hours on an Intel\textregistered Core\texttrademark i7 CPU 870 running at 2.93GHz.
+For this reason, each computed classification is saved, and a class method (\texttt{load\_mangled})
+is provided to load existing saved classifications.
+
+% \end{frame}
+\paragraph*{History of the Sage code.}
+
+The Sage code originated in 2015 as a series of worksheets on Sage\-Math\-Cloud (now CoCalc).
+While these were useful for investigating extended Cayley classes for bent functions in up to 6 dimensions,
+they were too slow to use for bent functions in 8 dimensions.
+
+The \texttt{Boolean-Cayley-graphs} GitHub project and public Sage\-Math\-Cloud folder was begun in 2016
+with the intention of refactoring the code to make it fast enough to use for bent functions in 8 dimensions
+up to degree 3.
+The use of canonical labelling via the Bliss algorithm is what made this possible.
+
+Further improvements were made in 2017 to enable the classification of any bent function in 8 dimensions or less
+to be computed in a reasonable time on a commodity personal computer.
+The code has been run on a personal computer, on CoCalc, and on the NCI Raijin supercomputer.
+
+In late 2017, code was added so that the Cayley graph classifications could be accessed via a relational database,
+with implementations using Sqlite3 and PostgreSQL \cite{Leo18Database}
+
+Also in late 2017, parallel versions of the classification functions were written using MPI4Py.
+These were used on the NCI Raijin supercomputer to complete the classifications for CAST-128 and compute
+the classifications for the $\mathcal{PS}^{(+)}$ bent functions in dimension 8.
+
+% \begin{itemize}
+%  \item 2015-04 to 2015-05 CoCalc: Cliques-Automorphisms project starts looking at Cayley
+% classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
+%  \item 2015-12 CoCalc: Cliques-Automorphisms project
+% worksheets produced initial results used in the ACCMCC presentation.
+% The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
+%  \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
+%  \item 2016-08 GitHub: Uploaded refactored Sage code to new Boolean-Cayley-graphs project.
+%  \item 2016-08 SageMath: Began using canonical labels rather than directly testing for isomorphism
+% between Cayley graphs.
+% Canonical labelling uses the Bliss algorithm, speeding up computation in comparison to the default
+% Sage algorithm,
+% and allows comparison between graphs using equality of canonically labelled graphs rather than
+% isomorphism, also giving a speed boost.
+% This finally made it feasible to check bent functions in 8 dimensions up to degree 3.
+%  \item 2016-09 SageMath: Changed many Sage code files into Python modules.
+% Introduced a BentFunction class.
+%  \item 2016-11 SageMath: \verb!check_graphs_using_gap!
+% \end{itemize}
+
+\section{Discussion}
+\label{sec-Discussion}
+% \begin{frame}
+%\subsection{Questions (1)}
+The investigation of the extended Cayley classes of bent functions is just beginning, and there are many open questions.
+This section lists some of these questions.
+
+The following questions have been settled only for dimensions 2, 4 and 6.
+\begin{enumerate}
+\item
+How many extended Cayley classes are there for each dimension?
+Are there ``Exponential numbers'' of classes  \cite{Kan83exponential}?
+\item
+In $n$ dimensions,
+which extended translation classes contain the maximum number, $4^n$, of different extended Cayley classes?
+\item
+Which extended Cayley classes overlap more than one extended translation class?
+\item
+Which bent functions are Cayley equivalent to their dual?
+\item
+Which bent functions are extended affine equivalent to their dual?
+\end{enumerate}
+
+Also, what are the extended affine and extended Cayley classes of bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
+
+Finally, how does the concept of extended Cayley classes of bent functions generalize to bent functions over number fields of prime order $p \neq 2$
+\cite{CheTZ11}?
+
+% \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph*{Acknowledgements.}
+\small{}
+This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University,
+continued while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia,
+and concluded while the author was an Honorary Fellow at the University of Melbourne,
+and an employee of the Bureau of Meteorology.
+
+Thanks to Christine Leopardi for her hospitality at Long Beach.
+Thanks to
+Robert Craigen,
+Joanne Hall,
+Kathy Horadam,
+David Joyner,
+Philippe Langevin,
+William Martin,
+Padraig {\'O} Cath{\'a}in,
+Judy-anne Osborn,
+Dima Pasechnik and
+William Stein
+for valuable questions, discussions and advice;
+David Joyner and Caroline Melles for suggestions for improvements based on the first draft of this paper;
+Nathan Clisby, for the opportunity to become an Honorary Fellow at the University of Melbourne;
+Kodlu, a member of MathOverflow, for asking Philippe Langevin about the affine classification
+of bent functions of degree 4 in 8 dimensions;
+Gray Chan for a citation tool for IETF RFCs;
+and finally, thanks to the authors of SageMath, Bliss, and Nauty for these valuable tools
+without which I would not have been able to conduct this research.
+\normalsize{}
+%Thanks also to the anonymous reviewer of the previous draft of this paper.
+
+\newpage
+
+\appendix
+
+\section{Proof of Theorem \ref{th-Quadratic-Classes}}
+\label{app-proof-of}
+
+The proof of Theorem \ref{th-Quadratic-Classes} relies on a number of supporting lemmas,
+which are stated and proved here.
+\begin{Lemma}
+\label{lm-notes-5}
+Let $q(x) := x^T L x$ where $L \in \F_2^{2 m \times 2 m}$,
+\begin{align*}
+L
+&:=
+\left[
+\begin{array}{cc}
+0 & I
+\\
+0 & 0
+\end{array}
+\right],
+\intertext{so that}
+q(x) &= \sum_{k=0}^{m-1} x_k x_{m+k}.
+\end{align*}
+
+Let $f(x) := q(x+b) + \langle c,x \rangle + q(b)$.
+Then there exists $c' \in \F_2^{2m}$ such that
+\begin{align*}
+f(x)
+&=
+q(x) + \langle c',x \rangle.
+\end{align*}
+
+\end{Lemma}
+
+\begin{proof}
+\begin{align*}
+q(x) = x^T L x, \quad \text{so~}
+q(x+b)
+&=
+(x^T+b^T) L (x+b)
+\\
+&= q(x) + x^T L b + b^T L x + q(b)
+\\
+&= q(x) + \langle (L + L^T) b, x \rangle + q(b),
+\intertext{and therefore}
+q(x+b) + \langle c, x \rangle + q(b)
+&=
+q(x) + \langle (L+L^T) b + c, x \rangle.
+\end{align*}
+
+\end{proof}
+
+\begin{Lemma}
+\label{lm-notes-3}
+Let $Z \in \F_2^{2 m \times 2 m}$ be symmetric with zero diagonal.
+In other words, $Z = Z^T$, $\diag{Z} = 0$.
+Then for any $M \in \F_2^{2 m \times 2 m}$,
+\begin{align*}
+x^T (M + Z) x  &= x^T M x
+\end{align*}
+for all $x \in \F_2^{2 m}$.
+\end{Lemma}
+
+\begin{proof}
+Let $Z$, $x$ be as above.
+Then
+\begin{align*}
+x^T Z x
+&=
+\sum_{i=0}^{2m-1} \sum_{j=0}^{2m-1} x_i Z_{i,j} x_j
+\\
+&=
+\sum_{i=0}^{2m-1} \sum_{j<i} x_i Z_{i,j} x_j\, +
+\sum_{i=0}^{2m-1} x_i Z_{i,i} x_i\, +
+\sum_{i=0}^{2m-1} \sum_{j>i} x_i Z_{i,j} x_j
+\\
+&=
+\sum_{i=0}^{2m-1} \sum_{j<i} x_i (Z_{i,j} + Z_{j,i})
+= 0.
+\intertext{Therefore}
+x^T (M + Z) x  &= x^T M x + x^T Z x = x^T M x.
+\end{align*}
+\end{proof}
+
+\begin{Lemma}
+\label{lm-notes-4}
+Let $q$ be defined as per Lemma \ref{lm-notes-5}.
+Then for all $c \in Z_2^{2 m}$ with $q(c)=0$, there exists $A \in GL(2 m, 2)$ such that
+\begin{align*}
+q(A x) &= q(x) + \langle c, x \rangle.
+\end{align*}
+\end{Lemma}
+
+\begin{proof}
+Let $C \in \F_2^{2 m \times 2 m}$ be such that $C_{i,j} = \delta_{i,j} c_i$, where $\delta$ is the
+\Emph{Dirac delta}: $\delta_{i,j}=1$ if $i=j$ and $0$ otherwise.
+In other words $\diag{C} = c$.
+Then
+\begin{align*}
+\langle c, x \rangle
+&=
+\sum_{i=0}^{2m-1} c_i x_i
+\\
+&=
+\sum_{i=0}^{2m-1} x_i c_i x_i
+=
+x^T C x.
+\end{align*}
+Therefore, by Lemma \ref{lm-notes-3},
+\begin{align*}
+q(x) + \langle c, x \rangle
+&=
+x^T (L + Z + C) x,
+\end{align*}
+where $Z \in \F_2^{2 m \times 2 m}$ is symmetric with zero diagonal.
+
+For such $Z$, let $S := Z + C$.
+We want to find $A \in \F_2^{2 m \times 2 m}$ such that $q(A x) = q(x) + \langle c, x \rangle.$
+In other words,
+\begin{align*}
+q(A x)
+&=
+(A x)^T L (A x)
+=
+x^T A^T L A x
+=
+x^T (L + S) x.
+\end{align*}
+This will be true if $A^T L A = L + S.$
+
+Let
+\begin{align*}
+A
+&:=
+\left[
+\begin{array}{cc}
+A_{0,0} & A_{0,1}
+\\
+A_{1,0} & A_{1,1}
+\end{array}
+\right],
+\quad
+S
+&:=
+\left[
+\begin{array}{cc}
+S_{0,0} & S_{0,1}
+\\
+S_{0,1}^T & S_{1,1}
+\end{array}
+\right]
+=:
+\left[
+\begin{array}{cc}
+Z_{0,0} + C_{0,0} & Z_{0,1}
+\\
+Z_{0,1}^T & Z_{1,1} + C_{1,1}
+\end{array}
+\right].
+\end{align*}
+Since
+\begin{align*}
+L A
+&=
+\left[
+\begin{array}{cc}
+0 & I
+\\
+0 & 0
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+A_{0,0} & A_{0,1}
+\\
+A_{1,0} & A_{1,1}
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cc}
+A_{1,0} & A_{1,1}
+\\
+0 & 0
+\end{array}
+\right],
+\end{align*}
+we require that
+\begin{align*}
+A^T L A
+&=
+\left[
+\begin{array}{cc}
+A_{0,0} & A_{1,0}
+\\
+A_{0,1} & A_{1,1}
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+A_{1,0} & A_{1,1}
+\\
+0 & 0
+\end{array}
+\right]
+\\
+&=
+\left[
+\begin{array}{cc}
+A_{0,0}^T A_{1,0} & A_{0,0}^T A_{1,1}
+\\
+A_{0,1}^T A_{1,0} & A_{0,1}^T A_{1,1}
+\end{array}
+\right]
+\\
+&=
+L + S
+=
+\left[
+\begin{array}{cc}
+S_{0,0} & I + S_{0,1}
+\\
+S_{0,1}^T & S_{1,1}
+\end{array}
+\right],
+\end{align*}
+and therefore
+\begin{align*}
+A_{0,0}^T A_{1,0}
+&=
+S_{0,0},
+\quad
+A_{0,0}^T A_{1,1}
+=
+I + S_{0,1},
+\\
+A_{0,1}^T A_{1,0}
+&=
+S_{0,1}^T,
+\quad
+A_{0,1}^T A_{1,1}
+=
+S_{1,1}.
+\end{align*}
+If $S_{0,1}=0$ and $A_{0,0}=I$ then
+$A_{1,0}=S_{0,0}$, $A_{1,1}=I$ and $A_{0,1}=S_{1,1}$.
+In this case, we have $A_{0,1}^T A_{1,0} = S_{0,1}^T = 0$,
+i.e. $S_{1,1} S_{0,0} = 0$, and
+\begin{align*}
+A
+&=
+\left[
+\begin{array}{cc}
+I & S_{1,1}
+\\
+S_{0,0} & I
+\end{array}
+\right],
+\intertext{so that}
+A^T L A
+&=
+\left[
+\begin{array}{cc}
+I & S_{0,0}
+\\
+S_{1,1} & I
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+S_{0,0} & I
+\\
+0 & 0
+\end{array}
+\right]
+\\
+&=
+\left[
+\begin{array}{cc}
+S_{0,0} & I
+\\
+0 & S_{1,1}
+\end{array}
+\right]
+\\
+&=
+L + S.
+\end{align*}
+
+Also
+\begin{align*}
+S
+&=
+\left[
+\begin{array}{cc}
+Z_{0,0} + C_{0,0} & 0
+\\
+0 & Z_{1,1} + C_{1,1}
+\end{array}
+\right].
+\end{align*}
+
+Since $q(c)=0$ we have
+\begin{align*}
+q(c)
+&=
+\sum_{k=0}^{m-1} c_k c_{m+k}
+=
+0.
+\end{align*}
+Let $K := \{ k \mid c_k c_{m+k} = 1 \}$.
+Then we must have $\abs{K} = 2 r$ for some integer $r \geqslant 0$, i.e. $\abs{K}$ is even.
+We therefore arbitrarily group the elements of $K$ into pairs $(i_p, j_p)$ for $p=0,\ldots,r-1$,
+and define the matrix $T \in \F_2^{m \times m}$ by
+\begin{align*}
+T_{i,j}
+&:=
+\sum_{p=0}^{r-1} (\delta_{i,i_p} \delta_{j,j_p} + \delta_{i,j_p} \delta_{j,i_p}),
+\end{align*}
+so that
+\begin{align*}
+\begin{cases}
+T_{i_p,j_p}
+=
+T_{j_p,i_p}
+=
+1
+&\text{for~} p \in \{0,\ldots,r-1\},
+\\
+T_{i,j} = 0
+&\text{otherwise.}
+\end{cases}
+\end{align*}
+Since the $r$ pairs $(i_p, j_p)$ partition the set $K$,
+the matrix $T$ has at most one non-zero in each row and column.
+
+Recalling that
+\begin{align*}
+(T^2)_{i,j}
+&=
+\sum_{k=0}^{m-1} T_{i,k} T_{k,j},
+\end{align*}
+we see that the general term $T_{i,k} T_{k,j}$ of this sum is non-zero only if either
+\begin{align*}
+\begin{cases}
+i = j = i_p,&\text{and}\ k=j_p,\ \text{or}
+\\
+i = j = j_p,&\text{and}\ k=i_p,
+\end{cases}
+\end{align*}
+for some $p \in \{0,\ldots,r-1\}$, with all $2r$ of these cases being mutually exclusive.
+So $T^2$ is diagonal with $2r$ non-zeros at the elements of $K$.
+
+But $C_{1,1} C_{0,0}$ is diagonal, and $(C_{1,1} C_{0,0})_{i,i} = c_{m+i} c_i$.
+Therefore
+\begin{align}
+T^2 &= C_{1,1} C_{0,0}.
+\label{eq-t-2}
+\end{align}
+
+Now, let $Z_{0,0}=Z_{1,1}=T$. Then $S_{0,0} = T + C_{0,0}$, $S_{1,1} = T + C_{1,1}$, and
+\begin{align*}
+S_{1,1} S_{0,0}
+&=
+(T + C_{1,1})(T + C_{0,0})
+=
+T^2 + T C_{0,0} + C_{1,1} T + C_{1,1} C_{0,0}
+\\
+&=
+T C_{0,0} + C_{1,1} T,
+\end{align*}
+where in the last step, we have used \eqref{eq-t-2}.
+
+Now,
+\begin{align*}
+(T C_{0,0} + C_{1,1} T)_{i,j}
+&=
+\sum_{k=0}^{m-1} T_{i,k} (C_{0,0})_{k,j} + (C_{1,1})_{i,k} T_{k,j}
+\\
+&=
+T_{i,j} (C_{0,0})_{j,j} + (C_{1,1})_{i,i} T_{i,j}
+\\
+&=
+T_{i,j} \left( c_j + c_{m+i} \right).
+\end{align*}
+As above, $T_{i,j}$ is non-zero only when $(i,j)=(i_p,j_p)$ or $(i,j)=(j_p,i_p)$
+for some $p \in \{0,\ldots,r-1\}$, but in all those cases $c_j=c_{m+j}=1$.
+
+Therefore
+\begin{align*}
+S_{1,1} S_{0,0} &= T C_{0,0} + C_{1,1} T = 0.
+\end{align*}
+Similarly, $S_{0,0} S_{1,1} = 0$, and therefore
+\begin{align*}
+A^2
+&=
+\left[
+\begin{array}{cc}
+I & S_{1,1}
+\\
+S_{0,0} & I
+\end{array}
+\right]
+\left[
+\begin{array}{cc}
+I & S_{1,1}
+\\
+S_{0,0} & I
+\end{array}
+\right]
+\\
+&=
+\left[
+\begin{array}{cc}
+I + S_{1,1} S_{0,0} & S_{1,1} + S_{1,1}
+\\
+S_{0,0} + S_{0,0} & I + S_{0,0} S_{1,1}
+\end{array}
+\right]
+=
+\left[
+\begin{array}{cc}
+I & 0
+\\
+0 & I
+\end{array}
+\right].
+\end{align*}
+
+We have therefore shown that
+\begin{align}
+A
+&:=
+\left[
+\begin{array}{cc}
+I & T + C_{1,1}
+\\
+T + C_{0,0} & I
+\end{array}
+\right],
+\quad
+S
+:=
+\left[
+\begin{array}{cc}
+T + C_{0,0} & 0
+\\
+0 & T + C_{1,1}
+\end{array}
+\right]
+\label{eq-a-s-def}
+\end{align}
+is a solution to $A^T L A = L + S$ with $A \in GL(2 m, 2)$.
+
+Finally, given $c$ with $q(c)=0$, the matrix $A$ as defined by \eqref{eq-a-s-def} is such that
+$q(A x) = q(x) + \langle c, x \rangle$.
+\end{proof}
+% \end{frame}
+
+\begin{Lemma}
+\label{lm-notes-6}
+For $k \in \{0,\ldots,m-1\}$ define $e^{(k)}$ by
+\begin{align}
+e_i^{(k)} &:= \delta_{i,k} + \delta_{i,m+k}
+\label{eq-e-def}
+\end{align}
+for $i \in \{0,\ldots,2 m - 1\}$.
+
+Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
+Then for any $c'$ such that $q(c')=1$, there exists $B \in GL(2 m, 2)$ such that
+\begin{align}
+h(B x) &= q(x) + \langle c',x \rangle.
+\label{eq-h-B-x}
+\end{align}
+\end{Lemma}
+
+\begin{proof}
+Let $K'=\{k \mid c'_k c'_{m+k} = 1\}$. Since $q(c')=1$, $\abs{K'}$ is odd.
+Choose any $\ell \in K'$, and let $c := c' + e^{(\ell)}$.
+Then $c_{\ell} = c_{m+\ell} = 0$ and $q(c)=0$.
+
+Now let $h^{(\ell)}(x) := q(x) + \langle e^{(\ell)}, x \rangle$.
+We calculate
+\begin{align*}
+h^{(\ell)}(A x)
+&=
+q(A x) + \langle e^{(\ell)}, A x \rangle
+=
+q(x) + \langle c, x \rangle + \langle A^T e^{(\ell)}, x \rangle
+\\
+&=
+q(x) + \langle c + A^T e^{(\ell)}, x \rangle
+\end{align*}
+for $A$ given by the proof of Lemma \ref{lm-notes-4}.
+
+If we let $K := \{ k \mid c_k c_{m+k} = 1 \}$, we see that $K = K' \setminus \{\ell\}$.
+Applying the other definitions and techniques used in the proof of Lemma \ref{lm-notes-4},
+we see that since $c_{\ell} = c_{m+\ell} = 0$ and $K$ does not contain $\ell$,
+column $\ell$ of each of $S_{0,0} := T + C_{0,0}$
+and $S_{1,1} := T + C_{1,1}$ is $0$, and therefore columns $\ell$ and $m + \ell$ of
+\begin{align*}
+A^T + I
+&:=
+\left[
+\begin{array}{cc}
+I & T + C_{0,0}
+\\
+T + C_{1,1} & I
+\end{array}
+\right]
+\end{align*}
+are both $0$.
+Therefore $A^T e^{(\ell)} = e^{(\ell)}$, and therefore
+\begin{align*}
+h^{(\ell)}(A x)
+&=
+q(x) + \langle c', x \rangle.
+\end{align*}
+
+\end{proof}
+
+\begin{Lemma}
+\label{lm-notes-6-b}
+For distinct $k,\ell \in \{0,\ldots,m-1\}$ let $e^{(k)}, e^{(\ell)}$ be defined as per Lemma
+\ref{lm-notes-6}.
+Let $h(x) := q(x) + \langle e^{(k)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
+Then there exists $A \in GL(2 m, 2)$ such that
+\begin{align}
+h(A x)
+&=
+q(x) + \langle e^{(\ell)},x \rangle.
+\end{align}
+\end{Lemma}
+
+\begin{proof}
+The matrix $A$ is the permutation matrix for the the permutation $(k\ \ell)(m+k\ m+\ell)$ (defined
+using cycle notation.)
+\end{proof}
+
+\begin{Lemma}
+\label{lm-notes-7}
+Let $q$ be defined as per Lemma \ref{lm-notes-5}.
+Then for all $c, c' \in Z_2^{2 m}$ with $q(c)=q(c')=1$, there exists $A \in GL(2 m, 2)$ such that
+if $h(x) := q(x) + \langle c, x \rangle$, then
+\begin{align*}
+h(A x) &= q(x) + \langle c', x \rangle.
+\end{align*}
+\end{Lemma}
+
+\begin{proof}
+This is a consequence of Lemmas \ref{lm-notes-6} and \ref{lm-notes-6-b}.
+\end{proof}
+
+\begin{proofof}{Theorem \ref{th-Quadratic-Classes}}
+It is well known that all quadratic bent functions are contained in one Extended Affine equivalence
+class.
+As a consequence of Corollary \ref{corr-Affine-Translate-Cayley}, without loss of generality, we need
+only examine
+the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma
+\ref{lm-notes-5}.
+
+As a result of Lemma \ref{lm-notes-5}, we actually need only examine functions of the form
+$f(x) = q(x) + \langle c,x \rangle$
+for some $c \in \F_2^{2m}$.
+Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to
+$q$.
+Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x)\, +
+\langle c', x \rangle$
+with $q(c)=q(c')=1$ are Cayley equivalent to each other.
+
+The functions where $q(c)=0$ are not Cayley equivalent to the functions where $q(c)=1$ because
+Lemma \ref{lm-notes-9b} implies that
+\begin{align*}
+\weightclass{x \mapsto q(x) + \langle c,x \rangle}
+&=
+\dual{q}(c) = q(c),
+\end{align*}
+since $q$ is self-dual.
+\end{proofof}
+
+\newpage
+
 \section{Computational results for low dimensions}
 \label{sec-Empirical}
 This section lists some properties of bent functions and their extended translation classes and extended Cayley classes
@@ -1251,7 +2007,7 @@ Larger scale computations, involving millions of extended translation classes,
 were conducted on the Raijin supercomputer of the National Computational Infrastructure.
 Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and CoCalc \cite{Leo17CoCalc}.
 Some CoCalc worksheets also illustrate these and related computations \cite{Leo17CoCalc}.
-The Sage and Python code is described in more detail in Section \ref{sec-Code}.
+The Sage and Python code is briefly described in Section \ref{sec-Code}.
 
 In the tables below, each bent function is defined by its algebraic normal form, and each Cayley class is described by
 its number within the extended translation class of the bent function (from 0, in the order in which Sage identified non-isomorphic graphs),
@@ -3042,14 +3798,11 @@ x_{5} x_{2} x_{3} + x_{5} x_{7} + x_{2} x_{1} x_{0} + x_{2} x_{0} + x_{2} x_{4} 
 x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
 \\
 &= f_{8,6}.
-\\
-&\ \Box
 \end{align*}
 }\normalsize{}
-
 \end{proof}
 
-\newpage
+%\newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,7}]$.}
 %
@@ -3322,7 +4075,7 @@ as shown in Figures~\ref{fig:c8_8_weight_class_matrix} and~\ref{fig:c8_8_bent_ca
 \end{figure}
 
 % \end{frame}
-%%\newpage
+\newpage
 % \begin{frame}
 \paragraph*{ET class $[f_{8,9}]$.}
 %
@@ -3338,7 +4091,8 @@ x_{4} x_{5} x_{6} + x_{6} x_{7}.
 \end{align*}
 \normalsize{}
 The extended translation class contains 8 extended Cayley classes as per
-Tables~\ref{tab-c8_9_EC_classes} and~\ref{tab-c8_9_EC_classes_2}.
+%Tables~\ref{tab-c8_9_EC_classes} and~\ref{tab-c8_9_EC_classes_2}.
+Table~\ref{tab-c8_9_EC_classes}.
 In 4 of these 8 classes, each bent function is extended Cayley equivalent to its dual.
 In the remaining 4 extended Cayley classes, the dual of every bent function in the class has a Cayley graph
 that is isomorphic to that of one other class. That is, the 4 Cayley classes form two duality pairs of classes.
@@ -3426,25 +4180,25 @@ as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~
  15360t^{2} + 256t + 1
 \end{array}
 \\
-\hline
-\end{array}
-\end{align*}
-\caption{$[f_{8,9}]$ extended Cayley classes (part 1).}
-\label{tab-c8_9_EC_classes}
-\end{table}
-%%\newpage
-\begin{table}[!bhpt] % [H]
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$[f_{8,9}]$ extended Cayley classes (part 1).}
+% \label{tab-c8_9_EC_classes}
+% \end{table}
+% %%\newpage
+% \begin{table}[!bhpt] % [H]
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
 5 &
 (256, 136, 72, 72) &
 16 &
@@ -3487,10 +4241,10 @@ as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~
 \hline
 \end{array}
 \end{align*}
-\caption{$[f_{8,9}]$ extended Cayley classes (part 2).}
-%\caption{$[f_{8,9}]$ extended Cayley classes.}
-\label{tab-c8_9_EC_classes_2}
-%\label{tab-c8_9_EC_classes}
+%\caption{$[f_{8,9}]$ extended Cayley classes (part 2).}
+\caption{$[f_{8,9}]$ extended Cayley classes.}
+%\label{tab-c8_9_EC_classes_2}
+\label{tab-c8_9_EC_classes}
 \end{table}
 
 \begin{table}
@@ -3854,16 +4608,11 @@ As shown in  \cite{Leo15Twin}, both sequences produce Cayley graphs whose strong
 (v_m,k_m,\lambda_m=\mu_m) &= (4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}).
 \end{align*}
 
-Figures \ref{fig:sigma_1_bent_cayley_graph_index_matrix} to \ref{fig:tau_4_bent_cayley_graph_index_matrix}
-illustrate the extended Cayley classes within the ET classes of each of function $\sigma_m$ and $\tau_m$ for $m$ from 1 to 4.
-Note that $\tau_3$ has degree 3, and $\tau_4$ has degree 4.
-As shown in \cite{Leo17Hurwitz},
-The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ from 1 to 3, but are inequivalent for $m>3$.
 %\begin{colortheme}{jubata}
 
 %\begin{frame}
 %\frametitle{For 2 dimensions: $[\sigma_1]$ and $[\tau_1]$}
-\begin{figure}
+\begin{figure}[!hb]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -3882,7 +4631,7 @@ The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ fro
 
 %\begin{frame}
 %\frametitle{For 4 dimensions: $[\sigma_2]$ and $[\tau_2]$}
-\begin{figure}
+\begin{figure}[!hb]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -3898,6 +4647,12 @@ The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ fro
 \end{minipage}
 \end{figure}
 %\end{frame}
+
+Figures \ref{fig:sigma_1_bent_cayley_graph_index_matrix} to \ref{fig:tau_4_bent_cayley_graph_index_matrix}
+illustrate the extended Cayley classes within the ET classes of each of function $\sigma_m$ and $\tau_m$ for $m$ from 1 to 4.
+Note that $\tau_3$ has degree 3, and $\tau_4$ has degree 4.
+As shown in \cite{Leo17Hurwitz},
+The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ from 1 to 3, but are inequivalent for $m>3$.
 
 %\begin{frame}
 %\frametitle{For 6 dimensions: $[\sigma_3]$ and $[\tau_3]$}
@@ -4130,786 +4885,36 @@ The 16 extended Cayley classes are distributed
 as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:psf_9_5439_dual_cayley_graph_index_matrix}
 (classes of duals).
 
-\begin{figure}[!bhpt] % [H]
+\begin{figure}[!ht] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{psf_9_5439_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5439}]$: extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \captionof{figure}{$[psf_{9,5439}]$:\\extended Cayley classes ~~ ~~~~ ~~~~\\~~~~~~~~~}
   \label{fig:psf_9_5439_bent_cayley_graph_index_matrix}
 \end{minipage}
 ~~
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{psf_9_5439_dual_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[psf_{9,5439}]$: extended Cayley classes of dual bent functions}
+  \captionof{figure}{$[psf_{9,5439}]$:\\extended Cayley classes of dual bent\\functions}
   \label{fig:psf_9_5439_dual_cayley_graph_index_matrix}
 \end{minipage}%
 \end{figure}
 
 % \end{frame}
 
-\newpage
-\section{SageMath and CoCalc code}
-\label{sec-Code}
-% \begin{frame}[fragile]
-%\subsection{Public worksheet on CoCalc}
-As mentioned in the previous section, the computational results listed there were obtained by the
-use of code written in Sage \cite{JoyEtAl13Sage} \cite{SageMath7517} and Python.
-This code base is called \texttt{Boolean-Cayley-graphs} and it is available both as a GitHub
-repository \cite{Leo16GitHub} and as a public CoCalc \cite{CoCalc} folder
-\cite{Leo17CoCalc}.
-
-For an introduction to other aspects of coding theory and cryptography in Sage,
-see the article by Joyner et al. \cite{JoyEtAl13Sage}.
-
-\paragraph*{Description of the Sage code.}
-
-This section contains a brief description of some of the code included in
-\texttt{Boolean-Cayley-graphs}.
-More detailed documentation is being developed and this is intended to be included as part of the code base.
-The code itself is subject to review and revision, and may change as a result of the advice of
-those more experienced with Sage code.
-The description in this section applies to the code base as it exists in January 2018.
-
-The code base is structured as a set of Sage script files. % in the \texttt{sage-code} subdirectory.
-These in turn use Python scripts, found in a subdirectory called \texttt{Boolean\_Cayley\_graphs}.
-% of \texttt{sage-code}.
-
-The Python code is used to define a number of useful Python classes.
-The key class is \texttt{BentFunctionCayleyGraphClassification}.
-This class is used to store the classification of Cayley graphs within the extended translation
-class of a given bent function $f$, as well as the classification of Cayley graphs of the duals of
-each function in the extended translation class.
-
-The class therefore contains the algebraic normal form of the given bent function
-%(as attribute \texttt{algebraic\_normal\_form}),
-a list of graphs
-%(\texttt{cayley\_graph\_class\_list})
-stored as strings obtained via the \texttt{graph6\_string} \cite{McKP13nauty}
-method of the \texttt{Graph} class, and two matrices,
-%(\texttt{bent\_cayley\_graph\_index\_matrix} and \texttt{bent\_cayley\_graph\_index\_matrix})
-used to store the list indices corresponding to
-the Cayley graph for each bent function in the extended translation class, and the dual of each bent
-function, respectively.
-The class also contains the weight class matrix
-%(\texttt{weight\_class\_matrix})
-corresponding to the given bent function.
-
-The class is initialized by enumerating the bent functions of the form
-$x \mapsto f(x+b) + \langle c, x \rangle + f(b)$,
-and determining the Cayley graph of each.
-For each Cayley graph, the \texttt{Graph} method \texttt{canonical\_label} is used
-to invoke the Bliss package \cite{JunK07Bliss,JunK11conflict} to calculate the canonical label
-of the graph, and then \texttt{graph6\_string} is used to obtain a string.
-Each new graph is compared for isomorphism to each of the graphs in the current list,
-by simply comparing the string against each of the existing strings.
-If the new graph is not isomorphic to any existing graph, it is added to the list.
-Each list of pairwise non-isomorphic graphs can be checked by a function called \texttt{check\_graph\_class\_list}
-which uses the Nauty package to check the non-isomorphism \cite{McKP13nauty,McKP14practical}.
-
-It is the efficiency of the Bliss canonical labelling algorithm, and the speed of its implementation, that makes this approach feasible.
-Even so, for an 8 dimensional bent function, the initialization of its Cayley graph classification
-can take more than 24 hours on an Intel\textregistered Core\texttrademark i7 CPU 870 running at 2.93GHz.
-For this reason, each computed classification is saved, and a class method (\texttt{load\_mangled})
-is provided to load existing saved classifications.
-
-% \end{frame}
-\paragraph*{History of the Sage code.}
-
-The Sage code originated in 2015 as a series of worksheets on Sage\-Math\-Cloud (now CoCalc).
-While these were useful for investigating extended Cayley classes for bent functions in up to 6 dimensions,
-they were too slow to use for bent functions in 8 dimensions.
-
-The \texttt{Boolean-Cayley-graphs} GitHub project and public Sage\-Math\-Cloud folder was begun in 2016
-with the intention of refactoring the code to make it fast enough to use for bent functions in 8 dimensions
-up to degree 3.
-The use of canonical labelling via the Bliss algorithm is what made this possible.
-
-Further improvements were made in 2017 to enable the classification of any bent function in 8 dimensions or less
-to be computed in a reasonable time on a commodity personal computer.
-The code has been run on a personal computer, on CoCalc, and on the NCI Raijin supercomputer.
-
-In late 2017, code was added so that the Cayley graph classifications could be accessed via a relational database,
-with implementations using Sqlite3 and PostgreSQL \cite{Leo18Database}
-
-Also in late 2017, parallel versions of the classification functions were written using MPI4Py.
-These were used on the NCI Raijin supercomputer to complete the classifications for CAST-128 and compute
-the classifications for the $\mathcal{PS}^{(+)}$ bent functions in dimension 8.
-
-% \begin{itemize}
-%  \item 2015-04 to 2015-05 CoCalc: Cliques-Automorphisms project starts looking at Cayley
-% classes for bent functions of dimension up to 6, using BooleanFunction and \verb!is_isomorphic()!.
-%  \item 2015-12 CoCalc: Cliques-Automorphisms project
-% worksheets produced initial results used in the ACCMCC presentation.
-% The worksheets were too slow to effectively tackle bent functions in 8 dimensions.
-%  \item 2016-07 SageMath: Downloaded Sage and began refactoring worksheets into Sage code.
-%  \item 2016-08 GitHub: Uploaded refactored Sage code to new Boolean-Cayley-graphs project.
-%  \item 2016-08 SageMath: Began using canonical labels rather than directly testing for isomorphism
-% between Cayley graphs.
-% Canonical labelling uses the Bliss algorithm, speeding up computation in comparison to the default
-% Sage algorithm,
-% and allows comparison between graphs using equality of canonically labelled graphs rather than
-% isomorphism, also giving a speed boost.
-% This finally made it feasible to check bent functions in 8 dimensions up to degree 3.
-%  \item 2016-09 SageMath: Changed many Sage code files into Python modules.
-% Introduced a BentFunction class.
-%  \item 2016-11 SageMath: \verb!check_graphs_using_gap!
-% \end{itemize}
-
-\section{Discussion}
-\label{sec-Discussion}
-% \begin{frame}
-%\subsection{Questions (1)}
-The investigation of the extended Cayley classes of bent functions is just beginning, and there are many open questions.
-This section lists some of these questions.
-
-The following questions have been settled only for dimensions 2, 4 and 6.
-\begin{enumerate}
-\item
-How many extended Cayley classes are there for each dimension?
-Are there ``Exponential numbers'' of classes  \cite{Kan83exponential}?
-\item
-In $n$ dimensions,
-which extended translation classes contain the maximum number, $4^n$, of different extended Cayley classes?
-\item
-Which extended Cayley classes overlap more than one extended translation class?
-\item
-Which bent functions are Cayley equivalent to their dual?
-\item
-Which bent functions are extended affine equivalent to their dual?
-\end{enumerate}
-
-Also, what are the extended affine and extended Cayley classes of bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
-
-Finally, how does the concept of extended Cayley classes of bent functions generalize to bent functions over number fields of prime order $p \neq 2$
-\cite{CheTZ11}?
-
-% \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
-% \end{frame}
-
-\appendix
-
-\section{Proof of Theorem \ref{th-Quadratic-Classes}}
-\label{app-proof-of}
-
-The proof of Theorem \ref{th-Quadratic-Classes} relies on a number of supporting lemmas,
-which are stated and proved here.
-\begin{Lemma}
-\label{lm-notes-5}
-Let $q(x) := x^T L x$ where $L \in \F_2^{2 m \times 2 m}$,
-\begin{align*}
-L
-&:=
-\left[
-\begin{array}{cc}
-0 & I
-\\
-0 & 0
-\end{array}
-\right],
-\intertext{so that}
-q(x) &= \sum_{k=0}^{m-1} x_k x_{m+k}.
-\end{align*}
-
-Let $f(x) := q(x+b) + \langle c,x \rangle + q(b)$.
-Then there exists $c' \in \F_2^{2m}$ such that
-\begin{align*}
-f(x)
-&=
-q(x) + \langle c',x \rangle.
-\end{align*}
-
-\end{Lemma}
-
-\begin{proof}
-\begin{align*}
-q(x) = x^T L x, \quad \text{so~}
-q(x+b)
-&=
-(x^T+b^T) L (x+b)
-\\
-&= q(x) + x^T L b + b^T L x + q(b)
-\\
-&= q(x) + \langle (L + L^T) b, x \rangle + q(b),
-\intertext{and therefore}
-q(x+b) + \langle c, x \rangle + q(b)
-&=
-q(x) + \langle (L+L^T) b + c, x \rangle.
-\end{align*}
-
-\end{proof}
-
-\begin{Lemma}
-\label{lm-notes-3}
-Let $Z \in \F_2^{2 m \times 2 m}$ be symmetric with zero diagonal.
-In other words, $Z = Z^T$, $\diag{Z} = 0$.
-Then for any $M \in \F_2^{2 m \times 2 m}$,
-\begin{align*}
-x^T (M + Z) x  &= x^T M x
-\end{align*}
-for all $x \in \F_2^{2 m}$.
-\end{Lemma}
-
-\begin{proof}
-Let $Z$, $x$ be as above.
-Then
-\begin{align*}
-x^T Z x
-&=
-\sum_{i=0}^{2m-1} \sum_{j=0}^{2m-1} x_i Z_{i,j} x_j
-\\
-&=
-\sum_{i=0}^{2m-1} \sum_{j<i} x_i Z_{i,j} x_j\, +
-\sum_{i=0}^{2m-1} x_i Z_{i,i} x_i\, +
-\sum_{i=0}^{2m-1} \sum_{j>i} x_i Z_{i,j} x_j
-\\
-&=
-\sum_{i=0}^{2m-1} \sum_{j<i} x_i (Z_{i,j} + Z_{j,i})
-= 0.
-\intertext{Therefore}
-x^T (M + Z) x  &= x^T M x + x^T Z x = x^T M x.
-\end{align*}
-\end{proof}
-
-\begin{Lemma}
-\label{lm-notes-4}
-Let $q$ be defined as per Lemma \ref{lm-notes-5}.
-Then for all $c \in Z_2^{2 m}$ with $q(c)=0$, there exists $A \in GL(2 m, 2)$ such that
-\begin{align*}
-q(A x) &= q(x) + \langle c, x \rangle.
-\end{align*}
-\end{Lemma}
-
-\begin{proof}
-Let $C \in \F_2^{2 m \times 2 m}$ be such that $C_{i,j} = \delta_{i,j} c_i$, where $\delta$ is the
-\Emph{Dirac delta}: $\delta_{i,j}=1$ if $i=j$ and $0$ otherwise.
-In other words $\diag{C} = c$.
-Then
-\begin{align*}
-\langle c, x \rangle
-&=
-\sum_{i=0}^{2m-1} c_i x_i
-\\
-&=
-\sum_{i=0}^{2m-1} x_i c_i x_i
-=
-x^T C x.
-\end{align*}
-Therefore, by Lemma \ref{lm-notes-3},
-\begin{align*}
-q(x) + \langle c, x \rangle
-&=
-x^T (L + Z + C) x,
-\end{align*}
-where $Z \in \F_2^{2 m \times 2 m}$ is symmetric with zero diagonal.
-
-For such $Z$, let $S := Z + C$.
-We want to find $A \in \F_2^{2 m \times 2 m}$ such that $q(A x) = q(x) + \langle c, x \rangle.$
-In other words,
-\begin{align*}
-q(A x)
-&=
-(A x)^T L (A x)
-=
-x^T A^T L A x
-=
-x^T (L + S) x.
-\end{align*}
-This will be true if $A^T L A = L + S.$
-
-Let
-\begin{align*}
-A
-&:=
-\left[
-\begin{array}{cc}
-A_{0,0} & A_{0,1}
-\\
-A_{1,0} & A_{1,1}
-\end{array}
-\right],
-\quad
-S
-&:=
-\left[
-\begin{array}{cc}
-S_{0,0} & S_{0,1}
-\\
-S_{0,1}^T & S_{1,1}
-\end{array}
-\right]
-=:
-\left[
-\begin{array}{cc}
-Z_{0,0} + C_{0,0} & Z_{0,1}
-\\
-Z_{0,1}^T & Z_{1,1} + C_{1,1}
-\end{array}
-\right].
-\end{align*}
-Since
-\begin{align*}
-L A
-&=
-\left[
-\begin{array}{cc}
-0 & I
-\\
-0 & 0
-\end{array}
-\right]
-\left[
-\begin{array}{cc}
-A_{0,0} & A_{0,1}
-\\
-A_{1,0} & A_{1,1}
-\end{array}
-\right]
-=
-\left[
-\begin{array}{cc}
-A_{1,0} & A_{1,1}
-\\
-0 & 0
-\end{array}
-\right],
-\end{align*}
-we require that
-\begin{align*}
-A^T L A
-&=
-\left[
-\begin{array}{cc}
-A_{0,0} & A_{1,0}
-\\
-A_{0,1} & A_{1,1}
-\end{array}
-\right]
-\left[
-\begin{array}{cc}
-A_{1,0} & A_{1,1}
-\\
-0 & 0
-\end{array}
-\right]
-\\
-&=
-\left[
-\begin{array}{cc}
-A_{0,0}^T A_{1,0} & A_{0,0}^T A_{1,1}
-\\
-A_{0,1}^T A_{1,0} & A_{0,1}^T A_{1,1}
-\end{array}
-\right]
-\\
-&=
-L + S
-=
-\left[
-\begin{array}{cc}
-S_{0,0} & I + S_{0,1}
-\\
-S_{0,1}^T & S_{1,1}
-\end{array}
-\right],
-\end{align*}
-and therefore
-\begin{align*}
-A_{0,0}^T A_{1,0}
-&=
-S_{0,0},
-\quad
-A_{0,0}^T A_{1,1}
-=
-I + S_{0,1},
-\\
-A_{0,1}^T A_{1,0}
-&=
-S_{0,1}^T,
-\quad
-A_{0,1}^T A_{1,1}
-=
-S_{1,1}.
-\end{align*}
-If $S_{0,1}=0$ and $A_{0,0}=I$ then
-$A_{1,0}=S_{0,0}$, $A_{1,1}=I$ and $A_{0,1}=S_{1,1}$.
-In this case, we have $A_{0,1}^T A_{1,0} = S_{0,1}^T = 0$,
-i.e. $S_{1,1} S_{0,0} = 0$, and
-\begin{align*}
-A
-&=
-\left[
-\begin{array}{cc}
-I & S_{1,1}
-\\
-S_{0,0} & I
-\end{array}
-\right],
-\intertext{so that}
-A^T L A
-&=
-\left[
-\begin{array}{cc}
-I & S_{0,0}
-\\
-S_{1,1} & I
-\end{array}
-\right]
-\left[
-\begin{array}{cc}
-S_{0,0} & I
-\\
-0 & 0
-\end{array}
-\right]
-\\
-&=
-\left[
-\begin{array}{cc}
-S_{0,0} & I
-\\
-0 & S_{1,1}
-\end{array}
-\right]
-\\
-&=
-L + S.
-\end{align*}
-
-Also
-\begin{align*}
-S
-&=
-\left[
-\begin{array}{cc}
-Z_{0,0} + C_{0,0} & 0
-\\
-0 & Z_{1,1} + C_{1,1}
-\end{array}
-\right].
-\end{align*}
-
-Since $q(c)=0$ we have
-\begin{align*}
-q(c)
-&=
-\sum_{k=0}^{m-1} c_k c_{m+k}
-=
-0.
-\end{align*}
-Let $K := \{ k \mid c_k c_{m+k} = 1 \}$.
-Then we must have $\abs{K} = 2 r$ for some integer $r \geqslant 0$, i.e. $\abs{K}$ is even.
-We therefore arbitrarily group the elements of $K$ into pairs $(i_p, j_p)$ for $p=0,\ldots,r-1$,
-and define the matrix $T \in \F_2^{m \times m}$ by
-\begin{align*}
-T_{i,j}
-&:=
-\sum_{p=0}^{r-1} (\delta_{i,i_p} \delta_{j,j_p} + \delta_{i,j_p} \delta_{j,i_p}),
-\end{align*}
-so that
-\begin{align*}
-\begin{cases}
-T_{i_p,j_p}
-=
-T_{j_p,i_p}
-=
-1
-&\text{for~} p \in \{0,\ldots,r-1\},
-\\
-T_{i,j} = 0
-&\text{otherwise.}
-\end{cases}
-\end{align*}
-Since the $r$ pairs $(i_p, j_p)$ partition the set $K$,
-the matrix $T$ has at most one non-zero in each row and column.
-
-Recalling that
-\begin{align*}
-(T^2)_{i,j}
-&=
-\sum_{k=0}^{m-1} T_{i,k} T_{k,j},
-\end{align*}
-we see that the general term $T_{i,k} T_{k,j}$ of this sum is non-zero only if either
-\begin{align*}
-\begin{cases}
-i = j = i_p,&\text{and}\ k=j_p,\ \text{or}
-\\
-i = j = j_p,&\text{and}\ k=i_p,
-\end{cases}
-\end{align*}
-for some $p \in \{0,\ldots,r-1\}$, with all $2r$ of these cases being mutually exclusive.
-So $T^2$ is diagonal with $2r$ non-zeros at the elements of $K$.
-
-But $C_{1,1} C_{0,0}$ is diagonal, and $(C_{1,1} C_{0,0})_{i,i} = c_{m+i} c_i$.
-Therefore
-\begin{align}
-T^2 &= C_{1,1} C_{0,0}.
-\label{eq-t-2}
-\end{align}
-
-Now, let $Z_{0,0}=Z_{1,1}=T$. Then $S_{0,0} = T + C_{0,0}$, $S_{1,1} = T + C_{1,1}$, and
-\begin{align*}
-S_{1,1} S_{0,0}
-&=
-(T + C_{1,1})(T + C_{0,0})
-=
-T^2 + T C_{0,0} + C_{1,1} T + C_{1,1} C_{0,0}
-\\
-&=
-T C_{0,0} + C_{1,1} T,
-\end{align*}
-where in the last step, we have used \eqref{eq-t-2}.
-
-Now,
-\begin{align*}
-(T C_{0,0} + C_{1,1} T)_{i,j}
-&=
-\sum_{k=0}^{m-1} T_{i,k} (C_{0,0})_{k,j} + (C_{1,1})_{i,k} T_{k,j}
-\\
-&=
-T_{i,j} (C_{0,0})_{j,j} + (C_{1,1})_{i,i} T_{i,j}
-\\
-&=
-T_{i,j} \left( c_j + c_{m+i} \right).
-\end{align*}
-As above, $T_{i,j}$ is non-zero only when $(i,j)=(i_p,j_p)$ or $(i,j)=(j_p,i_p)$
-for some $p \in \{0,\ldots,r-1\}$, but in all those cases $c_j=c_{m+j}=1$.
-
-Therefore
-\begin{align*}
-S_{1,1} S_{0,0} &= T C_{0,0} + C_{1,1} T = 0.
-\end{align*}
-Similarly, $S_{0,0} S_{1,1} = 0$, and therefore
-\begin{align*}
-A^2
-&=
-\left[
-\begin{array}{cc}
-I & S_{1,1}
-\\
-S_{0,0} & I
-\end{array}
-\right]
-\left[
-\begin{array}{cc}
-I & S_{1,1}
-\\
-S_{0,0} & I
-\end{array}
-\right]
-\\
-&=
-\left[
-\begin{array}{cc}
-I + S_{1,1} S_{0,0} & S_{1,1} + S_{1,1}
-\\
-S_{0,0} + S_{0,0} & I + S_{0,0} S_{1,1}
-\end{array}
-\right]
-=
-\left[
-\begin{array}{cc}
-I & 0
-\\
-0 & I
-\end{array}
-\right].
-\end{align*}
-
-We have therefore shown that
-\begin{align}
-A
-&:=
-\left[
-\begin{array}{cc}
-I & T + C_{1,1}
-\\
-T + C_{0,0} & I
-\end{array}
-\right],
-\quad
-S
-:=
-\left[
-\begin{array}{cc}
-T + C_{0,0} & 0
-\\
-0 & T + C_{1,1}
-\end{array}
-\right]
-\label{eq-a-s-def}
-\end{align}
-is a solution to $A^T L A = L + S$ with $A \in GL(2 m, 2)$.
-
-Finally, given $c$ with $q(c)=0$, the matrix $A$ as defined by \eqref{eq-a-s-def} is such that
-$q(A x) = q(x) + \langle c, x \rangle$.
-\end{proof}
-% \end{frame}
-
-\begin{Lemma}
-\label{lm-notes-6}
-For $k \in \{0,\ldots,m-1\}$ define $e^{(k)}$ by
-\begin{align}
-e_i^{(k)} &:= \delta_{i,k} + \delta_{i,m+k}
-\label{eq-e-def}
-\end{align}
-for $i \in \{0,\ldots,2 m - 1\}$.
-
-Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
-Then for any $c'$ such that $q(c')=1$, there exists $B \in GL(2 m, 2)$ such that
-\begin{align}
-h(B x) &= q(x) + \langle c',x \rangle.
-\label{eq-h-B-x}
-\end{align}
-\end{Lemma}
-
-\begin{proof}
-Let $K'=\{k \mid c'_k c'_{m+k} = 1\}$. Since $q(c')=1$, $\abs{K'}$ is odd.
-Choose any $\ell \in K'$, and let $c := c' + e^{(\ell)}$.
-Then $c_{\ell} = c_{m+\ell} = 0$ and $q(c)=0$.
-
-Now let $h^{(\ell)}(x) := q(x) + \langle e^{(\ell)}, x \rangle$.
-We calculate
-\begin{align*}
-h^{(\ell)}(A x)
-&=
-q(A x) + \langle e^{(\ell)}, A x \rangle
-=
-q(x) + \langle c, x \rangle + \langle A^T e^{(\ell)}, x \rangle
-\\
-&=
-q(x) + \langle c + A^T e^{(\ell)}, x \rangle
-\end{align*}
-for $A$ given by the proof of Lemma \ref{lm-notes-4}.
-
-If we let $K := \{ k \mid c_k c_{m+k} = 1 \}$, we see that $K = K' \setminus \{\ell\}$.
-Applying the other definitions and techniques used in the proof of Lemma \ref{lm-notes-4},
-we see that since $c_{\ell} = c_{m+\ell} = 0$ and $K$ does not contain $\ell$,
-column $\ell$ of each of $S_{0,0} := T + C_{0,0}$
-and $S_{1,1} := T + C_{1,1}$ is $0$, and therefore columns $\ell$ and $m + \ell$ of
-\begin{align*}
-A^T + I
-&:=
-\left[
-\begin{array}{cc}
-I & T + C_{0,0}
-\\
-T + C_{1,1} & I
-\end{array}
-\right]
-\end{align*}
-are both $0$.
-Therefore $A^T e^{(\ell)} = e^{(\ell)}$, and therefore
-\begin{align*}
-h^{(\ell)}(A x)
-&=
-q(x) + \langle c', x \rangle.
-\end{align*}
-
-\end{proof}
-
-\begin{Lemma}
-\label{lm-notes-6-b}
-For distinct $k,\ell \in \{0,\ldots,m-1\}$ let $e^{(k)}, e^{(\ell)}$ be defined as per Lemma
-\ref{lm-notes-6}.
-Let $h(x) := q(x) + \langle e^{(k)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
-Then there exists $A \in GL(2 m, 2)$ such that
-\begin{align}
-h(A x)
-&=
-q(x) + \langle e^{(\ell)},x \rangle.
-\end{align}
-\end{Lemma}
-
-\begin{proof}
-The matrix $A$ is the permutation matrix for the the permutation $(k\ \ell)(m+k\ m+\ell)$ (defined
-using cycle notation.)
-\end{proof}
-
-\begin{Lemma}
-\label{lm-notes-7}
-Let $q$ be defined as per Lemma \ref{lm-notes-5}.
-Then for all $c, c' \in Z_2^{2 m}$ with $q(c)=q(c')=1$, there exists $A \in GL(2 m, 2)$ such that
-if $h(x) := q(x) + \langle c, x \rangle$, then
-\begin{align*}
-h(A x) &= q(x) + \langle c', x \rangle.
-\end{align*}
-\end{Lemma}
-
-\begin{proof}
-This is a consequence of Lemmas \ref{lm-notes-6} and \ref{lm-notes-6-b}.
-\end{proof}
-
-\begin{proofof}{Theorem \ref{th-Quadratic-Classes}}
-It is well known that all quadratic bent functions are contained in one Extended Affine equivalence
-class.
-As a consequence of Corollary \ref{corr-Affine-Translate-Cayley}, without loss of generality, we need
-only examine
-the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma
-\ref{lm-notes-5}.
-
-As a result of Lemma \ref{lm-notes-5}, we actually need only examine functions of the form
-$f(x) = q(x) + \langle c,x \rangle$
-for some $c \in \F_2^{2m}$.
-Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to
-$q$.
-Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x)\, +
-\langle c', x \rangle$
-with $q(c)=q(c')=1$ are Cayley equivalent to each other.
-
-The functions where $q(c)=0$ are not Cayley equivalent to the functions where $q(c)=1$ because
-Lemma \ref{lm-notes-9b} implies that
-\begin{align*}
-\weightclass{x \mapsto q(x) + \langle c,x \rangle}
-&=
-\dual{q}(c) = q(c),
-\end{align*}
-since $q$ is self-dual.
-\end{proofof}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph*{Acknowledgements.}
-\small{}
-This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University,
-continued while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia,
-and concluded while the author was an Honorary Fellow at the University of Melbourne,
-and an employee of the Bureau of Meteorology.
-
-Thanks to Christine Leopardi for her hospitality at Long Beach.
-Thanks to
-Robert Craigen,
-Joanne Hall,
-Kathy Horadam,
-David Joyner,
-Philippe Langevin,
-William Martin,
-Padraig {\'O} Cath{\'a}in,
-Judy-anne Osborn,
-Dima Pasechnik and
-William Stein
-for valuable questions, discussions and advice;
-David Joyner and Caroline Melles for suggestions for improvements based on the first draft of this paper;
-Nathan Clisby, for the opportunity to become an Honorary Fellow at the University of Melbourne;
-Kodlu, a member of MathOverflow, for asking Philippe Langevin about the affine classification
-of bent functions of degree 4 in 8 dimensions;
-Gray Chan for a citation tool for IETF RFCs;
-and finally, thanks to the authors of SageMath, Bliss, and Nauty for these valuable tools
-without which I would not have been able to conduct this research.
-\normalsize{}
-%Thanks also to the anonymous reviewer of the previous draft of this paper.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\addtocontents{toc}{\vspace{0.5cm}}
 
-%%\newpage
+\newpage
 
-\bibliographystyle{abbrv-par}
+%\bibliographystyle{abbrv-par}
 
-\bibliography{bib}
+%\bibliography{bib}
 
-%\input{Leopardi-Bent-functions-Cayley-graphs.bbl}
+\input{Leopardi-Bent-functions-Cayley-graphs.bbl}
 
 \end{document}
 % ----------------------------------------------------------------
