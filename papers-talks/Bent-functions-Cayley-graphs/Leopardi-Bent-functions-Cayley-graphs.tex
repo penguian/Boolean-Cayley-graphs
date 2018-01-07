@@ -102,7 +102,7 @@ parameters are so obtained.
 In a recent paper \cite{Leo17Hurwitz},
 the author found an example of two infinite series of bent functions whose
 Cayley graphs have the same strongly regular parameters at each dimension,
-but are not isomorphic if the dimension 8 or more.
+but are not isomorphic if the dimension is 8 or more.
 
 Kantor, in 1983 \cite{Kan83exponential}, showed that the numbers of non-isomorphic projective linear
 two weight codes with certain parameters,
@@ -959,6 +959,7 @@ g(A x) = g(y)
 \end{proof}
 
 \begin{Corollary}
+\label{corr-Affine-Translate-Cayley}
 If $f$ is a bent Boolean function,
 and a bent function $h$ is extended affine equivalent to $f$,
 then a bent function $g$ can be found that is extended Cayley equivalent to $h$
@@ -1058,7 +1059,7 @@ The following ``all or nothing'' property holds within an extended translation e
 For bent functions $f, g$ on $\F_2^{2m}$,
 if $f$ is EA equivalent to $\dual{f}$ and $g$ is ET equivalent to $f$,
 then $\dual{g}$ is EA equivalent to $g$.
-Thus, by Theorem~\ref{th-Affine-Translate-Cayley},
+Thus, by Corollary~\ref{corr-Affine-Translate-Cayley},
 the set of isomorphism classes of Cayley graphs of the \Emph{duals} of the bent functions in
 the ET class of $f$ equals the set of isomorphism classes of Cayley graphs of
 the bent functions themselves.
@@ -3806,8 +3807,58 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 % \begin{frame}
 \newpage
 
-\subsection{The bent function sequences $\sigma_m$ and $\tau_m$}
+\subsection{Two sequences of bent functions}
 
+As stated in the introduction, in a recent paper \cite{Leo17Hurwitz},
+the author found an example of two infinite series of bent functions whose
+Cayley graphs have the same strongly regular parameters at each dimension,
+but are not isomorphic if the dimension is 8 or more.
+The sequences are $\sigma_m$ and $\tau_m$ for $m \geqslant 1$,
+whose definitions are reproduced here from \cite{Leo15Twin}.
+
+\begin{definition}
+\label{def-sigma-tau}
+The sign-of-square function $\sigma_m : \Z_2^{2 m} \To \Z_2$ is defined as follows:
+
+For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
+1 digits in the base 4 representation of $i$ is odd.
+
+The non-diagonal-symmetry function $\tau_m \mid \Z_{2^{2 m}} \To \Z_2$
+is defined as follows.
+
+For $i$ in $\Z_2^2$:
+\begin{align*}
+&\tau_1(i) :=
+\begin{cases}
+1 &\text{if~}i = 10,
+\\
+0 &\text{otherwise}.
+\end{cases}
+\end{align*}
+
+For $i$ in $\Z_2^{2 m - 2}$:
+\begin{align*}
+&\tau_m (00 \odot i) := \tau_{m-1}(i),
+\\
+&\tau_m (01 \odot i) := \sigma_{m-1}(i),
+\\
+&\tau_m (10 \odot i) := \sigma_{m-1}(i) + 1,
+\\
+&\tau_m (11 \odot i) := \tau_{m-1}(i).
+\end{align*}
+where $\odot$ denotes concatenation of bit vectors, and $\sigma$ is the sign-of-square function, as above.
+\end{definition}
+
+As shown in  \cite{Leo15Twin}, both sequences produce Cayley graphs whose strongly regular parameters are
+\begin{align*}
+(v_m,k_m,\lambda_m=\mu_m) &= (4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}).
+\end{align*}
+
+Figures \ref{fig:sigma_1_bent_cayley_graph_index_matrix} to \ref{fig:tau_4_bent_cayley_graph_index_matrix}
+illustrate the extended Cayley classes within the ET classes of each of function $\sigma_m$ and $\tau_m$ for $m$ from 1 to 4.
+Note that $\tau_3$ has degree 3, and $\tau_4$ has degree 4.
+As shown in \cite{Leo17Hurwitz},
+The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ from 1 to 3, but are inequivalent for $m>3$.
 %\begin{colortheme}{jubata}
 
 %\begin{frame}
@@ -3817,13 +3868,13 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_1_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\sigma_1]$: 2 extended Cayley classes}
+  \captionof{figure}{$[\sigma_1]$:\\2 extended Cayley classes}
   \label{fig:sigma_1_bent_cayley_graph_index_matrix}
 \end{minipage}%
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/tau_1_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\tau_1]$: 2 extended Cayley classes}
+  \captionof{figure}{$[\tau_1]$:\\2 extended Cayley classes}
   \label{fig:tau_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
@@ -3836,13 +3887,13 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_2_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\sigma_2]$: 2 extended Cayley classes}
+  \captionof{figure}{$[\sigma_2]$:\\2 extended Cayley classes}
   \label{fig:sigma_2_bent_cayley_graph_index_matrix}
 \end{minipage}%
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/tau_2_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\tau_2]$: 2 extended Cayley classes}
+  \captionof{figure}{$[\tau_2]$:\\2 extended Cayley classes}
   \label{fig:tau_2_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
@@ -3855,13 +3906,13 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_3_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\sigma_3]$: 2 extended Cayley classes}
+  \captionof{figure}{$[\sigma_3]$:\\2 extended Cayley classes}
   \label{fig:sigma_3_bent_cayley_graph_index_matrix}
 \end{minipage}%
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/tau_3_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\tau_3]$: 3 extended Cayley classes}
+  \captionof{figure}{$[\tau_3]$:\\3 extended Cayley classes}
   \label{fig:tau_3_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
@@ -3874,13 +3925,13 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_4_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\sigma_4]$: 2 extended Cayley classes}
+  \captionof{figure}{$[\sigma_4]$:\\2 extended Cayley classes}
   \label{fig:sigma_4_bent_cayley_graph_index_matrix}
 \end{minipage}%
 \begin{minipage}{.48\textwidth}
   \centering
   \includegraphics[width=.9\linewidth]{../matrix_plot/tau_4_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[\tau_4]$: 5 extended Cayley classes}
+  \captionof{figure}{$[\tau_4]$:\\5 extended Cayley classes}
   \label{fig:tau_4_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
@@ -3929,13 +3980,8 @@ the extended translation class $[cast128_{1,0}]$ contains the maximum possible n
 that is $65\,536$.
 The duals of the bent functions $[cast128_{1,0}]$ give another $65\,536$ extended Cayley classes.
 In other words, no bent function in $[cast128_{1,0}]$ is extended affine equivalent to its dual.
-
-%The two weight classes and the $65\,536$ extended Cayley classes are
-%shown in Figures~\ref{fig:cast128_1_1_weight_class_matrix} and~\ref{fig:cast_128_1_1_bent_cayley_graph_index_matrix} respectively.
-
 The two weight classes of $[cast128_{1,0}]$ are
 shown in Figure~\ref{fig:cast128_1_0_weight_class_matrix}.
-
 
 \begin{figure}[!hb]
 \centering
@@ -3955,13 +4001,7 @@ shown in Figure~\ref{fig:cast128_1_0_weight_class_matrix}.
 \end{figure}
 %\frametitle{CAST-128 ET classes $[cast128_{2,1}]$ and $[cast128_{2,16}]$}
 
-Of the 256 bent functions that make up the 8 S-boxes of CAST-128, 248 are like $cast128_{1,0}$,
-they are prolific and are not extended affine equivalent to their duals.
-The remaining 8 bent functions are exceptional.
-Both $cast128_{4,27}$ and $cast128_{6,17}$ are prolific but both are extended affine equivalent to their duals.
-The other 6 bent functions are not prolific and the number of Cayley classes for each is given in the captions to
-Figures \ref{fig:cast128_2_1_bent_cayley_graph_index_matrix} to \ref{fig:cast128_7_21_bent_cayley_graph_index_matrix} below.
-\begin{figure}[!hb]
+\begin{figure}[!ht]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -3997,7 +4037,7 @@ Figures \ref{fig:cast128_2_1_bent_cayley_graph_index_matrix} to \ref{fig:cast128
 \end{minipage}%
 \end{figure}
 %\frametitle{CAST-128 ET classes $[cast128_{5,27}]$ and $[cast128_{6,17}]$}
-\begin{figure}[!hb]
+\begin{figure}[!ht]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -4015,7 +4055,7 @@ Figures \ref{fig:cast128_2_1_bent_cayley_graph_index_matrix} to \ref{fig:cast128
 \end{minipage}%
 \end{figure}
 %\frametitle{CAST-128 ET classes $[cast128_{7,15}]$ and $[cast128_{7,21}]$}
-\begin{figure}
+\begin{figure}[!ht]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -4033,6 +4073,13 @@ Figures \ref{fig:cast128_2_1_bent_cayley_graph_index_matrix} to \ref{fig:cast128
 \end{minipage}%
 \end{figure}
 
+Of the 256 bent functions that make up the 8 S-boxes of CAST-128, 248 are like $cast128_{1,0}$,
+they are prolific and are not extended affine equivalent to their duals.
+The remaining 8 bent functions are exceptional.
+Both $cast128_{4,27}$ and $cast128_{6,17}$ are prolific, but both are extended affine equivalent to their duals.
+
+The other 6 bent functions are not prolific and the number of Cayley classes for each is given in the captions to
+Figures \ref{fig:cast128_2_1_bent_cayley_graph_index_matrix} to \ref{fig:cast128_7_21_bent_cayley_graph_index_matrix}.
 \newpage
 \subsection{Partial spread bent functions.}
 
@@ -4062,8 +4109,8 @@ $582$ are prolific and are EA equivalent to their dual,
 and the extended affine classes of the remaining $1426$ each contain less than $65\,536$ extended Cayley classes.
 \end{enumerate}
 The classifications of these $5442$ extended affine classes take up 2.1TB of space on the NCI Raijin supercomputer,
-and it is intended that these classifications will be incorporated into a public database, if support can be found to maintain it.
-\cite{Leo18Database}
+and it is intended that these classifications will be incorporated into a public database, if support can be found to maintain it
+\cite{Leo18Database}.
 %\slidecite{Langevin and Hou 2011}
 % \end{frame}
 % \end{colortheme}
@@ -4797,7 +4844,7 @@ This is a consequence of Lemmas \ref{lm-notes-6} and \ref{lm-notes-6-b}.
 \begin{proofof}{Theorem \ref{th-Quadratic-Classes}}
 It is well known that all quadratic bent functions are contained in one Extended Affine equivalence
 class.
-As a consequence of Theorem \ref{th-Affine-Translate-Cayley}, without loss of generality, we need
+As a consequence of Corollary \ref{corr-Affine-Translate-Cayley}, without loss of generality, we need
 only examine
 the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma
 \ref{lm-notes-5}.
