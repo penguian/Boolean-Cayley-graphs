@@ -199,13 +199,12 @@ P.~Leopardi.
 P.~Leopardi.
 \newblock Boolean-cayley-graphs, (2016).
 \newblock \url{https://github.com/penguian/Boolean-Cayley-graphs} GitHub
-  repository. Last accessed 25 July 2017.
+  repository.
 
 \bibitem{Leo17CoCalc}
 P.~Leopardi.
 \newblock Boolean-cayley-graphs, (2017).
-\newblock \url{http://tinyurl.com/Boolean-Cayley-graphs} CoCalc folder. Last
-  accessed 25 July 2017.
+\newblock \url{http://tinyurl.com/Boolean-Cayley-graphs} CoCalc public folder.
 
 \bibitem{Leo17Hurwitz}
 P.~Leopardi.
@@ -248,6 +247,11 @@ T.~Neumann.
 \newblock {\em Bent functions}.
 \newblock PhD thesis, University of Kaiserslautern, (2006).
 
+\bibitem{PostgreSQL}
+{PostgreSQL Global Development Group}.
+\newblock {PostgreSQL}, (1996).
+\newblock \url{https://www.postgresql.org}.
+
 \bibitem{Rot76}
 O.~S. Rothaus.
 \newblock On ``bent'' functions.
@@ -273,6 +277,11 @@ J.~J. Seidel.
   {C}ombinatorial {C}onf., {C}ambridge, 1979)}, volume~38 of {\em London
   Mathematical Society Lecture Note Series},  157--180, Cambridge-New York,
   (1979). Cambridge Univ. Press.
+
+\bibitem{SQLite}
+{SQLite Consortium}.
+\newblock {SQLite}, (2000).
+\newblock \url{http://sqlite.org}.
 
 \bibitem{Sta07}
 P.~Stanica.
