@@ -65,7 +65,7 @@ Paul~Leopardi
 %\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
 }
 
-\date{8 January 2018}
+\date{18 January 2018}
 
 \begin{document}
 
@@ -255,27 +255,45 @@ and list some of the properties of the equivalence classes of bent functions for
 
 % \begin{frame}
 This section presents some of the key concepts used in the remainder of the paper.
-We first define bent functions, and then explore the relationships between bent functions
+We first examine Boolean functions, then define bent Boolean functions,
+and finally explore the relationships between bent functions
 and Hamming weights.
 
 % \begin{frame}
-\subsection{Bent functions}
+\subsection{Boolean functions}
+\label{sec-Boolean-functions}
 
 Here and in the remainder of the paper, $\F_2$ denotes the field of two elements,
 also known as $GF(2)$. Models of $\F_2$ include integer arithmetic modulo 2
 ($\Z/2\Z$ also known as $\Z_2$) and Boolean algebra with ``exclusive or'' as addition and ``and''
 as multiplication.
+\paragraph*{Boolean functions and Reed-Muller codes.}
+Any Boolean function $f : \F_2^n \To \F_2$ can be represented as a polynomial in $n$ variables over $F_2$
+\cite{Mul54} \cite[Ch. III, Section 2]{Dil74}.
+This is called the \Emph{algebraic normal form} of $f$.
+\begin{Definition}
+\label{def-Reed-Muller-codes}
+\cite{Mul54} \cite[Ch. 13, Section 3]{MacS77} \cite[10.5.2]{Sti07combinatorial}
+The \Emph{Reed-Muller code} $RM(r, n)$ consists of those Boolean functions $f : \F_2^n \To \F_2$
+whose algebraic normal form has degree $r$.
+\end{Definition}
+Remarks: Some texts use the notation $\mathcal{R}(r,n)$ or $RM(r,2^n)$ for $RM(r,n)$.
+Each Reed-Muller code $RM(r,n)$ is a linear subspace of the vector space of Boolean functions $f : \F_2^n \To \F_2$.
+The Reed-Muller code $RM(1,n)$ consists of the $2^{n+1}$ affine functions $f(x) = \langle c, x \rangle + \delta$
+for $c \in \F_2^n,\ \delta \in \F_2$ \cite[Ch 14, Section 3]{MacS77} \cite[10.5.2]{Sti07combinatorial}.
 
+\paragraph*{Bent Boolean functions.}
 Bent Boolean functions can be defined in a number of equivalent ways.
 The definition used here involves the Walsh Hadamard Transform.
 \begin{Definition}
 \label{def-Walsh-Hadamard-transform}
+\cite[Ch. III, Section 2]{Dil74} \cite[Ch. 2, Section 3]{MacS77}
 The Walsh Hadamard transform of
-a Boolean function $f : \F_2^{2m} \To \F_2$ is
+a Boolean function $f : \F_2^n \To \F_2$ is
 \begin{align*}
 W_f(x)
 &:=
-\sum_{y \in \F_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
+\sum_{y \in \F_2^n} (-1)^{f(y) + \langle x, y \rangle}
 \end{align*}
 \end{Definition}
 
@@ -308,9 +326,9 @@ Remark: The function $\dual{f}$ is also a bent function on $\F_2^{2m}$ \cite[p. 
 \begin{Definition}
 \label{def-weight}
 The \Emph{Hamming weight} of a Boolean function is the cardinality of its \Emph{support} \cite[p. 8]{MacS77}.
-For $f$ on $\F_2^{2m}$
+For $f$ on $\F_2^n$
 \begin{align*}
-\support{f} &:= \{x \in \F_2^{2m} \mid f(x)=1 \}, \quad \weight{f} := \abs{ \support{f} }.
+\support{f} &:= \{x \in \F_2^n \mid f(x)=1 \}, \quad \weight{f} := \abs{ \support{f} }.
 \end{align*}
 \end{Definition}
 
@@ -338,14 +356,14 @@ A bent function $f$ on $\F_2^{2m}$ has weight \cite[Theorem 6.2.10]{Dil74}
 We now note a connection between weight classes and dual bent functions that
 makes it a little easier to reason about dual bent functions.
 The following lemma expresses the dual bent function in terms of weight classes.
-
+(See also MacWilliams and Sloane \cite[p. 414]{MacS77}.)
 \begin{Lemma}
 \label{lm-notes-9b}
 For a bent function $f : \F_2^{2m} \To \F_2$, and $x \in \F_2^{2m}$,
 \begin{align*}
 \dual{f}(x)
 &=
-\weightclass{y \mapsto f(y) + \langle x, y \rangle}
+\weightclass{y \mapsto f(y) + \langle x, y \rangle}.
 \end{align*}
 
 \end{Lemma}
@@ -609,7 +627,7 @@ For code words $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
 
 \end{Definition}
 Since $C(f)$ is a projective two-weight binary code,
-$R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights}.
+$R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights} \cite[Theorem 16.22]{CamVL91}.
 The standard definition uses the lower of the two weights in both cases above.
 
 %\slidecite{Delsarte 1972, Theorem 2}
@@ -626,7 +644,7 @@ The strongly regular graph $R(f)$ of bent function $f$, as defined by the non-st
 \ref{R-f-def} has the following remarkable property.
 
 \begin{Theorem}
-For bent $f : \F_2^{2m} \To \F_2$, with $f(0)=0$,
+For a bent function $f : \F_2^{2m} \To \F_2$, with $f(0)=0$,
 \begin{align*}
 R(f) \equiv \Cay{\dual{f} + \weightclass{f}}.
 \end{align*}
@@ -738,21 +756,21 @@ usually in the case where the Boolean functions are bent.
 \paragraph*{Extended affine equivalence.}
 
 \begin{Definition}
-For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
+For Boolean functions $f,g : \F_2^n \To \F_2$,
 $f$ is \Emph{extended affine equivalent} to $g$ \cite[Section 1.4]{Tok15bent} if and only if
 \begin{align*}
 g(x) &= f(A x + b) + \langle c, x \rangle + \delta
 \end{align*}
-for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
+for some $A \in GL(n,2)$, $b, c \in \F_2^n$, $\delta \in \F_2$.
 \end{Definition}
 
-The Boolean $f$ is extended affine equivalent to $g$
+The Boolean function $f$ is extended affine equivalent to $g$
 if and only if $f$ and $g$ are in the same orbit
-of the action of the \Emph{extended general affine group} $EGA(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
+of the action of the \Emph{extended general affine group} $EGA(n, 2)$ on $\F_2^{\F_2^n}$, defined as follows.
 
 \begin{Definition}
 \begin{align*}
-&EGA(2m, 2) := \{ (A,b,c,\delta) \mid A \in GL(2m,2),\ b, c \in \F_2^{2m},\ \delta \in \F_2 \}
+&EGA(n, 2) := \{ (A,b,c,\delta) \mid A \in GL(n,2),\ b, c \in \F_2^n,\ \delta \in \F_2 \}
 \intertext{with}
 &(A,b,c,\delta)(A',b',c',\delta') := (A A', A b' + b, A'^T c + c', \langle c, b' \rangle + \delta + \delta'),
 \end{align*}
@@ -768,20 +786,38 @@ with action
 \cite[Section 2]{Mai91}
 \end{Definition}
 
+\begin{Proposition}
+\label{prop-EA-class-properties}
+The extended affine (EA) equivalence classes of the Boolean functions $\F_2^n \To \F_2$,
+that is, the orbits of these functions under $EGA(n, 2)$,
+have the following well known and easily verified properties.
+\begin{enumerate}
+ \item
+For a given $f \mid \F_2^n \To \F_2$,
+the $2^{n+1}$ functions $x \mapsto f(x) + \langle c, x \rangle + \delta$ are all distinct.
+Thus the EA equivalence class of $f$ consists of some number of complete cosets of the Reed-Muller code $RM(1,n)$
+described in Section \ref{sec-Boolean-functions}.
+ \item
+Each general affine transformation $(A,b)f(x) := f(A x + b)$ preserves cosets of the Reed-Muller code $RM(1,n)$
+in the sense that $(A,b)$ maps $f + RM(1,n)$ to $g + RM(1,n)$ where $g(x) = f(A x + b)$.
+\end{enumerate}
+%
+\end{Proposition}
+See also MacWilliams and Sloane \cite[Ch. 13]{MacS77}, and Maiorana \cite{Mai91}.
 % \begin{frame}
 \paragraph*{General linear equivalence.}
 \begin{Definition}
-For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
+For Boolean functions $f,g : \F_2^n \To \F_2$,
 $f$ is \Emph{general linear equivalent} to $g$ if and only if
 \begin{align*}
 g(x) &= f(A x)
 \end{align*}
-for some $A \in GL(2m,2)$.
+for some $A \in GL(n,2)$.
 \end{Definition}
 
 Thus $f$ is general linear equivalent to $g$
 if and only if $f$ and $g$ are in the same orbit
-of the action of the general linear group $GL(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
+of the action of the general linear group $GL(n, 2)$ on $\F_2^{\F_2^n}$, defined as follows.
 
 \begin{Definition}
 \begin{align*}
@@ -796,22 +832,22 @@ include Harrison \cite{Har64}, Comerford \cite{Com80}, and Maiorana \cite[Sectio
 \paragraph*{Extended translation equivalence.}
 
 \begin{Definition}
-For Boolean functions $f,g : \F_2^{2m} \To \F_2$,
+For Boolean functions $f,g : \F_2^n \To \F_2$,
 $f$ is \Emph{extended translation equivalent} to $g$ if and only if
 \begin{align*}
 g(x) &= f(x + b) + \langle c, x \rangle + \delta
 \end{align*}
-for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
+for $b, c \in \F_2^n$, $\delta \in \F_2$.
 \end{Definition}
 % \end{frame}
 
 Thus $f$ is extended translation equivalent to $g$
 if and only if $f$ and $g$ are in the same orbit
-of the action of the \Emph{extended translation group} $ET(2m, 2)$ on $\F_2^{\F_2^{2m}}$, defined as follows.
+of the action of the \Emph{extended translation group} $ET(n, 2)$ on $\F_2^{\F_2^n}$, defined as follows.
 
 \begin{Definition}
 \begin{align*}
-&ET(2m, 2) := \{ (b,c,\delta) \mid \ b, c \in \F_2^{2m},\ \delta \in \F_2 \}
+&ET(n, 2) := \{ (b,c,\delta) \mid \ b, c \in \F_2^n,\ \delta \in \F_2 \}
 \intertext{with}
 &(b,c,\delta)(b',c',\delta') := (b' + b, c + c', \langle c, b' \rangle + \delta + \delta'),
 \end{align*}
@@ -832,19 +868,19 @@ with action
 \paragraph*{Cayley equivalence.}
 \begin{Definition}
 %
-For Boolean functions $f, g : \F_2^{2m} \To \F_2$, with $f(0)=g(0)=0$,
+For Boolean functions $f, g : \F_2^n \To \F_2$, with $f(0)=g(0)=0$,
 we call $f$ and $g$ \Emph{Cayley equivalent},
 and write $f \equiv g$,
 if and only if the graphs $\Cay{f}$ and $\Cay{g}$ are isomorphic.
 
 Equivalently, $f \equiv g$ if and only if
-there exists a bijection $\pi : \F_2^{2m} \To \F_2^{2m}$ such that
+there exists a bijection $\pi : \F_2^n \To \F_2^n$ such that
 \begin{align*}
-g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \F_2^{2m}.
+g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \F_2^n.
 \end{align*}
 \end{Definition}
 % \end{frame}
-Remark: Note that the bijection $\pi$ is not necessarily linear on $\F_2^{2m}$.
+Remark: Note that the bijection $\pi$ is not necessarily linear on $\F_2^n$.
 Examples of bent functions $f$ and $g$ where $f \equiv g$ but the bijection is not linear
 are given in Section~\ref{sec-Empirical}.
 % \begin{frame}
@@ -859,12 +895,12 @@ To extend this equivalence relation to all Boolean functions,
 we just declare the functions $f$ and $f+1$ to be ``extended'' Cayley equivalent,
 resulting in the following definition.
 \begin{Definition}
-For Boolean functions $f, g : \F_2^{2m} \To \F_2$,
+For Boolean functions $f, g : \F_2^n \To \F_2$,
 if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
 we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
 \end{Definition}
 Extended Cayley equivalence is thus an equivalence relation on the set of all Boolean functions on
-$\F_2^{2m}$.
+$\F_2^n$.
 It is easy to verify that $f \cong g$ if and only if $f+f(0) \equiv g+g(0)$.
 
 % \end{frame}
@@ -895,18 +931,18 @@ Firstly, general linear equivalence of Boolean functions implies Cayley equivale
 Specifically, the following result applies.
 \begin{Theorem}
 \label{th-Linear-Cayley}
-If $f$ is a Boolean function with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
+If $f$ is a Boolean function with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(n,2)$,
 then $f \equiv g$.
 \end{Theorem}
 \begin{proof}
 \begin{align*}
-g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \F_2^{2m}.
+g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \F_2^n.
 \end{align*}
 \end{proof}
 Thus, for bent functions, the following result holds.
 \begin{Corollary}
 \label{corr-bent-Linear-Cayley}
-If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
+If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(n,2)$,
 then $g$ is bent with $g(0)=0$ and $f \equiv g$.
 \end{Corollary}
 Thus if $f$ is bent with $f(0)=0$, and $g$ is bent with $g(0)=0$, and $f \not\equiv g$,
@@ -914,8 +950,8 @@ then $f$ is not general linear equivalent to $g$.
 This result immediately leads to another corollary.
 Here, and later in this paper, we make use of the following terminology.
 \begin{Definition}
-A Boolean function $f \mid \F_2^{n} \To \F_2$ is said to be \Emph{prolific} if
-there is no pair $b, c \in \F_2^{n}$ with $g(x) = f(x+b) + \langle c, x \rangle + f(b)$ such that $f \cong g$.
+A Boolean function $f \mid \F_2^n \To \F_2$ is said to be \Emph{prolific} if
+there is no pair $b, c \in \F_2^n$ with $g(x) = f(x+b) + \langle c, x \rangle + f(b)$ such that $f \cong g$.
 Thus the number of extended Cayley classes in the extended translation class of a prolific Boolean function
 is $4^n$.
 \end{Definition}
@@ -937,8 +973,8 @@ then a Boolean function $g$ exists that is general linear equivalent to $h$
 and extended translation equivalent to $f$:
 \begin{Theorem}
 \label{th-Affine-Translate-Linear}
-For $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$,
-$f : \F_2^{2m} \To \F_2$,
+For $A \in GL(n,2)$, $b, c \in \F_2^n$, $\delta \in \F_2$,
+$f : \F_2^n \To \F_2$,
 the function
 \begin{align*}
 h(x) &:= f(A x + b) + \langle c, x \rangle + \delta
@@ -1125,6 +1161,7 @@ we call it the \emph{SDP design} of $f$.
 Kantor describes the special case where $f$ is quadratic
 \cite[Section 5]{Kan75symplectic},
 and Dillon and Schatz \cite{DilS87block} describe the general case.
+See also Cameron and van Lint \cite[ppp. 77-78 and Ex. 13, p. 152]{CamVL91}.
 
 The following properties of SDP designs of bent functions are well known.
 \begin{Proposition}
@@ -1164,19 +1201,21 @@ but equivalent to the one given by Dillon and Schatz \cite[p. 160]{DilS87block}:
 For any bent function $f$ on $\F_2^{2m}$, the rows of the incidence matrix $M_D(f)$
 are given by the words of minimum weight in the code spanned by the support of $f$ and the Reed-Muller code $RM(1,2m)$.
 \end{Lemma}
+(Here we have used an ordering of the elements of $\F_2^{2m}$ to define an ordering of the columns of the incidence matrix.)
+
 %The proof of Lemma~\ref{lm-SDP-design-rows} is deferred to Section~\ref{sec-Results}.
 
 %\begin{proofof}{Lemma~\ref{lm-SDP-design-rows}}
 \begin{proof}
-Firstly, it is well known (e.g. \cite[10.5.2]{Sti07combinatorial})
-that the Reed-Muller code $RM(1,2m)$ consists of the words spanned by the affine functions on $Z_2^{2m}$,
-that is, the incidence matrix $M_{RM(1,2m)}$ is defined by
+Firstly, as mentioned in Section \ref{sec-Boolean-functions},
+the Reed-Muller code $RM(1,2m)$ consists of the words spanned by the affine functions on $Z_2^{2m}$.
+Thus, the incidence matrix $M_{RM(1,2m)}$ is defined by
 \begin{align*}
 {M_{RM(1,2m)}}_{c,x} &:= \langle c, x \rangle + d,
 \end{align*}
 where $d \in \F_2$.
 
-Thus the incidence matrix of the code spanned by the support of $f$ and $RM(1,2m)$ is defined by
+Therefore the incidence matrix of the code spanned by the support of $f$ and $RM(1,2m)$ is defined by
 \begin{align*}
 {M_{f,RM(1,2m)}}_{c,x} &:= f(x) + \langle c, x \rangle + d.
 \end{align*}
@@ -1243,7 +1282,7 @@ as a consequence of Lemma~\ref{lm-notes-9b}.
 \end{proof}
 
 
-\newpage
+%\newpage
 \section{SageMath and CoCalc code}
 \label{sec-Code}
 % \begin{frame}[fragile]
@@ -1304,7 +1343,7 @@ which uses the Nauty package to check the non-isomorphism \cite{McKP13nauty,McKP
 
 It is the efficiency of the Bliss canonical labelling algorithm, and the speed of its implementation, that makes this approach feasible.
 Even so, for an 8 dimensional bent function, the initialization of its Cayley graph classification
-can take more than 24 hours on an Intel\textregistered Core\texttrademark i7 CPU 870 running at 2.93GHz.
+can take more than 24 hours on an Intel\textregistered Core\texttrademark i7 CPU 870 running at 2.93 GHz.
 For this reason, each computed classification is saved, and a class method (\texttt{load\_mangled})
 is provided to load existing saved classifications.
 
@@ -1318,17 +1357,14 @@ they were too slow to use for bent functions in 8 dimensions.
 The \texttt{Boolean-Cayley-graphs} GitHub project \cite{Leo16GitHub} and public Sage\-Math\-Cloud folder \cite{Leo17CoCalc} were begun in 2016
 with the intention of refactoring the code to make it fast enough to use for bent functions in 8 dimensions
 up to degree 3.
-The use of canonical labelling via the Bliss algorithm is what made this possible.
+The use of canonical labelling made this possible.
 
 Further improvements were made in 2017 to enable the classification of any bent function in 8 dimensions or less
 to be computed in a reasonable time on a commodity personal computer.
-The code has been run on a personal computer, on CoCalc, and on the NCI Raijin supercomputer.
-
 In late 2017, code was added so that the Cayley graph classifications could be accessed via a relational database \cite{Leo18Database},
 with implementations using Sqlite3 \cite{SQLite} and PostgreSQL \cite{PostgreSQL}.
-
-Also in late 2017, parallel versions of the classification functions were written using MPI4Py.
-These were used on the NCI Raijin supercomputer to complete the classifications for CAST-128 and compute
+Also, parallel versions of the classification functions were written using MPI4Py,
+and used on the NCI Raijin supercomputer to complete the classifications for CAST-128 and compute
 the classifications for the $\mathcal{PS}^{(+)}$ bent functions in dimension 8.
 
 % \begin{itemize}
@@ -1350,7 +1386,7 @@ the classifications for the $\mathcal{PS}^{(+)}$ bent functions in dimension 8.
 % Introduced a BentFunction class.
 %  \item 2016-11 SageMath: \verb!check_graphs_using_gap!
 % \end{itemize}
-\newpage
+%\newpage
 \section{Discussion}
 \label{sec-Discussion}
 % \begin{frame}
@@ -1370,14 +1406,12 @@ which extended translation classes contain the maximum number, $4^n$, of differe
 Which extended Cayley classes overlap more than one extended translation class?
 \item
 Which bent functions are Cayley equivalent to their dual?
-\item
-Which bent functions are extended affine equivalent to their dual?
 \end{enumerate}
 
-Also, what are the extended affine and extended Cayley classes of bent functions of dimension 8 and degree 4 \cite{LanL11counting}?
+In dimension 8, what are the extended affine and extended Cayley classes of bent functions of degree 4 \cite{LanL11counting}?
 
-Finally, how does the concept of extended Cayley classes of bent functions generalize to bent functions over number fields of prime order $p \neq 2$
-\cite{CheTZ11}?
+Finally, how does the concept of extended Cayley classes of bent functions generalize to bent functions
+over number fields of prime order $p \neq 2$ \cite{CheTZ11}?
 
 % \slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin and Leander 2008, 2011}
 % \end{frame}
@@ -2359,7 +2393,7 @@ as shown in Figures~\ref{fig:c6_1_weight_class_matrix} and~\ref{fig:c6_1_bent_ca
   \label{fig:c6_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-
+\newpage
 Remark: The sequence of Figures~\ref{fig:c2_1_weight_class_matrix}, \ref{fig:c4_1_weight_class_matrix},
 and \ref{fig:c6_1_weight_class_matrix} displays a fractal-like self-similar quality.
 
@@ -2464,6 +2498,7 @@ Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6
 \caption{$[f_{6,2}]$ Two-weight projective codes.}
 \label{tab-c6_2_codes}
 \end{table}
+%\newpage
 
 The three extended Cayley classes are distributed between the two weight classes,
 as shown in Figures~\ref{fig:c6_2_weight_class_matrix} and~\ref{fig:c6_2_bent_cayley_graph_index_matrix}.
@@ -2677,7 +2712,7 @@ The ET class contains three extended Cayley classes as per Table~\ref{tab-c6_4_E
 \end{table}
 
 The Cayley graphs for classes 0 to 2 are isomorphic to those those obtained from the
-Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6_2_codes}.
+Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6_4_codes}.
 
 \begin{table}[!bhpt] % [H]
 \small{
@@ -2933,15 +2968,6 @@ x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}.
 \normalsize{}
 The ET class contains four extended Cayley classes as per Table~\ref{tab-c8_2_EC_classes}.
 
-The Cayley graph for class 0 is isomorphic to graph 0 of ET class $[f_{8,1}]$,
-This reflects the fact that $f_{8,1} \equiv f_{8,2}$, even though these two functions are not
-EA equivalent.
-This is therefore an example of an isomorphism between Cayley graphs of bent functions on
-$\F_2^8$ that is not a linear function.
-
-The four extended Cayley classes are distributed between the two weight classes,
-as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
-
 % f8_2
 \begin{table}[!bhpt] % [H]
 % f_{8,2}:
@@ -3014,6 +3040,15 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 \caption{$[f_{8,2}]$ extended Cayley classes.}
 \label{tab-c8_2_EC_classes}
 \end{table}
+\newpage
+The Cayley graph for class 0 is isomorphic to graph 0 of ET class $[f_{8,1}]$,
+This reflects the fact that $f_{8,1} \equiv f_{8,2}$, even though these two functions are not
+EA equivalent.
+This is therefore an example of an isomorphism between Cayley graphs of bent functions on
+$\F_2^8$ that is not a linear function.
+
+The four extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
 
 \begin{figure}[!bhp] % [H]
 \centering
@@ -3033,7 +3068,7 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 \end{figure}
 ~
 % \end{frame}
-\newpage
+%\newpage
 % \begin{frame}
 %
 \paragraph*{ET class $[f_{8,3}]$.}
