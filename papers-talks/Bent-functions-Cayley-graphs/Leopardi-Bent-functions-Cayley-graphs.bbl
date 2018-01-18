@@ -52,6 +52,11 @@ A.~E. Brouwer and C.~A. Van~Eijl.
 \newblock On the p-rank of the adjacency matrices of strongly regular graphs.
 \newblock {\em Journal of Algebraic Combinatorics}, 1(4):329--346, (1992).
 
+\bibitem{CamVL91}
+P.~J. Cameron and J.~H. Van~Lint.
+\newblock {\em Designs, graphs, codes and their links}, volume~3.
+\newblock Cambridge University Press, (1991).
+
 \bibitem{Car10boolean}
 C.~Carlet.
 \newblock Boolean functions for cryptography and error correcting codes.
@@ -240,6 +245,13 @@ W.~Meier and O.~Staffelbach.
   Cryptology --- EUROCRYPT '89: Workshop on the Theory and Application of
   Cryptographic Techniques}, volume 434 of {\em Lecture Notes in Computer
   Science},  549--562, Berlin, Heidelberg, (1990). Springer.
+
+\bibitem{Mul54}
+D.~E. Muller.
+\newblock Application of {Boolean} algebra to switching circuit design and to
+  error detection.
+\newblock {\em Transactions of the IRE Professional Group on Electronic
+  Computers}, (3):6--12, (1954).
 
 \bibitem{Neu06bent}
 T.~Neumann.
