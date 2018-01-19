@@ -2030,7 +2030,7 @@ Lemma \ref{lm-notes-9b} implies that
 since $q$ is self-dual.
 \end{proofof}
 
-\newpage
+%\newpage
 
 \section{Computational results for low dimensions}
 \label{sec-Empirical}
@@ -2042,7 +2042,7 @@ were conducted on the Raijin supercomputer of the National Computational Infrast
 Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and CoCalc \cite{Leo17CoCalc}.
 Some CoCalc worksheets also illustrate these and related computations \cite{Leo17CoCalc}.
 The Sage and Python code is briefly described in Section \ref{sec-Code}.
-
+\newpage
 In the tables below, each bent function is defined by its algebraic normal form, and each Cayley class is described by
 its number within the ET class of the bent function (from 0, in the order in which Sage identified non-isomorphic graphs),
 followed by three properties of the Cayley graph: its parameters as a strongly regular graph,
@@ -2278,7 +2278,8 @@ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
 \caption{6 dimensions: ET classes.}
 \label{tab-c6_ET_classes}
 \end{table}
-\newpage
+
+%\newpage
 In 1996, Tonchev classified the binary projective two-weight $[27,21,3]$ and $[35,6,16]$ codes
 listing them in Tables 1 and 2, respectively, of his paper \cite{Ton96uniformly}.
 These tables are repeated as Tables 1.155 and 1.156 in Chapter VII.1 of the Handbook of
@@ -2629,7 +2630,7 @@ Tonchev's projective two-weight codes \cite{Ton07codes} as per Table~\ref{tab-c6
 The four extended Cayley classes are distributed between the two weight classes,
 as shown in Figures~\ref{fig:c6_3_weight_class_matrix} and~\ref{fig:c6_3_bent_cayley_graph_index_matrix}.
 
-\begin{figure}[!bhpt] % [H]
+\begin{figure}[!ht] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -2649,7 +2650,7 @@ as shown in Figures~\ref{fig:c6_3_weight_class_matrix} and~\ref{fig:c6_3_bent_ca
 %\slidecite{Tonchev 1996, 2006}
 % \end{frame}
 % \begin{frame}
-\newpage
+%\newpage
 \paragraph*{ET class $[f_{6,4}]$.}
 %
 This is the ET class of the bent function
@@ -3040,15 +3041,7 @@ The ET class contains four extended Cayley classes as per Table~\ref{tab-c8_2_EC
 \caption{$[f_{8,2}]$ extended Cayley classes.}
 \label{tab-c8_2_EC_classes}
 \end{table}
-\newpage
-The Cayley graph for class 0 is isomorphic to graph 0 of ET class $[f_{8,1}]$,
-This reflects the fact that $f_{8,1} \equiv f_{8,2}$, even though these two functions are not
-EA equivalent.
-This is therefore an example of an isomorphism between Cayley graphs of bent functions on
-$\F_2^8$ that is not a linear function.
-
-The four extended Cayley classes are distributed between the two weight classes,
-as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
+%\newpage
 
 \begin{figure}[!bhp] % [H]
 \centering
@@ -3068,6 +3061,16 @@ as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_ca
 \end{figure}
 ~
 % \end{frame}
+\newpage
+The Cayley graph for class 0 is isomorphic to graph 0 of ET class $[f_{8,1}]$,
+This reflects the fact that $f_{8,1} \equiv f_{8,2}$, even though these two functions are not
+EA equivalent.
+This is therefore an example of an isomorphism between Cayley graphs of bent functions on
+$\F_2^8$ that is not a linear function.
+
+The four extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_2_weight_class_matrix} and~\ref{fig:c8_2_bent_cayley_graph_index_matrix}.
+
 %\newpage
 % \begin{frame}
 %
@@ -3083,9 +3086,6 @@ x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} 
 \end{align*}
 \normalsize{}
 The ET class contains six extended Cayley classes as per Table~\ref{tab-c8_3_EC_classes}.
-
-The six extended Cayley classes are distributed between the two weight classes,
-as shown in Figures~\ref{fig:c8_3_weight_class_matrix} and~\ref{fig:c8_3_bent_cayley_graph_index_matrix}.
 
 % f8_3
 \begin{table}[!bhpt] % [H]
@@ -3187,6 +3187,9 @@ as shown in Figures~\ref{fig:c8_3_weight_class_matrix} and~\ref{fig:c8_3_bent_ca
 \caption{$[f_{8,3}]$ extended Cayley classes.}
 \label{tab-c8_3_EC_classes}
 \end{table}
+
+The six extended Cayley classes are distributed between the two weight classes,
+as shown in Figures~\ref{fig:c8_3_weight_class_matrix} and~\ref{fig:c8_3_bent_cayley_graph_index_matrix}.
 
 \begin{figure}[!bhpt] % [H]
 \centering
@@ -3806,7 +3809,7 @@ given the same colour.
   \label{fig:re8_6_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-
+\newpage
 The explanation for the correspondence between the Cayley classes of $f_{8,5}$ and $f_{8,6}$
 is quite simple. The functions $f_{8,5}$ and $f_{8,6}$ are EA equivalent,
 in fact general linear equivalent, and therefore Braeken's list of EA equivalence classes
@@ -4138,6 +4141,23 @@ In the remaining 4 extended Cayley classes, the dual of every bent function in t
 that is isomorphic to that of one other class. That is, the 4 Cayley classes form two duality pairs of classes.
 This correspondence between Cayley classes and Cayley classes of duals is shown in Table~\ref{tab-c8_9-dual-EC_classes}.
 
+\begin{figure}[!bhpt] % [H]
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{c8_9_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_9_bent_cayley_graph_index_matrix}
+\end{minipage}
+~~
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{c8_9_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes of dual bent functions}
+  \label{fig:c8_9_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+
 The 8 extended Cayley classes are distributed
 as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~\ref{fig:c8_9_dual_cayley_graph_index_matrix}
 (classes of duals).
@@ -4323,23 +4343,6 @@ as shown in Figures~\ref{fig:c8_9_bent_cayley_graph_index_matrix} (classes) and~
 \caption{Correspondence between $[f_{8,9}]$ extended Cayley classes and $[f_{8,9}]$ dual extended Cayley classes.}
 \label{tab-c8_9-dual-EC_classes}
 \end{table}
-
-\begin{figure}[!bhpt] % [H]
-\centering
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{c8_9_bent_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
-  \label{fig:c8_9_bent_cayley_graph_index_matrix}
-\end{minipage}
-~~
-\begin{minipage}{.48\textwidth}
-  \centering
-  \includegraphics[width=.9\linewidth]{c8_9_dual_cayley_graph_index_matrix.png}
-  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes of dual bent functions}
-  \label{fig:c8_9_dual_cayley_graph_index_matrix}
-\end{minipage}%
-\end{figure}
 % \end{frame}
 \newpage
 % \begin{frame}
@@ -4358,7 +4361,8 @@ x_{2} x_{4} + x_{3} x_{7}.
 \end{align*}
 \normalsize{}
 The ET class contains 10 extended Cayley classes as per
-Tables~\ref{tab-c8_10_EC_classes} and~\ref{tab-c8_10_EC_classes_2}.
+Table~\ref{tab-c8_10_EC_classes}.
+%Tables~\ref{tab-c8_10_EC_classes} and~\ref{tab-c8_10_EC_classes_2}.
 In 4 of these 10 classes, each bent function is extended Cayley equivalent to its dual.
 In the remaining 6 extended Cayley classes, the dual of every bent function in the class has a Cayley graph
 that is isomorphic to that of one other class. That is, the 6 Cayley classes form three duality pairs of classes.
@@ -4445,25 +4449,25 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
  417792t^{3} + 17408t^{2} + 256t + 1
 \end{array}
 \\
-\hline
-\end{array}
-\end{align*}
-\caption{$[f_{8,10}]$ extended Cayley classes (part 1).}
-\label{tab-c8_10_EC_classes}
-\end{table}
-%%\newpage
-\begin{table}[!bhpt] % [H]
-\small{}
-\begin{align*}
-\def\arraystretch{1.2}
-\begin{array}{|cccl|}
-\hline
-\text{Class} &
-\text{Parameters} &
-\text{2-rank} &
-\text{Clique polynomial}
-\\
-\hline
+% \hline
+% \end{array}
+% \end{align*}
+% \caption{$[f_{8,10}]$ extended Cayley classes (part 1).}
+% \label{tab-c8_10_EC_classes}
+% \end{table}
+% %%\newpage
+% \begin{table}[!bhpt] % [H]
+% \small{}
+% \begin{align*}
+% \def\arraystretch{1.2}
+% \begin{array}{|cccl|}
+% \hline
+% \text{Class} &
+% \text{Parameters} &
+% \text{2-rank} &
+% \text{Clique polynomial}
+% \\
+% \hline
 5 &
 (256, 136, 72, 72) &
 16 &
@@ -4532,10 +4536,10 @@ as shown in Figures~\ref{fig:c8_10_bent_cayley_graph_index_matrix} (classes) and
 \hline
 \end{array}
 \end{align*}
-\caption{$[f_{8,10}]$ extended Cayley classes (part 2).}
-%\caption{$[f_{8,10}]$ extended Cayley classes.}
-\label{tab-c8_10_EC_classes_2}
-%\label{tab-c8_10_EC_classes}
+%\caption{$[f_{8,10}]$ extended Cayley classes (part 2).}
+\caption{$[f_{8,10}]$ extended Cayley classes.}
+%\label{tab-c8_10_EC_classes_2}
+\label{tab-c8_10_EC_classes}
 \end{table}
 
 \begin{table}
@@ -4652,7 +4656,7 @@ As shown in  \cite{Leo15Twin}, both sequences produce Cayley graphs whose strong
 
 %\begin{frame}
 %\frametitle{For 2 dimensions: $[\sigma_1]$ and $[\tau_1]$}
-\begin{figure}[!hb]
+\begin{figure}[!ht]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -4696,7 +4700,7 @@ The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ fro
 
 %\begin{frame}
 %\frametitle{For 6 dimensions: $[\sigma_3]$ and $[\tau_3]$}
-\begin{figure}
+\begin{figure}[!ht]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -4715,7 +4719,7 @@ The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ fro
 
 %\begin{frame}
 %\frametitle{For 8 dimensions: $[\sigma_4]$ and $[\tau_4]$}
-\begin{figure}
+\begin{figure}[!hb]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -4732,7 +4736,11 @@ The functions $\sigma_m$ and $\tau_m$ are extended Cayley equivalent for $m$ fro
 \end{figure}
 %\end{frame}
 %\end{colortheme}
-
+~
+\newpage
+~
+\newpage
+~
 \newpage
 %\paragraph*{Example CAST-128 S-Box ET class $[cast128_{1,0}]$.}
 \subsection{CAST-128 S-boxes}
@@ -4872,10 +4880,10 @@ Of the 256 bent functions that make up the 8 S-boxes of CAST-128, 248 are like $
 they are prolific and are not EA equivalent to their duals.
 The remaining 8 bent functions are exceptional.
 Both $cast128_{4,27}$ and $cast128_{6,17}$ are prolific, but both are EA equivalent to their duals.
+\newpage
 
 The other 6 bent functions are not prolific and the number of Cayley classes for each is given in the captions to
 Figures \ref{fig:cast128_2_1_bent_cayley_graph_index_matrix} to \ref{fig:cast128_7_21_bent_cayley_graph_index_matrix}.
-\newpage
 \subsection{Partial spread bent functions.}
 
 According to Langevin and Hou \cite{LanH11counting}
