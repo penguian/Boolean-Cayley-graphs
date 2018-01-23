@@ -1,7 +1,7 @@
 r"""
 """
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2017 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -18,9 +18,9 @@ from boolean_cayley_graphs.classify_in_mpi_parallel import save_class_parts_in_p
 
 r"""
 """
-# Check that the correct number arguments exist.
+# Check that the correct number of arguments exist.
 if len(sys.argv) != 4:
-    print "Usage: save_dim_in_mpi_parallel dim fnbr c_len"
+    print "Usage: save_cast128_in_mpi_parallel bnbr fnbr c_len"
     sys.exit(1)
 
 # Convert the arguments to int.
