@@ -226,7 +226,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             [0 0 0 1]}
 
         A partial classification of the bent function defined by the polynomial
-        :math:`x1 + x2 + x1*x2`, but with list_dual_graphs=False.
+        :math:`x_1 + x_2 + x_1 x_2`, but with list_dual_graphs=False.
 
         ::
 
@@ -485,7 +485,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
 
         The classification of the bent function defined by the polynomial
-        :math:`x1 + x2 + x1*x2`, but with list_dual_graphs=False.
+        :math:`x_1 + x_2 + x_1 x_2`, but with list_dual_graphs=False.
 
         ::
 
