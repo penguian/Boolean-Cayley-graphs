@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -P y03
+#PBS -q normal
+#PBS -l walltime=3:00:00
+#PBS -l wd
+#PBS -o o
+#PBS -j oe
+
+module load sage/8.0
+module load openmpi/3.0.0
+export PYTHONPATH=${BCG_SITE_DIR}:${PYTHONPATH}
+set -o errexit
+cd "${PBS_O_WORKDIR}/../sage-code"
+date
+mpirun -np $QSUB_NCPUS --mca mpi_warn_on_fork 0 \
+  sage -python save_cast128_in_mpi_parallel.py $QSUB_BNBR $QSUB_FNBR $QSUB_C_LEN
+date
+cd $PBS_O_WORKDIR
+

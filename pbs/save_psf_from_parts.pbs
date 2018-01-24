@@ -1,0 +1,52 @@
+#!/bin/bash
+#PBS -P y03
+#PBS -q normal
+#PBS -l ncpus=1
+#PBS -l mem=8GB
+#PBS -l walltime=0:10:00
+#PBS -l wd
+#PBS -o o
+#PBS -j oe
+
+module load sage/8.0
+export PYTHONPATH=${BCG_SITE_DIR}:${PYTHONPATH}
+
+BCG_PARTS_DIR="${BCG_DATA_DIR}/parts"
+BCG_CLASS_DIR="${BCG_DATA_DIR}/sobj"
+
+cd "${PBS_O_WORKDIR}/../sage-code"
+SAVE_DIR="."
+
+PARTS_FILES="BentFunctionCayleyGraphClassPart__psf${QSUB_SEQ_NBR}_${QSUB_FNBR}_*.sobj"
+
+date
+
+rsync -av ${BCG_PARTS_DIR}/${PARTS_FILES} ${SAVE_DIR}
+
+date
+
+sage -python save_psf_from_parts.py $QSUB_SEQ_NBR $QSUB_FNBR
+STATUS=$?
+echo "Exit status is $STATUS"
+
+date
+
+CLASS_FILE="BentFunctionCayleyGraphClassification__psf${QSUB_SEQ_NBR}_${QSUB_FNBR}.sobj"
+if [ "$STATUS" = "0" ]
+then
+ echo "Moving classification."
+ set -o errexit
+ mkdir -p ${BCG_CLASS_DIR}
+ rsync -av ${SAVE_DIR}/${CLASS_FILE} ${BCG_CLASS_DIR}
+
+ date
+
+ rm ${SAVE_DIR}/${CLASS_FILE}
+ echo "Removing parts."
+ rm ${SAVE_DIR}/${PARTS_FILES}
+ rm ${BCG_PARTS_DIR}/${PARTS_FILES}
+else
+ echo "Saving failed."
+fi
+cd $PBS_O_WORKDIR
+

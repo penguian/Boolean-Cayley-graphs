@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -P y03
+#PBS -q normal
+#PBS -l walltime=02:30:00
+#PBS -l wd
+#PBS -o o
+#PBS -j oe
+
+module load sage/8.0
+module load openmpi/3.0.0
+export PYTHONPATH=${BCG_SITE_DIR}:${PYTHONPATH}
+fnbr_end=$((QSUB_FNBR_BEG + QSUB_NBRF))
+set -o errexit
+cd "${PBS_O_WORKDIR}/../sage-code"
+date
+mpirun -np $QSUB_NCPUS --mca mpi_warn_on_fork 0 \
+  sage -python save_psf_in_mpi_parallel.py $QSUB_SEQ_NBR $QSUB_FNBR_BEG $QSUB_C_LEN
+for ((fnbr=${QSUB_FNBR_BEG}; fnbr!=${fnbr_end}; fnbr++))
+do 
+  rsync -av BentFunctionCayleyGraphClassPart__psf${QSUB_SEQ_NBR}_${fnbr}_*.sobj $BCG_PARTS_DIR
+  rm        BentFunctionCayleyGraphClassPart__psf${QSUB_SEQ_NBR}_${fnbr}_*.sobj
+  date
+done
+cd $PBS_O_WORKDIR
+
