@@ -20,27 +20,24 @@ r"""
 """
 # Check that the correct number of arguments exist.
 if len(sys.argv) != 4:
-    print "Usage: save_cast128_in_mpi_parallel bnbr fnbr c_len"
+    print "Usage: save_dim_in_mpi_parallel dim fnbr c_len"
     sys.exit(1)
 
 # Convert the arguments to int.
-bnbr  = int(sys.argv[1]) # S-box number
-fnbr  = int(sys.argv[2]) # Function number within S-box
-c_len = int(sys.argv[3]) # Number of c values per class part.
+dim   = int(sys.argv[1])
+fnbr  = int(sys.argv[2])
+c_len = int(sys.argv[3])
 
 # Get our MPI rank.
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 
 # Load the required bent function.
-load("read_cast_128_s_boxes.sage")
-s_boxes = read_s_boxes_file()
-bentf = s_boxes[bnbr][fnbr]
+load("bent_function_extended_affine_representative_polynomials.sage")
+list_of_f = bent_function_extended_affine_representative_polynomials(dim)
+bentf = list_of_f[fnbr]
 
 # Save the classification in parts with c_len matrix rows each.
-save_class_parts_in_parallel(
-    comm,
-    "cast128_"+str(bnbr)+"_"+str(fnbr),
-    bentf,
-    c_len=c_len)
+save_class_parts_in_parallel(comm, "p"+str(dim)+"_"+str(fnbr), bentf, c_len=c_len)
 sys.exit(0)
+

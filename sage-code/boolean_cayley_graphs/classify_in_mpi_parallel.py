@@ -52,8 +52,18 @@ def save_class_parts_in_parallel(
     v = 2 ** dim
     ceil = Function_ceil()
     nbr_parts = ceil(v * 1.0 / c_len)
+
+    # Include the case where size > nbr_parts and therefore
+    # this function is being applied to many bent functions in parallel.
+    if size > nbr_parts:
+        beg_n = rank % nbr_parts
+        end_n = beg_n + 1
+    else:
+        beg_n = rank
+        end_n = nbr_parts
+
     nbr_digits = ceil(log(nbr_parts, 10))
-    for n in range(rank, nbr_parts, size):
+    for n in range(beg_n, end_n, size):
         n_str = '{0:0={width}}'.format(n, width=nbr_digits)
         save_one_class_part(
             name=name_prefix + '_' + n_str,

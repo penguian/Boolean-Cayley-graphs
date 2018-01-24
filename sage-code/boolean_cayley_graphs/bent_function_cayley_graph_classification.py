@@ -157,19 +157,23 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         bentf,
         list_dual_graphs=True,
         c_start=0,
-        c_stop=None):
+        c_stop=None,
+        limited_memory=False):
         r"""
         Constructor from the ``BentFunction`` ``bentf``.
 
         INPUT:
 
         - ``bentf`` -- an object of class `BentFunction`.
-        - ``list_dual_graphs`` -- boolean. a flag indicating
+        - ``list_dual_graphs`` -- boolean. A flag indicating
           whether to list dual graphs. Default is True.
         - ``c_start`` -- smallest value of c to use for
           extended translates. Integer. Default is 0.
         - ``c_stop`` -- one more than largest value of c
           to use for extended translates. Integer. Default is ``None``.
+        - ``limited_memory`` -- boolean. A flag indicating
+          whether the classification might be too large
+          to fit into memory. Default is False.
 
         OUTPUT:
 
@@ -222,7 +226,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             [0 0 0 1]}
 
         A partial classification of the bent function defined by the polynomial
-        :math:`x1 + x2 + x1*x2`, but with list_dual_graphs=False.
+        :math:`x_1 + x_2 + x_1 x_2`, but with list_dual_graphs=False.
 
         ::
 
@@ -255,9 +259,9 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         algebraic_normal_form = bentf.algebraic_normal_form()
 
         cayley_graph_class_bijection = (
-            BijectiveList()
-            if dim < 8 else
-            ShelveBijectiveList())
+            ShelveBijectiveList()
+            if dim > 8 or (dim == 8 and limited_memory) else
+            BijectiveList())
 
         c_len = c_stop - c_start
         bent_cayley_graph_index_matrix = matrix(c_len, v)
@@ -410,9 +414,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
 
     @classmethod
-    def from_function(cls,
-                      bentf,
-                      list_dual_graphs=True):
+    def from_function(
+        cls,
+        bentf,
+        list_dual_graphs=True,
+        limited_memory=False):
         r"""
         Constructor from the ``BentFunction`` ``bentf``.
 
@@ -421,6 +427,9 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         - ``bentf`` -- an object of class `BentFunction`.
         - ``list_dual_graphs`` -- boolean. a flag indicating
           whether to list dual graphs.
+        - ``limited_memory`` -- boolean. A flag indicating
+          whether the classification might be too large
+          to fit into memory. Default is False.
 
         OUTPUT:
 
@@ -477,7 +486,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
 
         The classification of the bent function defined by the polynomial
-        :math:`x1 + x2 + x1*x2`, but with list_dual_graphs=False.
+        :math:`x_1 + x_2 + x_1 x_2`, but with list_dual_graphs=False.
 
         ::
 
@@ -502,12 +511,16 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         """
         cp = BentFunctionCayleyGraphClassPart.from_function(
             bentf,
-            list_dual_graphs=list_dual_graphs)
+            list_dual_graphs=list_dual_graphs,
+            limited_memory=limited_memory)
         return cls(cp)
 
 
     @classmethod
-    def from_parts(cls, part_prefix):
+    def from_parts(
+        cls, 
+        part_prefix, 
+        limited_memory=False):
 
         # Initialize from class parts.
         mangled_part_prefix = BentFunctionCayleyGraphClassPart.mangled_name(part_prefix)
@@ -529,9 +542,9 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         # Initialize the graph class bijection to be empty.
         cayley_graph_class_bijection = (
-            BijectiveList()
-            if dim < 8 else
-            ShelveBijectiveList())
+            ShelveBijectiveList()
+            if dim > 8 or (dim == 8 and limited_memory) else
+            BijectiveList())
 
         # Initialize the matrix attributes to be empty and of the right size.
         bent_cayley_graph_index_matrix = matrix(v, v)

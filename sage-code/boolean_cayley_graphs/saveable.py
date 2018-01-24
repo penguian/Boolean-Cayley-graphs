@@ -39,20 +39,21 @@ class Saveable(object):
         - ``name`` -- The name for the object.
         - ``directory`` -- (Optional, default=None)
             The directory name to be used for the file name of the object.
-            The default value of Noe means the current directory.
+            The default value of None means the current directory.
 
         EXAMPLES:
 
         ::
+
             sage: from boolean_cayley_graphs.saveable import Saveable
             sage: class ListSaveable(list, Saveable):
             ....:     def __init__(self, value):
             ....:         list.__init__(self, value)
             ....:
-            sage: print ListSaveable.mangled_name('a')
-            ListSaveable__a
-            sage: print ListSaveable.mangled_name('a',directory='b')
-            b/ListSaveable__a
+            sage: ListSaveable.mangled_name('a')
+            'ListSaveable__a'
+            sage: ListSaveable.mangled_name('a',directory='b')
+            'b/ListSaveable__a'
         """
         standardized_name = cls.__name__ + "__" + name
         if directory == None:
@@ -84,7 +85,6 @@ class Saveable(object):
     def save_mangled(self, name, directory=None):
         r"""
         Save an object using its standardized name.
-
 
         """
         self.save(self.__class__.mangled_name(name, directory))
