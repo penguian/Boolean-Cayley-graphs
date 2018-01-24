@@ -59,7 +59,7 @@ def save_class_parts_in_parallel(
         beg_n = rank % nbr_parts
         end_n = beg_n + 1
     else:
-	beg_n = rank
+        beg_n = rank
         end_n = nbr_parts
 
     nbr_digits = ceil(log(nbr_parts, 10))
