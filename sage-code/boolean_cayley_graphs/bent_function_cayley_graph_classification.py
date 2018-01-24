@@ -414,10 +414,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
 
     @classmethod
-    def from_function(cls,
-                      bentf,
-                      list_dual_graphs=True,
-                      limited_memory=False):
+    def from_function(
+        cls,
+        bentf,
+        list_dual_graphs=True,
+        limited_memory=False):
         r"""
         Constructor from the ``BentFunction`` ``bentf``.
 
@@ -510,12 +511,16 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         """
         cp = BentFunctionCayleyGraphClassPart.from_function(
             bentf,
-            list_dual_graphs=list_dual_graphs)
+            list_dual_graphs=list_dual_graphs,
+            limited_memory=limited_memory)
         return cls(cp)
 
 
     @classmethod
-    def from_parts(cls, part_prefix):
+    def from_parts(
+        cls, 
+        part_prefix, 
+        limited_memory=False):
 
         # Initialize from class parts.
         mangled_part_prefix = BentFunctionCayleyGraphClassPart.mangled_name(part_prefix)
