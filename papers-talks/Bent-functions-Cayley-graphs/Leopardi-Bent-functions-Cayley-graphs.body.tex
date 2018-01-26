@@ -1,87 +1,3 @@
-\documentclass[12pt,a4paper]{article}
-%
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{xcolor}
-\usepackage[colorlinks=true,allcolors=blue]{hyperref}
-\usepackage{graphicx}
-\usepackage[figurename={Figure}]{caption}
-\usepackage{float}
-%\usepackage{placeins}
-%\usepackage{url}
-%
-\newcommand{\mb}[1]{\mathbb{#1}}
-\newcommand{\mf}[1]{\mathbf{#1}}
-\newcommand{\F}{\mb{F}}
-\newcommand{\G}{\mb{G}}
-\newcommand{\R}{\mb{R}}
-\newcommand{\Z}{\mb{Z}}
-\newcommand{\abs}[1]{\left| #1 \right|}
-\newcommand{\norm}[1]{\left\| #1 \right\|}
-\newcommand{\isomorphic}{\simeq}
-\newcommand{\To}{\rightarrow}
-%
-%
-%\newcommand{\slidecite}[1]{\tiny{(#1)}\normalsize{}}
-%\newcommand{\smallcite}[1]{\small{(#1)}\normalsize{}}
-
-\newcommand{\Emph}[1]{\emph{\textcolor{blue}{#1}}}
-
-\newcommand{\Cay}[1]{\operatorname{Cay}\left(#1\right)}
-\newcommand{\Clique}[1]{\omega\left(#1\right)}
-\newcommand{\diag}[1]{\operatorname{diag}\left(#1\right)}
-\newcommand{\dual}[1]{\widetilde{#1}}
-\newcommand{\support}[1]{\operatorname{supp}\left(#1\right)}
-\newcommand{\weight}[1]{\operatorname{wt}\left(#1\right)}
-\newcommand{\weightclass}[1]{\operatorname{wc}\left(#1\right)}
-
-\newtheorem*{lemma}{Lemma}
-\newtheorem{Lemma}{Lemma}
-\newtheorem*{proposition}{Proposition}
-\newtheorem{Proposition}{Proposition}
-\newtheorem*{theorem}{Theorem}
-\newtheorem{Theorem}{Theorem}
-\newtheorem*{conjecture}{Conjecture}
-\newtheorem{Conjecture}{Conjecture}
-\newtheorem*{corollary}{Corollary}
-\newtheorem{Corollary}[Lemma]{Corollary}
-\newtheorem*{remark}{Remark}
-\newtheorem{Remark}{Remark}
-\newtheorem*{definition}{Definition}
-\newtheorem{Definition}{Definition}
-\newtheorem{Question}{Question}
-\newtheorem{Questions}[Question]{Questions}
-%
-\newenvironment{proofof}[1]{\noindent\emph{Proof of #1.}}{\qed}
-
-\title{Classifying bent functions by their Cayley graphs}
-
-\author{
-Paul~Leopardi
-%\thanks{Australian Government -- Bureau of Meteorology
-\thanks{University of Melbourne; Australian Government -- Bureau of Meteorology
-\protect\url{mailto:paul.leopardi@gmail.com}}
-%\protect\texttt{mailto:paul.\-leopardi@anu.edu.au}}
-}
-
-\date{18 January 2018}
-
-\begin{document}
-
-\maketitle
-
-\begin{abstract}
-%
-In 1999 Bernasconi and Codenotti noted that the Cayley graph of a bent function is strongly regular.
-This paper describes the concept of extended Cayley equivalence of bent functions,
-discusses some connections between bent functions, designs, and codes,
-and explores the relationship between extended Cayley equivalence and extended affine equivalence.
-SageMath scripts and CoCalc worksheets are used to compute and display some of these relationships,
-for bent functions up to dimension 8.
-%
-\end{abstract}
-
 \section{Introduction}
 \label{sec-Introduction}
 Binary bent functions are important combinatorial objects.
@@ -1419,7 +1335,7 @@ over number fields of prime order $p \neq 2$ \cite{CheTZ11}?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \paragraph*{Acknowledgements.}
-\small{}
+%\small{}
 This work was begun in 2014 while the author was a Visiting Fellow at the Australian National University,
 continued while the author was a Visiting Fellow and a Casual Academic at the University of Newcastle, Australia,
 and concluded while the author was an Honorary Fellow at the University of Melbourne,
@@ -1445,7 +1361,7 @@ of bent functions of degree 4 in 8 dimensions;
 Gray Chan for a citation tool for IETF RFCs;
 and finally, thanks to the authors of SageMath, Bliss, and Nauty for these valuable tools
 without which I would not have been able to conduct this research.
-\normalsize{}
+%\normalsize{}
 %Thanks also to the anonymous reviewer of the previous draft of this paper.
 
 \newpage
@@ -2042,7 +1958,8 @@ were conducted on the Raijin supercomputer of the National Computational Infrast
 Sage and Python code for these computations are available on GitHub \cite{Leo16GitHub} and CoCalc \cite{Leo17CoCalc}.
 Some CoCalc worksheets also illustrate these and related computations \cite{Leo17CoCalc}.
 The Sage and Python code is briefly described in Section \ref{sec-Code}.
-\newpage
+
+%\newpage
 In the tables below, each bent function is defined by its algebraic normal form, and each Cayley class is described by
 its number within the ET class of the bent function (from 0, in the order in which Sage identified non-isomorphic graphs),
 followed by three properties of the Cayley graph: its parameters as a strongly regular graph,
@@ -2394,7 +2311,7 @@ as shown in Figures~\ref{fig:c6_1_weight_class_matrix} and~\ref{fig:c6_1_bent_ca
   \label{fig:c6_1_bent_cayley_graph_index_matrix}
 \end{minipage}
 \end{figure}
-\newpage
+%\newpage
 Remark: The sequence of Figures~\ref{fig:c2_1_weight_class_matrix}, \ref{fig:c4_1_weight_class_matrix},
 and \ref{fig:c6_1_weight_class_matrix} displays a fractal-like self-similar quality.
 
@@ -3043,7 +2960,7 @@ The ET class contains four extended Cayley classes as per Table~\ref{tab-c8_2_EC
 \end{table}
 %\newpage
 
-\begin{figure}[!bhp] % [H]
+\begin{figure}[!ht] % [H]
 \centering
 \begin{minipage}{.48\textwidth}
   \centering
@@ -4963,6 +4880,3 @@ as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes
 %\bibliography{bib}
 
 \input{Leopardi-Bent-functions-Cayley-graphs.bbl}
-
-\end{document}
-% ----------------------------------------------------------------
