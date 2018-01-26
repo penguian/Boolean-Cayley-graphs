@@ -1,0 +1,72 @@
+\documentclass[10pt]{article}
+\textwidth= 5.00in
+\textheight= 7.4in
+\topmargin = 30pt
+\evensidemargin=0pt
+\oddsidemargin=55pt
+\headsep=17pt
+\parskip=.5pt
+\parindent=12pt
+\font\smallit=cmti10
+\font\smalltt=cmtt10
+\font\smallrm=cmr9
+
+\usepackage{amssymb,latexsym,amsmath,epsfig,amsthm} %% Add other packages as necessary
+%
+\usepackage{xcolor}
+%\usepackage[colorlinks=true,allcolors=blue]{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage[figurename={Figure}]{caption}
+\usepackage{float}
+%
+
+\makeatletter
+
+\renewcommand\section{\@startsection {section}{1}{\z@}
+{-30pt \@plus -1ex \@minus -.2ex}
+{2.3ex \@plus.2ex}
+{\normalfont\normalsize\bfseries\boldmath}}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}
+{-3.25ex\@plus -1ex \@minus -.2ex}
+{1.5ex \@plus .2ex}
+{\normalfont\normalsize\bfseries\boldmath}}
+
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname. }
+
+\input{Leopardi-Bent-functions-Cayley-graphs.commands.tex}
+
+\makeatother
+
+\input{Leopardi-Bent-functions-Cayley-graphs.theorems.tex}
+
+\begin{document}
+
+\begin{center}
+\uppercase{\bf Classifying bent functions by their Cayley graphs}
+\vskip 20pt
+{\bf Paul~Leopardi}\\
+{\smallit University of Melbourne; Australian Government -- Bureau of Meteorology}\\
+{\tt paul.leopardi@gmail.com}
+\end{center}
+\vskip 30pt
+
+\centerline{\smallit Received: , Revised: , Accepted: , Published: } % We will fill in the dates
+\vskip 30pt
+
+\centerline{\bf Abstract}
+
+\noindent
+\input{Leopardi-Bent-functions-Cayley-graphs.abstract.tex}
+
+\pagestyle{myheadings}
+\markright{\smalltt INTEGERS: 18 (2018)\hfill}
+\thispagestyle{empty}
+\baselineskip=12.875pt
+\vskip 30pt
+
+\input{Leopardi-Bent-functions-Cayley-graphs.body.tex}
+
+\end{document}
+% ----------------------------------------------------------------
