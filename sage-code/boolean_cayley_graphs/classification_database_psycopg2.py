@@ -60,6 +60,17 @@ def connect_to_database(db_name):
     return conn
 
 
+def drop_database(db_name):
+
+    conn = psycopg2.connect(dbname="postgres")
+    conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+    curs = conn.cursor()
+    curs.execute(
+        "DROP DATABASE " + db_name)
+    conn.commit()
+    return conn
+
+
 def create_classification_tables(db_name):
 
     conn = connect_to_database(db_name)
@@ -104,6 +115,10 @@ def create_classification_tables(db_name):
     return conn
 
 
+def canonical_label_hash(canonical_label):
+    return psycopg2.Binary(buffer(hashlib.sha256(canonical_label).digest()))
+
+
 def insert_classification(conn, bfcgc, name=None):
 
     bentf = BentFunction(bfcgc.algebraic_normal_form)
@@ -122,7 +137,7 @@ def insert_classification(conn, bfcgc, name=None):
         (bftt, name))
     for n in range(len(cgcl)):
         cgc = cgcl[n]
-        cgc_hash = psycopg2.Binary(buffer(hashlib.sha256(cgc).digest()))
+        cgc_hash = canonical_label_hash(cgc)
         curs.execute("""
             INSERT INTO graph
             VALUES (%s,%s,%s)
@@ -214,6 +229,47 @@ def select_classification_where_bent_function(
         bent_cayley_graph_index_matrix=bcim,
         dual_cayley_graph_index_matrix=dcim,
         weight_class_matrix=wcm)
+
+
+def select_classification_where_bent_function_cayley_graph(
+    conn,
+    bentf):
+
+    cayley_graph = bentf.cayley_graph()
+    cgcl = cayley_graph.canonical_label().graph6_string()
+    cgcl_hash = canonical_label_hash(cgcl)
+
+    curs = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    curs.execute("""
+        SELECT graph_id, canonical_label
+        FROM graph
+        WHERE canonical_label_hash = (%s)""",
+        (cgcl_hash,))
+
+    row = curs.fetchone()
+    graph_id = row["graph_id"]
+    canonical_label = row["canonical_label"]
+
+    # The result is a list of classifications.
+    result = []
+    # Check for a hash collision (very unlikely)
+    if canonical_label != cgcl:
+        return result
+
+    curs.execute("""
+        SELECT DISTINCT bent_function
+        FROM cayley_graph
+        WHERE graph_id = (%s)""",
+        (graph_id,))
+
+    for row in curs:
+        bftt = row["bent_function"]
+        row_bentf = BentFunction.from_tt_buffer(bftt)
+        result.append(
+            select_classification_where_bent_function(
+                conn,
+                row_bentf))
+    return result
 
 
 def select_classification_where_name(
