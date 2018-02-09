@@ -235,7 +235,7 @@ def select_classification_where_bent_function_cayley_graph(
     conn,
     bentf):
 
-    cayley_graph = bentf.cayley_graph()
+    cayley_graph = bentf.extended_cayley_graph()
     cgcl = cayley_graph.canonical_label().graph6_string()
     cgcl_hash = canonical_label_hash(cgcl)
 
@@ -252,7 +252,7 @@ def select_classification_where_bent_function_cayley_graph(
 
     # The result is a list of classifications.
     result = []
-    # Check for a hash collision (very unlikely)
+    # Check for a hash collision -- very unlikely.
     if canonical_label != cgcl:
         return result
 
