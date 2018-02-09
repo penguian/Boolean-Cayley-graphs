@@ -88,7 +88,6 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         x0*x1 + x0
         sage: bf1.truth_table()
         (False, True, False, False)
-
     """
 
 
@@ -100,6 +99,118 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         """
         tt = binascii.b2a_hex(tt_buffer)
         return BooleanFunctionImproved(tt)
+
+
+    def __invert__(self):
+        """
+        Return the complement Boolean function of `self`.
+
+        EXAMPLES
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf0 = BooleanFunctionImproved([1,0,1,1])
+            sage: bf1 = ~bf0
+            sage: type(bf1)
+            <class 'boolean_cayley_graphs.boolean_function_improved.BooleanFunctionImproved'>
+            sage: bf1.algebraic_normal_form()
+            x0*x1 + x0
+            sage: bf1.truth_table()
+            (False, True, False, False)
+        """
+        bf_self = BooleanFunction(self)
+        return type(self)(~bf_self)
+
+
+    def __add__(self, other):
+        """
+        Return the element wise sum of `self`and `other` which must have the same number of variables.
+
+        EXAMPLES
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf0 = BooleanFunctionImproved([1,0,1,0])
+            sage: bf1 = BooleanFunctionImproved([1,1,0,0])
+            sage: (bf0+bf1).truth_table(format='int')
+            (0, 1, 1, 0)
+            sage: S = bf0.algebraic_normal_form() + bf1.algebraic_normal_form()
+            sage: (bf0+bf1).algebraic_normal_form() == S
+            True
+
+        TESTS
+
+        ::
+
+            sage: bf0+BooleanFunctionImproved([0,1])
+            Traceback (most recent call last):
+            ...
+            ValueError: the two Boolean functions must have the same number of variables
+        """
+        bf_self = BooleanFunction(self)
+        return type(self)(bf_self + other)
+
+
+    def __mul__(self, other):
+        """
+        Return the elementwise multiplication of `self`and `other` which must have the same number of variables.
+
+        EXAMPLES
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf0 = BooleanFunctionImproved([1,0,1,0])
+            sage: bf1 = BooleanFunctionImproved([1,1,0,0])
+            sage: (bf0*bf1).truth_table(format='int')
+            (1, 0, 0, 0)
+            sage: P = bf0.algebraic_normal_form() * bf1.algebraic_normal_form()
+            sage: (bf0*bf1).algebraic_normal_form() == P
+            True
+
+        TESTS
+
+        ::
+
+            sage: bf0*BooleanFunctionImproved([0,1])
+            Traceback (most recent call last):
+            ...
+            ValueError: the two Boolean functions must have the same number of variables
+        """
+        bf_self = BooleanFunction(self)
+        return type(self)(bf_self * other)
+
+
+    def __or__(self, other):
+        """
+        Return the concatenation of `self` and `other` which must have the same number of variables.
+
+        EXAMPLES
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf0 = BooleanFunctionImproved([1,0,1,0])
+            sage: bf1 = BooleanFunctionImproved([1,1,0,0])
+            sage: (bf0|bf1).truth_table(format='int')
+            (1, 0, 1, 0, 1, 1, 0, 0)
+            sage: C = bf0.truth_table() + bf1.truth_table()
+            sage: (bf0|bf1).truth_table(format='int') == C
+            True
+
+        TESTS
+
+        ::
+
+            sage: bf0|BooleanFunctionImproved([0,1])
+            Traceback (most recent call last):
+            ...
+            ValueError: the two Boolean functions must have the same number of variables
+        """
+        bf_self = BooleanFunction(self)
+        return type(self)(bf_self | other)
 
 
     def cayley_graph(self):
@@ -131,6 +242,46 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         dim = self.nvariables()
         f = self.extended_translate()
         return boolean_cayley_graph(dim, f)
+
+
+    def extended_cayley_graph(self):
+        r"""
+        Return the extended Cayley graph of ``self``.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        The extended Cayley graph of ``self`` as an object of class ``Graph``.
+        This is the Cayley graph of ``self`` if ``self(0) == False``,
+        otherwise it is the Cayley graph of ``~self``.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf1 = BooleanFunctionImproved([0,1,0,0])
+            sage: g1 = bf1.extended_cayley_graph()
+            sage: g1.adjacency_matrix()
+            [0 1 0 0]
+            [1 0 0 0]
+            [0 0 0 1]
+            [0 0 1 0]
+            sage: bf2 = BooleanFunctionImproved([1,0,1,1])
+            sage: g2 = bf2.extended_cayley_graph()
+            sage: g2.adjacency_matrix()
+            [0 1 0 0]
+            [1 0 0 0]
+            [0 0 0 1]
+            [0 0 1 0]
+
+        """
+        return ((~self).cayley_graph()
+            if self(0)
+            else self.cayley_graph())
 
 
     def extended_translate(self, b=0, c=0, d=0):
@@ -167,7 +318,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
             While ``self`` is a ``BooleanFunction``, the result of
             ``extended_translate`` is *not* a ``BooleanFunction``,
-            but rather a Python function that takes an ``integer`` argument.
+            but rather a Python function that takes an ``Integer`` argument.
 
         EXAMPLES:
 
