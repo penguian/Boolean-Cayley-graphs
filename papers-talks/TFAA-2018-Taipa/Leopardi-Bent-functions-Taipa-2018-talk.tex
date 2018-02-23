@@ -1,0 +1,2094 @@
+\documentclass[pdf,sprung,slideColor,nocolorBG]{beamer}
+%
+%\documentclass[hyperref={pdfpagelabels=false}]{beamer}
+\mode<presentation>
+
+\newenvironment{colortheme}[1]{
+\def\ProvidesPackageRCS $##1${\relax}
+\renewcommand{\ProcessOptions}{\relax}
+\makeatletter
+\input beamercolortheme#1.sty
+\makeatother
+}{}
+
+\let\Tiny=\tiny
+\usetheme{Adelaide}
+\usefonttheme[stillsansseriftext]{serif}
+\setbeamerfont{structure}{series=\bfseries}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage[figurename={}]{caption}
+\usepackage[latin1]{inputenc}
+%\usepackage{amsmath}   %needed for \begin{align}... \end{align} environment
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage{amscd}
+%\usepackage[all]{xy}
+\usepackage{xcolor}
+\usepackage{enumerate}
+%
+\newcommand{\slidecite}[1]{\tiny{(#1)}\normalsize{}}
+\newcommand{\smallcite}[1]{\small{(#1)}\normalsize{}}
+
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\mf}[1]{\mathbf{#1}}
+\newcommand{\Emph}[1]{\emph{\textcolor{blue}{#1}}}
+\newcommand{\Red}[1]{\mathbf{\textcolor{red}{#1}}}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\norm}[1]{\left\| #1 \right\|}
+\newcommand{\To}{\rightarrow}
+
+\newcommand{\Cay}[1]{\operatorname{Cay}\left(#1\right)}
+\newcommand{\Clique}[1]{\omega\left(#1\right)}
+\newcommand{\dual}[1]{\widetilde{#1}}
+\newcommand{\support}[1]{\operatorname{supp}\left(#1\right)}
+\newcommand{\weight}[1]{\operatorname{wt}\left(#1\right)}
+\newcommand{\weightclass}[1]{\operatorname{wc}\left(#1\right)}
+
+\newcommand{\F}{\mb{F}}
+\newcommand{\G}{\mb{G}}
+\newcommand{\R}{\mb{R}}
+\newcommand{\Z}{\mb{Z}}
+\newtheorem{Def}{Definition}
+\newtheorem{Conjecture}{Conjecture}
+\newtheorem{Question}{Question}
+\newtheorem{Proposition}{Proposition}
+
+\title[Yet another database of strongly regular graphs]{Yet another database of
+\\
+strongly regular graphs:
+\\
+Classifying bent functions by
+\\
+their Cayley graphs}
+\author{Paul Leopardi}
+
+\date{For Tight Frames and Approximation
+\\
+Taipa, February 2018}
+
+\institute{University of Melbourne
+\\
+Australian Government - Bureau of Meteorology}
+\titlegraphic{
+%\includegraphics[angle=0,width=10mm]{../../common/beamer-anu-colourlogo.png}
+%\includegraphics[angle=0,width=20mm]{../../common/carma_logo.jpg}
+}
+\begin{document}
+
+\frame{\titlepage}
+\begin{frame}
+\frametitle{Acknowledgements}
+\begin{center}
+Robin Bowen,
+An Braeken,
+Nathan Clisby,
+Robert Craigen,
+Joanne Hall,
+David Joyner,
+Philippe Langevin,
+Matthew Leingang,
+William Martin,
+Padraig {\'O} Cath{\'a}in,
+Judy-anne Osborn,
+Dima Pasechnik,
+William Stein,
+Natalia Tokareva, and
+Sanming Zhou.
+
+~
+
+Australian National University. University of Newcastle, Australia. University of Melbourne.
+
+Australian Government - Bureau of Meteorology.
+
+~
+
+National Computational Infrastructure.
+
+~
+
+SageMath, CoCalc, Bliss, Nauty, MPI4py, SQLite3, DB Browser for SQLite, PostgreSQL, Psycopg2.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Serious Question}
+\begin{center}
+\vspace{+10mm}
+\large{}
+What would \Emph{you} do with a ``large'' database of strongly regular graphs?
+\normalsize{}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview}
+%\begin{center}
+\begin{itemize}
+\item
+Classifing bent functions by their Cayley graphs.
+\begin{itemize}
+\item
+Preliminaries.
+\item
+Cayley graphs and linear codes.
+\item
+Equivalence of bent functions.
+\item
+Computational results for quadratic forms.
+\item
+Block designs.
+\item
+Computational results for low dimensions.
+\item
+Questions.
+\end{itemize}
+
+~
+
+\item
+Databases of strongly regular graphs
+\begin{itemize}
+\item
+Precedents: databases of strongly regular graphs.
+
+\item
+Preliminary database designs.
+
+\item
+Prototype databases.
+
+\item
+Prospects.
+
+\item
+Source code and documentation.
+\end{itemize}
+
+\end{itemize}
+
+%\end{center}
+\end{frame}
+
+\section{Classifying bent functions}
+
+\subsection{Preliminaries}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{Motivation}
+
+In a construction for Hada\-mard matrices, I encountered
+two sequences of \Emph{bent} Boolean functions,
+\begin{align*}
+\sigma_m &: \F_2^{2m} \To \F_2, \quad \tau_m : \F_2^{2m} \To \F_2,
+\end{align*}
+whose Cayley graphs are \Emph{strongly regular} with parameters
+\begin{align*}
+(v,k,\lambda,\mu) &= (4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1}),
+\end{align*}
+but the graphs for $\sigma_m$ and $\tau_m$ are isomorphic only when
+
+$m=1,2$ or $3.$
+
+~
+
+Question: \Emph{Which strongly regular graphs arise as Cayley graphs of bent Boolean functions?}
+
+\slidecite{L 2014, 2015, 2017}
+\end{frame}
+\end{colortheme}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}
+\frametitle{Bent functions}
+% Bent functions can be defined in a number of equivalent ways.
+% The definition used here involves the Walsh Hadamard Transform.
+\begin{Def}
+\label{def-Walsh-Hadamard-transform}
+The Walsh Hadamard transform of
+a Boolean function $f : \F_2^{2m} \To \F_2$ is
+\begin{align*}
+W_f(x)
+&:=
+\sum_{y \in \F_2^{2m}} (-1)^{f(y) + \langle x, y \rangle}
+\end{align*}
+\end{Def}
+
+\begin{Def}
+\label{def-Bent-function}
+A Boolean function $f : \F_2^{2m} \To \F_2$ is \Emph{bent}
+if and only if its Walsh Hada\-mard transform has constant absolute value $2^{m}$.
+% \cite[p. 74]{Dil74}
+% \cite[p. 300]{Rot76}.
+\end{Def}
+\slidecite{Dillon 1974; Rothaus 1976}
+\end{frame}
+\begin{frame}
+\frametitle{Dual bent functions}
+
+\begin{Def}
+\label{def-dual-Bent-function}
+For a bent function  $f : \F_2^{2m} \To \F_2$, the function $\dual{f}$, defined by
+\begin{align*}
+(-1)^{\dual{f}(x)} &:= 2^{-m} W_f(x)
+\end{align*}
+is called the \Emph{dual} of $f$.
+\end{Def}
+
+~
+
+The function $\dual{f}$ is also a bent function on $\F_2^{2m}$.
+
+~
+
+~
+
+\slidecite{Dillon 1974; Rothaus 1976}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example}
+
+The function  $f : \F_2^2 \To \F_2$  defined by $f(x) := x_0 x_1$
+is bent, since
+\begin{align*}
+W_f(x)
+=&
+\sum_{y \in \F_2^2} (-1)^{f(y) + \langle x, y \rangle}
+\\
+=&\ (-1)^{f(0,0) + \langle x, (0,0) \rangle}
+ + (-1)^{f(1,0) + \langle x, (1,0) \rangle} +
+\\
+\phantom{=}&\ (-1)^{f(0,1) + \langle x, (0,1) \rangle}
+ + (-1)^{f(1,1) + \langle x, (1,1) \rangle}
+\\
+=&\ (-1)^{0 + 0} + (-1)^{0 + x_0} + (-1)^{0 + x_1} + (-1)^{1 + x_0 + x_1}
+\\
+=&\ 1 + (-1)^{x_0} + (-1)^{x_1} - (-1)^{x_0 + x_1}
+\\
+=&\ 2 \times (-1)^{f(x)},
+\end{align*}
+so $\dual{f} = f$, and $f$ is \Emph{self-dual}.
+%
+\end{frame}
+
+\begin{frame}
+\frametitle{Bent functions and affine functions}
+Bent functions are at maximum Hamming distance from affine functions.
+For $f : \F_2^2 \To \F_2,$ this distance is 1 \slidecite{Meier and Staffelbach 1989}.
+\scriptsize{}
+\begin{align*}
+\begin{array}{|cccc|}
+\hline
+(0,0)& (1,0)& (0,1)& (1,1)
+\\
+\hline
+0 & 0 & 0 & 0
+\\
+\Red{0}& \Red{0} & \Red{0} & \Red{1}
+\\
+\Red{0}& \Red{0} & \Red{1} & \Red{0}
+\\
+0 & 0 & 1 & 1
+\\
+\Red{0}& \Red{1} & \Red{0} & \Red{0}
+\\
+0 & 1 & 0 & 1
+\\
+0 & 1 & 1 & 0
+\\
+\Red{0}& \Red{1} & \Red{1} & \Red{1}
+\\
+\Red{1}& \Red{0} & \Red{0} & \Red{0}
+\\
+1 & 0 & 0 & 1
+\\
+1 & 0 & 1 & 0
+\\
+\Red{1}& \Red{0} & \Red{1} & \Red{1}
+\\
+1 & 1 & 0 & 0
+\\
+\Red{1}& \Red{1} & \Red{0} & \Red{1}
+\\
+\Red{1}& \Red{1} & \Red{1} & \Red{0}
+\\
+1 & 1 & 1 & 1
+\\
+\hline
+\end{array}
+\end{align*}
+\normalsize{}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{Weights and weight classes}
+\begin{Def}
+The \Emph{weight} of a binary function is the cardinality of its \Emph{support}.
+For $f$ on $\F_2^{2m}$
+\begin{align*}
+\support{f} &:= \{x \in \F_2^{2m} \mid f(x)=1 \}.
+\end{align*}
+
+A bent function $f$ on $\F_2^{2m}$ has weight
+\begin{align*}
+\weight{f} &= 2^{2 m - 1} - 2^{m-1} \quad (\text{weight class~} \weightclass{f}=0), \text{~or}
+\\
+\weight{f} &= 2^{2 m - 1} + 2^{m-1} \quad (\text{weight class~} \weightclass{f}=1).
+\end{align*}
+% If $f(0)=0$ then $\weightclass{\Cay{f}} := \weightclass{f}$.
+\end{Def}
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Cayley graphs and linear codes}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}
+\frametitle{The Cayley graph of a Boolean function}
+%\begin{center}
+The \Emph{Cayley graph} $\Cay{f}$ of a Boolean function
+
+~
+
+\begin{align*}
+%
+f : \F_2^n \To \F_2 \quad \text{where} \quad f(0) = 0
+%
+\end{align*}
+
+~
+
+is
+an undirected graph with
+
+\begin{align*}
+V(\Cay{f}) &:= \F_2^n, \quad (x,y) \in E(\Cay{f}) \Leftrightarrow f(x+y) = 1.
+\end{align*}
+
+~
+
+\slidecite{Bernasconi and Codenotti 1999}
+\end{frame}
+
+\begin{frame}
+\frametitle{Strongly regular graphs}
+%\begin{center}
+A simple graph $\Gamma$ of order $v$ is \Emph{strongly regular} with parameters
+$(v,k,\lambda,\mu)$ if
+
+~
+
+\begin{itemize}
+ \item
+each vertex has degree $k,$
+
+~
+ \item
+each adjacent pair of vertices has $\lambda$ common neighbours, and
+
+~
+\item
+each nonadjacent pair of vertices has $\mu$ common neighbours.
+\end{itemize}
+
+~
+
+~
+
+\slidecite{Brouwer, Cohen and Neumaier 1989}
+
+%\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bent functions and strongly regular graphs}
+
+\begin{Proposition}
+\smallcite{Bernasconi and Codenotti 1999}
+
+The Cayley graph $\Cay{f}$ of a bent function $f$ on $\F_2^{2m}$
+
+with $f(0)=0$ is a strongly regular graph with $\lambda = \mu.$
+\end{Proposition}
+
+The parameters of $\Cay{f}$ are
+\begin{align*}
+(v,k,\lambda) = &(4^m, 2^{2 m - 1} - 2^{m-1}, 2^{2 m - 2} - 2^{m-1})
+\\
+  \text{or} \quad &(4^m, 2^{2 m - 1} + 2^{m-1}, 2^{2 m - 2} + 2^{m-1}).
+\end{align*}
+
+~
+
+\slidecite{Menon 1962; Dillon 1974; Bernasconi and Codenotti 1999}
+%\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Projective two-weight binary codes}
+
+\begin{Def}
+A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\F_2^n$
+with
+minimum Hamming distance $d$, such that the set of Hamming weights of the non-zero vectors has size
+2.
+
+~
+
+``A \Emph{generator matrix} $G$ of a linear code $[n, k]$ code $C$ is any matrix
+of rank $k$ (over $\F_2$) with rows from $C.$''
+
+~
+
+``A linear $[n, k]$ code is called \Emph{projective} if no two columns of a generator matrix
+$G$ are linearly dependent, i.e., if the columns of $G$ are pairwise different points in a
+projective $(k-1)$-dimensional space.''
+In the case of $\F_2$, no two columns are equal.
+
+~
+
+\end{Def}
+
+\slidecite{Tonchev 1996; Bouyukliev, Fack, Willems and Winne 2006}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{From bent function to linear code (1)}
+\begin{Def}
+
+\smallcite{Carlet 2007; Ding and Ding 2015, Corollary 10}
+
+For a bent function $f : \F_2^{2m} \To \F_2$,
+define the linear code $C(f)$ by the generator matrix
+\begin{align*}
+M C(f) &\in \F_2^{4^m \times \weight{f}},
+\\
+M C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+\end{align*}
+with $x$ in lexicographic order of $\F_2^{2m}$
+and $\support{f}(y)$ in lexicographic order of $\support{f}$.
+
+The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M C(f)$.
+\end{Def}
+
+\slidecite{Carlet 2007; Ding and Ding 2015, Corollary 10}
+
+\end{frame}
+\begin{frame}
+\frametitle{From bent function to linear code (2)}
+\begin{Proposition}
+\smallcite{Carlet 2007, Prop. 20; Ding and Ding 2015, Corollary 10}
+
+For a bent function $f : \F_2^{2m} \To \F_2$, the linear code $C(f)$
+is a projective two-weight code.
+
+~
+
+The possible weights of non-zero code words are:
+\begin{align*}
+\begin{cases}
+2^{2m-2}, 2^{2m-2} - 2^{m-1} & \text{if~} \weightclass{f}=0.
+\\
+2^{2m-2}, 2^{2m-2} + 2^{m-1} & \text{if~} \weightclass{f}=1.
+\end{cases}
+\end{align*}
+
+\end{Proposition}
+
+\slidecite{Carlet 2007, Prop. 20; Ding and Ding 2015, Corollary 10}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{From linear code to strongly regular graph}
+\begin{Def}
+\label{R-f-def}
+Given $f : \F_2^{2m} \To \F_2$, form the linear code $C(f)$.
+
+The graph $R(f)$ is defined as:
+
+Vertices of $R(f)$ are code words of $C(f)$.
+
+For $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
+\begin{align*}
+\begin{cases}
+\weight{u+v} = 2^{2m-2} - 2^{m-1} & (\text{if~}\weightclass{f}=0).
+\\
+\weight{u+v} = 2^{2m-2} + 2^{m-1} & (\text{if~}\weightclass{f}=1).
+\end{cases}
+\end{align*}
+
+\end{Def}
+Since $C(f)$ is a projective two-weight code,
+$R(f)$ is a strongly regular graph.
+
+\slidecite{Delsarte 1972, Theorem 2}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{The strongly regular graph $R(f)$ is \\ the Cayley graph of the dual}
+
+\begin{Theorem}
+For $f : \F_2^{2m} \To \F_2$, with $f(0)=0$,
+\begin{align*}
+R(f) &\equiv \Cay{\dual{f} + \dual{f}(0)} = \Cay{\dual{f} + \weightclass{f}}.
+\end{align*}
+\end{Theorem}
+
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Equivalence of bent functions}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}
+\frametitle{Extended affine equivalence}
+
+\begin{Def}
+For bent functions $f,g : \F_2^{2m} \To \F_2$,
+
+$f$ is \Emph{extended affine equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(A x + b) + \langle c, x \rangle + \delta
+\end{align*}
+for some $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
+\end{Def}
+
+~
+
+~
+
+\slidecite{Budaghyan, Carlet and Pott 2006; Carlet and Mesnager 2011}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{General linear equivalence}
+
+\begin{Def}
+For bent functions $f,g : \F_2^{2m} \To \F_2$,
+$f$ is \Emph{general linear equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(A x)
+\end{align*}
+for some $A \in GL(2m,2)$.
+\end{Def}
+\end{frame}
+\begin{frame}
+\frametitle{Extended translation equivalence}
+
+\begin{Def}
+For bent functions $f,g : \F_2^{2m} \To \F_2$,
+
+$f$ is \Emph{extended translation equivalent} to $g$ if and only if
+\begin{align*}
+g(x) &= f(x + b) + \langle c, x \rangle + \delta
+\end{align*}
+for $b, c \in \F_2^{2m}$, $\delta \in \F_2$.
+\end{Def}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cayley equivalence}
+\begin{Def}
+%
+For $f, g : \F_2^{2m} \To \F_2$, with both $f$ and $g$ bent,
+
+we call $f$ and $g$ \Emph{Cayley equivalent},
+and write $f \equiv g$,
+
+if and only if $f(0)=g(0)=0$ and $\Cay{f} \equiv \Cay{g}$ as graphs.
+
+~
+
+Equivalently, $f \equiv g$ if and only if $f(0)=g(0)=0$ and
+
+there exists a bijection $\pi : \F_2^{2m} \To \F_2^{2m}$ such that
+\begin{align*}
+g(x+y) &= f \big(\pi(x)+\pi(y)\big) \quad \text{for all~} x,y \in \F_2^{2m}.
+\end{align*}
+\end{Def}
+\end{frame}
+\begin{frame}
+\frametitle{Extended Cayley equivalence}
+\begin{Def}
+For $f, g : \F_2^{2m} \To \F_2$, with both $f$ and $g$ bent,
+
+if there exist $\delta, \epsilon \in \{0,1\}$ such that $f + \delta \equiv g + \epsilon$,
+
+we call $f$ and $g$ \Emph{extended Cayley (EC) equivalent} and write $f \cong g$.
+\end{Def}
+Extended Cayley equivalence is an equivalence relation on the set of all bent functions on $\F_2^{2m}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{General linear equivalence \\ implies Cayley equivalence}
+
+\begin{Theorem}
+If $f$ is bent with $f(0)=0$ and $g(x) := f(A x)$ where $A \in GL(2m,2)$,
+then $g$ is bent with $g(0)=0$ and $f \equiv g$.
+\end{Theorem}
+\begin{proof}
+\begin{align*}
+g(x+y) &= f\big(A(x+y)\big) = f(A x + A y)\quad \text{for all~} x,y \in \F_2^{2m}.
+\end{align*}
+\end{proof}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Extended affine, extended translation, and extended Cayley equivalence (1)}
+
+\begin{Theorem}
+For $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$, $\delta \in \F_2$,
+$f : \F_2^{2m} \To \F_2$,
+
+the function
+\begin{align*}
+h(x) &:= f(A x + b) + \langle c, x \rangle + \delta
+\intertext{can be expressed as $h(x) = g(A x)$ where}
+g(x) &:= f(x+b) + \langle (A^{-1})^T c, x \rangle + \delta,
+\end{align*}
+and therefore if $f$ is bent then $h \cong g$.
+\end{Theorem}
+\end{frame}
+
+\begin{frame}
+\frametitle{Extended affine, extended translation, and extended Cayley equivalence (2)}
+
+Therefore, to determine the extended Cayley equivalence classes within the extended affine equivalence class of
+a bent function $f : \F_2^{2m} \To \F_2$, for which $f(0)=0$, we need only examine
+the extended translation equivalent functions of the form
+\begin{align*}
+f(x+b) + \langle c, x \rangle + f(b),
+\end{align*}
+for each $b, c \in \F_2^{2m}$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Quadratic bent functions have two \\ extended Cayley classes}
+\begin{Theorem}
+For each $m>0$, the extended affine equivalence class of quadratic bent functions
+$q : \F_2^{2m} \To \F_2$ contains exactly two extended Cayley equivalence classes,
+corresponding to the two possible weight classes of $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
+\end{Theorem}
+
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Computational results for quadratic bent functions in low dimensions}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{For 2 dimensions: quadratic case: $[f_{2,1}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c2_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{2,1}]$: 2 extended Cayley classes}
+  \label{fig:q2_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For 4 dimensions: quadratic case: $[f_{4,1}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c4_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{4,1}]$: 2 extended Cayley classes}
+  \label{fig:q4_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For 6 dimensions: quadratic case: $[f_{6,1}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,1}]$: 2 extended Cayley classes}
+  \label{fig:q6_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For 8 dimensions: quadratic case: $[f_{8,1}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: 2 extended Cayley classes}
+  \label{fig:q8_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Block designs}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}
+\frametitle{The two block designs of a bent function}
+
+The first block design of a bent function $f$ is obtained by interpreting
+the adjacency matrix of $\Cay{f}$ as the incidence matrix of a block design.
+In this case we do not need $f(0)=0$.
+
+~
+\begin{Def}
+The second block design of a bent function $f$ is defined by the incidence matrix
+$D(f)$ where
+\begin{align*}
+D(f)_{c,x} &:= f(x) + \langle c, x \rangle + \dual{f}(c).
+\end{align*}
+This is a symmetric block design with the \Emph{symmetric difference property},
+called the \Emph{SDP design} of $f$.
+\end{Def}
+
+~
+
+\slidecite{Kantor 1975; Dillon and Schatz 1987; Neumann 2006}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{The weight class matrix is \\ the SDP design matrix}
+\begin{Theorem}
+For every bent function $f$, the \Emph{weight class matrix} of the ET class of $f$
+equals the incidence matrix of the SDP design of $f$.
+
+~
+
+Specifically,
+\begin{align*}
+\weightclass{x \mapsto f(x+b) + \langle c, x \rangle + f(b)}
+&=
+f(b) + \langle c, b \rangle + \dual{f}(c)
+\\
+&=
+D(f)_{c,b}.
+\end{align*}
+
+\end{Theorem}
+
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Computational results for low dimensions}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{For 2 dimensions: classes}
+
+One extended affine class, containing the extended translation class $[f_{2,1}]$,
+where $f_{2,1}(x) := x_0 x_1$ is self dual.
+
+~
+
+Two extended Cayley classes:
+\begin{align*}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(4, 1, 0, 0) & 4 &
+2t^{2} + 4t + 1
+\\
+2 &
+K_4 & 4 &
+t^{4} + 4t^{3} + 6t^{2} + 4t + 1
+\\
+\hline
+\end{array}
+\end{align*}
+
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{2,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c2_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{2,1}]$: weight classes}
+  \label{fig:c2_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c2_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{2,1}]$: extended Cayley classes}
+  \label{fig:c2_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For 4 dimensions: classes}
+
+One extended affine class, containing the extended translation class $[f_{4,1}]$, where
+$f_{4,1}(x) := x_0 x_1 + x_2 x_3$ is self dual.
+
+~
+
+Two extended Cayley classes:
+\begin{align*}
+\begin{array}{|cccl|}
+\hline
+\text{Class} &
+\text{Parameters} &
+\text{2-rank} &
+\text{Clique polynomial}
+\\
+\hline
+1 &
+(16, 6, 2, 2) &
+6 &
+8t^{4} + 32t^{3} + 48t^{2} + 16t + 1
+\\
+2 &
+(16, 10, 6, 6) &
+6 &
+\begin{array}{l}
+16t^{5} + 120t^{4} + 160t^{3} +
+\\
+80t^{2} + 16t + 1
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{4,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c4_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{4,1}]$: weight classes}
+  \label{fig:c4_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c4_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{4,1}]$: extended Cayley classes}
+  \label{fig:c4_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}
+\frametitle{For 6 dimensions: ET classes}
+
+Four extended affine classes, containing the following extended translation classes:
+
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cl|}
+\hline
+\text{Class} &
+\text{Representative}
+\\
+\hline
+\,[f_{6,1}] & f_{6,1} :=
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5}
+\end{array}
+\\
+\,[f_{6,2}] & f_{6,2} :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}
+\end{array}
+\\
+\,[f_{6,3}] & f_{6,3} :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5}
+\\
+ +\, x_{2} x_{4} + x_{3} x_{4}
+\end{array}
+\\
+\,[f_{6,4}] & f_{6,4} :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
+ +\, x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\slidecite{Rothaus 1976; Tokareva 2015}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{For ET class $[f_{6,1}]$: EC classes}
+
+Bent function
+$f_{6,1}(x) = x_0 x_1 + x_2 x_3 + x_4 x_5$ is self dual.
+
+ ~
+
+Two extended Cayley classes corresponding to Tonchev's projective two-weight codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 1, 2 (complement)}
+\\
+1 & [27,6,12] & \text{Table 1.155 1 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+Graph for class 0 is also isomorphic to the complement of Royle's $(64,35,18,20)$ strongly regular
+graph $X$.
+
+\slidecite{Tonchev 1996, 2006; Royle 2008}
+ \end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,1}]$: weight classes}
+  \label{fig:6_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,1}]$: 2 extended Cayley classes}
+  \label{fig:6_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,2}]$: EC classes}
+
+Bent function
+$f_{6,2}(x) = x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5}$.
+
+~
+
+Three extended Cayley classes corresponding to Tonchev's projective two-weight codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 1, 2 (complement)}
+\\
+1 & [35,6,16] & \text{Table 1.156 3 (complement)}
+\\
+2 & [27,6,12] & \text{Table 1.155 2 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+Graph for class 0 is also isomorphic to that of $[f_{6,1}]$ class 0.
+
+\slidecite{Tonchev 1996, 2006}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,2}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_2_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,2}]$: weight classes}
+  \label{fig:6_2_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,2}]$: 3 extended Cayley classes}
+  \label{fig:6_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,3}]$: EC classes}
+
+Bent function
+\begin{align*}
+f_{6,3}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{3} + x_{1} x_{3} x_{4}
+\\
+           &+ x_{1} x_{5} + x_{2} x_{4} + x_{3} x_{4}.
+\end{align*}
+
+Four extended Cayley classes corresponding to Tonchev's projective two-weight codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 4 (complement)}
+\\
+1 & [27,6,12] & \text{Table 1.155 3 }
+\\
+2 & [35,6,16] & \text{Table 1.156 5 (complement)}
+\\
+3 & [27,6,12] & \text{Table 1.155 4 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+\slidecite{Tonchev 1996, 2006}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,3}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_3_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,3}]$: weight classes}
+  \label{fig:6_3_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,3}]$: 4 extended Cayley classes}
+  \label{fig:6_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,4}]$: EC classes}
+
+Bent function
+\begin{align*}
+f_{6,4}(x) &= x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
+           &+ x_{2} x_{3} + x_{2} x_{4} + x_{2} x_{5} + x_{3} x_{4} + x_{3} x_{5}.
+\end{align*}
+
+Three extended Cayley classes corresponding to Tonchev's projective two-weight codes:
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|ccl|}
+\hline
+\text{Class} &
+\text{Parameters} & \text{Reference}
+\\
+\hline
+0 & [35,6,16] & \text{Table 1.156 7 (complement)}
+\\
+1 & [35,6,16] & \text{Table 1.156 6 (complement)}
+\\
+2 & [27,6,12] & \text{Table 1.155 5 }
+\\
+\hline
+\end{array}
+\end{align*}
+
+\slidecite{Tonchev 1996, 2006}
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{6,4}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_4_weight_class_matrix.png}
+  \captionof{figure}{$[f_{6,4}]$: weight classes}
+  \label{fig:6_4_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c6_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{6,4}]$: 3 extended Cayley classes}
+  \label{fig:6_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}
+\frametitle{For 8 dimensions: \\ number of bent functions and EA classes}
+
+According to Langevin and Leander (2011)
+there are $99\,270\,589\,265\,934\,370\,305\,785\,861\,242\,880 \approx 2^{106}$ bent functions in dimension 8.
+
+~
+
+The number of EA classes has not yet been published, let alone a list of representatives.
+
+~
+
+~
+
+~
+
+~
+
+\slidecite{Langevin and Leander 2011}
+\end{frame}
+
+\begin{frame}
+\frametitle{For 8 dimensions, up to degree 3: \\ extended translation classes}
+
+Ten extended affine classes are listed in Braeken's thesis (2006),
+
+containing the following extended translation classes:
+
+\tiny{}
+\begin{align*}
+\def\arraystretch{1.2}
+\begin{array}{|cl|}
+\hline
+\text{Class} &
+\text{Representative}
+\\
+\hline
+\,[f_{ 8 , 1 }] & f_{ 8 , 1 } :=
+\begin{array}{l}
+x_{0} x_{1} + x_{2} x_{3} + x_{4} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 2 }] & f_{ 8 , 2 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{5} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 3 }] & f_{ 8 , 3 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{4} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 4 }] & f_{ 8 , 4 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{4} + x_{1} x_{3} x_{4} + x_{1} x_{5} + x_{2} x_{3} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 5 }] & f_{ 8 , 5 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 6 }] & f_{ 8 , 6 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 7 }] & f_{ 8 , 7 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{1} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5}
+\\
++\,  x_{2} x_{4} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 8 }] & f_{ 8 , 8 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 9 }] & f_{ 8 , 9 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{6} + x_{0} x_{3} + x_{1} x_{4} + x_{2} x_{3} x_{6} + x_{2} x_{5} + x_{3} x_{4} + x_{4} x_{5} x_{6} + x_{6} x_{7}
+\end{array}
+\\
+\,[f_{ 8 , 10 }] & f_{ 8 , 10 } :=
+\begin{array}{l}
+x_{0} x_{1} x_{2} + x_{0} x_{3} x_{6} + x_{0} x_{4} + x_{0} x_{5} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4}
+\\
++\,  x_{3} x_{7}
+\end{array}
+\\
+\hline
+\end{array}
+\end{align*}
+\slidecite{Braeken 2006; Tokareva 2015}
+\normalsize{}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{For ET class $[f_{8,1}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_1_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: weight classes}
+  \label{fig:8_1_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,1}]$: 2 extended Cayley classes}
+  \label{fig:8_1_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,2}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_2_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: weight classes}
+  \label{fig:8_2_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,2}]$: 4 extended Cayley classes}
+  \label{fig:8_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+Graph for class 0 is isomorphic to graph for class 0 of $[f_{8,1}]$.
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,3}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_3_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: weight classes}
+  \label{fig:8_3_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,3}]$: 6 extended Cayley classes}
+  \label{fig:8_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,4}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_4_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: weight classes}
+  \label{fig:8_4_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,4}]$: 5 extended Cayley classes}
+  \label{fig:8_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,5}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_5_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: weight classes}
+  \label{fig:8_5_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_5_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: 9 extended Cayley classes}
+  \label{fig:8_5_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,6}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_6_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: weight classes}
+  \label{fig:8_6_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_6_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: 9 extended Cayley classes}
+  \label{fig:8_6_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{ET classes  $[f_{8,5}]$ and $[f_{8,6}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_5_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,5}]$: 9 extended Cayley classes}
+  \label{fig:re8_5_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/re8_6_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,6}]$: 9 extended Cayley classes}
+  \label{fig:re8_6_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+The same 9 EC classes, with the same frequencies!
+
+\slidecite{colormap: gist\_stern, colours matched to extended Cayley classes}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Functions $f_{8,5}$ and $f_{8,6}$ are linearly equivalent}
+
+\Emph{Proof}
+
+~
+
+Apply the permutation $\pi := (x_0\ x_5\ x_4)(x_1\ x_2\ x_3)(x_6\ x_7)$ to
+\footnotesize{
+\begin{align*}
+f_{8,5}
+&=
+x_{0} x_{1} x_{2} + x_{0} x_{6} + x_{1} x_{3} x_{4} + x_{1} x_{4} + x_{1} x_{5} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{3} x_{7}
+%\end{align*}
+%}\normalsize{}
+\intertext{\normalsize{to obtain}}
+%\small{
+%\begin{align*}
+\pi(f_{8,5})
+&=
+x_{5} x_{2} x_{3} + x_{5} x_{7} + x_{2} x_{1} x_{0} + x_{2} x_{0} + x_{2} x_{4} + x_{3} x_{1} x_{4} + x_{3} x_{0} + x_{1} x_{6}
+\\
+&=
+x_{0} x_{1} x_{2} + x_{0} x_{2} + x_{0} x_{3} + x_{1} x_{3} x_{4} + x_{1} x_{6} + x_{2} x_{3} x_{5} + x_{2} x_{4} + x_{5} x_{7}
+\\
+&= f_{8,6}.
+\\
+&\ \Box
+\end{align*}
+}\normalsize{}
+\end{frame}
+
+\begin{frame}
+\frametitle{For ET class $[f_{8,7}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_7_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: weight classes}
+  \label{fig:8_7_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_7_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,7}]$: 5 extended Cayley classes}
+  \label{fig:8_7_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,8}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_8_weight_class_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: weight classes}
+  \label{fig:8_8_weight_class_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_8_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,8}]$: 6 extended Cayley classes}
+  \label{fig:8_8_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+~
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,9}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_9_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_9_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_9_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,9}]$: 8 extended Cayley classes of dual bent functions}
+  \label{fig:c8_9_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+4 of the 8 classes form 2 dual pairs of classes.
+\end{frame}
+\begin{frame}
+\frametitle{For ET class $[f_{8,10}]$: matrices}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_10_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:c8_10_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/c8_10_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[f_{8,10}]$: 10 extended Cayley classes of dual bent functions}
+  \label{fig:c8_10_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+6 of the 10 classes form 3 dual pairs of classes.
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}[fragile]
+\frametitle{For 8 dimensions: Bent functions from CAST-128 S-boxes}
+
+The CAST-128 encryption algorithm is used in PGP and elsewhere.
+
+CAST-128, including the S-boxes, is specified by IETF RFC 2144:
+\begin{verbatim}
+https://www.ietf.org/rfc/rfc2144.txt
+\end{verbatim}
+
+The algorithm uses 8 S-boxes,
+each of which consists of 32 binary bent functions of degree 4 in 8 dimensions,
+giving a total of 256 bent functions.
+
+~
+
+~
+
+~
+
+\slidecite{Adams 1997}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{CAST-128 ET class $[cast128_{1,0}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_1_0_weight_class_matrix.png}
+  \captionof{figure}{$[cast128_{1,0}]$: weight classes ~~~~~~ ~~~~~~~~\\~~~~~}
+  \label{fig:cast128_1_0_weight_class_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_1_0_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{1,0}]$: $65\,536$ extended Cayley classes.\\Total including duals is $131\,072$.}
+  \label{fig:cast128_1_0_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\slidecite{LHS colormap: gist\_stern; RHS colormap: jet}
+\end{frame}
+
+\begin{frame}
+\frametitle{CAST-128 ET classes $[cast128_{2,1}]$ and $[cast128_{2,16}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_2_1_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{2,1}]$: $8\,256$ extended Cayley classes.\\Total including duals is $8\,256$.}
+  \label{fig:cast128_2_1_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_2_16_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{2,16}]$: $32\,768$ extended Cayley classes.\\Total including duals is $65\,536$.}
+  \label{fig:cast128_2_16_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\slidecite{colormap: jet}
+\end{frame}
+
+\begin{frame}
+\frametitle{CAST-128 ET classes $[cast128_{4,27}]$ and $[cast128_{5,16}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_4_27_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{4,27}]$: $65\,536$ extended Cayley classes.\\Total including duals is $65\,536$.}
+  \label{fig:cast128_4_27_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_5_16_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{5,16}]$: $33\,280$ extended Cayley classes.\\Total including duals is $66\,560$.}
+  \label{fig:cast128_5_16_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\slidecite{colormap: jet}
+\end{frame}
+\begin{frame}
+\frametitle{CAST-128 ET classes $[cast128_{5,27}]$ and $[cast128_{6,17}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_5_27_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{5,27}]$: $6\,144$ extended Cayley classes.\\Total including duals is $6\,144$.}
+  \label{fig:cast128_5_27_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_6_17_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{6,17}]$: $65\,536$ extended Cayley classes.\\Total including duals is $65\,536$.}
+  \label{fig:cast128_6_17_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\slidecite{colormap: jet}
+\end{frame}
+
+\begin{frame}
+\frametitle{CAST-128 ET classes $[cast128_{7,15}]$ and $[cast128_{7,21}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_7_15_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{7,15}]$: $32\,768$ extended Cayley classes.\\Total including duals is $65\,536$.}
+  \label{fig:cast128_7_15_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+\includegraphics[width=.9\linewidth]{../matrix_plot/cast128_7_21_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[cast128_{7,21}]$: $32\,768$ extended Cayley classes.\\Total including duals is $65\,536$.}
+  \label{fig:cast128_7_21_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+\slidecite{colormap: jet}
+\end{frame}
+\end{colortheme}
+
+\begin{colortheme}{seagull}
+
+\begin{frame}[fragile]
+\frametitle{For 8 dimensions: number of partial spread \\ bent functions and EA classes}
+
+According to Langevin and Hou (2011)
+there are $70\,576\,747\,237\,594\,114\,392\,064 \approx 2^{75.9}$ \Emph{partial spread} bent functions in dimension 8,
+contained in $14\,758$ EA classes, of which $14\,756$ have degree 4.
+
+~
+
+The EA class representatives are listed at Langevin's web site
+
+\begin{verbatim}
+http://langevin.univ-tln.fr/project/spread/psp.html
+\end{verbatim}
+
+~
+
+\slidecite{Langevin and Hou 2011}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{Example partial spread ET class $[psf_{9,5439}]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5439_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5439}]$: 16 extended Cayley classes ~~ ~~~~ ~~~~ ~~~~~~~~~}
+  \label{fig:psf_9_5439_bent_cayley_graph_index_matrix}
+\end{minipage}
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/psf_9_5439_dual_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[psf_{9,5439}]$: 16 extended Cayley classes of dual bent functions}
+  \label{fig:psf_9_5439_dual_cayley_graph_index_matrix}
+\end{minipage}%
+\end{figure}
+6 of the 16 classes form 3 dual pairs of classes.
+
+\slidecite{colormap: gist\_stern}
+\end{frame}
+
+\end{colortheme}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{For 4 dimensions: $[\sigma_2]$ and $[\tau_2]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\sigma_2]$: 2 extended Cayley classes}
+  \label{fig:sigma_2_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_2_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_2]$: 2 extended Cayley classes}
+  \label{fig:tau_2_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{For 6 dimensions: $[\sigma_3]$ and $[\tau_3]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\sigma_3]$: 2 extended Cayley classes}
+  \label{fig:sigma_3_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_3_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_3]$: 3 extended Cayley classes}
+  \label{fig:tau_3_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{For 8 dimensions: $[\sigma_4]$ and $[\tau_4]$}
+\begin{figure}
+\centering
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/sigma_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\sigma_4]$: 2 extended Cayley classes}
+  \label{fig:sigma_4_bent_cayley_graph_index_matrix}
+\end{minipage}%
+\begin{minipage}{.48\textwidth}
+  \centering
+  \includegraphics[width=.9\linewidth]{../matrix_plot/tau_4_bent_cayley_graph_index_matrix.png}
+  \captionof{figure}{$[\tau_4]$: 5 extended Cayley classes}
+  \label{fig:tau_4_bent_cayley_graph_index_matrix}
+\end{minipage}
+\end{figure}
+\end{frame}
+\end{colortheme}
+
+\subsection{Questions}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{Open problems (1)}
+Settled only for dimensions up to 6:
+\begin{enumerate}
+\item
+How many EC classes are there for each dimension?
+Are there ``Exponential numbers'' of classes?
+\item
+In $n$ dimensions,
+which ET classes contain the maximum number, $4^n$, of different EC classes?
+\item
+Which EC classes overlap more than one ET class?
+\item
+Which bent functions are Cayley equivalent to their dual?
+\item
+Which bent functions are EA equivalent to their dual?
+\end{enumerate}
+
+\slidecite{Kantor 1983; Jungnickel and Tonchev 1991; Langevin, Leander and McGuire 2008}
+\end{frame}
+
+\begin{frame}
+\frametitle{Open problems (2)}
+Also:
+
+~
+
+\begin{enumerate}
+\item
+What are the remaining EA and EC classes of binary bent functions of dimension 8 and degree 4?
+
+~
+
+\item
+How do extended Cayley classes of bent functions generalize to bent functions over $\F_p$, $p \neq 2$?
+\end{enumerate}
+
+\slidecite{Langevin and Leander 2011; Chee, Tan and Zhang 2011}
+\end{frame}
+
+\end{colortheme}
+
+\section{Databases of strongly regular graphs}
+
+\subsection{Precedents}
+
+\begin{colortheme}{seagull}
+\begin{frame}
+\frametitle{Precedents: databases of strongly regular graphs}
+\begin{itemize}
+ \item
+Spence's lists of strongly regular graphs on at most 64 vertices.
+ \begin{itemize}
+  \item
+Exhaustive lists of non-isomorphic graphs for some tuples of feasible parameters.
+  \item
+Flat text files.
+ \end{itemize}
+
+~
+
+ \item
+Brouwer's database of parameters of strongly regular graphs.
+
+~
+
+ \item
+Cohen and Pasechnik's Sage implementation of Brouwer's database, with constructions.
+ \begin{itemize}
+  \item
+Includes an example for each tuple of feasible parameters, if known.
+  \item
+Sage interface.
+ \end{itemize}
+\end{itemize}
+\slidecite{Spence 1995-2006; Brouwer 2008-2017; Cohen and Pasechnik 2016-2017}
+\end{frame}
+
+\begin{frame}
+\frametitle{Other recent mathematical databases}
+\begin{itemize}
+ \item
+ISGCI - Information System on Graph Classes and their Inclusions
+ \begin{itemize}
+  \item
+``\ldots an encyclopaedia of graph classes with an accompanying Java application that helps you to research what's known about particular graph classes.''
+  \item
+Web-based and Java interfaces.
+ \end{itemize}
+
+~
+
+ \item
+LMFDB - The L-functions and modular forms database
+ \begin{itemize}
+  \item
+``The LMFDB is an extensive database of mathematical objects arising in Number Theory.''
+  \item
+Based on MongoDB and Python.
+  \item
+Web-based and Sage interfaces.
+ \end{itemize}
+\end{itemize}
+\slidecite{H.N. de Ridder et al. 2001-2016; The LMFDB Collaboration 2007-2017}
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Preliminary designs}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{Database tables}
+\begin{figure}
+\centering
+\begin{minipage}{\textwidth}
+  \centering
+\includegraphics[width=.75\linewidth]{Classification-schema-SQLite.png}
+  \captionof{figure}{Database schema for SQLite version of the classification database.}
+  \label{fig:Classification_schema_SQLite}
+\end{minipage}%
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sage interface: insert function}
+
+\begin{verbatim}
+insert_classification(conn, bfcgc, name=None):
+\end{verbatim}
+
+\begin{itemize}
+ \item \texttt{conn}: Database connection.
+
+~
+
+ \item \texttt{bfcgc}: Cayley graph classification of the ET class of \\a bent function.
+
+~
+
+ \item \texttt{name}: Name of the ET class (optional).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sage interface: select functions}
+
+\begin{verbatim}
+select_classification_where_bent_function(
+    conn, bentf):
+\end{verbatim}
+\begin{itemize}
+ \item \texttt{conn}: Database connection.
+ \item \texttt{bentf}: Bent function representing an ET class.
+\end{itemize}
+
+~
+
+\begin{verbatim}
+select_classification_where_name(conn, name):
+\end{verbatim}
+\begin{itemize}
+ \item \texttt{conn}: Database connection.
+ \item \texttt{name}: Name of the ET class.
+\end{itemize}
+
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Prototype databases}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}
+\frametitle{Prototype databases}
+Three prototype relational databases, using SQLite:
+
+\begin{itemize}
+ \item\normalsize{}
+Bent functions in 6 dimensions.
+ \begin{itemize}
+  \item\footnotesize{}
+Database of 11 strongly regular graphs from 4 ET classes.
+  \item\footnotesize{}
+About 20 CPU minutes to calculate (2.93 GHz Intel Core i7, serial).
+  \item\footnotesize{}
+Database size 780 KB.
+ \end{itemize}
+
+ \item\normalsize{}
+Bent functions in 8 dimensions, up to degree 3.
+ \begin{itemize}
+  \item\footnotesize{}
+Database of 55 strongly regular graphs from 9 ET classes.
+  \item\footnotesize{}
+About 250 CPU hours to calculate (2.93 GHz Intel Core i7, serial).
+  \item\footnotesize{}
+Database size 65 MB.
+ \end{itemize}
+
+ \item\normalsize{}
+Bent functions from the 8 S-boxes of CAST-128.
+ \begin{itemize}
+  \item\footnotesize{}
+Database of more than \Emph{32 million} ($32\,914\,496$) strongly regular graphs from 256 ET classes and their duals.
+  \item\footnotesize{}
+About \Emph{9000 CPU hours} to calculate
+(4500 CPU hours on\\NCI Raijin, MPI, 16 ranks, for 128 ET classes and their duals).
+  \item\footnotesize{}
+Database size \Emph{195 GB}.
+ \end{itemize}
+\end{itemize}
+
+\normalsize{}
+\end{frame}
+
+\begin{frame}
+\frametitle{Time to create SQLite CAST-128 database}
+\begin{figure}
+\centering
+\begin{minipage}{.49\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{CAST128-database-insert-times-by-existing.png}
+  \label{fig:CAST128_database_insert_times_by_existing}
+\end{minipage}
+\begin{minipage}{.49\textwidth}
+  \centering
+  \includegraphics[width=1.0\linewidth]{CAST128-database-insert-times-by-time-of-day.png}
+  \label{fig:CAST128_database_insert_times-By_time_of_day}
+\end{minipage}%
+\end{figure}
+It took almost 3 days to insert 256 classifications \Emph{sequentially} into the SQLite version of the CAST-128 database.
+\end{frame}
+
+\begin{frame}
+\frametitle{Using DB Browser with a prototype database}
+\begin{figure}
+\centering
+\begin{minipage}{\textwidth}
+  \centering
+\includegraphics[width=1.00\linewidth]{Browser-session-SQLite.png}
+%  \captionof{figure}{DB Browser session with a prototype classification database.}
+  \label{fig:Browser_session_SQLite}
+\end{minipage}%
+\end{figure}
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Prospects}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}[fragile]
+\frametitle{Possible next steps}
+
+\begin{itemize}
+ \item
+Submit ``Classifying bent functions by their Cayley graphs.''
+
+~
+
+ \item
+Submit code to Sage project for review.
+
+~
+
+ \item
+Gauge demand for the database. Find collaborators.
+
+~
+
+ \item
+Arrange for hosting. Research Data Services?
+
+~
+
+ \item
+Scale up to the partial spread bent functions?
+
+ \begin{itemize}
+  \item
+This could be a database of about \Emph{2 billion SRGs},
+\\
+from 14\,758 ET classes, taking about \Emph{500\,000 CPU hours}
+\\
+to calculate and about \Emph{10 TB} to store.
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{colortheme}
+
+\subsection{Source code}
+
+\begin{colortheme}{jubata}
+
+\begin{frame}[fragile]
+\frametitle{Source code and documentation}
+~
+
+CoCalc: Public worksheets, Sage and Python source code
+
+\begin{verbatim}
+http://tinyurl.com/Boolean-Cayley-graphs
+\end{verbatim}
+
+~
+
+GitHub: Sage and Python source code
+
+\begin{verbatim}
+https://github.com/penguian/Boolean-Cayley-graphs
+\end{verbatim}
+
+~
+
+SourceForge: Documentation
+
+\begin{verbatim}
+https://boolean-cayley-graphs.sourceforge.io/
+\end{verbatim}
+\end{frame}
+
+\end{colortheme}
+
+\end{document}
