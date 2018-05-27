@@ -1,11 +1,13 @@
 r"""
+Utilities to manipulate a PostgreSQL database of Cayley graph classifications.
+
 AUTHORS:
 
 - Paul Leopardi (2017-10-28)
 
 """
 #*****************************************************************************
-#       Copyright (C) 2017 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2017-2018 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -44,7 +46,15 @@ PSYCOPG2_DEFAULT = Psycopg2Default()
 
 
 def create_database(db_name):
+    """
+    Create a database.
 
+    INPUT:
+
+    - ``db_name`` -- string. The name of the database to be created.
+
+    OUTPUT: a database connection object.
+    """
     conn = psycopg2.connect(dbname="postgres")
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     curs = conn.cursor()
@@ -55,7 +65,15 @@ def create_database(db_name):
 
 
 def connect_to_database(db_name):
+    """
+    Connect to an existing database.
 
+    INPUT:
+
+    - ``db_name`` -- string. The name of the existing database.
+
+    OUTPUT: a database connection object.
+    """
     conn = psycopg2.connect(dbname=db_name)
     return conn
 
@@ -72,7 +90,15 @@ def drop_database(db_name):
 
 
 def create_classification_tables(db_name):
+    """
+    Create the tables used for a database of Cayley graph classifications.
 
+    INPUT:
+
+    - ``db_name`` -- string. The name of an existing database.
+
+    OUTPUT: a database connection object.
+    """
     conn = connect_to_database(db_name)
     curs = conn.cursor()
 
@@ -119,8 +145,23 @@ def canonical_label_hash(canonical_label):
     return psycopg2.Binary(buffer(hashlib.sha256(canonical_label).digest()))
 
 
-def insert_classification(conn, bfcgc, name=None):
+def insert_classification(
+    conn,
+    bfcgc,
+    name=None):
+    """
+    Insert a Cayley graph classification into a database.
 
+    INPUT:
+
+    - ``conn`` -- a connection object for the database.
+
+    - ``bfcgc`` -- a Cayley graph classification.
+
+    - ``name`` -- string (default: `None`). The name of the bent function.
+
+    OUTPUT: a cursor object corresponding to the inserted classification.
+    """
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
     v = 2 ** dim
@@ -174,7 +215,18 @@ def insert_classification(conn, bfcgc, name=None):
 def select_classification_where_bent_function(
     conn,
     bentf):
+    """
+    Retrieve a Cayley graph classification for a given bent function from a database.
 
+    INPUT:
+
+    - ``conn`` -- a connection object for the database.
+
+    - ``bentf`` -- class BentFunction. A bent function.
+
+    OUTPUT: class BentFunctionCayleyGraphClassification.
+    The corresponding a Cayley graph classification.
+    """
     dim = bentf.nvariables()
     v = 2 ** dim
     bftt = (psycopg2.Binary(bentf.tt_buffer()),)
@@ -275,7 +327,18 @@ def select_classification_where_bent_function_cayley_graph(
 def select_classification_where_name(
     conn,
     name):
+    """
+    Retrieve a Cayley graph classification for a bent function with a given name from a database.
 
+    INPUT:
+
+    - ``conn`` -- a connection object for the database.
+
+    - ``name`` -- string. The name of the bent function.
+
+    OUTPUT: class BentFunctionCayleyGraphClassification.
+    The corresponding a Cayley graph classification.
+    """
     curs = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     curs.execute("""
         SELECT bent_function

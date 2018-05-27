@@ -1,17 +1,20 @@
 r"""
+Utilities to manipulate an sqlite3 database of Cayley graph classifications.
+
 AUTHORS:
 
 - Paul Leopardi (2017-10-28)
 
 """
 #*****************************************************************************
-#       Copyright (C) 2017 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2017-2018 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
 #  the License, or (at your option) any later version.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
+
 
 import hashlib
 import sqlite3
@@ -25,21 +28,45 @@ from boolean_cayley_graphs.weight_class import weight_class
 
 
 def create_database(db_name):
+    """
+    Create a database.
 
+    INPUT:
+
+    - ``db_name`` -- string. The name of the database to be created.
+
+    OUTPUT: a database connection object.
+    """
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
     return conn
 
 
 def connect_to_database(db_name):
+    """
+    Connect to an existing database.
 
+    INPUT:
+
+    - ``db_name`` -- string. The name of the existing database.
+
+    OUTPUT: a database connection object.
+    """
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
     return conn
 
 
 def create_classification_tables(db_name):
+    """
+    Create the tables used for a database of Cayley graph classifications.
 
+    INPUT:
+
+    - ``db_name`` -- string. The name of an existing database.
+
+    OUTPUT: a database connection object.
+    """
     conn = connect_to_database(db_name)
     curs = conn.cursor()
 
@@ -83,8 +110,23 @@ def create_classification_tables(db_name):
     return conn
 
 
-def insert_classification(conn, bfcgc, name=None):
+def insert_classification(
+    conn,
+    bfcgc,
+    name=None):
+    """
+    Insert a Cayley graph classification into a database.
 
+    INPUT:
+
+    - ``conn`` -- a connection object for the database.
+
+    - ``bfcgc`` -- class BentFunctionCayleyGraphClassification. A Cayley graph classification.
+
+    - ``name`` -- string (default: `None`). The name of the bent function.
+
+    OUTPUT: a cursor object corresponding to the inserted classification.
+    """
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
     v = 2 ** dim
@@ -137,7 +179,18 @@ def insert_classification(conn, bfcgc, name=None):
 def select_classification_where_bent_function(
     conn,
     bentf):
+    """
+    Retrieve a Cayley graph classification for a given bent function from a database.
 
+    INPUT:
+
+    - ``conn`` -- a connection object for the database.
+
+    - ``bentf`` -- class BentFunction. A bent function.
+
+    OUTPUT: class BentFunctionCayleyGraphClassification.
+    The corresponding a Cayley graph classification.
+    """
     dim = bentf.nvariables()
     v = 2 ** dim
     bftt = (bentf.tt_buffer(),)
@@ -197,7 +250,18 @@ def select_classification_where_bent_function(
 def select_classification_where_name(
     conn,
     name):
+    """
+    Retrieve a Cayley graph classification for a bent function with a given name from a database.
 
+    INPUT:
+
+    - ``conn`` -- a connection object for the database.
+
+    - ``name`` -- string. The name of the bent function.
+
+    OUTPUT: class BentFunctionCayleyGraphClassification.
+    The corresponding a Cayley graph classification.
+    """
     curs = conn.cursor()
     curs.execute("""
         SELECT bent_function
