@@ -69,7 +69,7 @@ def drop_database(db_name):
     """
     import os
     os.remove(db_name)
-    return conn
+    return None
 
 
 def create_classification_tables(db_name):
