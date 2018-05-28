@@ -36,6 +36,18 @@ def create_database(db_name):
     - ``db_name`` -- string. The name of the database to be created.
 
     OUTPUT: a database connection object.
+
+    EXAMPLE:
+
+    Create a database using a temporary filename, then drop the database. ::
+
+        sage: from sage.misc.temporary_file import tmp_filename
+        sage: db_name = tmp_filename(ext='.db')
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: conn = create_database(db_name)
+        sage: type(conn)
+        <type 'sqlite3.Connection'>
+        sage: conn = drop_database(db_name)
     """
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
@@ -51,6 +63,19 @@ def connect_to_database(db_name):
     - ``db_name`` -- string. The name of the existing database.
 
     OUTPUT: a database connection object.
+
+    EXAMPLE:
+
+    Create a database using a temporary filename, connect to it, then drop the database. ::
+
+        sage: from sage.misc.temporary_file import tmp_filename
+        sage: db_name = tmp_filename(ext='.db')
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: conn = create_database(db_name)
+        sage: con2 = connect_to_database(db_name)
+        sage: type(con2)
+        <type 'sqlite3.Connection'>
+        sage: conn = drop_database(db_name)
     """
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
@@ -66,6 +91,18 @@ def drop_database(db_name):
     - ``db_name`` -- string. The name of the existing database.
 
     OUTPUT: None
+
+    EXAMPLE:
+
+    Create a database using a temporary filename, then drop the database. ::
+
+        sage: from sage.misc.temporary_file import tmp_filename
+        sage: db_name = tmp_filename(ext='.db')
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: conn = create_database(db_name)
+        sage: conn = drop_database(db_name)
+        sage: type(conn)
+        <type 'NoneType'>
     """
     import os
     os.remove(db_name)
@@ -81,6 +118,25 @@ def create_classification_tables(db_name):
     - ``db_name`` -- string. The name of an existing database.
 
     OUTPUT: a database connection object.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a temporary filename, list the table names, then drop the database. ::
+
+        sage: db_name = tmp_filename(ext='.db')
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: conn = create_classification_tables(db_name)
+        sage: curs = conn.cursor()
+        sage: result = curs.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        sage: for row in result:
+        ....:     for x in row:
+        ....:         print(x)
+        ....:
+        bent_function
+        graph
+        cayley_graph
+        matrices
+        sage: conn = drop_database(db_name)
     """
     conn = connect_to_database(db_name)
     curs = conn.cursor()
