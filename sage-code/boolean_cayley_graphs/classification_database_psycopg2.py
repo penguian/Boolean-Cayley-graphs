@@ -79,7 +79,16 @@ def connect_to_database(db_name):
 
 
 def drop_database(db_name):
+    """
+    Drop an existing database.
 
+
+    INPUT:
+
+    - ``db_name`` -- string. The name of the existing database.
+
+    OUTPUT: a database connection object.
+    """
     conn = psycopg2.connect(dbname="postgres")
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     curs = conn.cursor()
