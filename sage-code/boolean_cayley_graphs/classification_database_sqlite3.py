@@ -57,6 +57,21 @@ def connect_to_database(db_name):
     return conn
 
 
+def drop_database(db_name):
+    """
+    Drop an existing database.
+
+    INPUT:
+
+    - ``db_name`` -- string. The name of the existing database.
+
+    OUTPUT: None
+    """
+    import os
+    os.remove(db_name)
+    return conn
+
+
 def create_classification_tables(db_name):
     """
     Create the tables used for a database of Cayley graph classifications.
