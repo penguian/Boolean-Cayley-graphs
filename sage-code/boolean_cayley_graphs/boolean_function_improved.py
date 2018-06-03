@@ -449,7 +449,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
     def tt_buffer(self):
         r"""
-        Return a buffer containing the binary version of the truth table.
+        Return a buffer containing a compressed version of the truth table.
 
         INPUT:
 
@@ -457,7 +457,11 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         OUTPUT:
 
-        A buffer containing the binary version of the truth table of ``self``.
+        A str or buffer containing a compressed version of the truth table of ``self``.
+        If nvariables() < 2:
+           a result of type str representing a truth table in binary (right to left)
+        otherwise:
+           a result of type buffer representing a truth table in hex.
 
         EXAMPLES:
 
