@@ -78,6 +78,7 @@ from boolean_cayley_graphs.strongly_regular_graph import StronglyRegularGraph
 from boolean_cayley_graphs.weight_class import weight_class
 
 import boolean_cayley_graphs.cayley_graph_controls as controls
+import csv
 
 
 class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
@@ -518,8 +519,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
     @classmethod
     def from_parts(
-        cls, 
-        part_prefix, 
+        cls,
+        part_prefix,
         limited_memory=False):
 
         # Initialize from class parts.
@@ -1201,3 +1202,44 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         for name in matrix_names:
             graphic = matrix_plot(matrix(attributes[name]),cmap=cmap)
             graphic.save(figure_name + "_" + name + ".png")
+
+
+    def save_cg_class_list_as_csv(self, file_name_prefix):
+        """
+        """
+        cg_list = self.cayley_graph_class_list
+
+        fieldnames = ["cayley_graph_index", "canonical_label"]
+        with open(file_name_prefix+".csv","w") as cg_class_file:
+            writer = csv.DictWriter(cg_class_file, fieldnames=fieldnames)
+            writer.writeheader()
+            for n in xsrange(len(cg_list)):
+                    writer.writerow({
+                        "cayley_graph_index": n,
+                        "canonical_label": cg_list[n]})
+
+
+    def save_matrices_as_csv(self, file_name_prefix):
+        """
+        """
+        bentf = BentFunction(self.algebraic_normal_form)
+        dim = bentf.nvariables()
+        v = 2 ** dim
+
+        ci_matrix = self.bent_cayley_graph_index_matrix
+        di_matrix = self.dual_cayley_graph_index_matrix
+        wc_matrix = self.weight_class_matrix
+
+        fieldnames = ["b", "c", "bent_cayley_graph_index", "dual_cayley_graph_index", "weight_class"]
+        with open(file_name_prefix+".csv","w") as matrix_file:
+            writer = csv.DictWriter(matrix_file, fieldnames=fieldnames)
+            writer.writeheader()
+
+            for c in xsrange(v):
+                for b in xsrange(v):
+                    writer.writerow({
+                        "b": b,
+                        "c": c,
+                        "bent_cayley_graph_index": ci_matrix[c, b],
+                        "dual_cayley_graph_index": di_matrix[c, b],
+                        "weight_class": wc_matrix[c, b]})
