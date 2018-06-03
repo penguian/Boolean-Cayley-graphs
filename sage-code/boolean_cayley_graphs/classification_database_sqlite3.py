@@ -66,7 +66,8 @@ def connect_to_database(db_name):
 
     EXAMPLE:
 
-    Create a database using a temporary filename, connect to it, then drop the database. ::
+    Create a database using a temporary filename, connect to it,
+    then drop the database. ::
 
         sage: from sage.misc.temporary_file import tmp_filename
         sage: db_name = tmp_filename(ext='.db')
@@ -96,13 +97,17 @@ def drop_database(db_name):
 
     Create a database using a temporary filename, then drop the database. ::
 
-        sage: from sage.misc.temporary_file import tmp_filename
-        sage: db_name = tmp_filename(ext='.db')
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: import os
+        sage: db_name = tmp_filename(ext='.db')
         sage: conn = create_database(db_name)
+        sage: os.path.exists(db_name)
+        True
         sage: conn = drop_database(db_name)
         sage: type(conn)
         <type 'NoneType'>
+        sage: os.path.exists(db_name)
+        False
     """
     import os
     os.remove(db_name)
@@ -121,11 +126,15 @@ def create_classification_tables(db_name):
 
     EXAMPLE:
 
-    Create a database, with tables, using a temporary filename, list the table names, then drop the database. ::
+    Create a database, with tables, using a temporary filename,
+    list the table names, then drop the database. ::
 
-        sage: db_name = tmp_filename(ext='.db')
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: import os
+        sage: db_name = tmp_filename(ext='.db')
         sage: conn = create_classification_tables(db_name)
+        sage: os.path.exists(db_name)
+        True
         sage: curs = conn.cursor()
         sage: result = curs.execute("SELECT name FROM sqlite_master WHERE type='table'")
         sage: for row in result:
@@ -192,11 +201,39 @@ def insert_classification(
 
     - ``conn`` -- a connection object for the database.
 
-    - ``bfcgc`` -- class BentFunctionCayleyGraphClassification. A Cayley graph classification.
+    - ``bfcgc`` -- class BentFunctionCayleyGraphClassification.
+       A Cayley graph classification.
 
     - ``name`` -- string (default: `None`). The name of the bent function.
 
-    OUTPUT: a cursor object corresponding to the inserted classification.
+    OUTPUT:
+
+    A cursor object corresponding to state of the database after the
+    classification is inserted.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a temporary filename, insert
+    a classification, retrieve it by bent function, then drop the database. ::
+
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: bfcgc = BentFunctionCayleyGraphClassification.from_function(bentf)
+        sage: bfcgc.algebraic_normal_form
+        x0*x1
+        sage: db_name = tmp_filename(ext='.db')
+        sage: conn = create_classification_tables(db_name)
+        sage: curs = insert_classification(conn, bfcgc,'bentf')
+        sage: for row in curs:
+        ....:     for x in row:
+        ....:         print(x)
+        ....:
+        sage: result = select_classification_where_bent_function(conn, bentf)
+        sage: result.algebraic_normal_form
+        x0*x1
+        sage: conn = drop_database(db_name)
     """
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
@@ -259,8 +296,57 @@ def select_classification_where_bent_function(
 
     - ``bentf`` -- class BentFunction. A bent function.
 
-    OUTPUT: class BentFunctionCayleyGraphClassification.
-    The corresponding a Cayley graph classification.
+    OUTPUT:
+
+    class BentFunctionCayleyGraphClassification.
+    The corresponding Cayley graph classification.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a temporary filename, insert
+    a classification, retrieve it by bent function, then drop the database. ::
+
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: bfcgc = BentFunctionCayleyGraphClassification.from_function(bentf)
+        sage: bfcgc.algebraic_normal_form
+        x0*x1
+        sage: db_name = tmp_filename(ext='.db')
+        sage: conn = create_classification_tables(db_name)
+        sage: curs = insert_classification(conn, bfcgc,'bentf')
+        sage: for row in curs:
+        ....:     for x in row:
+        ....:         print(x)
+        ....:
+        sage: result = select_classification_where_bent_function(conn, bentf)
+        sage: result.algebraic_normal_form
+        x0*x1
+        sage: type(result)
+        <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
+        sage: result.report()
+        Algebraic normal form of Boolean function: x0*x1
+        Function is bent.
+        <BLANKLINE>
+        Weight class matrix:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        <BLANKLINE>
+        SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+        <BLANKLINE>
+        Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+        <BLANKLINE>
+        There are 2 extended Cayley classes in the extended translation class.
+        <BLANKLINE>
+        Matrix of indices of Cayley graphs:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        sage: conn = drop_database(db_name)
     """
     dim = bentf.nvariables()
     v = 2 ** dim
@@ -332,6 +418,50 @@ def select_classification_where_name(
 
     OUTPUT: class BentFunctionCayleyGraphClassification.
     The corresponding a Cayley graph classification.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a temporary filename, insert
+    a classification, retrieve it by name, then drop the database. ::
+
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+        sage: db_name = tmp_filename(ext='.db')
+        sage: conn = create_classification_tables(db_name)
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: bfcgc = BentFunctionCayleyGraphClassification.from_function(bentf)
+        sage: bfcgc.algebraic_normal_form
+        x0*x1
+        sage: curs = insert_classification(conn, bfcgc,'bentf')
+        sage: result = select_classification_where_name(conn, 'bentf')
+        sage: result.algebraic_normal_form
+        x0*x1
+        sage: type(result)
+        <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
+        sage: result.report()
+        Algebraic normal form of Boolean function: x0*x1
+        Function is bent.
+        <BLANKLINE>
+        Weight class matrix:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        <BLANKLINE>
+        SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+        <BLANKLINE>
+        Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+        <BLANKLINE>
+        There are 2 extended Cayley classes in the extended translation class.
+        <BLANKLINE>
+        Matrix of indices of Cayley graphs:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        sage: conn = drop_database(db_name)
+
     """
     curs = conn.cursor()
     curs.execute("""

@@ -96,8 +96,39 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         cls,
         tt_buffer):
         r"""
+        Construct an object of type BooleanFunctionImproved from the result of method tt_buffer.
+
+        Method tt_buffer returns either:
+           a result of type str representing a truth table in binary (right to left)
+        or:
+           a result of type buffer representing a truth table in hex.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf2 = BooleanFunctionImproved([0,1,0,0])
+            sage: bf2_tt_buffer = bf2.tt_buffer()
+            sage: bf2_test = BooleanFunctionImproved.from_tt_buffer(bf2_tt_buffer)
+            sage: bf2_test.algebraic_normal_form()
+            x0*x1 + x0
+            sage: bf2 == bf2_test
+            True
+            sage: bf3 = BooleanFunctionImproved([0,1,0,0]*2)
+            sage: bf3.nvariables()
+            3
+            sage: bf3_tt_buffer = bf3.tt_buffer()
+            sage: bf3_test = BooleanFunctionImproved.from_tt_buffer(bf3_tt_buffer)
+            sage: bf3 == bf3_test
+            True
+
         """
-        tt = binascii.b2a_hex(tt_buffer)
+        tt = (
+                binascii.b2a_hex(tt_buffer)
+            if isinstance(tt_buffer, buffer)
+            else
+                [int(bit) for bit in tt_buffer[::-1]])
         return BooleanFunctionImproved(tt)
 
 
@@ -434,30 +465,62 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
             sage: import binascii
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
-            sage: bf1 = BooleanFunctionImproved([0,1,0,0])
-            sage: bf2 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
-            sage: buff_bf1 = bf1.tt_buffer()
-            sage: binascii.b2a_hex(buff_bf1)
-            '02'
+            sage: bf2 = BooleanFunctionImproved([0,1,0,0])
             sage: buff_bf2 = bf2.tt_buffer()
-            sage: binascii.b2a_hex(buff_bf2)
-            'c122'
-            sage: hex_str3 = "0123456789112345678921234567893123456789412345678951234567896123"
-            sage: bf3 = BooleanFunctionImproved(hex_str3)
+            sage: type(buff_bf2)
+            <type 'str'>
+            sage: print(buff_bf2)
+            0010
+            sage: bf3 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
             sage: buff_bf3 = bf3.tt_buffer()
-            sage: binascii.b2a_hex(buff_bf3)
-            '0123456789112345678921234567893123456789412345678951234567896123'
-            sage: binascii.b2a_hex(buff_bf3) == hex_str3
+            sage: type(buff_bf3)
+            <type 'buffer'>
+            sage: print(binascii.b2a_hex(buff_bf3))
+            c122
+            sage: from_buff_bf3 = BooleanFunctionImproved.from_tt_buffer(buff_bf3)
+            sage: from_buff_bf3 == buff_bf3
+            False
+            sage: from_buff_bf3 == bf3
+            True
+            sage: hex_str6 = "0123456789112345678921234567893123456789412345678951234567896123"
+            sage: bf6 = BooleanFunctionImproved(hex_str6)
+            sage: buff_bf6 = bf6.tt_buffer()
+            sage: from_buff_bf6 = BooleanFunctionImproved.from_tt_buffer(buff_bf6)
+            sage: from_buff_bf6 == bf6
+            True
+            sage: binascii.b2a_hex(buff_bf6) == hex_str6
             True
         """
-        # The following code is based on BooleanFunction.truth_table().
-        # Variable tt represents truth_table in hex.
-        tt = ZZ(self.truth_table(), 2).str(16)
-        # Pad buffer for tt so that length in hex is an even power of 2.
-        # This assumes that nvariables is at least 2.
-        buffer_len = max(2, 1 << (self.nvariables() - 2))
+        # Convert the truth table into an integer.
+        ZZ_truth_table_2 = ZZ(self.truth_table(), 2)
+        dim = self.nvariables()
+        if dim < 3:
+            # If dim < 3 then the truth table in hex is less than 2 hex digits long.
+            # This would make the buffer less than 1 byte in length,
+            # which is unusable. Return a binary string instead.
+            tt = ZZ_truth_table_2.str(2)
+
+            # Pad tt so that length in bits is a power of 2.
+            buffer_len = 1 << dim
+        else:
+            # The following code is based on BooleanFunction.truth_table().
+            # Variable tt represents truth_table in hex.
+            # The code does not use truth_table(format='hex') because of
+            # https://trac.sagemath.org/ticket/24282
+            tt = ZZ_truth_table_2.str(16)
+
+            # Pad tt so that length in hex digits is an even power of 2.
+            # This assumes that dim is at least 2.
+            buffer_len = max(2, 1 << (dim - 2))
+        # Pad the tt string to the correct length.
         padding = "0" * (buffer_len - len(tt))
-        return buffer(binascii.a2b_hex(padding + tt))
+        tt_str = padding + tt
+        # If dim < 3 then return a string, otherwise return a buffer.
+        return (
+                tt_str
+            if dim < 3
+            else
+                buffer(binascii.a2b_hex(tt_str)))
 
 
     def weight(self):
