@@ -1204,22 +1204,28 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             graphic.save(figure_name + "_" + name + ".png")
 
 
-    def save_cg_class_list_as_csv(self, file_name_prefix):
+    def save_cg_class_list_as_csv(self, file_name):
         """
         """
         cg_list = self.cayley_graph_class_list
 
-        fieldnames = ["cayley_graph_index", "canonical_label"]
-        with open(file_name_prefix+".csv","w") as cg_class_file:
-            writer = csv.DictWriter(cg_class_file, fieldnames=fieldnames)
+        fieldnames = [
+            "cayley_graph_index",
+            "canonical_label"]
+        with open(file_name, "w") as cg_class_file:
+            writer = csv.DictWriter(
+                cg_class_file,
+                fieldnames=fieldnames)
             writer.writeheader()
             for n in xsrange(len(cg_list)):
                     writer.writerow({
-                        "cayley_graph_index": n,
-                        "canonical_label": cg_list[n]})
+                        "cayley_graph_index":
+                            n,
+                        "canonical_label":
+                            cg_list[n]})
 
 
-    def save_matrices_as_csv(self, file_name_prefix):
+    def save_matrices_as_csv(self, file_name):
         """
         """
         bentf = BentFunction(self.algebraic_normal_form)
@@ -1230,16 +1236,93 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         di_matrix = self.dual_cayley_graph_index_matrix
         wc_matrix = self.weight_class_matrix
 
-        fieldnames = ["b", "c", "bent_cayley_graph_index", "dual_cayley_graph_index", "weight_class"]
-        with open(file_name_prefix+".csv","w") as matrix_file:
-            writer = csv.DictWriter(matrix_file, fieldnames=fieldnames)
+        fieldnames = [
+            "b",
+            "c",
+            "bent_cayley_graph_index",
+            "dual_cayley_graph_index",
+            "weight_class"]
+        with open(file_name, "w") as matrix_file:
+            writer = csv.DictWriter(
+                matrix_file,
+                fieldnames=fieldnames)
             writer.writeheader()
 
             for c in xsrange(v):
                 for b in xsrange(v):
                     writer.writerow({
-                        "b": b,
-                        "c": c,
-                        "bent_cayley_graph_index": ci_matrix[c, b],
-                        "dual_cayley_graph_index": di_matrix[c, b],
-                        "weight_class": wc_matrix[c, b]})
+                        "b":
+                            b,
+                        "c":
+                            c,
+                        "bent_cayley_graph_index":
+                            ci_matrix[c, b],
+                        "dual_cayley_graph_index":
+                            di_matrix[c, b],
+                        "weight_class":
+                            wc_matrix[c, b]})
+
+
+    def save_as_csv(self, file_name_prefix):
+        """
+        Save the classification as three csv files with a common prefix.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``file_name_prefix`` -- string: the common prefix to use for file names.
+
+        OUTPUT:
+
+        None.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: import csv
+            sage: import os
+            sage: bf2 = BentFunction([0,0,0,1])
+            sage: c2 = BentFunctionCayleyGraphClassification.from_function(bf2)
+            sage: prefix = tmp_filename()
+            sage: c2.save_as_csv(prefix)
+            sage: bf2_csv_name = prefix + "_bent_function.csv"
+            sage: with open(bf2_csv_name) as bf2_csv_file:
+            ....:     reader = csv.DictReader(bf2_csv_file)
+            ....:     for bf in reader:
+            ....:         print(bf["nvariables"], bf["tt_string"])
+            ....:
+            2 1000
+            sage: os.remove(bf2_csv_name)
+            sage: cgcl_csv_name = prefix + "_cg_class_list.csv"
+            sage: with open(cgcl_csv_name) as cgcl_csv_file:
+            ....:     reader = csv.DictReader(cgcl_csv_file)
+            ....:     for cg in reader:
+            ....:         print(cg)
+            ....:
+            {'canonical_label': 'CK', 'cayley_graph_index': '0'}
+            {'canonical_label': 'C~', 'cayley_graph_index': '1'}
+            sage: os.remove(cgcl_csv_name)
+            sage: matrix_csv_name = prefix + "_matrices.csv"
+            sage: with open(matrix_csv_name) as matrix_csv_file:
+            ....:     reader = csv.DictReader(matrix_csv_file)
+            ....:     for row in reader:
+            ....:         print(row)
+            ....:
+            {'weight_class': '0', 'c': '0', 'b': '0', 'bent_cayley_graph_index': '0', 'dual_cayley_graph_index': '0'}
+            ...
+            {'weight_class': '0', 'c': '3', 'b': '3', 'bent_cayley_graph_index': '0', 'dual_cayley_graph_index': '0'}
+            sage: os.remove(matrix_csv_name)
+
+        """
+        bentf = BentFunction(self.algebraic_normal_form)
+        bentf.save_as_csv(
+            file_name_prefix + "_bent_function.csv")
+
+        self.save_cg_class_list_as_csv(
+            file_name_prefix + "_cg_class_list.csv")
+
+        self.save_matrices_as_csv(
+            file_name_prefix + "_matrices.csv")
