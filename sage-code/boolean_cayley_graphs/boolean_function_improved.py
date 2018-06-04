@@ -27,6 +27,7 @@ EXAMPLES:
 #*****************************************************************************
 
 import binascii
+import csv
 
 from sage.arith.srange import xsrange
 from sage.crypto.boolean_function import BooleanFunction
@@ -447,9 +448,53 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         return boolean_linear_code(dim, f)
 
 
+    def save_as_csv(self, file_name):
+        """
+        Save the current object as a csv file.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``file_name`` -- the file name.
+
+        OUTPUT:
+
+        None.
+
+        EXAMPLES:
+
+        ::
+
+            sage: import csv
+            sage: import os
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf2 = BooleanFunctionImproved([0,1,0,1])
+            sage: bf2_csv_name = tmp_filename(ext='.csv')
+            sage: bf2.save_as_csv(bf2_csv_name)
+            sage: with open(bf2_csv_name) as bf2_csv_file:
+            ....:     reader = csv.DictReader(bf2_csv_file)
+            ....:     for bf in reader:
+            ....:         print(bf["nvariables"], bf["tt_string"])
+            ....:
+            2 1010
+            sage: os.remove(bf2_csv_name)
+        """
+        fieldnames = [
+            "nvariables",
+            "tt_string"]
+        with open(file_name,"w") as file:
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerow({
+                "tt_string":
+                    self.tt_string(),
+                "nvariables":
+                    self.nvariables()})
+
+
     def tt_buffer(self):
         r"""
-        Return a buffer containing the binary version of the truth table.
+        Return a buffer containing a compressed version of the truth table.
 
         INPUT:
 
@@ -457,7 +502,11 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         OUTPUT:
 
-        A buffer containing the binary version of the truth table of ``self``.
+        A str or buffer containing a compressed version of the truth table of ``self``.
+        If nvariables() < 3:
+           a result of type str representing a truth table in binary (right to left)
+        otherwise:
+           a result of type buffer representing a truth table in hex.
 
         EXAMPLES:
 
@@ -491,9 +540,54 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: binascii.b2a_hex(buff_bf6) == hex_str6
             True
         """
+        dim = self.nvariables()
+
+        # Use tt_string() to otain a string representing the truth table.
+        tt_string = self.tt_string()
+
+        # If dim < 3 then return a string, otherwise return a buffer.
+        if dim < 3:
+            return tt_string
+        else:
+            return buffer(binascii.a2b_hex(tt_string))
+
+
+    def tt_string(self):
+        r"""
+        Return a string representing the truth table of the Boolean function.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        A string containing a version of the truth table of ``self``.
+        If nvariables() < 3:
+           a string representing a truth table in binary (right to left)
+        otherwise:
+           a string representing a truth table in hex.
+
+        EXAMPLES:
+
+        ::
+
+            sage: import binascii
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf2 = BooleanFunctionImproved([0,1,0,0])
+            sage: str_bf2 = bf2.tt_string()
+            sage: type(str_bf2)
+            <type 'str'>
+            sage: print(str_bf2)
+            0010
+            sage: bf3 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
+            sage: str_bf3 = bf3.tt_string()
+            sage: print(str_bf3)
+            c122
+        """
+        dim = self.nvariables()
         # Convert the truth table into an integer.
         ZZ_truth_table_2 = ZZ(self.truth_table(), 2)
-        dim = self.nvariables()
         if dim < 3:
             # If dim < 3 then the truth table in hex is less than 2 hex digits long.
             # This would make the buffer less than 1 byte in length,
@@ -514,13 +608,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             buffer_len = max(2, 1 << (dim - 2))
         # Pad the tt string to the correct length.
         padding = "0" * (buffer_len - len(tt))
-        tt_str = padding + tt
-        # If dim < 3 then return a string, otherwise return a buffer.
-        return (
-                tt_str
-            if dim < 3
-            else
-                buffer(binascii.a2b_hex(tt_str)))
+        return padding + tt
 
 
     def weight(self):
