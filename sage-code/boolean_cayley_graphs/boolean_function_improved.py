@@ -108,7 +108,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         INPUT:
 
         - ``cls`` -- the class object.
-        - ``tt_buffer -- buffer: the result of the method tt_buffer() for the Boolean function.
+        - ``tt_buffer`` -- buffer: the result of the method tt_buffer() for the Boolean function.
 
         EXAMPLES:
 
@@ -156,7 +156,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         - ``cls`` -- the class object.
         - ``dim`` -- integer: the dimension of the Boolean function.
-        - ``tt_string -- string: the result of the method tt_string() for the Boolean function.
+        - ``tt_string`` -- string: the result of the method tt_string() for the Boolean function.
 
         EXAMPLES:
 
