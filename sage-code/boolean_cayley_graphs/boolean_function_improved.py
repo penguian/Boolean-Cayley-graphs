@@ -77,9 +77,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
     The class inherits from Saveable to obtain
     load_mangled and save_mangled methods.
 
-    EXAMPLES:
-
-    ::
+    EXAMPLES::
 
         sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
         sage: bf1 = BooleanFunctionImproved([0,1,0,0])
@@ -110,9 +108,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         - ``cls`` -- the class object.
         - ``tt_buffer`` -- buffer: the result of the method tt_buffer() for the Boolean function.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf2 = BooleanFunctionImproved([0,1,0,0])
@@ -147,7 +143,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         Constructor from the dimension dim, and the string tt_string.
 
         The string tt_string is assumed to be the result of method tt_string(), which returns:
-        If dim < 3:
+        If ``dim < 3``:
            a string representing a truth table in binary (right to left)
         otherwise:
            a string representing a truth table in hex.
@@ -158,9 +154,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         - ``dim`` -- integer: the dimension of the Boolean function.
         - ``tt_string`` -- string: the result of the method tt_string() for the Boolean function.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf2 = BooleanFunctionImproved([0,1,0,0])
@@ -200,9 +194,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         - ``cls`` -- the class object.
         - ``csv_file_name`` -- string: the name of the csv file to read from.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: import csv
             sage: import os
@@ -237,9 +229,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         - ``self`` -- the current object.
 
-        EXAMPLES
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf0 = BooleanFunctionImproved([1,0,1,1])
@@ -268,9 +258,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         The elementwise sum of `self`and `other`
 
-        EXAMPLES
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf0 = BooleanFunctionImproved([1,0,1,0])
@@ -281,9 +269,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: (bf0+bf1).algebraic_normal_form() == S
             True
 
-        TESTS
-
-        ::
+        TESTS::
 
             sage: bf0+BooleanFunctionImproved([0,1])
             Traceback (most recent call last):
@@ -307,9 +293,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         The elementwise product of `self`and `other`
 
-        EXAMPLES
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf0 = BooleanFunctionImproved([1,0,1,0])
@@ -346,9 +330,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         The concatenation of `self`and `other`
 
-        EXAMPLES
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf0 = BooleanFunctionImproved([1,0,1,0])
@@ -384,9 +366,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         The Cayley graph of ``self`` as an object of class ``Graph``.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf1 = BooleanFunctionImproved([0,1,0,0])
@@ -417,9 +397,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         This is the Cayley graph of ``self`` if ``self(0) == False``,
         otherwise it is the Cayley graph of ``~self``.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf1 = BooleanFunctionImproved([0,1,0,0])
@@ -479,9 +457,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             ``extended_translate`` is *not* a ``BooleanFunction``,
             but rather a Python function that takes an ``Integer`` argument.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf1 = BooleanFunctionImproved([0,1,0,0])
@@ -546,9 +522,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         An object of class ``LinearCode`` representing the Boolean linear code
         corresponding to self.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf2 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
@@ -588,9 +562,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         None.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: import csv
             sage: import os
@@ -635,9 +607,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         otherwise:
            a result of type buffer representing a truth table in hex.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: import binascii
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
@@ -647,6 +617,9 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             <type 'str'>
             sage: print(buff_bf2)
             0010
+
+        TESTS::
+
             sage: bf3 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
             sage: buff_bf3 = bf3.tt_buffer()
             sage: type(buff_bf3)
@@ -691,14 +664,12 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         A string containing a version of the truth table of ``self``.
 
-        If nvariables() < 3:
+        If ``nvariables() < 3``:
            a string representing a truth table in binary (right to left)
         otherwise:
            a string representing a truth table in hex.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: import binascii
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
@@ -753,9 +724,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         in other words, the cardinality of the support of ``self`` as a
         Boolean function.
 
-        EXAMPLES:
-
-        ::
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
             sage: bf1 = BooleanFunctionImproved([0,1,0,0])
