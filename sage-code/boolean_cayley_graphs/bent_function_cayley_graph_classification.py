@@ -355,6 +355,12 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
     extended translation equivalence class of a bent function.
     """
 
+    # Suffixes used by from_csv() and save_as_csv().
+    bent_function_csv_suffix = "_bent_function.csv"
+    cg_class_list_csv_suffix = "_cg_class_list.csv"
+    matrices_csv_suffix = "_matrices.csv"
+
+
     def __init__(self, *args, **kwargs):
         r"""
         Constructor from an object or from class attributes.
@@ -412,6 +418,113 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                 'dual_cayley_graph_index_matrix', None)
             self.weight_class_matrix            = kwargs.pop(
                 'weight_class_matrix')
+
+
+    @classmethod
+    def cg_class_list_from_csv(
+        cls,
+        file_name):
+        """
+        Read a Cayley graph class list from a csv file.
+
+        The csv file is assumed to be created by the method
+        save_cg_class_list_as_csv().
+
+        INPUT:
+
+        - ``file_name`` -- the name of the csv file.
+
+        OUTPUT:
+
+        A list of Cayley graphs in graph6_string format.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BFCGC
+            sage: import os
+            sage: bf2 = BentFunction([1,0,1,1])
+            sage: c2 = BFCGC.from_function(bf2)
+            sage: csv_name = tmp_filename() + ".csv"
+            sage: c2.save_cg_class_list_as_csv(csv_name)
+            sage: cgcl_saved = BFCGC.cg_class_list_from_csv(csv_name)
+            sage: print(cgcl_saved == c2.cayley_graph_class_list)
+            True
+            sage: os.remove(csv_name)
+
+        """
+        cg_list = []
+        with open(file_name) as csv_file:
+            reader = csv.DictReader(csv_file)
+            for row in reader:
+                cg_list.append(row["canonical_label"])
+        return cg_list
+
+
+    @classmethod
+    def from_csv(
+        cls,
+        file_name_prefix):
+        r"""
+        Constructor from three csv files.
+
+        INPUT:
+
+        - ``file_name_prefix`` -- string: the common prefix to use for file names.
+
+        OUTPUT:
+
+        None.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BFCGC
+            sage: import os
+            sage: bf2 = BentFunction([1,1,0,1])
+            sage: c2 = BFCGC.from_function(bf2)
+            sage: prefix = tmp_filename()
+            sage: c2.save_as_csv(prefix)
+            sage: c2_saved = BFCGC.from_csv(prefix)
+            sage: print(c2 == c2_saved)
+            True
+            sage: bent_function_csv_name = prefix + BFCGC.bent_function_csv_suffix
+            sage: os.remove(bent_function_csv_name)
+            sage: cg_class_list_csv_name = prefix + BFCGC.cg_class_list_csv_suffix
+            sage: os.remove(cg_class_list_csv_name)
+            sage: matrices_csv_name = prefix + BFCGC.matrices_csv_suffix
+            sage: os.remove(matrices_csv_name)
+
+        """
+        bentf = BentFunction.from_csv(
+            file_name_prefix + cls.bent_function_csv_suffix)
+        algebraic_normal_form = bentf.algebraic_normal_form()
+        cayley_graph_class_list = cls.cg_class_list_from_csv(
+            file_name_prefix + cls.cg_class_list_csv_suffix)
+        dim = bentf.nvariables()
+        v = 2 ** dim
+        bent_cayley_graph_index_matrix = matrix(v, v)
+        dual_cayley_graph_index_matrix = matrix(v, v)
+        weight_class_matrix = matrix(v, v)
+        with open(file_name_prefix + cls.matrices_csv_suffix) as matrices_csv_file:
+            reader = csv.DictReader(matrices_csv_file)
+            for row in reader:
+                c = int(row['c'])
+                b = int(row['b'])
+                bent_cayley_graph_index_matrix[c, b] = row['bent_cayley_graph_index']
+                dual_cayley_graph_index_matrix[c, b] = row['dual_cayley_graph_index']
+                weight_class_matrix[c, b] = row['weight_class']
+
+        return cls(
+            algebraic_normal_form=algebraic_normal_form,
+            cayley_graph_class_list=cayley_graph_class_list,
+            bent_cayley_graph_index_matrix=bent_cayley_graph_index_matrix,
+            dual_cayley_graph_index_matrix=dual_cayley_graph_index_matrix,
+            weight_class_matrix=weight_class_matrix)
 
 
     @classmethod
@@ -592,6 +705,31 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             dual_cayley_graph_index_matrix=dual_cayley_graph_index_matrix,
             weight_class_matrix=weight_class_matrix)
 
+
+    def __eq__(self, other):
+        """
+        Test for equality between classifications.
+
+        WARNING:
+
+        This test is for strict equality rather than mathematical equivalence.
+
+        INPUT:
+
+        - ``other`` - BentFunctionCayleyGraphClassification: another classification.
+
+        OUTPUT:
+
+        A Boolean value indicating whether ``self`` strictly equals ``other``.
+
+
+        """
+        return(
+            (self.algebraic_normal_form == other.algebraic_normal_form) and
+            (self.cayley_graph_class_list == other.cayley_graph_class_list) and
+            (self.bent_cayley_graph_index_matrix == other.bent_cayley_graph_index_matrix) and
+            (self.dual_cayley_graph_index_matrix == other.dual_cayley_graph_index_matrix) and
+            (self.weight_class_matrix == other.weight_class_matrix))
 
 
     def first_matrix_index_list(self):
@@ -1281,48 +1419,31 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BFCGC
             sage: import csv
             sage: import os
             sage: bf2 = BentFunction([0,0,0,1])
-            sage: c2 = BentFunctionCayleyGraphClassification.from_function(bf2)
+            sage: c2 = BFCGC.from_function(bf2)
             sage: prefix = tmp_filename()
             sage: c2.save_as_csv(prefix)
-            sage: bf2_csv_name = prefix + "_bent_function.csv"
-            sage: with open(bf2_csv_name) as bf2_csv_file:
-            ....:     reader = csv.DictReader(bf2_csv_file)
-            ....:     for bf in reader:
-            ....:         print(bf["nvariables"], bf["tt_string"])
-            ....:
-            2 1000
-            sage: os.remove(bf2_csv_name)
-            sage: cgcl_csv_name = prefix + "_cg_class_list.csv"
-            sage: with open(cgcl_csv_name) as cgcl_csv_file:
-            ....:     reader = csv.DictReader(cgcl_csv_file)
-            ....:     for cg in reader:
-            ....:         print(cg)
-            ....:
-            {'canonical_label': 'CK', 'cayley_graph_index': '0'}
-            {'canonical_label': 'C~', 'cayley_graph_index': '1'}
-            sage: os.remove(cgcl_csv_name)
-            sage: matrix_csv_name = prefix + "_matrices.csv"
-            sage: with open(matrix_csv_name) as matrix_csv_file:
-            ....:     reader = csv.DictReader(matrix_csv_file)
-            ....:     for row in reader:
-            ....:         print(row)
-            ....:
-            {'weight_class': '0', 'c': '0', 'b': '0', 'bent_cayley_graph_index': '0', 'dual_cayley_graph_index': '0'}
-            ...
-            {'weight_class': '0', 'c': '3', 'b': '3', 'bent_cayley_graph_index': '0', 'dual_cayley_graph_index': '0'}
-            sage: os.remove(matrix_csv_name)
+            sage: c2_saved = BFCGC.from_csv(prefix)
+            sage: print(c2 == c2_saved)
+            True
+            sage: bent_function_csv_name = prefix + BFCGC.bent_function_csv_suffix
+            sage: os.remove(bent_function_csv_name)
+            sage: cg_class_list_csv_name = prefix + BFCGC.cg_class_list_csv_suffix
+            sage: os.remove(cg_class_list_csv_name)
+            sage: matrices_csv_name = prefix + BFCGC.matrices_csv_suffix
+            sage: os.remove(matrices_csv_name)
 
         """
+        cls = type(self)
         bentf = BentFunction(self.algebraic_normal_form)
         bentf.save_as_csv(
-            file_name_prefix + "_bent_function.csv")
+            file_name_prefix + cls.bent_function_csv_suffix)
 
         self.save_cg_class_list_as_csv(
-            file_name_prefix + "_cg_class_list.csv")
+            file_name_prefix + cls.cg_class_list_csv_suffix)
 
         self.save_matrices_as_csv(
-            file_name_prefix + "_matrices.csv")
+            file_name_prefix + cls.matrices_csv_suffix)
