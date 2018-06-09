@@ -141,7 +141,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         tt_string):
         r"""
         Constructor from the dimension dim, and the string tt_string.
-
+        
         The string tt_string is assumed to be the result of method tt_string(), which returns:
         If ``dim < 3``:
            a string representing a truth table in binary (right to left)
