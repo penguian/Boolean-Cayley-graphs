@@ -141,7 +141,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         tt_string):
         r"""
         Constructor from the dimension dim, and the string tt_string.
-
+        
         The string tt_string is assumed to be the result of method tt_string(), which returns:
         If ``dim < 3``:
            a string representing a truth table in binary (right to left)
@@ -490,6 +490,19 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         If ``certificate`` is true, a tuple consisting of either (False, None)
         or (True, M), where M is a GF(2) matrix that defines the equivalence.
 
+        EXAMPLE:
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf1 = BooleanFunctionImproved([0,1,0,0])
+            sage: bf2 = BooleanFunctionImproved([0,0,1,0])
+            sage: bf1.is_linear_equivalent(bf2)
+            True
+            sage: bf2.is_linear_equivalent(bf1, certificate=True)
+            (
+                  [0 1]
+            True, [1 0]
+            )
+
         """
         dim = self.nvariables()
         v = 2 ** dim
@@ -602,7 +615,6 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         OUTPUT:
 
         A str or buffer containing a compressed version of the truth table of ``self``.
-
         If nvariables() < 3:
            a result of type str representing a truth table in binary (right to left)
         otherwise:
