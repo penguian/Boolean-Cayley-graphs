@@ -15,11 +15,11 @@ EXAMPLES:
     The classification of the bent function defined by the polynomial x2 + x1*x2.
 
     sage: from boolean_cayley_graphs.bent_function import BentFunction
-    sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+    sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
     sage: R2.<x1,x2> = BooleanPolynomialRing(2)
     sage: p = x2+x1*x2
     sage: f = BentFunction(p)
-    sage: c = BentFunctionCayleyGraphClassification.from_function(f)
+    sage: c = BentFunctionCGC.from_function(f)
     sage: c.__dict__
     {'algebraic_normal_form': x0*x1 + x1,
      'bent_cayley_graph_index_matrix': [0 0 1 0]
@@ -79,6 +79,7 @@ from boolean_cayley_graphs.weight_class import weight_class
 
 import boolean_cayley_graphs.cayley_graph_controls as controls
 import csv
+import os.path
 
 
 class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
@@ -210,11 +211,11 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart as BentFunctionCGCPart
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c1 = BentFunctionCayleyGraphClassPart.from_function(f,c_start=2,c_stop=4)
+            sage: c1 = BentFunctionCGCPart.from_function(f,c_start=2,c_stop=4)
             sage: c1.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 0 0]
@@ -232,11 +233,11 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c2 = BentFunctionCayleyGraphClassPart.from_function(f,list_dual_graphs=False,c_start=0,c_stop=2)
+            sage: c2 = BentFunctionCGCPart.from_function(f,list_dual_graphs=False,c_start=0,c_stop=2)
             sage: c2.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 1 1]
@@ -443,13 +444,13 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BFCGC
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: import os
             sage: bf2 = BentFunction([1,0,1,1])
-            sage: c2 = BFCGC.from_function(bf2)
+            sage: c2 = BentFunctionCGC.from_function(bf2)
             sage: csv_name = tmp_filename() + ".csv"
             sage: c2.save_cg_class_list_as_csv(csv_name)
-            sage: cgcl_saved = BFCGC.cg_class_list_from_csv(csv_name)
+            sage: cgcl_saved = BentFunctionCGC.cg_class_list_from_csv(csv_name)
             sage: print(cgcl_saved == c2.cayley_graph_class_list)
             True
             sage: os.remove(csv_name)
@@ -461,6 +462,67 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             for row in reader:
                 cg_list.append(row["canonical_label"])
         return cg_list
+
+
+    @classmethod
+    def matrices_from_csv(
+        cls,
+        dim,
+        file_name):
+        r"""
+        Read three matrices from a csv file.
+
+        The csv file is assumed to be created by the method
+        save_matrices_as_csv().
+
+        INPUT:
+
+        - ``dim`` -- integer: the dimension of the bent function.
+        - ``file_name`` -- the name of the csv file.
+
+        OUTPUT:
+
+        A tuple of matrices,
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: import os
+            sage: bf2 = BentFunction([1,1,0,1])
+            sage: dim = bf2.nvariables()
+            sage: c2 = BentFunctionCGC.from_function(bf2)
+            sage: csv_name = tmp_filename() + ".csv"
+            sage: c2.save_matrices_as_csv(csv_name)
+            sage: (bent_cayley_graph_index_matrix,dual_cayley_graph_index_matrix,
+            ....: weight_class_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
+            sage: print(
+            ....:     c2.bent_cayley_graph_index_matrix == bent_cayley_graph_index_matrix and
+            ....:     c2.dual_cayley_graph_index_matrix == dual_cayley_graph_index_matrix and
+            ....:     c2.weight_class_matrix == weight_class_matrix)
+            True
+            sage: os.remove(csv_name)
+
+        """
+        v = 2 ** dim
+        bent_cayley_graph_index_matrix = matrix(v, v)
+        dual_cayley_graph_index_matrix = matrix(v, v)
+        weight_class_matrix = matrix(v, v)
+        with open(file_name) as csv_file:
+            reader = csv.DictReader(csv_file)
+            for row in reader:
+                c = int(row['c'])
+                b = int(row['b'])
+                bent_cayley_graph_index_matrix[c, b] = row['bent_cayley_graph_index']
+                dual_cayley_graph_index_matrix[c, b] = row['dual_cayley_graph_index']
+                weight_class_matrix[c, b] = row['weight_class']
+
+        return (
+            bent_cayley_graph_index_matrix,
+            dual_cayley_graph_index_matrix,
+            weight_class_matrix)
 
 
     @classmethod
@@ -483,20 +545,20 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BFCGC
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: import os
             sage: bf2 = BentFunction([1,1,0,1])
-            sage: c2 = BFCGC.from_function(bf2)
+            sage: c2 = BentFunctionCGC.from_function(bf2)
             sage: prefix = tmp_filename()
             sage: c2.save_as_csv(prefix)
-            sage: c2_saved = BFCGC.from_csv(prefix)
+            sage: c2_saved = BentFunctionCGC.from_csv(prefix)
             sage: print(c2 == c2_saved)
             True
-            sage: bent_function_csv_name = prefix + BFCGC.bent_function_csv_suffix
+            sage: bent_function_csv_name = prefix + BentFunctionCGC.bent_function_csv_suffix
             sage: os.remove(bent_function_csv_name)
-            sage: cg_class_list_csv_name = prefix + BFCGC.cg_class_list_csv_suffix
+            sage: cg_class_list_csv_name = prefix + BentFunctionCGC.cg_class_list_csv_suffix
             sage: os.remove(cg_class_list_csv_name)
-            sage: matrices_csv_name = prefix + BFCGC.matrices_csv_suffix
+            sage: matrices_csv_name = prefix + BentFunctionCGC.matrices_csv_suffix
             sage: os.remove(matrices_csv_name)
 
         """
@@ -506,18 +568,12 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         cayley_graph_class_list = cls.cg_class_list_from_csv(
             file_name_prefix + cls.cg_class_list_csv_suffix)
         dim = bentf.nvariables()
-        v = 2 ** dim
-        bent_cayley_graph_index_matrix = matrix(v, v)
-        dual_cayley_graph_index_matrix = matrix(v, v)
-        weight_class_matrix = matrix(v, v)
-        with open(file_name_prefix + cls.matrices_csv_suffix) as matrices_csv_file:
-            reader = csv.DictReader(matrices_csv_file)
-            for row in reader:
-                c = int(row['c'])
-                b = int(row['b'])
-                bent_cayley_graph_index_matrix[c, b] = row['bent_cayley_graph_index']
-                dual_cayley_graph_index_matrix[c, b] = row['dual_cayley_graph_index']
-                weight_class_matrix[c, b] = row['weight_class']
+        (
+            bent_cayley_graph_index_matrix,
+            dual_cayley_graph_index_matrix,
+            weight_class_matrix) = cls.matrices_from_csv(
+                dim,
+                file_name_prefix + cls.matrices_csv_suffix)
 
         return cls(
             algebraic_normal_form=algebraic_normal_form,
@@ -577,11 +633,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c3 = BentFunctionCayleyGraphClassification.from_function(f)
+            sage: c3 = BentFunctionCGC.from_function(f)
             sage: c3.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 1 1]
@@ -605,11 +661,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c4 = BentFunctionCayleyGraphClassification.from_function(f,list_dual_graphs=False)
+            sage: c4 = BentFunctionCGC.from_function(f,list_dual_graphs=False)
             sage: c4.__dict__
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 1 1]
@@ -633,11 +689,83 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
     @classmethod
     def from_parts(
         cls,
-        part_prefix,
+        prefix_basename,
+        directory=None,
         limited_memory=False):
+        """
+        Constructor from saved class parts.
 
-        # Initialize from class parts.
-        mangled_part_prefix = BentFunctionCayleyGraphClassPart.mangled_name(part_prefix)
+        INPUTS:
+
+        - ``prefix_basename`` -- string. The prefix to use with mangled_name()
+          to obtain the file names of the saved class parts.
+        - ``limited_memory`` -- boolean, default is False.
+          A flag indicating whether the classification might be too large to
+          fit into memory.
+
+        OUTPUT:
+
+        An object of class BentFunctionCayleyGraphClassification,
+        constructed from the saved class parts.
+
+        EXAMPLES:
+
+        ::
+
+        A classification of the bent function defined by the polynomial
+        :math:`x_1 + x_2 + x_1 x_2`.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart as BentFunctionCGCPart
+            sage: import os.path
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: prefix = tmp_filename()
+            sage: prefix_dirname = os.path.dirname(prefix)
+            sage: prefix_basename = os.path.basename(prefix)
+            sage: for row in xsrange(4):
+            ....:     c = BentFunctionCGCPart.from_function(f, c_start=row,c_stop=row+1)
+            ....:     part_prefix = prefix_basename + "_" + str(row)
+            ....:     c.save_mangled(
+            ....:         part_prefix,
+            ....:         directory=prefix_dirname)
+            sage: cl1 = BentFunctionCGC.from_parts(
+            ....:    prefix_basename,
+            ....:    directory=prefix_dirname)
+            sage: cl1.report()
+            Algebraic normal form of Boolean function: x0*x1 + x0 + x1
+            Function is bent.
+            <BLANKLINE>
+            Weight class matrix:
+            [1 0 0 0]
+            [0 0 1 0]
+            [0 1 0 0]
+            [0 0 0 1]
+            <BLANKLINE>
+            SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+            <BLANKLINE>
+            Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+            <BLANKLINE>
+            There are 2 extended Cayley classes in the extended translation class.
+            <BLANKLINE>
+            Matrix of indices of Cayley graphs:
+            [0 1 1 1]
+            [1 1 0 1]
+            [1 0 1 1]
+            [1 1 1 0]
+            sage: for row in xsrange(4):
+            ....:     part_prefix = prefix_basename + "_" + str(row)
+            ....:     BentFunctionCGCPart.remove_mangled(
+            ....:         part_prefix,
+            ....:         directory=prefix_dirname)
+        """
+        mangled_part_prefix = BentFunctionCayleyGraphClassPart.mangled_name(
+            prefix_basename,
+            directory=directory)
         file_name_list = glob.glob(mangled_part_prefix + "_[0-9]*.sobj")
         file_name_list.sort()
 
@@ -722,7 +850,22 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         A Boolean value indicating whether ``self`` strictly equals ``other``.
 
+        EXAMPLE:
 
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: R2.<x0,x1> = BooleanPolynomialRing(2)
+            sage: p = x0*x1
+            sage: f1 = BentFunction(p)
+            sage: c1 = BentFunctionCGC.from_function(f1)
+            sage: f2 = BentFunction([0,0,0,1])
+            sage: c2 = BentFunctionCGC.from_function(f2)
+            sage: print(c2.algebraic_normal_form)
+            x0*x1
+            sage: print(c1 == c2)
+            True
         """
         return(
             (self.algebraic_normal_form == other.algebraic_normal_form) and
@@ -753,11 +896,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: R2.<x1,x2> = BooleanPolynomialRing(2)
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
-            sage: c = BentFunctionCayleyGraphClassification.from_function(f)
+            sage: c = BentFunctionCGC.from_function(f)
             sage: c.first_matrix_index_list()
             [(0, 0), (0, 1)]
         """
@@ -810,11 +953,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: R4.<x0,x1,x2,x3> = BooleanPolynomialRing(4)
             sage: p = x0+x0*x1+x2*x3
             sage: f = BentFunction(p)
-            sage: c = BentFunctionCayleyGraphClassification.from_function(f)
+            sage: c = BentFunctionCGC.from_function(f)
             sage: c.report(True)
             Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3
             Function is bent.
@@ -900,7 +1043,6 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         REFERENCES:
 
         - [Leo2017]_.
-
         """
         def graph_and_linear_code_report(
             bentf,
@@ -1105,11 +1247,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: R4.<x0,x1,x2,x3> = BooleanPolynomialRing(4)
             sage: p = x0+x0*x1+x2*x3
             sage: f = BentFunction(p)
-            sage: c = BentFunctionCayleyGraphClassification.from_function(f)
+            sage: c = BentFunctionCGC.from_function(f)
             sage: c.print_latex_table_of_cayley_classes()
             \small{}
             \begin{align*}
@@ -1223,11 +1365,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: R6.<x0,x1,x2,x3,x4,x5> = BooleanPolynomialRing(6)
             sage: p = x0*x1 + x2*x3 + x4*x5
             sage: f = BentFunction(p)
-            sage: c = BentFunctionCayleyGraphClassification.from_function(f) # long time (60 seconds)
+            sage: c = BentFunctionCGC.from_function(f) # long time (60 seconds)
             sage: c.print_latex_table_of_tonchev_graphs() # long time (depends on line above)
             \begin{align*}
             \def\arraystretch{1.2}
@@ -1253,7 +1395,6 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         - [Ton1996]_.
 
         - [Ton2007]_.
-
         """
         print "\\begin{align*}"
         print "\\def\\arraystretch{1.2}"
@@ -1344,6 +1485,31 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
     def save_cg_class_list_as_csv(self, file_name):
         """
+        Save the Cayley graph class list to a csv file.
+
+        INPUT:
+
+        - ``file_name`` -- the name of the csv file.
+
+        OUTPUT:
+
+        None.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: import os
+            sage: bf2 = BentFunction([1,0,1,1])
+            sage: c2 = BentFunctionCGC.from_function(bf2)
+            sage: csv_name = tmp_filename() + ".csv"
+            sage: c2.save_cg_class_list_as_csv(csv_name)
+            sage: cgcl_saved = BentFunctionCGC.cg_class_list_from_csv(csv_name)
+            sage: print(cgcl_saved == c2.cayley_graph_class_list)
+            True
+            sage: os.remove(csv_name)
         """
         cg_list = self.cayley_graph_class_list
 
@@ -1365,6 +1531,36 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
     def save_matrices_as_csv(self, file_name):
         """
+        Save the matrices bent_cayley_graph_index_matrix,
+        dual_cayley_graph_index_matrix and weight_class_matrix to a csv file.
+
+        INPUT:
+
+        - ``file_name`` -- the name of the csv file.
+
+        OUTPUT:
+
+        None.
+
+        EXAMPLE:
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: import csv
+            sage: import os
+            sage: bf2 = BentFunction([0,1,1,1])
+            sage: dim = bf2.nvariables()
+            sage: c2 = BentFunctionCGC.from_function(bf2)
+            sage: csv_name = tmp_filename() + ".csv"
+            sage: c2.save_matrices_as_csv(csv_name)
+            sage: (bent_cayley_graph_index_matrix,dual_cayley_graph_index_matrix,
+            ....: weight_class_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
+            sage: print(
+            ....:     c2.bent_cayley_graph_index_matrix == bent_cayley_graph_index_matrix and
+            ....:     c2.dual_cayley_graph_index_matrix == dual_cayley_graph_index_matrix and
+            ....:     c2.weight_class_matrix == weight_class_matrix)
+            True
+            sage: os.remove(csv_name)
         """
         bentf = BentFunction(self.algebraic_normal_form)
         dim = bentf.nvariables()
@@ -1419,23 +1615,22 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
-            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BFCGC
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
             sage: import csv
             sage: import os
             sage: bf2 = BentFunction([0,0,0,1])
-            sage: c2 = BFCGC.from_function(bf2)
+            sage: c2 = BentFunctionCGC.from_function(bf2)
             sage: prefix = tmp_filename()
             sage: c2.save_as_csv(prefix)
-            sage: c2_saved = BFCGC.from_csv(prefix)
+            sage: c2_saved = BentFunctionCGC.from_csv(prefix)
             sage: print(c2 == c2_saved)
             True
-            sage: bent_function_csv_name = prefix + BFCGC.bent_function_csv_suffix
+            sage: bent_function_csv_name = prefix + BentFunctionCGC.bent_function_csv_suffix
             sage: os.remove(bent_function_csv_name)
-            sage: cg_class_list_csv_name = prefix + BFCGC.cg_class_list_csv_suffix
+            sage: cg_class_list_csv_name = prefix + BentFunctionCGC.cg_class_list_csv_suffix
             sage: os.remove(cg_class_list_csv_name)
-            sage: matrices_csv_name = prefix + BFCGC.matrices_csv_suffix
+            sage: matrices_csv_name = prefix + BentFunctionCGC.matrices_csv_suffix
             sage: os.remove(matrices_csv_name)
-
         """
         cls = type(self)
         bentf = BentFunction(self.algebraic_normal_form)
