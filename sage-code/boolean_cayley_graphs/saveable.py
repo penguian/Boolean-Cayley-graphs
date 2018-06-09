@@ -52,7 +52,7 @@ class Saveable(object):
             ....:
             sage: ListSaveable.mangled_name('a')
             'ListSaveable__a'
-            sage: ListSaveable.mangled_name('a',directory='b')
+            sage: ListSaveable.mangled_name('a', directory='b')
             'b/ListSaveable__a'
         """
         standardized_name = cls.__name__ + "__" + name
