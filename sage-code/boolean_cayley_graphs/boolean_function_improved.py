@@ -602,6 +602,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         OUTPUT:
 
         A str or buffer containing a compressed version of the truth table of ``self``.
+
         If nvariables() < 3:
            a result of type str representing a truth table in binary (right to left)
         otherwise:
