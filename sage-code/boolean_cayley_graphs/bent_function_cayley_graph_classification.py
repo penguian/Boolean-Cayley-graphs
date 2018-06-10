@@ -1587,9 +1587,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             True
             sage: os.remove(csv_name)
 
-        TESTS::
+        TESTS:
 
-            Test the case where list_dual_graphs=False and dual_cayley_graph_index_matrix in None.
+            Test the case where list_dual_graphs=False and dual_cayley_graph_index_matrix is None.
+
+        ::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
             sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
