@@ -129,6 +129,23 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         - ``weight_class_matrix``
         - ``c_start``
         is set to the corresponding input parameter.
+
+        EXAMPLES:
+
+        The partial classification of the bent function defined by the polynomial
+        :math:`x_1 + x_2 + x_1 x_2` is copied from `c1` to `c2`.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart as BentFunctionCGCP
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: c1 = BentFunctionCGCP.from_function(f, c_stop=1)
+            sage: c2 = BentFunctionCGCP(c1)
+            sage: print(c1 == c2)
+            True
         """
         try:
             sobj = args[0]
@@ -350,6 +367,48 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             c_start=c_start)
 
 
+    def __eq__(self, other):
+        """
+        Test for equality between partial classifications.
+
+        WARNING:
+
+        This test is for strict equality rather than mathematical equivalence.
+
+        INPUT:
+
+        - ``other`` - BentFunctionCayleyGraphClassPart: another partial classification.
+
+        OUTPUT:
+
+        A Boolean value indicating whether ``self`` strictly equals ``other``.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart as BentFunctionCGCP
+            sage: R2.<x0,x1> = BooleanPolynomialRing(2)
+            sage: p = x0*x1
+            sage: f1 = BentFunction(p)
+            sage: c1 = BentFunctionCGCP.from_function(f1, c_stop=1)
+            sage: f2 = BentFunction([0,0,0,1])
+            sage: c2 = BentFunctionCGCP.from_function(f2, c_stop=1)
+            sage: print(c2.algebraic_normal_form)
+            x0*x1
+            sage: print(c1 == c2)
+            True
+        """
+        return (
+            self.algebraic_normal_form == other.algebraic_normal_form and
+            self.cayley_graph_class_list == other.cayley_graph_class_list and
+            self.bent_cayley_graph_index_matrix == other.bent_cayley_graph_index_matrix and
+            self.dual_cayley_graph_index_matrix == other.dual_cayley_graph_index_matrix and
+            self.weight_class_matrix == other.weight_class_matrix and
+            self.c_start == other.c_start)
+
+
 class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
     r"""
     Classification of the Cayley graphs within the
@@ -367,6 +426,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         Constructor from an object or from class attributes.
 
         INPUT:
+
+        - ``sobj`` -- BentFunctionCayleyGraphClassification: object to copy.
 
         - ``algebraic_normal_form`` -- a polynomial of the type
           returned by ``BooleanFunction.algebraic_normal_form()``,
@@ -400,6 +461,23 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         - ``dual_cayley_graph_index_matrix``
         - ``weight_class_matrix``
         is set to the corresponding input parameter.
+
+        EXAMPLES:
+
+        The classification of the bent function defined by the polynomial
+        :math:`x_1 + x_2 + x_1 x_2` is copied from `c1` to `c2`.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: c1 = BentFunctionCGC.from_function(f)
+            sage: c2 = BentFunctionCGC(c1)
+            sage: print(c1 == c2)
+            True
         """
         try:
             sobj = args[0]
@@ -876,7 +954,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         A Boolean value indicating whether ``self`` strictly equals ``other``.
 
-        EXAMPLE:
+        EXAMPLES:
 
         ::
 
@@ -893,12 +971,12 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: print(c1 == c2)
             True
         """
-        return(
-            (self.algebraic_normal_form == other.algebraic_normal_form) and
-            (self.cayley_graph_class_list == other.cayley_graph_class_list) and
-            (self.bent_cayley_graph_index_matrix == other.bent_cayley_graph_index_matrix) and
-            (self.dual_cayley_graph_index_matrix == other.dual_cayley_graph_index_matrix) and
-            (self.weight_class_matrix == other.weight_class_matrix))
+        return (
+            self.algebraic_normal_form == other.algebraic_normal_form and
+            self.cayley_graph_class_list == other.cayley_graph_class_list and
+            self.bent_cayley_graph_index_matrix == other.bent_cayley_graph_index_matrix and
+            self.dual_cayley_graph_index_matrix == other.dual_cayley_graph_index_matrix and
+            self.weight_class_matrix == other.weight_class_matrix)
 
 
     def first_matrix_index_list(self):
