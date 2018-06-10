@@ -496,33 +496,57 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: c2 = BentFunctionCGC.from_function(bf2)
             sage: csv_name = tmp_filename() + ".csv"
             sage: c2.save_matrices_as_csv(csv_name)
-            sage: (bent_cayley_graph_index_matrix,dual_cayley_graph_index_matrix,
-            ....: weight_class_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
+            sage: (ci_matrix,di_matrix,wc_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
             sage: print(
-            ....:     c2.bent_cayley_graph_index_matrix == bent_cayley_graph_index_matrix and
-            ....:     c2.dual_cayley_graph_index_matrix == dual_cayley_graph_index_matrix and
-            ....:     c2.weight_class_matrix == weight_class_matrix)
+            ....:     c2.bent_cayley_graph_index_matrix == ci_matrix and
+            ....:     c2.dual_cayley_graph_index_matrix == di_matrix and
+            ....:     c2.weight_class_matrix == wc_matrix)
             True
             sage: os.remove(csv_name)
 
+        TESTS:
+
+            Test the case where list_dual_graphs==False and dual_cayley_graph_index_matrix is None.
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: import os
+            sage: bf = BentFunction([1,1,0,1])
+            sage: dim = bf.nvariables()
+            sage: c = BentFunctionCGC.from_function(bf, list_dual_graphs=False)
+            sage: csv_name = tmp_filename() + ".csv"
+            sage: c.save_matrices_as_csv(csv_name)
+            sage: (ci_matrix,di_matrix,wc_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
+            sage: print(c.bent_cayley_graph_index_matrix == ci_matrix)
+            True
+            sage: print(c.dual_cayley_graph_index_matrix == di_matrix)
+            True
+            sage: print(c.weight_class_matrix == wc_matrix)
+            True
+            sage: os.remove(csv_name)
         """
         v = 2 ** dim
-        bent_cayley_graph_index_matrix = matrix(v, v)
-        dual_cayley_graph_index_matrix = matrix(v, v)
-        weight_class_matrix = matrix(v, v)
         with open(file_name) as csv_file:
             reader = csv.DictReader(csv_file)
+            fieldnames = reader.fieldnames
+            ci_matrix = matrix(v, v)
+            wc_matrix = matrix(v, v)
+            di_matrix = (
+                    matrix(v, v)
+                if "dual_cayley_graph_index" in fieldnames
+                else
+                    None)
             for row in reader:
-                c = int(row['c'])
-                b = int(row['b'])
-                bent_cayley_graph_index_matrix[c, b] = row['bent_cayley_graph_index']
-                dual_cayley_graph_index_matrix[c, b] = row['dual_cayley_graph_index']
-                weight_class_matrix[c, b] = row['weight_class']
+                c = int(row["c"])
+                b = int(row["b"])
+                ci_matrix[c, b] = row["bent_cayley_graph_index"]
+                wc_matrix[c, b] = row["weight_class"]
+                if "dual_cayley_graph_index" in fieldnames:
+                    di_matrix[c, b] = row["dual_cayley_graph_index"]
 
-        return (
-            bent_cayley_graph_index_matrix,
-            dual_cayley_graph_index_matrix,
-            weight_class_matrix)
+        return (ci_matrix, di_matrix, wc_matrix)
 
 
     @classmethod
@@ -654,6 +678,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             [0 1 0 0]
             [0 0 0 1]}
 
+        TESTS:
 
         The classification of the bent function defined by the polynomial
         :math:`x_1 + x_2 + x_1 x_2`, but with list_dual_graphs=False.
@@ -1542,7 +1567,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         None.
 
-        EXAMPLE:
+        EXAMPLES::
 
             sage: from boolean_cayley_graphs.bent_function import BentFunction
             sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
@@ -1561,6 +1586,28 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             ....:     c2.weight_class_matrix == weight_class_matrix)
             True
             sage: os.remove(csv_name)
+
+        TESTS::
+
+            Test the case where list_dual_graphs=False and dual_cayley_graph_index_matrix in None.
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: import os
+            sage: bf = BentFunction([1,0,1,1])
+            sage: dim = bf.nvariables()
+            sage: c = BentFunctionCGC.from_function(bf, list_dual_graphs=False)
+            sage: csv_name = tmp_filename() + ".csv"
+            sage: c.save_matrices_as_csv(csv_name)
+            sage: (ci_matrix,di_matrix,wc_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
+            sage: print(c.bent_cayley_graph_index_matrix == ci_matrix)
+            True
+            sage: print(c.dual_cayley_graph_index_matrix == di_matrix)
+            True
+            sage: print(c.weight_class_matrix == wc_matrix)
+            True
+            sage: os.remove(csv_name)
+
         """
         bentf = BentFunction(self.algebraic_normal_form)
         dim = bentf.nvariables()
@@ -1574,8 +1621,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             "b",
             "c",
             "bent_cayley_graph_index",
-            "dual_cayley_graph_index",
             "weight_class"]
+        if di_matrix is not None:
+            fieldnames.append(
+                "dual_cayley_graph_index")
         with open(file_name, "w") as matrix_file:
             writer = csv.DictWriter(
                 matrix_file,
@@ -1584,17 +1633,19 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
             for c in xsrange(v):
                 for b in xsrange(v):
-                    writer.writerow({
+                    row_dict = {
                         "b":
                             b,
                         "c":
                             c,
                         "bent_cayley_graph_index":
                             ci_matrix[c, b],
-                        "dual_cayley_graph_index":
-                            di_matrix[c, b],
                         "weight_class":
-                            wc_matrix[c, b]})
+                            wc_matrix[c, b]}
+                    if di_matrix is not None:
+                        row_dict[
+                            "dual_cayley_graph_index"] = di_matrix[c, b]
+                    writer.writerow(row_dict)
 
 
     def save_as_csv(self, file_name_prefix):
