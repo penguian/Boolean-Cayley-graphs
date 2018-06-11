@@ -29,7 +29,7 @@ base2 = lambda dim, num: num.digits(2, padto=dim)
 
 
 class BooleanGraph(Graph, Saveable):
-    r"""
+    """
     A Graph whose order is a power of 2.
 
     EXAMPLES:
@@ -42,6 +42,18 @@ class BooleanGraph(Graph, Saveable):
         16
     """
     def __init__(self, *args, **kwargs):
+        """
+        A Graph whose order is a power of 2.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+            sage: g16 = BooleanGraph(8)
+            sage: g16.order()
+            8
+        """
         super(BooleanGraph, self).__init__(*args, **kwargs)
 
         if not log(self.order(),2).is_integer():
@@ -66,6 +78,25 @@ class BooleanGraph(Graph, Saveable):
         If ``certificate`` is false, a bool value.
         If ``certificate`` is true, a tuple consisting of either (False, None)
         or (True, M), where M is a GF(2) matrix that defines the isomorphism.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+            sage: bf1 = BooleanFunctionImproved([0,1,0,0])
+            sage: cg1 = BooleanGraph(bf1.cayley_graph())
+            sage: bf2 = BooleanFunctionImproved([0,0,1,0])
+            sage: cg2 = BooleanGraph(bf2.cayley_graph())
+            sage: cg1.is_linear_isomorphic(cg2)
+            True
+            sage: cg2.is_linear_isomorphic(cg1, certificate=True)
+            (
+                  [0 1]
+            True, [1 0]
+            )
+
 
         """
 
