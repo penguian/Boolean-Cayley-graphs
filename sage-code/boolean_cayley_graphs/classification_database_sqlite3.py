@@ -17,6 +17,7 @@ AUTHORS:
 
 
 import hashlib
+import os
 import sqlite3
 
 from sage.arith.srange import xsrange
@@ -78,10 +79,12 @@ def connect_to_database(db_name):
         <type 'sqlite3.Connection'>
         sage: conn = drop_database(db_name)
     """
-    conn = sqlite3.connect(db_name)
-    conn.row_factory = sqlite3.Row
-    return conn
-
+    if os.path.isfile(db_name):
+        conn = sqlite3.connect(db_name)
+        conn.row_factory = sqlite3.Row
+        return conn
+    else:
+        raise IOError("File not found: {}".format(db_name))
 
 def drop_database(db_name):
     """
@@ -109,7 +112,6 @@ def drop_database(db_name):
         sage: os.path.exists(db_name)
         False
     """
-    import os
     os.remove(db_name)
     return None
 
@@ -325,7 +327,7 @@ def select_classification_where_bent_function(
         x0*x1
         sage: type(result)
         <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
-        sage: result.report()
+        sage: result.report(report_on_matrix_details=True)
         Algebraic normal form of Boolean function: x0*x1
         Function is bent.
         <BLANKLINE>
@@ -439,7 +441,7 @@ def select_classification_where_name(
         x0*x1
         sage: type(result)
         <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
-        sage: result.report()
+        sage: result.report(report_on_matrix_details=True)
         Algebraic normal form of Boolean function: x0*x1
         Function is bent.
         <BLANKLINE>
