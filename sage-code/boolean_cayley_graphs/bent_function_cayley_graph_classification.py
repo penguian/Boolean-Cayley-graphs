@@ -840,7 +840,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: cl1 = BentFunctionCGC.from_parts(
             ....:    prefix_basename,
             ....:    directory=prefix_dirname)
-            sage: cl1.report()
+            sage: cl1.report(report_on_matrix_details=True)
             Algebraic normal form of Boolean function: x0*x1 + x0 + x1
             Function is bent.
             <BLANKLINE>
@@ -1023,7 +1023,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         return cb_list
 
 
-    def report(self, report_on_graph_details=False):
+    def report(
+        self,
+        report_on_matrix_details=False,
+        report_on_graph_details=False):
         r"""
         Print a report on the classification.
 
@@ -1032,6 +1035,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         INPUT:
 
         - ``self`` -- the current object.
+        - ``report_on_matrix_details`` -- optional, Boolean (default: False).
+           If True, print each matrix.
         - ``report_on_graph_details`` -- optional, Boolean (default: False).
            If True, produce a detailed report for each Cayley graph.
 
@@ -1041,11 +1046,12 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         A report on the following attributes of ``self``:
         - ``algebraic_normal_form``
         - ``cayley_graph_class_list``
-        - ``bent_cayley_graph_index_matrix``
-        - ``dual_cayley_graph_index_matrix``
+        - If report_on_matrix_details is ``True``:
+        -- ``bent_cayley_graph_index_matrix``
+        -- ``dual_cayley_graph_index_matrix``
         (only if this is not ``None`` and is different from
         ``bent_cayley_graph_index_matrix``)
-        - ``weight_class_matrix``
+        -- ``weight_class_matrix``
         - If report_on_graph_details is ``True``:
         details of each graph in ``cayley_graph_class_list``.
 
@@ -1062,7 +1068,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: p = x0+x0*x1+x2*x3
             sage: f = BentFunction(p)
             sage: c = BentFunctionCGC.from_function(f)
-            sage: c.report(True)
+            sage: c.report(report_on_matrix_details=True, report_on_graph_details=True)
             Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3
             Function is bent.
             <BLANKLINE>
@@ -1150,6 +1156,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         """
         def graph_and_linear_code_report(
             bentf,
+            report_on_matrix_details,
             report_on_graph_details,
             cayley_graph_class_list,
             pair_c_b_list,
@@ -1186,14 +1193,15 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                 print "and", tot_cayley_graph_classes,
                 print "extended Cayley classes in the union of the two."
 
-            print ""
-            print "Matrix of indices of Cayley graphs:"
-            print bent_cayley_graph_index_matrix
+            if report_on_matrix_details:
+                print ""
+                print "Matrix of indices of Cayley graphs:"
+                print bent_cayley_graph_index_matrix
 
-            if dual_cayley_graph_index_matrix != None:
-                print "Matrix of indices of Cayley graphs",
-                print "of dual bent functions:"
-                print dual_cayley_graph_index_matrix
+                if dual_cayley_graph_index_matrix != None:
+                    print "Matrix of indices of Cayley graphs",
+                    print "of dual bent functions:"
+                    print dual_cayley_graph_index_matrix
 
             if not report_on_graph_details:
                 return
@@ -1290,9 +1298,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         print "Function", ("is" if bentf.is_bent() else "is not"), "bent."
         print ""
-        print "Weight class matrix:"
         D = self.weight_class_matrix
-        print D
+        if report_on_matrix_details:
+            print "Weight class matrix:"
+            print D
 
         print ""
         print "SDP design incidence structure t-design parameters:",
@@ -1308,21 +1317,37 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         if di_matrix == None:
             print "Classification of Cayley graphs:"
 
-            graph_and_linear_code_report(bentf, report_on_graph_details,
-                                         cg_list, cb_list, ci_matrix)
+            graph_and_linear_code_report(
+                bentf,
+                report_on_matrix_details,
+                report_on_graph_details,
+                cg_list,
+                cb_list,
+                ci_matrix)
         else:
             print "Classification of Cayley graphs and",
             print "classification of Cayley graphs of duals",
             if ci_matrix == di_matrix:
                 print "are the same:"
 
-                graph_and_linear_code_report(bentf,  report_on_graph_details,
-                                             cg_list, cb_list, ci_matrix)
+                graph_and_linear_code_report(
+                    bentf,
+                    report_on_matrix_details,
+                    report_on_graph_details,
+                    cg_list,
+                    cb_list,
+                    ci_matrix)
             else:
                 print "differ in matrices of indexes:"
 
-                graph_and_linear_code_report(bentf,  report_on_graph_details,
-                                             cg_list, cb_list, ci_matrix, di_matrix)
+                graph_and_linear_code_report(
+                    bentf,
+                    report_on_matrix_details,
+                    report_on_graph_details,
+                    cg_list,
+                    cb_list,
+                    ci_matrix,
+                    di_matrix)
 
 
     def print_latex_table_of_cayley_classes(self, width=40, rows_per_table=6):
