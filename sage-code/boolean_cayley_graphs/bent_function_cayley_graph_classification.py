@@ -814,8 +814,6 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         EXAMPLES:
 
-        ::
-
         A classification of the bent function defined by the polynomial
         :math:`x_1 + x_2 + x_1 x_2`.
 
