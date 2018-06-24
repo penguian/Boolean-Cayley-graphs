@@ -526,7 +526,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: import os
             sage: bf2 = BentFunction([1,0,1,1])
             sage: c2 = BentFunctionCGC.from_function(bf2)
-            sage: csv_name = tmp_filename() + ".csv"
+            sage: csv_name = tmp_filename(ext=".csv")
             sage: c2.save_cg_class_list_as_csv(csv_name)
             sage: cgcl_saved = BentFunctionCGC.cg_class_list_from_csv(csv_name)
             sage: print(cgcl_saved == c2.cayley_graph_class_list)
@@ -572,7 +572,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: bf2 = BentFunction([1,1,0,1])
             sage: dim = bf2.nvariables()
             sage: c2 = BentFunctionCGC.from_function(bf2)
-            sage: csv_name = tmp_filename() + ".csv"
+            sage: csv_name = tmp_filename(ext=".csv")
             sage: c2.save_matrices_as_csv(csv_name)
             sage: (ci_matrix,di_matrix,wc_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
             sage: print(c2.bent_cayley_graph_index_matrix == ci_matrix)
@@ -595,7 +595,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: bf = BentFunction([1,1,0,1])
             sage: dim = bf.nvariables()
             sage: c = BentFunctionCGC.from_function(bf, list_dual_graphs=False)
-            sage: csv_name = tmp_filename() + ".csv"
+            sage: csv_name = tmp_filename(ext=".csv")
             sage: c.save_matrices_as_csv(csv_name)
             sage: (ci_matrix,di_matrix,wc_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
             sage: print(c.bent_cayley_graph_index_matrix == ci_matrix)
@@ -1660,7 +1660,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: import os
             sage: bf2 = BentFunction([1,0,1,1])
             sage: c2 = BentFunctionCGC.from_function(bf2)
-            sage: csv_name = tmp_filename() + ".csv"
+            sage: csv_name = tmp_filename(ext=".csv")
             sage: c2.save_cg_class_list_as_csv(csv_name)
             sage: cgcl_saved = BentFunctionCGC.cg_class_list_from_csv(csv_name)
             sage: print(cgcl_saved == c2.cayley_graph_class_list)
@@ -1706,7 +1706,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: bf2 = BentFunction([0,1,1,1])
             sage: dim = bf2.nvariables()
             sage: c2 = BentFunctionCGC.from_function(bf2)
-            sage: csv_name = tmp_filename() + ".csv"
+            sage: csv_name = tmp_filename(ext=".csv")
             sage: c2.save_matrices_as_csv(csv_name)
             sage: (ci_matrix,di_matrix,wc_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
             sage: print(c2.bent_cayley_graph_index_matrix == ci_matrix)
@@ -1729,7 +1729,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: bf = BentFunction([1,0,1,1])
             sage: dim = bf.nvariables()
             sage: c = BentFunctionCGC.from_function(bf, list_dual_graphs=False)
-            sage: csv_name = tmp_filename() + ".csv"
+            sage: csv_name = tmp_filename(ext=".csv")
             sage: c.save_matrices_as_csv(csv_name)
             sage: (ci_matrix,di_matrix,wc_matrix) = BentFunctionCGC.matrices_from_csv(dim, csv_name)
             sage: print(c.bent_cayley_graph_index_matrix == ci_matrix)
