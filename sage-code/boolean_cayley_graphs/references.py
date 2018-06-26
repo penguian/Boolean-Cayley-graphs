@@ -292,10 +292,59 @@ combinatorial designs*, chapter VII.1,  677--701. CRC press, second edition,
 
 
 def cite(citation):
+    r"""
+    Look up and retrieve reference details from the `bibitem` dictionary.
+
+    INPUT:
+
+    - ``citation`` -- string: A citation, generally but not always
+      in the form "AbcYYYY", where "Abc" is the first 3 characters of
+      the author's surname, and "YYYY" is the 4 digit year.
+
+    OUTPUT:
+
+    The reference details as a string.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.references import cite
+        sage: print(cite("Leo2017"))
+        P. Leopardi.
+        "Classifying bent functions by their Cayley graphs".
+        DRAFT ONLY, May 2017.
+        Preprint: arXiv:1705.04507 [math.CO].
+    """
     return bibitem[citation]
 
 
 def sage_reference(citation):
+    r"""
+    Retrieve reference details from the `bibitem` dictionary in a format
+    similar to the way that Sage formats it own references.
+
+    INPUT:
+
+    - ``citation`` -- string: A citation, generally but not always
+      in the form "AbcYYYY", where "Abc" is the first 3 characters of
+      the author's surname, and "YYYY" is the 4 digit year.
+
+    OUTPUT:
+
+    The reference details as a Sage-formatted string.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.references import sage_reference
+        sage: print(sage_reference("Leo2017"))
+        .. [Leo2017] \P. Leopardi.
+                    "Classifying bent functions by their Cayley graphs".
+                    DRAFT ONLY, May 2017.
+                    Preprint: arXiv:1705.04507 [math.CO].
+    """
     bibitem_lines = bibitem[citation].splitlines()
     sage_bibitem_lines = (
         [bibitem_lines[0]] +
@@ -305,11 +354,81 @@ def sage_reference(citation):
 
 
 def print_sage_references():
+    r"""
+    Retrieve all reference details from the `bibitem` dictionary and print them
+    in a format similar to the way that Sage formats it own references.
+
+    INPUT:
+
+    None.
+
+    OUTPUT:
+
+    All reference details in `bibitem` as a Sage-formatted string.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.references import print_sage_references
+        sage: print_sage_references()
+        .. [RFC2144] \C. M. Adams.
+                    *The cast-128 encryption algorithm.*
+                    RFC 2144, RFC Editor, May 1997.
+        ...
+        .. [Ton2007] \V. D. Tonchev.
+                    "Codes". In C. Colbourne and J. Dinitz, editors, *Handbook of
+                    combinatorial designs*, chapter VII.1,  677--701. CRC press, second edition,
+                    (2007).
+    """
     for citation in bibitem.iterkeys():
         print(sage_reference(citation))
         print()
 
+
 def print_sage_references_index_rst(file=stdout):
+    r"""
+    Retrieve all reference details from the `bibitem` dictionary and print them
+    in the format expected by Sphinx for the file `index.rst`.
+
+    INPUT:
+
+    - ``file`` -- file, optional. The file to which the reference details are
+      to be printed. Default is stdout.
+
+    OUTPUT:
+
+    All reference details in `bibitem` as a Sage-formatted string.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.references import print_sage_references_index_rst
+        sage: print_sage_references_index_rst()
+        References
+        ==========
+        <BLANKLINE>
+        References, sorted alphabetically by first author.
+        <BLANKLINE>
+        :ref:`A <ref-A>`
+        ...
+        :ref:`T <ref-T>`
+        <BLANKLINE>
+        .. _ref-A:
+        <BLANKLINE>
+        **A**
+        <BLANKLINE>
+        .. [Ada1997] \C. M. Adams.
+                    Constructing symmetric ciphers using the cast design procedure.
+                    In E. Kranakis and P. Van Oorschot, editors, *Selected Areas in
+                    Cryptography*,  71--104, Boston, MA, (1997). Springer US.
+        ...
+        .. [Ton2007] \V. D. Tonchev.
+                    "Codes". In C. Colbourne and J. Dinitz, editors, *Handbook of
+                    combinatorial designs*, chapter VII.1,  677--701. CRC press, second edition,
+                    (2007).
+    """
     print("References", file=file)
     print("==========", file=file)
     print("", file=file)
