@@ -17,18 +17,9 @@ AUTHORS:
 
 import glob
 import os
-import random
 import shelve
-import string
 
-default_alphabet = string.digits + string.ascii_letters
-default_length = 64
-
-
-def random_name(alphabet=default_alphabet, length=default_length):
-   return ''.join(random.choice(alphabet)
-                  for i in range(length))
-
+from sage.misc.temporary_file import tmp_filename
 
 class List(list):
     r"""
@@ -60,13 +51,11 @@ class List(list):
 
             sage: from boolean_cayley_graphs.containers import List
             sage: L = List([1,2,4])
-            sage: I = L.index_append(2)
-            sage: I
+            sage: L.index_append(2)
             1
             sage: L
             [1, 2, 4]
-            sage: I = L.index_append(3)
-            sage: I
+            sage: L.index_append(3)
             3
             sage: L
             [1, 2, 4, 3]
@@ -93,13 +82,52 @@ class BijectiveList(object):
 
         Initialization from a non-empty list can easily break
         the 1-1 relationship between index and item in a BijectiveList.
-    """
-    def __init__(self, other_list=None, file_prefix=None):
-        r"""
-        .. WARNING::
 
-            Initialization from a non-empty list can easily break
-            the 1-1 relationship between index and item in a BijectiveList.
+    EXAMPLES:
+
+    Initialize from a list.
+
+    ::
+
+        sage: from boolean_cayley_graphs.containers import BijectiveList
+        sage: BL = BijectiveList(["1","2","3"])
+        sage: BL.get_list()
+        ['1', '2', '3']
+        sage: BL.get_dict()
+        {'1': 0, '2': 1, '3': 2}
+        sage: del BL
+    """
+    def __init__(self, other_list=None):
+        r"""
+        Constructor.
+
+        EXAMPLES:
+
+        Default initialization.
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList()
+            sage: BL.get_list()
+            []
+            sage: BL.get_dict()
+            {}
+            sage: del BL
+
+        TESTS:
+
+        Initialize from a list.
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList(["1","2","6"])
+            sage: BL.get_list()
+            ['1', '2', '6']
+            sage: BL.get_dict()
+            {'1': 0, '2': 1, '6': 2}
+            sage: del BL
         """
         if other_list == None:
             self._item = []
@@ -113,6 +141,21 @@ class BijectiveList(object):
     def __getitem__(self, index):
         r"""
         List lookup by index.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``index`` -- the index to look up.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList([1,2,3])
+            sage: BL[2]
+            3
+            sage: del BL
         """
         return self._item[index]
 
@@ -120,6 +163,20 @@ class BijectiveList(object):
     def __len__(self):
         r"""
         Get the length of the list.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList([1,2,3])
+            sage: len(BL)
+            3
+            sage: del BL
         """
         return len(self._item)
 
@@ -127,6 +184,20 @@ class BijectiveList(object):
     def get_dict(self):
         r"""
         Get the dict part of the BijectiveList.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList([1,2,5])
+            sage: BL.get_dict()
+            {1: 0, 2: 1, 5: 2}
+            sage: del BL
         """
         return self._index
 
@@ -134,6 +205,21 @@ class BijectiveList(object):
     def get_list(self):
         r"""
         Get the list part of the BijectiveList.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList([1,2,5])
+            sage: BL.get_list()
+            [1, 2, 5]
+            sage: del BL
+
         """
         return self._item
 
@@ -144,6 +230,43 @@ class BijectiveList(object):
 
         Use a dict lookup using _index instead of calling index() on the list.
         If the dict lookup yields a KeyError then raise a ValueError.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``item`` -- the item to look up.
+
+        OUTPUT:
+
+        A non-negative integer indicating the index of ``item`` within ``self``.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList([1,2,4])
+            sage: BL.index(2)
+            1
+            sage: BL.get_list()
+            [1, 2, 4]
+            sage: BL.get_dict()
+            {1: 0, 2: 1, 4: 2}
+            sage: del BL
+
+        TESTS:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList([1,2,4])
+            sage: try:
+            ....:     BL.index(3)
+            ....: except ValueError as e:
+            ....:     print("ValueError: {0}".format(e.args[0]))
+            ....: finally:
+            ....:     del BL
+            ValueError: 3 is not in list
         """
         try:
             result = self._index[item]
@@ -160,26 +283,36 @@ class BijectiveList(object):
         If the dict lookup yields a KeyError then set result to the length of self,
         append item to self, and add result to _index.
 
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``item`` -- the item to look up, and append if necessary.
+
+        OUTPUT:
+
+        A non-negative integer indicating the index of ``item`` within ``self``.
+
+        EFFECT:
+
+        The item ``item`` may be appended to ``self``.
+
         EXAMPLES:
 
         ::
 
             sage: from boolean_cayley_graphs.containers import BijectiveList
             sage: BL = BijectiveList([1,2,4])
-            sage: BI = BL.index_append(2)
-            sage: BI
+            sage: BL.index_append(2)
             1
             sage: BL.get_list()
             [1, 2, 4]
-            sage: BI = BL.index_append(3)
-            sage: BI
+            sage: BL.index_append(3)
             3
             sage: BL.get_list()
             [1, 2, 4, 3]
             sage: BL.get_dict()
             {1: 0, 2: 1, 3: 3, 4: 2}
             sage: del BL
-
         """
         try:
             result = self._index[item]
@@ -191,14 +324,54 @@ class BijectiveList(object):
 
 
     def sync(self):
+        r"""
+        Dummy method to match the interface of ShelveBijectiveList.
+
+        TESTS:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList(["1","2","6"])
+            sage: BL.sync()
+            sage: del BL
+        """
         pass
 
 
     def close_dict(self):
+        r"""
+        Dummy method to match the interface of ShelveBijectiveList.
+
+        TESTS:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList(["1","2","6"])
+            sage: BL.close_dict()
+            sage: BL.remove_dict()
+        """
         pass
 
 
     def remove_dict(self):
+        r"""
+        Remove the dictionary.
+
+        TESTS:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList(["1","2","6"])
+            sage: BL.close_dict()
+            sage: BL.remove_dict()
+            sage: try:
+            ....:     BL._index
+            ....: except AttributeError:
+            ....:     pass
+        """
         try:
             del self._index
         except AttributeError:
@@ -206,6 +379,22 @@ class BijectiveList(object):
 
 
     def __del__(self):
+        r"""
+        Clean up by closing and removing the dictionary,
+        before deleting the current object.
+
+        TESTS:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: BL = BijectiveList(["1","2","6"])
+            sage: del BL
+            sage: try:
+            ....:     BL
+            ....: except NameError:
+            ....:     pass
+        """
         self.close_dict()
         self.remove_dict()
 
@@ -234,30 +423,54 @@ class ShelveBijectiveList(BijectiveList):
 
     EXAMPLES:
 
+    Initialize from a list.
+
     ::
 
         sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
         sage: SBL = ShelveBijectiveList(["1","2","4"])
         sage: SBL.get_list()
         ['1', '2', '4']
-        sage: SBI = SBL.index_append("3")
-        sage: SBI
-        3
-        sage: SBL.get_list()
-        ['1', '2', '4', '3']
         sage: SBL.get_dict()
-        {'1': 0, '3': 3, '2': 1, '4': 2}
-        sage: SBL.remove_dict()
+        {'1': 0, '2': 1, '4': 2}
         sage: del SBL
-
     """
     def __init__(self, other_list=None):
         r"""
+        Constructor.
+
+        EXAMPLES:
+
+        Default initialization.
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+            sage: SBL = ShelveBijectiveList()
+            sage: SBL.get_list()
+            []
+            sage: SBL.get_dict()
+            {}
+            sage: del SBL
+
+        TESTS:
+
+        Initialize from a list.
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+            sage: SBL = ShelveBijectiveList(["1","2","6"])
+            sage: SBL.get_list()
+            ['1', '2', '6']
+            sage: SBL.get_dict()
+            {'1': 0, '2': 1, '6': 2}
+            sage: del SBL
         """
-        self.file_prefix = random_name()
+        self.shelve_file_name = tmp_filename(ext=".index")
         # Work around http://bugs.python.org/issue18039 not fixed in 2.7*
         self.remove_dict()
-        self._index = shelve.open(self.file_prefix + ".index", flag='n')
+        self._index = shelve.open(self.shelve_file_name, flag='n')
         if other_list == None:
             self._item = []
         else:
@@ -268,21 +481,83 @@ class ShelveBijectiveList(BijectiveList):
 
 
     def sync(self):
+        r"""
+        Synchronize the persistent dictionary on disk, if feasible.
+
+        TESTS:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+            sage: SBL = ShelveBijectiveList(["1","2","6"])
+            sage: SBL.sync()
+            sage: del SBL
+         """
         self._index.sync()
 
 
     def close_dict(self):
+        r"""
+        Synchronize and close the persistent dictionary on disk.
+
+        TESTS:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+            sage: SBL = ShelveBijectiveList(["1","2","6"])
+            sage: SBL.close_dict()
+            sage: SBL.remove_dict()
+        """
         self._index.close()
 
 
     def remove_dict(self):
-        index_file_prefix = self.file_prefix + ".index"
-        for file_name in glob.glob(index_file_prefix + "*"):
+        r"""
+        Remove the files used for the persistent dictionary on disk.
+
+        .. WARNING::
+
+            Use close_dict() first.
+
+        TESTS:
+
+        ::
+
+            sage: import glob
+            sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+            sage: SBL = ShelveBijectiveList(["1","2","6"])
+            sage: SBL.close_dict()
+            sage: SBL.remove_dict()
+            sage: glob.glob(SBL.shelve_file_name + "*")
+            []
+        """
+        for file_name in glob.glob(self.shelve_file_name + "*"):
             if os.path.isfile(file_name):
                 os.remove(file_name)
 
 
     def __del__(self):
+        r"""
+        Clean up by closing the persistent dictionary on disk, and
+        removing the files used for it, before deleting the current object.
+
+        TESTS:
+
+        ::
+
+            sage: import glob
+            sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+            sage: SBL = ShelveBijectiveList(["1","2","6"])
+            sage: shelve_file_name = SBL.shelve_file_name
+            sage: del SBL
+            sage: glob.glob(shelve_file_name + "*")
+            []
+            sage: try:
+            ....:     SBL
+            ....: except NameError:
+            ....:     pass
+        """
         self.close_dict()
         self.remove_dict()
 
