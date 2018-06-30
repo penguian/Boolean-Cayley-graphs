@@ -97,7 +97,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         cls,
         tt_buffer):
         r"""
-        Constructor from the dimension dim, and the buffer tt_buffer.
+        Constructor from the buffer tt_buffer.
 
         The buffer tt_buffer is assumed to be the result of method tt_buffer(),
         which returns either:
