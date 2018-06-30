@@ -20,6 +20,7 @@ import hashlib
 import os
 import sqlite3
 
+from exceptions import OSError
 from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
 
@@ -40,7 +41,9 @@ def create_database(db_name):
 
     EXAMPLE:
 
-    Create a database using a temporary filename, then drop the database. ::
+    Create a database using a temporary filename, then drop the database.
+
+    ::
 
         sage: from sage.misc.temporary_file import tmp_filename
         sage: db_name = tmp_filename(ext='.db')
@@ -48,7 +51,7 @@ def create_database(db_name):
         sage: conn = create_database(db_name)
         sage: type(conn)
         <type 'sqlite3.Connection'>
-        sage: conn = drop_database(db_name)
+        sage: drop_database(db_name)
     """
     conn = sqlite3.connect(db_name)
     conn.row_factory = sqlite3.Row
@@ -68,7 +71,9 @@ def connect_to_database(db_name):
     EXAMPLE:
 
     Create a database using a temporary filename, connect to it,
-    then drop the database. ::
+    then drop the database.
+
+    ::
 
         sage: from sage.misc.temporary_file import tmp_filename
         sage: db_name = tmp_filename(ext='.db')
@@ -77,7 +82,7 @@ def connect_to_database(db_name):
         sage: con2 = connect_to_database(db_name)
         sage: type(con2)
         <type 'sqlite3.Connection'>
-        sage: conn = drop_database(db_name)
+        sage: drop_database(db_name)
     """
     if os.path.isfile(db_name):
         conn = sqlite3.connect(db_name)
@@ -88,17 +93,19 @@ def connect_to_database(db_name):
 
 def drop_database(db_name):
     """
-    Drop an existing database.
+    Drop a database, if it exists.
 
     INPUT:
 
     - ``db_name`` -- string. The name of the existing database.
 
-    OUTPUT: None
+    OUTPUT: None.
 
     EXAMPLE:
 
-    Create a database using a temporary filename, then drop the database. ::
+    Create a database using a temporary filename, then drop the database.
+
+    ::
 
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
         sage: import os
@@ -106,14 +113,18 @@ def drop_database(db_name):
         sage: conn = create_database(db_name)
         sage: os.path.exists(db_name)
         True
-        sage: conn = drop_database(db_name)
-        sage: type(conn)
-        <type 'NoneType'>
+        sage: drop_database(db_name)
+        sage: os.path.exists(db_name)
+        False
+        sage: drop_database(db_name)
         sage: os.path.exists(db_name)
         False
     """
-    os.remove(db_name)
-    return None
+    if os.path.exists(db_name):
+        try:
+            os.remove(db_name)
+        except OSError:
+            pass
 
 
 def create_classification_tables(db_name):
@@ -129,17 +140,21 @@ def create_classification_tables(db_name):
     EXAMPLE:
 
     Create a database, with tables, using a temporary filename,
-    list the table names, then drop the database. ::
+    list the table names, then drop the database.
+
+    ::
 
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
         sage: import os
         sage: db_name = tmp_filename(ext='.db')
+        sage: conn = create_database(db_name)
+        sage: conn.close()
         sage: conn = create_classification_tables(db_name)
         sage: os.path.exists(db_name)
         True
         sage: curs = conn.cursor()
         sage: result = curs.execute("SELECT name FROM sqlite_master WHERE type='table'")
-        sage: for row in result:
+        sage: for row in curs:
         ....:     for x in row:
         ....:         print(x)
         ....:
@@ -147,7 +162,8 @@ def create_classification_tables(db_name):
         graph
         cayley_graph
         matrices
-        sage: conn = drop_database(db_name)
+        sage: conn.close()
+        sage: drop_database(db_name)
     """
     conn = connect_to_database(db_name)
     curs = conn.cursor()
@@ -202,13 +218,10 @@ def insert_classification(
     INPUT:
 
     - ``conn`` -- a connection object for the database.
-
-    - ``bfcgc`` -- class BentFunctionCayleyGraphClassification.
-       A Cayley graph classification.
-
+    - ``bfcgc`` -- a Cayley graph classification.
     - ``name`` -- string (default: `None`). The name of the bent function.
 
-    OUTPUT:
+    OUTPUT: None.
 
     A cursor object corresponding to state of the database after the
     classification is inserted.
@@ -216,7 +229,9 @@ def insert_classification(
     EXAMPLE:
 
     Create a database, with tables, using a temporary filename, insert
-    a classification, retrieve it by bent function, then drop the database. ::
+    a classification, retrieve it by bent function, then drop the database.
+
+    ::
 
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
         sage: from boolean_cayley_graphs.bent_function import BentFunction
@@ -227,15 +242,11 @@ def insert_classification(
         x0*x1
         sage: db_name = tmp_filename(ext='.db')
         sage: conn = create_classification_tables(db_name)
-        sage: curs = insert_classification(conn, bfcgc,'bentf')
-        sage: for row in curs:
-        ....:     for x in row:
-        ....:         print(x)
-        ....:
+        sage: insert_classification(conn, bfcgc, 'bentf')
         sage: result = select_classification_where_bent_function(conn, bentf)
         sage: result.algebraic_normal_form
         x0*x1
-        sage: conn = drop_database(db_name)
+        sage: drop_database(db_name)
     """
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
@@ -283,7 +294,6 @@ def insert_classification(
             matrices_b_rows)
 
     conn.commit()
-    return curs
 
 
 def select_classification_where_bent_function(
@@ -295,7 +305,6 @@ def select_classification_where_bent_function(
     INPUT:
 
     - ``conn`` -- a connection object for the database.
-
     - ``bentf`` -- class BentFunction. A bent function.
 
     OUTPUT:
@@ -306,7 +315,9 @@ def select_classification_where_bent_function(
     EXAMPLE:
 
     Create a database, with tables, using a temporary filename, insert
-    a classification, retrieve it by bent function, then drop the database. ::
+    a classification, retrieve it by bent function, then drop the database.
+
+    ::
 
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
         sage: from boolean_cayley_graphs.bent_function import BentFunction
@@ -317,11 +328,7 @@ def select_classification_where_bent_function(
         x0*x1
         sage: db_name = tmp_filename(ext='.db')
         sage: conn = create_classification_tables(db_name)
-        sage: curs = insert_classification(conn, bfcgc,'bentf')
-        sage: for row in curs:
-        ....:     for x in row:
-        ....:         print(x)
-        ....:
+        sage: insert_classification(conn, bfcgc, 'bentf')
         sage: result = select_classification_where_bent_function(conn, bentf)
         sage: result.algebraic_normal_form
         x0*x1
@@ -348,7 +355,7 @@ def select_classification_where_bent_function(
         [0 1 0 0]
         [0 0 1 0]
         [1 0 0 0]
-        sage: conn = drop_database(db_name)
+        sage: drop_database(db_name)
     """
     dim = bentf.nvariables()
     v = 2 ** dim
@@ -424,7 +431,9 @@ def select_classification_where_name(
     EXAMPLE:
 
     Create a database, with tables, using a temporary filename, insert
-    a classification, retrieve it by name, then drop the database. ::
+    a classification, retrieve it by name, then drop the database.
+
+    ::
 
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
         sage: from boolean_cayley_graphs.bent_function import BentFunction
@@ -435,7 +444,7 @@ def select_classification_where_name(
         sage: bfcgc = BentFunctionCayleyGraphClassification.from_function(bentf)
         sage: bfcgc.algebraic_normal_form
         x0*x1
-        sage: curs = insert_classification(conn, bfcgc,'bentf')
+        sage: insert_classification(conn, bfcgc,'bentf')
         sage: result = select_classification_where_name(conn, 'bentf')
         sage: result.algebraic_normal_form
         x0*x1
@@ -462,8 +471,7 @@ def select_classification_where_name(
         [0 1 0 0]
         [0 0 1 0]
         [1 0 0 0]
-        sage: conn = drop_database(db_name)
-
+        sage: drop_database(db_name)
     """
     curs = conn.cursor()
     curs.execute("""
