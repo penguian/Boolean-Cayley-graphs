@@ -19,7 +19,9 @@ import binascii
 import hashlib
 import psycopg2
 import psycopg2.extras
-from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+
+from psycopg2 import ProgrammingError
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT, quote_ident
 
 from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
@@ -31,7 +33,21 @@ from boolean_cayley_graphs.weight_class import weight_class
 
 class Psycopg2Default(object):
     """
-    By Daniele Varrazzo.
+    A default psycopg2 value.
+
+    .. NOTE::
+
+        From: Daniele Varrazzo
+        Date: 24 August 2014, 15:50:38
+        Source: https://postgrespro.com/list/thread-id/1544890
+        See: http://initd.org/psycopg/docs/advanced.html#adapting-new-python-types-to-sql-syntax
+
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: PSYCOPG2_DEFAULT = Psycopg2Default()
     """
     def __conform__(self, proto):
         if proto is psycopg2.extensions.ISQLQuote:
@@ -54,12 +70,29 @@ def create_database(db_name):
     - ``db_name`` -- string. The name of the database to be created.
 
     OUTPUT: a database connection object.
+
+    EXAMPLE:
+
+    Create a database using a standardized name, then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: from psycopg2 import ProgrammingError
+        sage: db_name = 'doctest_create_database_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: type(conn)
+        <type 'psycopg2.extensions.connection'>
+        sage: conn.close()
+        sage: drop_database(db_name)
     """
     conn = psycopg2.connect(dbname="postgres")
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     curs = conn.cursor()
     curs.execute(
-        "CREATE DATABASE " + db_name)
+        "CREATE DATABASE %s" %
+        quote_ident(db_name, curs))
     conn.commit()
     return conn
 
@@ -73,6 +106,25 @@ def connect_to_database(db_name):
     - ``db_name`` -- string. The name of the existing database.
 
     OUTPUT: a database connection object.
+
+    EXAMPLE:
+
+    Create a database using a standardized name, connect to it,
+    then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: from psycopg2 import ProgrammingError
+        sage: db_name = 'doctest_connect_to_database_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: conn.close()
+        sage: con2 = connect_to_database(db_name)
+        sage: type(con2)
+        <type 'psycopg2.extensions.connection'>
+        sage: con2.close()
+        sage: drop_database(db_name)
     """
     conn = psycopg2.connect(dbname=db_name)
     return conn
@@ -80,22 +132,41 @@ def connect_to_database(db_name):
 
 def drop_database(db_name):
     """
-    Drop an existing database.
-
+    Drop a database, if it exists.
 
     INPUT:
 
     - ``db_name`` -- string. The name of the existing database.
 
-    OUTPUT: a database connection object.
+    OUTPUT: None.
+
+    EXAMPLE:
+
+    Create a database using a standardized name, then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: from psycopg2 import ProgrammingError
+        sage: db_name = 'doctest_drop_database_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: type(conn)
+        <type 'psycopg2.extensions.connection'>
+        sage: conn.close()
+        sage: drop_database(db_name)
+        sage: drop_database(db_name)
     """
     conn = psycopg2.connect(dbname="postgres")
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
-    curs = conn.cursor()
-    curs.execute(
-        "DROP DATABASE " + db_name)
-    conn.commit()
-    return conn
+    with conn.cursor() as curs:
+        try:
+            curs.execute(
+                "DROP DATABASE %s" %
+                quote_ident(db_name, curs))
+        except ProgrammingError:
+            pass
+    conn.close()
 
 
 def create_classification_tables(db_name):
@@ -107,6 +178,36 @@ def create_classification_tables(db_name):
     - ``db_name`` -- string. The name of an existing database.
 
     OUTPUT: a database connection object.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a standardized name,
+    list the table names, then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: from psycopg2 import ProgrammingError
+        sage: db_name = 'doctest_create_classification_tables_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: conn.close()
+        sage: conn = create_classification_tables(db_name)
+        sage: curs = conn.cursor()
+        sage: curs.execute(
+        ....:     "SELECT table_name " +
+        ....:     "FROM information_schema.tables " +
+        ....:     "WHERE table_schema='public' AND table_type='BASE TABLE'")
+        sage: for row in curs:
+        ....:     for x in row:
+        ....:         print(x)
+        ....:
+        graph
+        bent_function
+        cayley_graph
+        matrices
+        sage: conn.close()
+        sage: drop_database(db_name)
     """
     conn = connect_to_database(db_name)
     curs = conn.cursor()
@@ -151,6 +252,24 @@ def create_classification_tables(db_name):
 
 
 def canonical_label_hash(canonical_label):
+    r"""
+    Hash function for Graph canonical labels.
+
+    INPUT:
+
+    - ``canonical_label`` -- string. A graph6_string encoding a Graph canonical label.
+
+    OUTPUT: The sha256 hash of ``canonical_label`` as a ``psycopg2.Binary`` buffer.
+
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: clh = canonical_label_hash("Arbitrary string")
+        sage: type(clh)
+        <type 'psycopg2.extensions.Binary'>
+    """
     return psycopg2.Binary(buffer(hashlib.sha256(canonical_label).digest()))
 
 
@@ -164,17 +283,47 @@ def insert_classification(
     INPUT:
 
     - ``conn`` -- a connection object for the database.
-
     - ``bfcgc`` -- a Cayley graph classification.
-
     - ``name`` -- string (default: `None`). The name of the bent function.
 
-    OUTPUT: a cursor object corresponding to the inserted classification.
+    OUTPUT: None.
+
+    A cursor object corresponding to state of the database after the
+    classification is inserted.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a standardized name, insert
+    a classification, retrieve it by bent function, then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+        sage: from psycopg2 import ProgrammingError
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: bfcgc = BentFunctionCayleyGraphClassification.from_function(bentf)
+        sage: bfcgc.algebraic_normal_form
+        x0*x1
+        sage: db_name = 'doctest_insert_classification_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: conn.close()
+        sage: conn = create_classification_tables(db_name)
+        sage: insert_classification(conn, bfcgc, 'bentf')
+        sage: result = select_classification_where_bent_function(conn, bentf)
+        sage: result.algebraic_normal_form
+        x0*x1
+        sage: conn.close()
+        sage: drop_database(db_name)
     """
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
-    v = 2 ** dim
-    bftt = psycopg2.Binary(bentf.tt_buffer())
+    if dim < 3:
+        bftt = bentf.tt_string()
+    else:
+        bftt = psycopg2.Binary(bentf.tt_buffer())
     cgcl = bfcgc.cayley_graph_class_list
     bcim = bfcgc.bent_cayley_graph_index_matrix
     dcim = bfcgc.dual_cayley_graph_index_matrix
@@ -208,6 +357,7 @@ def insert_classification(
             VALUES (%s,%s,%s)""",
             (bftt, n, graph_id))
 
+    v = 2 ** dim
     for b in range(v):
         matrices_b_rows = (
             (bftt, b, c, int(bcim[c,b]), int(dcim[c,b]), int(wcm[c,b]))
@@ -218,7 +368,6 @@ def insert_classification(
             matrices_b_rows)
 
     conn.commit()
-    return curs
 
 
 def select_classification_where_bent_function(
@@ -230,11 +379,62 @@ def select_classification_where_bent_function(
     INPUT:
 
     - ``conn`` -- a connection object for the database.
-
     - ``bentf`` -- class BentFunction. A bent function.
 
-    OUTPUT: class BentFunctionCayleyGraphClassification.
+    OUTPUT:
+
+    class BentFunctionCayleyGraphClassification.
     The corresponding a Cayley graph classification.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a standardized name, insert
+    a classification, retrieve it by bent function, then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+        sage: from psycopg2 import ProgrammingError
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: bfcgc = BentFunctionCayleyGraphClassification.from_function(bentf)
+        sage: bfcgc.algebraic_normal_form
+        x0*x1
+        sage: db_name = 'doctest_select_classification_where_bent_function_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: conn.close()
+        sage: conn = create_classification_tables(db_name)
+        sage: insert_classification(conn, bfcgc, 'bentf')
+        sage: result = select_classification_where_bent_function(conn, bentf)
+        sage: result.algebraic_normal_form
+        x0*x1
+        sage: type(result)
+        <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
+        sage: result.report(report_on_matrix_details=True)
+        Algebraic normal form of Boolean function: x0*x1
+        Function is bent.
+        <BLANKLINE>
+        Weight class matrix:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        <BLANKLINE>
+        SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+        <BLANKLINE>
+        Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+        <BLANKLINE>
+        There are 2 extended Cayley classes in the extended translation class.
+        <BLANKLINE>
+        Matrix of indices of Cayley graphs:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        sage: conn.close()
+        sage: drop_database(db_name)
     """
     dim = bentf.nvariables()
     v = 2 ** dim
@@ -342,11 +542,60 @@ def select_classification_where_name(
     INPUT:
 
     - ``conn`` -- a connection object for the database.
-
     - ``name`` -- string. The name of the bent function.
 
     OUTPUT: class BentFunctionCayleyGraphClassification.
     The corresponding a Cayley graph classification.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a standardized name, insert
+    a classification, retrieve it by bent function, then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+        sage: from psycopg2 import ProgrammingError
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: bfcgc = BentFunctionCayleyGraphClassification.from_function(bentf)
+        sage: bfcgc.algebraic_normal_form
+        x0*x1
+        sage: db_name = 'doctest_select_classification_where_bent_function_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: conn.close()
+        sage: conn = create_classification_tables(db_name)
+        sage: insert_classification(conn, bfcgc, 'bentf')
+        sage: result = select_classification_where_name(conn, 'bentf')
+        sage: result.algebraic_normal_form
+        x0*x1
+        sage: type(result)
+        <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
+        sage: result.report(report_on_matrix_details=True)
+        Algebraic normal form of Boolean function: x0*x1
+        Function is bent.
+        <BLANKLINE>
+        Weight class matrix:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        <BLANKLINE>
+        SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+        <BLANKLINE>
+        Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+        <BLANKLINE>
+        There are 2 extended Cayley classes in the extended translation class.
+        <BLANKLINE>
+        Matrix of indices of Cayley graphs:
+        [0 0 0 1]
+        [0 1 0 0]
+        [0 0 1 0]
+        [1 0 0 0]
+        sage: conn.close()
+        sage: drop_database(db_name)
     """
     curs = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     curs.execute("""
