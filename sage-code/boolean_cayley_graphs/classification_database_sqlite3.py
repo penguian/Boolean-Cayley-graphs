@@ -433,7 +433,7 @@ def select_classification_where_bent_function_cayley_graph(
     conn,
     bentf):
     """
-    Given a bent function ``bentf``, retrieve all clafficiations that
+    Given a bent function ``bentf``, retrieve all classifications that
     contain a Cayley graph isomorphic to the Cayley graph of ``bentf``.
 
     INPUT:
@@ -453,8 +453,8 @@ def select_classification_where_bent_function_cayley_graph(
     EXAMPLE:
 
 
-    Create a database, with tables, using a standardized name, insert
-    a classification, retrieve it by bent function, then drop the database.
+    Create a database, with tables, using a temporary filename, insert
+    a classification, retrieve it by bent function Cayley graph, then drop the database.
 
     ::
 
