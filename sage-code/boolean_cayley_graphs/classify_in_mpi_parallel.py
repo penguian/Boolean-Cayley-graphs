@@ -25,6 +25,20 @@ def save_classifications_in_parallel(
     start=0,
     stop=None):
     r"""
+    Using MPI, construct and save a number of Cayley graph classifications
+    corresponding to a list of bent functions.
+
+    INPUT:
+
+    - ``comm`` -- MPI communicator.
+    - ``name_prefix`` -- String. Name prefix to use with ``save_mangled`` to save each classification.
+    - ``list_of_f`` -- List of forms or bent functions.
+    - ``start`` -- Integer. Default=0. Index of start position in the list.
+    - ``stop`` -- Integer. Default=None. Index after end position, or ``None`` if whole remaining list.
+
+    OUTPUT:
+
+    EFFECT: Uses ``name`` to save the classifications corresponding to ``list_of_f``.
     """
     rank = comm.Get_rank()
     size = comm.Get_size()
@@ -43,6 +57,19 @@ def save_class_parts_in_parallel(
     form,
     c_len=1):
     r"""
+    Using MPI, construct a complete list of the partial Cayley graph classifications
+    corresponding to a given bent function or algebraic normal form.
+
+    INPUT:
+
+    - ``comm`` -- MPI communicator.
+    - ``name_prefix`` -- String. Name prefix to use with ``save_mangled`` to save each class part.
+    - ``form`` -- A bent function or an algebraic normal form.
+    - ``c_len`` -- Integer. Default=1. The number of values of `c` to use in each class part.
+
+    OUTPUT: A list containing tuples, with names.
+
+    EFFECT: Uses ``name_prefix`` to save all partial classifications corresponding to ``bentf``.
     """
     rank = comm.Get_rank()
     size = comm.Get_size()
