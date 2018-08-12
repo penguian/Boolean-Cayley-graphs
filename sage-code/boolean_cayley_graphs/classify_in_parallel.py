@@ -346,7 +346,7 @@ def save_class_parts_in_parallel(
 
     OUTPUT: A list containing tuples, with names.
 
-    EFFECT: Uses ``name_preix`` to save all partial classifications corresponding to ``bentf``.
+    EFFECT: Uses ``name_prefix`` to save all partial classifications corresponding to ``bentf``.
 
     EXAMPLE:
 
