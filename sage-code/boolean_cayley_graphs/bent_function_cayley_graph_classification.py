@@ -186,10 +186,11 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         - ``bentf`` -- an object of class `BentFunction`.
         - ``list_dual_graphs`` -- boolean. A flag indicating
           whether to list dual graphs. Default is True.
-        - ``c_start`` -- smallest value of c to use for
+        - ``c_start`` -- smallest value of `c` to use for
           extended translates. Integer. Default is 0.
-        - ``c_stop`` -- one more than largest value of c
-          to use for extended translates. Integer. Default is ``None``.
+        - ``c_stop`` -- one more than largest value of `c`
+          to use for extended translates. Integer.
+          Default is ``None``, meaning use all remaining values.
         - ``limited_memory`` -- boolean. A flag indicating
           whether the classification might be too large
           to fit into memory. Default is False.
