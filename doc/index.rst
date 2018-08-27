@@ -9,6 +9,8 @@ Boolean-Cayley-graphs: reference documentation
 
 Investigations of Boolean functions, their Cayley graphs, and associated structures.
 
+Thematic index
+==============
 
 Classifications of bent functions
 ---------------------------------
@@ -53,26 +55,16 @@ Database interfaces
 Utilities
 ---------
 
+* :doc:`Bit-level properties of integers <boolean_cayley_graphs.integer_bits>`
 * :doc:`Controls for timing and tracing <boolean_cayley_graphs.cayley_graph_controls>`
 * :doc:`Improved container classes <boolean_cayley_graphs.containers>`
-* :doc:`Manipulate bits in integers <boolean_cayley_graphs.integer_bits>`
-* :doc:`Save and restore objects with standardized names <boolean_cayley_graphs.saveable>`
+* :doc:`Load and save Sage objects with standardized names <boolean_cayley_graphs.saveable>`
 
-Reference generation
---------------------
+References
+----------
 
 * :doc:`Reference generation <boolean_cayley_graphs.references>`
-
-
-Contents
-========
-
-.. toctree::
-   :maxdepth: 4
-
-   boolean_cayley_graphs
-
-   ./references.rst
+* :doc:`References <references>`
 
 Indices and tables
 ==================
