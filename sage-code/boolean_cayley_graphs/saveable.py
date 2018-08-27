@@ -1,5 +1,6 @@
 r"""
-A mixin class with methods that load and save objects with standardized names.
+The ``saveable`` module defines the ``Savable`` class:
+a mixin class with methods that load and save Sage objects with standardized names.
 
 AUTHORS:
 
@@ -157,7 +158,6 @@ class Saveable(object):
     def save_mangled(self, name, directory=None):
         r"""
         Save an object using its standardized name.
-
 
         INPUT:
 

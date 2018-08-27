@@ -1,5 +1,7 @@
 r"""
-Bent Boolean functions and some of their properties.
+The ``bent_function`` module defines
+the ``BentFunction`` class,
+which represents a bent Boolean function and some of its properties.
 
 AUTHORS:
 
@@ -19,6 +21,10 @@ EXAMPLES:
     <class 'boolean_cayley_graphs.bent_function.BentFunction'>
     sage: bentf.algebraic_normal_form()
     x0*x1 + x0
+
+REFERENCES:
+
+Dillon [Dil1974]_, Rothaus [Rot1976]_, Tokareva [Tok2015]_.
 """
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
@@ -45,7 +51,7 @@ class BentFunction(BooleanFunctionImproved):
 
     The class inherits from BooleanFunctionImproved and is initialized
     in the same way as BooleanFunction.
-    Since BooleanFunctionImproved inherits from Savable, so does BentFunction.
+    Since BooleanFunctionImproved inherits from Saveable, so does BentFunction.
 
     EXAMPLES:
 

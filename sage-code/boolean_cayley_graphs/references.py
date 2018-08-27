@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 r"""
-The bibliographic references for the project, as a collection of functions.
+The ``references`` module defines
+functions that generate and organize the bibliographic references for this project.
 
 AUTHORS:
 
@@ -207,7 +208,7 @@ Preprint: arXiv:1504.02827 [math.CO].
 
 bibitem["Leo2017"] = ("""P. Leopardi.
 "Classifying bent functions by their Cayley graphs".
-DRAFT ONLY, May 2017.
+2017, 2018.
 Preprint: arXiv:1705.04507 [math.CO].
 """)
 
@@ -313,7 +314,7 @@ def cite(citation):
         sage: print(cite("Leo2017"))
         P. Leopardi.
         "Classifying bent functions by their Cayley graphs".
-        DRAFT ONLY, May 2017.
+        2017, 2018.
         Preprint: arXiv:1705.04507 [math.CO].
     """
     return bibitem[citation]
@@ -342,7 +343,7 @@ def sage_reference(citation):
         sage: print(sage_reference("Leo2017"))
         .. [Leo2017] \P. Leopardi.
                     "Classifying bent functions by their Cayley graphs".
-                    DRAFT ONLY, May 2017.
+                    2017, 2018.
                     Preprint: arXiv:1705.04507 [math.CO].
     """
     bibitem_lines = bibitem[citation].splitlines()

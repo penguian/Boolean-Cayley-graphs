@@ -1,5 +1,11 @@
 r"""
-Graphs corresponding to bent functions or the generators of projective two-weight codes.
+The ``boolean_linear_code_graph`` module defines the functions:
+
+ * ``boolean_linear_code_graph``,
+   which returns the graph corresponding to the linear code of a bent Boolean function; and
+ * ``strongly_regular_from_code_gens``,
+   which returns the strongly regular graph corresponding to a list of generators
+   of projective two-weight codes.
 
 AUTHORS:
 

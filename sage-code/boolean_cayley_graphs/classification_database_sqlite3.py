@@ -1,5 +1,6 @@
 r"""
-Utilities to manipulate an sqlite3 database of Cayley graph classifications.
+The ``classification_databasepsqlite3`` module defines interfaces
+to manipulate an SQLite3 database of Cayley graph classifications.
 
 AUTHORS:
 
@@ -446,12 +447,13 @@ def select_classification_where_bent_function_cayley_graph(
     A list where each entry has class BentFunctionCayleyGraphClassification.
     The corresponding list of Cayley graph classifications.
 
-    .. NOTE::
+    NOTE:
 
-    The list is not sorted in any way.
+    ::
+
+        The list is not sorted in any way.
 
     EXAMPLE:
-
 
     Create a database, with tables, using a temporary filename, insert
     a classification, retrieve it by bent function Cayley graph, then drop the database.

@@ -1,5 +1,12 @@
 r"""
-Linear code of a Boolean function.
+The ``boolean_linear_code`` module defines the functions:
+
+ * ``boolean_linear_code_graph``;
+   which returns the Boolean linear code corresponding to a Boolean function,
+ * ``linear_code_from_code_gens``;
+   which return the Boolean linear code corresponding to a list of generators; and
+ * ``print_latex_code_parameters``,
+   which prints the standard parameters of a linear code.
 
 AUTHORS:
 
@@ -39,12 +46,6 @@ def boolean_linear_code(dim, f):
     An object of class ``LinearCode``, representing the Boolean linear code
     corresponding to the Boolean function represented by ``f``.
 
-    REFERENCES:
-
-    [Car2010]_
-
-    [DD2015]_ Corollary 10.
-
     EXAMPLES:
 
     ::
@@ -61,6 +62,10 @@ def boolean_linear_code(dim, f):
         (0, 0, 1, 0, 0),
         (0, 0, 0, 1, 1)
         ]
+
+    REFERENCES:
+
+    Carlet [Car2010]_, Ding and Ding [DD2015]_ Corollary 10.
     """
     v = 2 ** dim
     support = [

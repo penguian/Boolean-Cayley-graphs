@@ -1,5 +1,6 @@
 r"""
-The weight class corresponding to a weight.
+The ``weight_class`` module defines the ``weight_class`` function,
+which returns the weight class corresponding to a weight.
 
 AUTHORS:
 
@@ -14,6 +15,10 @@ EXAMPLES:
     0
     sage: weight_class(16,10)
     1
+
+REFERENCES:
+
+Leopardi [Leo2017]_ Section 2.2.
 """
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
@@ -69,7 +74,7 @@ def weight_class(length, weight):
 
     REFERENCES:
 
-    .. [Leo2017]_ Section 2.2 Definition 5.
+    Leopardi [Leo2017]_ Section 2.2.
 
     """
     sqrtlength = sqrt(length)

@@ -1,5 +1,6 @@
 r"""
-Utilities to manipulate a PostgreSQL database of Cayley graph classifications.
+The ``classification_database_psycopg2`` module defines interfaces
+to manipulate a PostgreSQL database of Cayley graph classifications.
 
 AUTHORS:
 
@@ -34,12 +35,14 @@ class Psycopg2Default(object):
     """
     A default psycopg2 value.
 
-    .. NOTE::
+    NOTE:
+
+    ::
 
         From: Daniele Varrazzo
-        Date: 24 August 2014, 15:50:38
-        Source: https://postgrespro.com/list/thread-id/1544890
-        See: http://initd.org/psycopg/docs/advanced.html#adapting-new-python-types-to-sql-syntax
+        Date: `24 August 2014, 15:50:38`
+        Source: `https://postgrespro.com/list/thread-id/1544890`
+        See: `http://initd.org/psycopg/docs/advanced.html#adapting-new-python-types-to-sql-syntax`
 
     TESTS:
 
@@ -540,9 +543,11 @@ def select_classification_where_bent_function_cayley_graph(
     A list where each entry has class BentFunctionCayleyGraphClassification.
     The corresponding list of Cayley graph classifications.
 
-    .. NOTE::
+    NOTE:
 
-    The list is not sorted in any way.
+    ::
+
+        The list is not sorted in any way.
 
     EXAMPLE:
 

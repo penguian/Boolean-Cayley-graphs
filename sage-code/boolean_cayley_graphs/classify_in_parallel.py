@@ -1,4 +1,11 @@
 r"""
+The ``classify_in_parallel`` module defines functions that use ``sage.parallel`` and `fork``
+to save Cayley graph classifications or partial classifications in parallel.
+
+AUTHORS:
+
+- Paul Leopardi (2017-05-22)
+
 """
 #*****************************************************************************
 #       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
@@ -34,9 +41,11 @@ def call_in_parallel(
 
     EFFECT:
 
-    .. Note::
+    .. Note:
 
-    See http://doc.sagemath.org/html/en/reference/parallel/sage/parallel/decorate.html
+    ::
+
+        See http://doc.sagemath.org/html/en/reference/parallel/sage/parallel/decorate.html
 
     EXAMPLE:
 
@@ -68,11 +77,13 @@ def classify(
     The Cayley graph classification corresponding to the bent function
     defined by ``form``.
 
-    .. Note::
+    .. Note:
 
-    The parameters ``n`` and ``form`` as used here conform to the interface used by
-    ``parallel``.
-    See http://doc.sagemath.org/html/en/reference/parallel/sage/parallel/decorate.html
+    ::
+
+        The parameters ``n`` and ``form`` as used here conform to the interface used by
+        ``parallel``.
+        See http://doc.sagemath.org/html/en/reference/parallel/sage/parallel/decorate.html
 
     EXAMPLE:
 

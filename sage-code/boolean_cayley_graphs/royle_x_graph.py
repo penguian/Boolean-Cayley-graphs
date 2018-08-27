@@ -1,5 +1,7 @@
 r"""
-A strongly regular graph, as described by Royle in 2008.
+The ``royle_x_graph`` module defines the
+``royle_x_graph`` function,
+which returns a strongly regular graph, as described by Royle [Roy2008]_.
 
 AUTHORS:
 
@@ -23,7 +25,7 @@ from sage.modules.vector_integer_dense import vector
 
 def royle_x_graph():
     r"""
-    A strongly regular graph, as described by Royle in 2008.
+    Return a strongly regular graph, as described by Royle [Roy2008]_.
 
     INPUT:
 
@@ -46,7 +48,7 @@ def royle_x_graph():
 
     REFERENCES:
 
-    .. [Roy2008]_.
+    Royle [Roy2008]_.
 
     """
     n = 8

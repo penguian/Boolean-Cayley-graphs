@@ -1,5 +1,7 @@
 r"""
-A Graph and some of its computed properties, including its clique polynomial.
+The ``graph_improved`` module defines
+the ``GraphImproved`` class, which represents
+a Graph and some of its computed properties, such as its clique polynomial.
 
 AUTHORS:
 
@@ -22,9 +24,9 @@ from boolean_cayley_graphs.saveable import Saveable
 
 class GraphImproved(Graph, Saveable):
     r"""
-    A Graph and some of its computed properties, including its clique polynomial.
+    A Graph and some of its computed properties, such as its clique polynomial.
 
-    The constructor is based on the Graph constructor and takes the same arguments.
+    The constructor is based on the ``Graph`` constructor and takes the same arguments.
 
     EXAMPLES:
 
@@ -46,7 +48,7 @@ class GraphImproved(Graph, Saveable):
     """
     def __init__(self, graph=None, **kwargs):
         r"""
-        Constructor, based on the Graph constructor.
+        Constructor, based on the ``Graph`` constructor.
 
         TESTS:
 

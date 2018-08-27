@@ -1,5 +1,9 @@
 r"""
-A subclass of BooleanFunction that adds extra methods.
+The ``boolean_function_improved`` module defines
+the ``BooleanFunctionImproved`` class,
+which is a subclass of BooleanFunction that adds extra methods.
+One such method is ``cayley_graph``,
+which returns the Cayley graph of the Boolean function.
 
 AUTHORS:
 

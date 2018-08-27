@@ -1,8 +1,11 @@
 r"""
-Classification of the Cayley graphs within the ET class of a bent function.
+The ``bent_function_cayley_graph_classification`` module defines:
 
-The ET class of a bent function is the extended translation equivalence class,
-as defined in [Leo2017]_.
+ * the ``BentFunctionCayleyGraphClassification`` class;
+   which represents the classification of the Cayley graphs
+   within the extended translation class of a bent function; and
+ * the ``BentFunctionCayleyGraphClassPart`` class,
+   which represents part of a Cayley graph classification.
 
 AUTHORS:
 
@@ -35,6 +38,11 @@ EXAMPLES:
      [1 0 0 0]
      [0 0 0 1]
      [0 1 0 0]}
+
+REFERENCES:
+
+The extended translation equivalence class and the extended Cayley equivalence class
+of a bent function are defined by Leopardi [Leo2017]_.
 """
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
