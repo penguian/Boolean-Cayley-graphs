@@ -3,11 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-**********************************************
-Boolean-Cayley-graphs: reference documentation
-**********************************************
+*************************************************************
+Boolean-Cayley-graphs: Python package reference documentation
+*************************************************************
 
-Investigations of Boolean functions, their Cayley graphs, and associated structures.
+Boolean-Cayley-graphs is a collection of Sage and Python software for the investigation of bent Boolean functions,
+their Cayley graphs, and associated structures.
+
+This is the reference documentation for the ``boolean_cayley_graphs`` Python package:
+a set of Python classes and utility functions that forms the core of the Boolean-Cayley-graphs collection.
+
+The documentation is organized into a thematic index and other indices and tables.
+
+See also the ``README.md`` file for Boolean-Cayley-graphs, as well as the accompanying paper [Leo2017]_.
 
 Thematic index
 ==============
