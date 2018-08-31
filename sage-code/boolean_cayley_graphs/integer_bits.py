@@ -1,5 +1,7 @@
 r"""
-Bit-level functions of integers.
+The ``integer_bits`` module defines functions that
+return bit-level properties of integers,
+such as partity and bitwise inner product.
 
 AUTHORS:
 

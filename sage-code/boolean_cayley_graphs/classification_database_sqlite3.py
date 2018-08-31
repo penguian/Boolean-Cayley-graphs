@@ -1,5 +1,6 @@
 r"""
-Utilities to manipulate an sqlite3 database of Cayley graph classifications.
+The ``classification_databasepsqlite3`` module defines interfaces
+to manipulate an SQLite3 database of Cayley graph classifications.
 
 AUTHORS:
 
@@ -170,9 +171,10 @@ def create_classification_tables(db_name):
 
     curs.execute("""
         CREATE TABLE bent_function(
+        nvariables INTEGER,
         bent_function BLOB,
         name TEXT UNIQUE,
-        PRIMARY KEY(bent_function))""")
+        PRIMARY KEY(nvariables, bent_function))""")
     curs.execute("""
         CREATE TABLE graph(
         graph_id INTEGER,
@@ -181,24 +183,26 @@ def create_classification_tables(db_name):
         PRIMARY KEY(graph_id))""")
     curs.execute("""
         CREATE TABLE cayley_graph(
+        nvariables INTEGER,
         bent_function BLOB,
         cayley_graph_index INTEGER,
         graph_id INTEGER,
-        FOREIGN KEY(bent_function)
-            REFERENCES bent_function(bent_function),
+        FOREIGN KEY(nvariables, bent_function)
+            REFERENCES bent_function(nvariables, bent_function),
         FOREIGN KEY(graph_id)
             REFERENCES graph(graph_id),
         PRIMARY KEY(bent_function, cayley_graph_index))""")
     curs.execute("""
         CREATE TABLE matrices(
+        nvariables INTEGER,
         bent_function BLOB,
         b INTEGER,
         c INTEGER,
         bent_cayley_graph_index INTEGER,
         dual_cayley_graph_index INTEGER,
         weight_class INTEGER,
-        FOREIGN KEY(bent_function)
-            REFERENCES bent_function(bent_function),
+        FOREIGN KEY(nvariables, bent_function)
+            REFERENCES bent_function(nvariables, bent_function),
         FOREIGN KEY(bent_function, bent_cayley_graph_index)
             REFERENCES cayley_graph(bent_function, cayley_graph_index),
         FOREIGN KEY(bent_function, dual_cayley_graph_index)
@@ -206,6 +210,9 @@ def create_classification_tables(db_name):
         PRIMARY KEY(bent_function, b, c))""")
     conn.commit()
     return conn
+
+
+canonical_label_hash = lambda g: buffer(hashlib.sha256(g).digest())
 
 
 def insert_classification(
@@ -250,7 +257,7 @@ def insert_classification(
     """
     bentf = BentFunction(bfcgc.algebraic_normal_form)
     dim = bentf.nvariables()
-    v = 2 ** dim
+    nvar = int(dim)
     bftt = bentf.tt_buffer()
     cgcl = bfcgc.cayley_graph_class_list
     bcim = bfcgc.bent_cayley_graph_index_matrix
@@ -260,11 +267,11 @@ def insert_classification(
     curs = conn.cursor()
     curs.execute("""
         INSERT INTO bent_function
-        VALUES (?,?)""",
-        (bftt, name))
+        VALUES (?,?,?)""",
+        (nvar, bftt, name))
     for n in range(len(cgcl)):
         cgc = cgcl[n]
-        cgc_hash = buffer(hashlib.sha256(cgc).digest())
+        cgc_hash = canonical_label_hash(cgc)
         curs.execute("""
             INSERT OR IGNORE INTO graph
             VALUES (?,?,?)""",
@@ -281,18 +288,25 @@ def insert_classification(
 
         curs.execute("""
             INSERT INTO cayley_graph
-            VALUES (?,?,?)""",
-            (bftt, n, graph_id))
+            VALUES (?,?,?,?)""",
+            (nvar, bftt, n, graph_id))
 
+    v = 2 ** dim
     for b in range(v):
         matrices_b_rows = (
-            (bftt, b, c, int(bcim[c,b]), int(dcim[c,b]), int(wcm[c,b]))
+            (
+                nvar,
+                bftt,
+                b,
+                c,
+                int(bcim[c,b]),
+                int(dcim[c,b]),
+                int(wcm[c,b]))
             for c in range(v))
         curs.executemany("""
             INSERT INTO matrices
-            VALUES (?,?,?,?,?,?)""",
+            VALUES (?,?,?,?,?,?,?)""",
             matrices_b_rows)
-
     conn.commit()
 
 
@@ -358,15 +372,15 @@ def select_classification_where_bent_function(
         sage: drop_database(db_name)
     """
     dim = bentf.nvariables()
-    v = 2 ** dim
-    bftt = (bentf.tt_buffer(),)
-
+    nvar = int(dim)
+    bftt = bentf.tt_buffer()
     curs = conn.cursor()
     curs.execute("""
         SELECT COUNT(*)
         FROM cayley_graph
-        WHERE bent_function = (?)""",
-        bftt)
+        WHERE nvariables = (?)
+        AND bent_function = (?)""",
+        (nvar, bftt))
     row = curs.fetchone()
     if row == None:
         return None
@@ -376,22 +390,25 @@ def select_classification_where_bent_function(
     curs.execute("""
         SELECT cayley_graph_index, canonical_label
         FROM cayley_graph, graph
-        WHERE bent_function = (?)
+        WHERE nvariables = (?)
+        AND bent_function = (?)
         AND cayley_graph.graph_id = graph.graph_id""",
-        bftt)
+        (nvar, bftt))
     for row in curs:
         cayley_graph_index = row["cayley_graph_index"]
         canonical_label = row["canonical_label"]
         cgcl[cayley_graph_index] = str(canonical_label)
 
+    v = 2 ** dim
     bcim = matrix(v, v)
     dcim = matrix(v, v)
     wcm  = matrix(v, v)
     curs.execute("""
         SELECT *
         FROM matrices
-        WHERE bent_function = (?)""",
-        bftt)
+        WHERE nvariables = (?)
+        AND bent_function = (?)""",
+        (nvar, bftt))
     for row in curs:
         b = row["b"]
         c = row["c"]
@@ -413,6 +430,127 @@ def select_classification_where_bent_function(
         weight_class_matrix=wcm)
 
 
+def select_classification_where_bent_function_cayley_graph(
+    conn,
+    bentf):
+    """
+    Given a bent function ``bentf``, retrieve all classifications that
+    contain a Cayley graph isomorphic to the Cayley graph of ``bentf``.
+
+    INPUT:
+
+    - ``conn`` -- a connection object for the database.
+    - ``bentf`` -- class BentFunction. A bent function.
+
+    OUTPUT:
+
+    A list where each entry has class BentFunctionCayleyGraphClassification.
+    The corresponding list of Cayley graph classifications.
+
+    NOTE:
+
+    ::
+
+        The list is not sorted in any way.
+
+    EXAMPLE:
+
+    Create a database, with tables, using a temporary filename, insert
+    a classification, retrieve it by bent function Cayley graph, then drop the database.
+
+    ::
+
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+        sage: db_name = 'doctest_select_classification_where_bent_function_db_name'
+        sage: drop_database(db_name)
+        sage: conn = create_database(db_name)
+        sage: conn.close()
+        sage: conn = create_classification_tables(db_name)
+        sage: bentf0 = BentFunction([0,0,0,1])
+        sage: bfcgc0 = BentFunctionCayleyGraphClassification.from_function(bentf0)
+        sage: bfcgc0.algebraic_normal_form
+        x0*x1
+        sage: insert_classification(conn, bfcgc0, 'bentf0')
+        sage: bentf1 = BentFunction([1,0,0,0])
+        sage: bfcgc1 = BentFunctionCayleyGraphClassification.from_function(bentf1)
+        sage: bfcgc1.algebraic_normal_form
+        x0*x1 + x0 + x1 + 1
+        sage: insert_classification(conn, bfcgc1, 'bentf1')
+        sage: result = select_classification_where_bent_function_cayley_graph(conn, bentf1)
+        sage: type(result)
+        <type 'list'>
+        sage: len(result)
+        2
+        sage: sorted_result = sorted(result, key=lambda c: str(c.algebraic_normal_form))
+        sage: for c in sorted_result:
+        ....:     type(c)
+        ....:     c.algebraic_normal_form
+        ....:     c.report()
+        <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
+        x0*x1
+        Algebraic normal form of Boolean function: x0*x1
+        Function is bent.
+        <BLANKLINE>
+        <BLANKLINE>
+        SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+        <BLANKLINE>
+        Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+        <BLANKLINE>
+        There are 2 extended Cayley classes in the extended translation class.
+        <class 'boolean_cayley_graphs.bent_function_cayley_graph_classification.BentFunctionCayleyGraphClassification'>
+        x0*x1 + x0 + x1 + 1
+        Algebraic normal form of Boolean function: x0*x1 + x0 + x1 + 1
+        Function is bent.
+        <BLANKLINE>
+        <BLANKLINE>
+        SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+        <BLANKLINE>
+        Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+        <BLANKLINE>
+        There are 2 extended Cayley classes in the extended translation class.
+        sage: conn.close()
+        sage: drop_database(db_name)
+    """
+    cayley_graph = bentf.extended_cayley_graph()
+    cgcl = cayley_graph.canonical_label().graph6_string()
+    cgcl_hash = canonical_label_hash(cgcl)
+
+    curs = conn.cursor()
+    curs.execute("""
+        SELECT graph_id, canonical_label
+        FROM graph
+        WHERE canonical_label_hash = (?)""",
+        (cgcl_hash,))
+
+    row = curs.fetchone()
+    graph_id = row["graph_id"]
+    canonical_label = row["canonical_label"]
+
+    # The result is a list of classifications.
+    result = []
+    # Check for a hash collision -- very unlikely.
+    if canonical_label != cgcl:
+        return result
+
+    curs.execute("""
+        SELECT DISTINCT nvariables, bent_function
+        FROM cayley_graph
+        WHERE graph_id = (?)""",
+        (graph_id,))
+
+    for row in curs:
+        nvar = row["nvariables"]
+        bftt = row["bent_function"]
+        row_bentf = BentFunction.from_tt_buffer(nvar, bftt)
+        result.append(
+            select_classification_where_bent_function(
+                conn,
+                row_bentf))
+    return result
+
+
 def select_classification_where_name(
     conn,
     name):
@@ -422,7 +560,6 @@ def select_classification_where_name(
     INPUT:
 
     - ``conn`` -- a connection object for the database.
-
     - ``name`` -- string. The name of the bent function.
 
     OUTPUT: class BentFunctionCayleyGraphClassification.
@@ -475,7 +612,7 @@ def select_classification_where_name(
     """
     curs = conn.cursor()
     curs.execute("""
-        SELECT bent_function
+        SELECT nvariables, bent_function
         FROM bent_function
         WHERE name = (?)""",
         (name,))
@@ -483,8 +620,9 @@ def select_classification_where_name(
     if row == None:
         return None
 
+    nvar = row["nvariables"]
     bftt = row["bent_function"]
-    bentf = BentFunction.from_tt_buffer(bftt)
+    bentf = BentFunction.from_tt_buffer(nvar, bftt)
 
     return select_classification_where_bent_function(
         conn,

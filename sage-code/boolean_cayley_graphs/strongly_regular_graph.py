@@ -1,5 +1,8 @@
 r"""
-A strongly regular graph, with some computed properties.
+The ``strongly_regular_graph`` module defines the
+``StronglyRegularGraph`` class, which represents
+a strongly regular graph, with some of its properties,
+such as its stronly regular parameters.
 
 AUTHORS:
 
@@ -27,7 +30,7 @@ class StronglyRegularGraph(GraphImproved):
     r"""
     A strongly regular graph, with lazy attributes for some computed properties.
 
-    The class inherits from GraphImproved, and is initialized either from a graph
+    The class inherits from ``GraphImproved``, and is initialized either from a graph
     or from keyword arguments.
 
     EXAMPLES:

@@ -136,7 +136,8 @@ class Capturing(list):
         del self._stringio    # free up some memory
         sys.stdout = self._stdout
 
-def matrix_figure(matrix, colorscale='Jet'):
+
+def matrix_figure(matrix, colorscale='Earth'):
     n = matrix.nrows()
     return {
         'data': [
@@ -174,27 +175,69 @@ def select_bent_function(bentf_name):
         bentf_c.report()
     wc_matrix = bentf_c.weight_class_matrix
     wc_graph = dcc.Graph(
-        figure=matrix_figure(wc_matrix, colorscale='Greys'),
-        id='wc-graph'
-    )
+        figure=matrix_figure(wc_matrix),
+        id='wc-graph')
     ci_matrix = bentf_c.bent_cayley_graph_index_matrix
     ci_graph = dcc.Graph(
         figure=matrix_figure(ci_matrix),
-        id='ci-graph'
-    )
+        id='ci-graph')
+    di_matrix = bentf_c.dual_cayley_graph_index_matrix
+    di_graph = dcc.Graph(
+        figure=matrix_figure(di_matrix),
+        id='di-graph')
     return [
-        html.P(bentf_name + ':')
-    ] + [
+        html.P(bentf_name + ':')] + [
         html.P(line)
-        for line in report
-    ] + [
-        html.H4('Weight class matrix'),
-        wc_graph,
-        html.H4('Cayley graph index matrix'),
-        ci_graph
-    ]
-
+        for line in report] + [
+        html.Table(
+        # Header
+        [
+            html.Tr([
+                html.Div([
+                    html.Div([
+                        html.B('Weight class matrix')],
+                        style={
+                            'textAlign': 'center',
+                            'width': '33%',
+                            'display': 'inline-block'}),
+                    html.Div([
+                        html.B('Cayley graph index matrix')],
+                        style={
+                            'textAlign': 'center',
+                            'width': '33%',
+                            'display': 'inline-block'}),
+                    html.Div([
+                        html.B('Dual Cayley graph index matrix')],
+                        style={
+                            'textAlign': 'center',
+                            'width': '33%',
+                            'display': 'inline-block'})],
+                    style={
+                        'width': '100%',
+                        'display': 'inline-block'})])] +
+        # Body
+        [
+            html.Tr([
+                html.Div([
+                    html.Div(
+                        wc_graph,
+                        style={
+                            'width': '33%',
+                            'display': 'inline-block'}),
+                    html.Div(
+                        ci_graph,
+                        style={
+                            'width': '33%',
+                            'display': 'inline-block'}),
+                    html.Div(
+                        di_graph,
+                        style={
+                            'width': '33%',
+                            'display': 'inline-block'})],
+                style={
+                    'width': '100%',
+                    'display': 'inline-block'})])])]
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False,port=8051)

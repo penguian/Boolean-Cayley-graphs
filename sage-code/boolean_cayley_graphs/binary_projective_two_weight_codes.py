@@ -1,5 +1,7 @@
 r"""
-Some specific binary projective two-weight codes as published by Tonchev.
+The ``binary_projective_two_weight_codes`` module defines
+functions that construct two types of binary projective two-weight codes
+as published by Tonchev [Ton1996]_ [Ton2007]_.
 
 AUTHORS:
 
@@ -18,6 +20,10 @@ EXAMPLES:
     '001000111011101000101000101',
     '010001011101110011101011101',
     '100010101000101001111101000')
+
+REFERENCES:
+
+Tonchev [Ton1996]_, [Ton2007]_.
 """
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
@@ -63,10 +69,7 @@ def binary_projective_two_weight_27_6_12():
 
     REFERENCES:
 
-    .. [Ton1996]_.
-
-    .. [Ton2007]_.
-
+    Tonchev [Ton1996]_ [Ton2007]_.
     """
     c1=("000000000001111111111111111",
         "000000011110000000011111111",
@@ -137,10 +140,7 @@ def binary_projective_two_weight_35_6_16():
 
     REFERENCES:
 
-    .. [Ton1996]_.
-
-    .. [Ton2007]_.
-
+    Tonchev [Ton1996]_ [Ton2007]_.
     """
     c1=("00000000000000000001111111111111111",
         "00000000000111111110000000011111111",

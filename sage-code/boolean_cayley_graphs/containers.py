@@ -1,5 +1,12 @@
 r"""
-Containers, such as lists.
+The ``containers`` module defines improved container classes, such as lists:
+
+ * `List`: a subclass of the builtin ``list`` class,  with added methods, such as ``index_append``;
+ * `Bijectivelist`: a replacement for the ``list`` class for use with 1-1 relationships
+    where index lookup via ``dict`` makes sense; and
+ * `ShelveBijectivelist`: a replacement for the ``list`` class for use with 1-1 relationships
+    where index lookup via ``shelve`` makes sense.
+    This class uses ``shelve`` to cope with cases where a ``dict`` would be too large to store in memory.
 
 AUTHORS:
 
@@ -23,14 +30,14 @@ from sage.misc.temporary_file import tmp_filename
 
 class List(list):
     r"""
-    Subclass of list with added methods, such as index_append.
+    Subclass of ``list`` with added methods, such as ``index_append``.
     """
     def index_append(self, item):
         r"""
         Return the index of a given item, appending it if necessary.
 
-        If the inherited list index() method for self yields a ValueError,
-        then set result to the length of self, and append item to self.
+        If the inherited list ``index`` method for ``self`` yields a ``ValueError`,
+        then set result to the length of `self``, and append item to ``self``.
 
         INPUT:
 
@@ -71,17 +78,17 @@ class List(list):
 
 class BijectiveList(object):
     r"""
-    Replacement for the list class with only a few methods,
-    such as __getitem__(), index(), and index_append().
+    Replacement for the ``list`` class with only a few methods,
+    such as ``__getitem__``, ``index``, and ``index_append``.
 
-    List lookup for __getitem__ uses a list named _item.
-    Index lookup for index() and index_append() uses a dict named _index.
-    This class is used for 1-1 relationships where index lookup via dict makes sense.
+    List lookup for ``__getitem__`` uses a list named ``_item``.
+    Index lookup for ``index`` and ``index_append`` uses a dict named ``_index`.
+    This class is used for 1-1 relationships where index lookup via ``dict`` makes sense.
 
     .. WARNING::
 
         Initialization from a non-empty list can easily break
-        the 1-1 relationship between index and item in a BijectiveList.
+        the 1-1 relationship between index and item in a ``BijectiveList``.
 
     EXAMPLES:
 
@@ -183,7 +190,7 @@ class BijectiveList(object):
 
     def get_dict(self):
         r"""
-        Get the dict part of the BijectiveList.
+        Get the ``dict`` part of the ``BijectiveList``.
 
         INPUT:
 
@@ -204,7 +211,7 @@ class BijectiveList(object):
 
     def get_list(self):
         r"""
-        Get the list part of the BijectiveList.
+        Get the ``list`` part of the ``BijectiveList``.
 
         INPUT:
 
@@ -228,8 +235,8 @@ class BijectiveList(object):
         r"""
         Return the index of a given item.
 
-        Use a dict lookup using _index instead of calling index() on the list.
-        If the dict lookup yields a KeyError then raise a ValueError.
+        Use a ``dict`` lookup using ``_index`` instead of calling ``index`` on the list.
+        If the ``dict`` lookup yields a ``KeyError`` then raise a ``ValueError``.
 
         INPUT:
 
@@ -279,9 +286,9 @@ class BijectiveList(object):
         r"""
         Return the index of a given item, appending it if necessary.
 
-        Use a dict lookup using _index instead of calling index() on the list.
-        If the dict lookup yields a KeyError then set result to the length of self,
-        append item to self, and add result to _index.
+        Use a ``dict`` lookup using ``_index`` instead of calling ``index`` on the list.
+        If the dict lookup yields a `KeyError`` then set result to the length of ``self``,
+        append item to ``self``, and add result to ``_index``.
 
         INPUT:
 
@@ -325,7 +332,7 @@ class BijectiveList(object):
 
     def sync(self):
         r"""
-        Dummy method to match the interface of ShelveBijectiveList.
+        Dummy method to match the interface of ``ShelveBijectiveList``.
 
         TESTS:
 
@@ -341,7 +348,7 @@ class BijectiveList(object):
 
     def close_dict(self):
         r"""
-        Dummy method to match the interface of ShelveBijectiveList.
+        Dummy method to match the interface of ``ShelveBijectiveList``.
 
         TESTS:
 
@@ -401,16 +408,17 @@ class BijectiveList(object):
 
 class ShelveBijectiveList(BijectiveList):
     r"""
-    Replacement for the list class with only a few methods,
-    such as __getitem__() index(), and index_append().
+    Replacement for the ``list`` class with only a few methods,
+    such as ``__getitem__``, ``index``, and ``index_append``.
 
-    List lookup for __getitem__ uses a list named _item.
-    Index lookup for index() and index_append() uses a shelve named _index.
-    This class is used for 1-1 relationships where index lookup via dict makes sense.
+    List lookup for ``__getitem__`` uses a list named ``_item``.
+    Index lookup for ``index`` and ``index_append`` uses a ``shelve`` named ``_index``.
+    This class is used for 1-1 relationships where index lookup via ``shelve`` makes sense.
 
     .. NOTE::
 
-        This class uses shelve to work around memory restrictions.
+        This class uses ``shelve`` to cope with situations
+        where a ``dict`` would be too large to fit into memory.
 
     .. WARNING::
 
@@ -419,7 +427,7 @@ class ShelveBijectiveList(BijectiveList):
     .. WARNING::
 
         Initialization from a non-empty list can easily break
-        the 1-1 relationship between index and item in a ShelveBijectiveList.
+        the 1-1 relationship between index and item in a ``ShelveBijectiveList``.
 
     EXAMPLES:
 
@@ -518,11 +526,11 @@ class ShelveBijectiveList(BijectiveList):
 
         .. WARNING::
 
-            Use close_dict() first.
+            Use ``close_dict`` first.
 
         TESTS:
 
-        ::
+        ::`
 
             sage: import glob
             sage: from boolean_cayley_graphs.containers import ShelveBijectiveList

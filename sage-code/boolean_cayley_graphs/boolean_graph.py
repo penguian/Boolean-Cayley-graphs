@@ -1,5 +1,7 @@
 r"""
-A Graph whose order is a power of 2.
+The ``boolean_graph`` module defines
+the ``BooleanGraph``  class,
+which represents a Graph whose order is a power of 2.
 
 AUTHORS:
 

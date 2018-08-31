@@ -1,8 +1,11 @@
 r"""
-Classification of the Cayley graphs within the ET class of a bent function.
+The ``bent_function_cayley_graph_classification`` module defines:
 
-The ET class of a bent function is the extended translation equivalence class,
-as defined in [Leo2017]_.
+ * the ``BentFunctionCayleyGraphClassification`` class;
+   which represents the classification of the Cayley graphs
+   within the extended translation class of a bent function; and
+ * the ``BentFunctionCayleyGraphClassPart`` class,
+   which represents part of a Cayley graph classification.
 
 AUTHORS:
 
@@ -35,6 +38,11 @@ EXAMPLES:
      [1 0 0 0]
      [0 0 0 1]
      [0 1 0 0]}
+
+REFERENCES:
+
+The extended translation equivalence class and the extended Cayley equivalence class
+of a bent function are defined by Leopardi [Leo2017]_.
 """
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
@@ -186,10 +194,11 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         - ``bentf`` -- an object of class `BentFunction`.
         - ``list_dual_graphs`` -- boolean. A flag indicating
           whether to list dual graphs. Default is True.
-        - ``c_start`` -- smallest value of c to use for
+        - ``c_start`` -- smallest value of `c` to use for
           extended translates. Integer. Default is 0.
-        - ``c_stop`` -- one more than largest value of c
-          to use for extended translates. Integer. Default is ``None``.
+        - ``c_stop`` -- one more than largest value of `c`
+          to use for extended translates. Integer.
+          Default is ``None``, meaning use all remaining values.
         - ``limited_memory`` -- boolean. A flag indicating
           whether the classification might be too large
           to fit into memory. Default is False.

@@ -1,5 +1,6 @@
 r"""
-The Cayley graph of a Boolean function.
+The ``boolean_cayley_graph`` module defines
+a function that contructs the Cayley graph of a Boolean function.
 
 AUTHORS:
 
@@ -19,6 +20,10 @@ EXAMPLES:
     [0 0 1 1]
     [1 1 0 0]
     [1 1 0 0]
+
+REFERENCES:
+
+Bernasconi and Codenotti [BC1999]_.
 """
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
