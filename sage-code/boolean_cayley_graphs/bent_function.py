@@ -286,13 +286,14 @@ class BentFunction(BooleanFunctionImproved):
 
         .. NOTE::
 
-            The use of ``1 + x/scale`` in this method is to compensate for
+            Previous versions of this method had ``1 + x/scale`` to compensate for
             an incorrect sign in ``BooleanFunction.walsh_hadamard_transform(self)``.
-            If this is ever fixed, then this must be changed to ``1 - x/scale``.
+            [Since this has now been fixed in Sage 8.2](https://trac.sagemath.org/ticket/23931)
+            this is now changed to ``1 - x/scale``.
         """
         dim = self.nvariables()
         scale = 2 ** (dim/2)
-        return BentFunction([(1 + x/scale)/2 for x in self.walsh_hadamard_transform()])
+        return BentFunction([(1 - x/scale)/2 for x in self.walsh_hadamard_transform()])
 
 
     def weight_class(self):
