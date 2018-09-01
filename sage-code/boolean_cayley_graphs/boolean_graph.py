@@ -25,9 +25,8 @@ from sage.matrix.constructor import matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
 from sage.rings.integer import Integer
 
+from boolean_cayley_graphs.integer_bits import base2
 from boolean_cayley_graphs.saveable import Saveable
-
-base2 = lambda dim, num: num.digits(2, padto=dim)
 
 
 class BooleanGraph(Graph, Saveable):
