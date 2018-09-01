@@ -30,7 +30,7 @@ Boolean functions
 -----------------
 
 * :doc:`An improved Boolean function class <boolean_cayley_graphs.boolean_function_improved>`
-* :doc:`Bent boolean functions <boolean_cayley_graphs.bent_function>`
+* :doc:`Bent Boolean functions <boolean_cayley_graphs.bent_function>`
 
 Graphs
 ------
