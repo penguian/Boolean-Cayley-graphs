@@ -38,6 +38,7 @@ Dillon [Dil1974]_, Rothaus [Rot1976]_, Tokareva [Tok2015]_.
 from sage.arith.srange import xsrange
 from sage.graphs.graph import Graph
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
+from sage.misc.banner import require_version
 from sage.matrix.constructor import matrix
 
 from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
@@ -286,6 +287,9 @@ class BentFunction(BooleanFunctionImproved):
 
         .. NOTE::
 
+            Versions of Sage before 8.2 had an incorrect sign in
+            ``BooleanFunction.walsh_hadamard_transform(self)``.
+            See [Sage trac ticket #23931](https://trac.sagemath.org/ticket/23931)
             Previous versions of this method had ``1 + x/scale`` to compensate for
             an incorrect sign in ``BooleanFunction.walsh_hadamard_transform(self)``.
             [Since this has now been fixed in Sage 8.2](https://trac.sagemath.org/ticket/23931)
@@ -293,7 +297,12 @@ class BentFunction(BooleanFunctionImproved):
         """
         dim = self.nvariables()
         scale = 2 ** (dim/2)
-        return BentFunction([(1 - x/scale)/2 for x in self.walsh_hadamard_transform()])
+        coefficient = lambda x: (
+                (1 - x/scale)/2
+            if require_version(8,2,0)
+            else
+                (1 + x/scale)/2)
+        return BentFunction([coefficient(x) for x in self.walsh_hadamard_transform()])
 
 
     def weight_class(self):
