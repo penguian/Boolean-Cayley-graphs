@@ -20,7 +20,7 @@ AUTHORS:
 import os
 import os.path
 
-from sage.structure.sage_object import load, save
+from sage.misc.persist import load, save
 
 
 class Saveable(object):

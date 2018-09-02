@@ -64,9 +64,10 @@ from sage.graphs.graph import Graph
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.matrix.constructor import matrix
 from sage.misc.latex import latex
+from sage.misc.persist import load
 from sage.plot.matrix_plot import matrix_plot
 from sage.rings.integer import Integer
-from sage.structure.sage_object import load, SageObject
+from sage.structure.sage_object import SageObject
 from sys import stdout
 
 import glob

@@ -43,35 +43,9 @@ from sage.rings.integer_ring import ZZ
 from boolean_cayley_graphs.boolean_cayley_graph import boolean_cayley_graph
 from boolean_cayley_graphs.boolean_graph import BooleanGraph
 from boolean_cayley_graphs.boolean_linear_code import boolean_linear_code
-from boolean_cayley_graphs.integer_bits import inner
+from boolean_cayley_graphs.integer_bits import base2, inner
 from boolean_cayley_graphs.saveable import Saveable
 
-
-base2 = lambda dim, num: num.digits(2, padto=dim)
-r"""
-Map ``num`` to :math:`\mathbb{F}_2^{dim}` using lexicographical ordering.
-
-INPUT:
-
-- ``num`` -- non-negative integer. The value to be mapped.
-- ``dim`` -- positive integer. The Boolean dimension.
-
-OUTPUT:
-
-A list of 0,1 integer values of length ``dim``.
-
-EXAMPLES:
-
-::
-
-    sage: from boolean_cayley_graphs.boolean_function_improved import base2
-    sage: base2(5,3)
-    [1, 1, 0, 0, 0]
-    sage: base2(3,5)
-    [1, 0, 1]
-    sage: base2(3,1)
-    [1, 0, 0]
-"""
 
 class BooleanFunctionImproved(BooleanFunction, Saveable):
     r"""
