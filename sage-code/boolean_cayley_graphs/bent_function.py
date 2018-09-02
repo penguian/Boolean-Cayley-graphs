@@ -22,6 +22,21 @@ EXAMPLES:
     sage: bentf.algebraic_normal_form()
     x0*x1 + x0
 
+TESTS:
+
+::
+
+    sage: from sage.crypto.boolean_function import BooleanFunction
+    sage: bf = BentFunction([0,1,0,0])
+    sage: print(bf)
+    Boolean function with 2 variables
+
+    sage: from sage.crypto.boolean_function import BooleanFunction
+    sage: bf = BentFunction([0,1,0,0])
+    sage: latex(bf)
+    \text{\texttt{Boolean{ }function{ }with{ }2{ }variables}}
+
+
 REFERENCES:
 
 Dillon [Dil1974]_, Rothaus [Rot1976]_, Tokareva [Tok2015]_.
