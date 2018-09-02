@@ -578,7 +578,7 @@ class ShelveBijectiveList(BijectiveList):
 
         TESTS:
 
-        ::`
+        ::
 
             sage: import glob
             sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
