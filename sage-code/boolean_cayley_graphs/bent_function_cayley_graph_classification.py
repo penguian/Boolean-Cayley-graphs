@@ -95,6 +95,22 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
     r"""
     Partial classification of the Cayley graphs within the
     extended translation equivalence class of a bent function.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart as BentFunctionCGCP
+        sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+        sage: p = x1+x2+x1*x2
+        sage: f = BentFunction(p)
+        sage: c1 = BentFunctionCGCP.from_function(f, c_stop=1)
+        sage: print(c1)
+        BentFunctionCayleyGraphClassPart.from_function(BentFunction(x0*x1 + x0 + x1, c_start=0, c_stop=1))
+        sage: latex(c1)
+        \text{\texttt{BentFunctionCayleyGraphClassPart.from{\char`\_}function(BentFunction(x0*x1{ }+{ }x0{ }+{ }x1,{ }c{\char`\_}start=0,{ }c{\char`\_}stop=1))}}
+
     """
 
     def __init__(self, *args, **kwargs):
@@ -177,6 +193,39 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
                 'weight_class_matrix')
             self.c_start                        = kwargs.pop(
                 'c_start')
+
+
+    def _repr_(self):
+        r"""
+        Sage string representation.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassPart as BentFunctionCGCP
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: c1 = BentFunctionCGCP.from_function(f, c_stop=1)
+            sage: print(c1)
+            BentFunctionCayleyGraphClassPart.from_function(BentFunction(x0*x1 + x0 + x1, c_start=0, c_stop=1))
+        """
+        c_stop = self.c_start + self.weight_class_matrix.nrows()
+        return (
+            type(self).__name__ +
+            ".from_function(BentFunction(" +
+            repr(self.algebraic_normal_form) +
+            ", c_start=" +
+            repr(self.c_start) +
+            ", c_stop=" +
+            repr(c_stop) +
+            "))")
 
 
     @classmethod
