@@ -131,12 +131,12 @@ class BijectiveList(SageObject, Saveable):
         sage: from boolean_cayley_graphs.containers import BijectiveList
         sage: L = BijectiveList([1,2,4])
         sage: print(L)
-        <class 'boolean_cayley_graphs.containers.BijectiveList'>
+        BijectiveList(1,2,4)
 
         sage: from boolean_cayley_graphs.containers import BijectiveList
         sage: L = BijectiveList([1,2,4])
         sage: latex(L)
-        \text{\texttt{<class{ }'boolean{\char`\_}cayley{\char`\_}graphs.containers.BijectiveList'>}}
+        \text{\texttt{BijectiveList(1,2,4)}}
     """
     def __init__(self, other_list=None):
         r"""
@@ -177,6 +177,30 @@ class BijectiveList(SageObject, Saveable):
             self._item = other_list
             self._index = dict((other_list[index],index)
                                for index in range(len(other_list)))
+
+
+    def _repr_(self):
+        r"""
+        Sage string representation.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: L = BijectiveList([1,2,4])
+            sage: print(L)
+            BijectiveList(1,2,4)
+        """
+        return (
+            type(self).__name__ +
+            "(" +
+            ",".join([repr(item) for item in self._item]) +
+            ")")
 
 
     def __getitem__(self, index):
@@ -484,12 +508,12 @@ class ShelveBijectiveList(BijectiveList):
         sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
         sage: L = ShelveBijectiveList(["1","2","4"])
         sage: print(L)
-        <class 'boolean_cayley_graphs.containers.ShelveBijectiveList'>
+        ShelveBijectiveList('1','2','4')
 
         sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
         sage: L = ShelveBijectiveList(["1","2","4"])
         sage: latex(L)
-        \text{\texttt{<class{ }'boolean{\char`\_}cayley{\char`\_}graphs.containers.ShelveBijectiveList'>}}
+        \text{\texttt{ShelveBijectiveList('1','2','4')}}
     """
     def __init__(self, other_list=None):
         r"""
