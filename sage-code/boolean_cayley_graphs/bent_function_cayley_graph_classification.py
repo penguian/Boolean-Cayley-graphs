@@ -1144,14 +1144,14 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         (To standard output)
         A report on the following attributes of ``self``:
+
         - ``algebraic_normal_form``
         - ``cayley_graph_class_list``
         - If report_on_matrix_details is ``True``:
-        -- ``bent_cayley_graph_index_matrix``
-        -- ``dual_cayley_graph_index_matrix``
-        (only if this is not ``None`` and is different from
-        ``bent_cayley_graph_index_matrix``)
-        -- ``weight_class_matrix``
+           - ``bent_cayley_graph_index_matrix``
+           - ``dual_cayley_graph_index_matrix``
+             (only if this is not ``None`` and is different from ``bent_cayley_graph_index_matrix``)
+           - ``weight_class_matrix``
         - If report_on_graph_details is ``True``:
         details of each graph in ``cayley_graph_class_list``.
 
