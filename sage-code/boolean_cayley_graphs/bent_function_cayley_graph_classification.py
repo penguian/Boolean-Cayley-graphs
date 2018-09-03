@@ -423,6 +423,21 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
     r"""
     Classification of the Cayley graphs within the
     extended translation equivalence class of a bent function.
+
+    EXAMPLES:
+
+    ::
+
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+        sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+        sage: p = x1+x2+x1*x2
+        sage: f = BentFunction(p)
+        sage: c1 = BentFunctionCGC.from_function(f)
+        sage: print(c1)
+        BentFunctionCayleyGraphClassification.from_function(BentFunction(x0*x1 + x0 + x1))
+        sage: latex(c1)
+        \text{\texttt{BentFunctionCayleyGraphClassification.from{\char`\_}function(BentFunction(x0*x1{ }+{ }x0{ }+{ }x1))}}
     """
 
     # Suffixes used by from_csv() and save_as_csv().
@@ -507,6 +522,34 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                 'dual_cayley_graph_index_matrix', None)
             self.weight_class_matrix            = kwargs.pop(
                 'weight_class_matrix')
+
+
+    def _repr_(self):
+        r"""
+        Sage string representation.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.bent_function import BentFunction
+            sage: from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification as BentFunctionCGC
+            sage: R2.<x1,x2> = BooleanPolynomialRing(2)
+            sage: p = x1+x2+x1*x2
+            sage: f = BentFunction(p)
+            sage: c1 = BentFunctionCGC.from_function(f)
+            sage: print(c1)
+            BentFunctionCayleyGraphClassification.from_function(BentFunction(x0*x1 + x0 + x1))
+        """
+        return (
+            type(self).__name__ +
+            ".from_function(BentFunction(" +
+            repr(self.algebraic_normal_form) +
+            "))")
 
 
     @classmethod
