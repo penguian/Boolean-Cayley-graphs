@@ -45,7 +45,44 @@ class GraphImproved(Graph, Saveable):
         sage: LPI.stored_clique_polynomial
         15*t^2 + 10*t + 1
         sage: GraphImproved.remove_mangled('PetersenGraph', directory=dir)
-    """
+
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+        sage: P = graphs.PetersenGraph()
+        sage: PI = GraphImproved(P)
+        sage: print(PI)
+        Petersen graph
+
+        sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+        sage: P = graphs.PetersenGraph()
+        sage: PI = GraphImproved(P)
+        sage: latex(PI)
+        \begin{tikzpicture}
+        \definecolor{cv0}{rgb}{0.0,0.0,0.0}
+        \definecolor{cfv0}{rgb}{1.0,1.0,1.0}
+        \definecolor{clv0}{rgb}{0.0,0.0,0.0}
+        ...
+        \definecolor{cv6v8}{rgb}{0.0,0.0,0.0}
+        \definecolor{cv6v9}{rgb}{0.0,0.0,0.0}
+        \definecolor{cv7v9}{rgb}{0.0,0.0,0.0}
+        %
+        ...
+        %
+        \Edge[lw=0.1cm,style={color=cv0v1,},](v0)(v1)
+        \Edge[lw=0.1cm,style={color=cv0v4,},](v0)(v4)
+        \Edge[lw=0.1cm,style={color=cv0v5,},](v0)(v5)
+        ...
+        \Edge[lw=0.1cm,style={color=cv6v8,},](v6)(v8)
+        \Edge[lw=0.1cm,style={color=cv6v9,},](v6)(v9)
+        \Edge[lw=0.1cm,style={color=cv7v9,},](v7)(v9)
+        %
+        \end{tikzpicture}
+        """
+
+
     def __init__(self, graph=None, **kwargs):
         r"""
         Constructor, based on the ``Graph`` constructor.

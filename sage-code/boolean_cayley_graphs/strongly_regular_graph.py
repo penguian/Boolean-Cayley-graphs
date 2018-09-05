@@ -46,6 +46,40 @@ class StronglyRegularGraph(GraphImproved):
         sage: srg.is_strongly_regular()
         True
 
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.royle_x_graph import royle_x_graph
+        sage: from boolean_cayley_graphs.strongly_regular_graph import StronglyRegularGraph
+        sage: g = royle_x_graph()
+        sage: srg = StronglyRegularGraph(g)
+        sage: print(srg)
+        Graph on 64 vertices
+
+        sage: from boolean_cayley_graphs.royle_x_graph import royle_x_graph
+        sage: from boolean_cayley_graphs.strongly_regular_graph import StronglyRegularGraph
+        sage: g = royle_x_graph()
+        sage: srg = StronglyRegularGraph(g)
+        sage: latex(srg)
+        \begin{tikzpicture}
+        \definecolor{cv0}{rgb}{0.0,0.0,0.0}
+        \definecolor{cfv0}{rgb}{1.0,1.0,1.0}
+        \definecolor{clv0}{rgb}{0.0,0.0,0.0}
+        ...
+        \Vertex[style={minimum size=1.0cm,draw=cv61,fill=cfv61,text=clv61,shape=circle},LabelOut=false,L=\hbox{$61$},x=2.87cm,y=4.6843cm]{v61}
+        \Vertex[style={minimum size=1.0cm,draw=cv62,fill=cfv62,text=clv62,shape=circle},LabelOut=false,L=\hbox{$62$},x=3.3104cm,y=3.6687cm]{v62}
+        \Vertex[style={minimum size=1.0cm,draw=cv63,fill=cfv63,text=clv63,shape=circle},LabelOut=false,L=\hbox{$63$},x=3.9728cm,y=3.5058cm]{v63}
+        %
+        \Edge[lw=0.1cm,style={color=cv0v1,},](v0)(v1)
+        \Edge[lw=0.1cm,style={color=cv0v2,},](v0)(v2)
+        \Edge[lw=0.1cm,style={color=cv0v3,},](v0)(v3)
+        ...
+        \Edge[lw=0.1cm,style={color=cv58v63,},](v58)(v63)
+        \Edge[lw=0.1cm,style={color=cv59v62,},](v59)(v62)
+        \Edge[lw=0.1cm,style={color=cv60v61,},](v60)(v61)
+        %
+        \end{tikzpicture}
     """
     def __init__(self, graph=None, **kwargs):
         r"""

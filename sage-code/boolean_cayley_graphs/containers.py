@@ -27,11 +27,31 @@ import os
 import shelve
 
 from sage.misc.temporary_file import tmp_filename
+from sage.structure.sage_object import SageObject
 
-class List(list):
+from boolean_cayley_graphs.saveable import Saveable
+
+
+class List(list, SageObject, Saveable):
     r"""
     Subclass of ``list`` with added methods, such as ``index_append``.
+
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.containers import List
+        sage: L = List([1,2,4])
+        sage: print(L)
+        [1, 2, 4]
+
+        sage: from boolean_cayley_graphs.containers import List
+        sage: L = List([1,2,4])
+        sage: latex(L)
+        \text{\texttt{[1,{ }2,{ }4]}}
     """
+
+
     def index_append(self, item):
         r"""
         Return the index of a given item, appending it if necessary.
@@ -76,7 +96,7 @@ class List(list):
         return result
 
 
-class BijectiveList(object):
+class BijectiveList(SageObject, Saveable):
     r"""
     Replacement for the ``list`` class with only a few methods,
     such as ``__getitem__``, ``index``, and ``index_append``.
@@ -103,6 +123,20 @@ class BijectiveList(object):
         sage: BL.get_dict()
         {'1': 0, '2': 1, '3': 2}
         sage: del BL
+
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.containers import BijectiveList
+        sage: L = BijectiveList([1,2,4])
+        sage: print(L)
+        BijectiveList(1,2,4)
+
+        sage: from boolean_cayley_graphs.containers import BijectiveList
+        sage: L = BijectiveList([1,2,4])
+        sage: latex(L)
+        \text{\texttt{BijectiveList(1,2,4)}}
     """
     def __init__(self, other_list=None):
         r"""
@@ -143,6 +177,30 @@ class BijectiveList(object):
             self._item = other_list
             self._index = dict((other_list[index],index)
                                for index in range(len(other_list)))
+
+
+    def _repr_(self):
+        r"""
+        Sage string representation.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.containers import BijectiveList
+            sage: L = BijectiveList([1,2,4])
+            sage: print(L)
+            BijectiveList(1,2,4)
+        """
+        return (
+            type(self).__name__ +
+            "(" +
+            ",".join([repr(item) for item in self._item]) +
+            ")")
 
 
     def __getitem__(self, index):
@@ -442,6 +500,20 @@ class ShelveBijectiveList(BijectiveList):
         sage: SBL.get_dict()
         {'1': 0, '2': 1, '4': 2}
         sage: del SBL
+
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+        sage: L = ShelveBijectiveList(["1","2","4"])
+        sage: print(L)
+        ShelveBijectiveList('1','2','4')
+
+        sage: from boolean_cayley_graphs.containers import ShelveBijectiveList
+        sage: L = ShelveBijectiveList(["1","2","4"])
+        sage: latex(L)
+        \text{\texttt{ShelveBijectiveList('1','2','4')}}
     """
     def __init__(self, other_list=None):
         r"""
@@ -530,7 +602,7 @@ class ShelveBijectiveList(BijectiveList):
 
         TESTS:
 
-        ::`
+        ::
 
             sage: import glob
             sage: from boolean_cayley_graphs.containers import ShelveBijectiveList

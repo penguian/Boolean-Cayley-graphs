@@ -41,7 +41,41 @@ class BooleanGraph(Graph, Saveable):
         sage: g16 = BooleanGraph(16)
         sage: g16.order()
         16
+
+    TESTS:
+
+    ::
+
+        sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+        sage: g16 = BooleanGraph(16)
+        sage: print(g16)
+        Graph on 16 vertices
+
+        sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+        sage: g16 = BooleanGraph(16)
+        sage: latex(g16)
+        \begin{tikzpicture}
+        \definecolor{cv0}{rgb}{0.0,0.0,0.0}
+        \definecolor{cfv0}{rgb}{1.0,1.0,1.0}
+        \definecolor{clv0}{rgb}{0.0,0.0,0.0}
+        ...
+        \definecolor{cv15}{rgb}{0.0,0.0,0.0}
+        \definecolor{cfv15}{rgb}{1.0,1.0,1.0}
+        \definecolor{clv15}{rgb}{0.0,0.0,0.0}
+        %
+        \Vertex[style={minimum size=1.0cm,draw=cv0,fill=cfv0,text=clv0,shape=circle},LabelOut=false,L=\hbox{$0$},x=0.0cm,y=2.5cm]{v0}
+        \Vertex[style={minimum size=1.0cm,draw=cv1,fill=cfv1,text=clv1,shape=circle},LabelOut=false,L=\hbox{$1$},x=0.3333cm,y=2.5cm]{v1}
+        \Vertex[style={minimum size=1.0cm,draw=cv2,fill=cfv2,text=clv2,shape=circle},LabelOut=false,L=\hbox{$2$},x=0.6667cm,y=2.5cm]{v2}
+        ...
+        \Vertex[style={minimum size=1.0cm,draw=cv13,fill=cfv13,text=clv13,shape=circle},LabelOut=false,L=\hbox{$13$},x=4.3333cm,y=2.5cm]{v13}
+        \Vertex[style={minimum size=1.0cm,draw=cv14,fill=cfv14,text=clv14,shape=circle},LabelOut=false,L=\hbox{$14$},x=4.6667cm,y=2.5cm]{v14}
+        \Vertex[style={minimum size=1.0cm,draw=cv15,fill=cfv15,text=clv15,shape=circle},LabelOut=false,L=\hbox{$15$},x=5.0cm,y=2.5cm]{v15}
+        %
+        %
+        \end{tikzpicture}
     """
+
+
     def __init__(self, *args, **kwargs):
         """
         A Graph whose order is a power of 2.

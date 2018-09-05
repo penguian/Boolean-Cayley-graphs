@@ -19,8 +19,8 @@ EXAMPLES:
     <class 'boolean_cayley_graphs.boolean_function_improved.BooleanFunctionImproved'>
     sage: bf.truth_table(format='int')
     (0, 0, 0, 1)
-
 """
+
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -67,7 +67,21 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         x0*x1 + x0
         sage: bf1.truth_table()
         (False, True, False, False)
-    """
+
+    TESTS:
+
+    ::
+
+        sage: from sage.crypto.boolean_function import BooleanFunction
+        sage: bf = BooleanFunctionImproved([0,1,0,0])
+        sage: print(bf)
+        Boolean function with 2 variables
+
+        sage: from sage.crypto.boolean_function import BooleanFunction
+        sage: bf = BooleanFunctionImproved([0,1,0,0])
+        sage: latex(bf)
+        \text{\texttt{Boolean{ }function{ }with{ }2{ }variables}}
+   """
 
 
     @classmethod
