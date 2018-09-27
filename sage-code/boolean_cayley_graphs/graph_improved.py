@@ -45,6 +45,7 @@ class GraphImproved(Graph, Saveable):
         sage: LPI.stored_clique_polynomial
         15*t^2 + 10*t + 1
         sage: GraphImproved.remove_mangled('PetersenGraph', directory=dir)
+        sage: os.rmdir(dir)
 
     TESTS:
 
