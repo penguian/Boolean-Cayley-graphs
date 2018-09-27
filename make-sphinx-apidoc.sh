@@ -6,7 +6,7 @@
 # rsync -avz --delete doc/_build/html/ leopardi@web.sourceforge.net:/home/project-web/boolean-cayley-graphs/htdocs/
 #
 export BCG_VERSION=${1:-"0.1"}
-export BCG_RELEASE=${2:-"${BCG_VERSION}.1.0"}
+export BCG_RELEASE=${2:-"${BCG_VERSION}.1.1"}
 
 # Create doc/references.rst from sage-code/boolean_cayley_graphs/references.py
 pushd sage-code
