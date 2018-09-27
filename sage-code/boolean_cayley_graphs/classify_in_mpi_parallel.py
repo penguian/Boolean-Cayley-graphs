@@ -30,7 +30,8 @@ def save_classifications_in_parallel(
     name_prefix,
     list_of_f,
     start=0,
-    stop=None):
+    stop=None,
+    directory=None):
     r"""
     Using MPI, construct and save a number of Cayley graph classifications
     corresponding to a list of bent functions.
@@ -42,8 +43,10 @@ def save_classifications_in_parallel(
     - ``list_of_f`` -- List of forms or bent functions.
     - ``start`` -- Integer. Default=0. Index of start position in the list.
     - ``stop`` -- Integer. Default=None. Index after end position, or ``None`` if whole remaining list.
+    - ``directory`` -- string, optional. The directory where the object
+      is to be saved. Default is None, meaning the current directory.
 
-    OUTPUT:
+    OUTPUT: None.
 
     EFFECT: Uses ``name`` to save the classifications corresponding to ``list_of_f``.
     """
@@ -55,14 +58,18 @@ def save_classifications_in_parallel(
     for n in range(start + rank, stop, size):
         name = name_prefix + '_' + str(n)
         form = BooleanFunction(list_of_f[n]).truth_table(format='hex')
-        save_one_classification(name, form)
+        save_one_classification(
+            name,
+            form,
+            directory=directory)
 
 
 def save_class_parts_in_parallel(
     comm,
     name_prefix,
     form,
-    c_len=1):
+    c_len=1,
+    directory=None):
     r"""
     Using MPI, construct a complete list of the partial Cayley graph classifications
     corresponding to a given bent function or algebraic normal form.
@@ -73,8 +80,10 @@ def save_class_parts_in_parallel(
     - ``name_prefix`` -- String. Name prefix to use with ``save_mangled`` to save each class part.
     - ``form`` -- A bent function or an algebraic normal form.
     - ``c_len`` -- Integer. Default=1. The number of values of `c` to use in each class part.
+    - ``directory`` -- string, optional. The directory where the object
+      is to be saved. Default is None, meaning the current directory.
 
-    OUTPUT: A list containing tuples, with names.
+    OUTPUT: None.
 
     EFFECT: Uses ``name_prefix`` to save all partial classifications corresponding to ``bentf``.
     """
@@ -103,4 +112,5 @@ def save_class_parts_in_parallel(
             name=name_prefix + '_' + n_str,
             bentf=bentf,
             c_start=c_len * n,
-            c_stop=c_len * (n + 1))
+            c_stop=c_len * (n + 1),
+            directory=directory)
