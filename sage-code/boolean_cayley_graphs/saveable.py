@@ -102,6 +102,7 @@ class Saveable(object):
 
         ::
 
+            sage: import os
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved as BFI
             sage: a = BFI([0,1,0,0])
             sage: d = tmp_dir()
@@ -110,6 +111,7 @@ class Saveable(object):
             sage: a == b
             True
             sage: BFI.remove_mangled("a", directory=d)
+            sage: os.rmdir(d)
         """
         return cls(load(cls.mangled_name(name, directory=directory)))
 
@@ -149,6 +151,7 @@ class Saveable(object):
             sage: BFI.remove_mangled("a", directory=d)
             sage: os.path.isfile(file_name)
             False
+            sage: os.rmdir(d)
         """
         file_name = cls.mangled_name(name + ".sobj", directory=directory)
         if os.path.isfile(file_name):
@@ -187,6 +190,7 @@ class Saveable(object):
             sage: os.path.isfile(file_name)
             True
             sage: BFI.remove_mangled("a", directory=d)
+            sage: os.rmdir(d)
         """
         save(self, self.__class__.mangled_name(
             name,
