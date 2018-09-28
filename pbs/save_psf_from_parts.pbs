@@ -25,25 +25,15 @@ rsync -av ${BCG_PARTS_DIR}/${PARTS_FILES} ${SAVE_DIR}
 
 date
 
-sage -python save_psf_from_parts.py $QSUB_SEQ_NBR $QSUB_FNBR
+sage -python save_psf_from_parts.py $QSUB_SEQ_NBR $QSUB_FNBR $BCG_PARTS_DIR $BCG_CLASS_DIR
 STATUS=$?
 echo "Exit status is $STATUS"
 
 date
 
-CLASS_FILE="BentFunctionCayleyGraphClassification__psf${QSUB_SEQ_NBR}_${QSUB_FNBR}.sobj"
 if [ "$STATUS" = "0" ]
 then
- echo "Moving classification."
- set -o errexit
- mkdir -p ${BCG_CLASS_DIR}
- rsync -av ${SAVE_DIR}/${CLASS_FILE} ${BCG_CLASS_DIR}
-
- date
-
- rm ${SAVE_DIR}/${CLASS_FILE}
  echo "Removing parts."
- rm ${SAVE_DIR}/${PARTS_FILES}
  rm ${BCG_PARTS_DIR}/${PARTS_FILES}
 else
  echo "Saving failed."

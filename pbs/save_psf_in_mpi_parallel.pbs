@@ -14,12 +14,6 @@ set -o errexit
 cd "${PBS_O_WORKDIR}/../sage-code"
 date
 mpirun -np $QSUB_NCPUS --mca mpi_warn_on_fork 0 \
-  sage -python save_psf_in_mpi_parallel.py $QSUB_SEQ_NBR $QSUB_FNBR_BEG $QSUB_C_LEN
-for ((fnbr=${QSUB_FNBR_BEG}; fnbr!=${fnbr_end}; fnbr++))
-do 
-  rsync -av BentFunctionCayleyGraphClassPart__psf${QSUB_SEQ_NBR}_${fnbr}_*.sobj $BCG_PARTS_DIR
-  rm        BentFunctionCayleyGraphClassPart__psf${QSUB_SEQ_NBR}_${fnbr}_*.sobj
-  date
-done
+  sage -python save_psf_in_mpi_parallel.py $QSUB_SEQ_NBR $QSUB_FNBR_BEG $QSUB_C_LEN $BCG_PARTS_DIR
 cd $PBS_O_WORKDIR
 

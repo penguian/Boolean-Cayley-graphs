@@ -20,14 +20,17 @@ from boolean_cayley_graphs.classify_in_mpi_parallel import save_class_parts_in_p
 r"""
 """
 # Check that the correct number of arguments exist.
-if len(sys.argv) != 4:
-    print "Usage: save_psf_in_mpi_parallel psf_seq bnbr fnbr c_len"
+if len(sys.argv) < 4:
+    print "Usage: save_psf_in_mpi_parallel psf_seq bnbr fnbr c_len [dir]"
     sys.exit(1)
 
 # Convert the arguments to int.
 seq_nbr  = int(sys.argv[1]) # Number of the partial spread function sequence
 fnbr0    = int(sys.argv[2]) # First function number within partial spread function sequence
 c_len    = int(sys.argv[3]) # Number of c values per class part.
+d = None
+if len(sys.argv) > 4:
+    d = sys.argv[4]         # Directory to save to
 
 # Get our MPI rank.
 comm = MPI.COMM_WORLD
@@ -52,7 +55,7 @@ if remainder_v != 0:
     print "c_len is not a factor of 2 ** dim. Remainder is", remainder_v
     exit(1)
 
-# This script also assumes that size is an integer multiple of 
+# This script also assumes that size is an integer multiple of
 # the number of parts per bent function.
 remainder_s = size % nbr_parts_per_bentf
 if remainder_s != 0:
@@ -62,11 +65,12 @@ if remainder_s != 0:
 # Obtain the correct bent function for this rank
 fnbr = fnbr0 + (rank // nbr_parts_per_bentf)
 bentf = BentFunction(anf_list[fnbr])
-  
+
 # Save the classification in parts with c_len matrix rows each.
 save_class_parts_in_parallel(
     comm,
     "psf"+str(seq_nbr)+"_"+str(fnbr),
     bentf,
-    c_len=c_len)
+    c_len=c_len
+    directory=d)
 sys.exit(0)
