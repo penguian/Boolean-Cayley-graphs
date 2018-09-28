@@ -905,6 +905,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         - ``prefix_basename`` -- string. The prefix to use with mangled_name()
           to obtain the file names of the saved class parts.
+        - ``directory`` -- string, optional. The directory where the parts
+          are located. Default is None, meaning the current directory.
         - ``limited_memory`` -- boolean, default is False.
           A flag indicating whether the classification might be too large to
           fit into memory.
