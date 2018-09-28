@@ -31,7 +31,7 @@ if len(sys.argv) > 3:
     d_load = sys.argv[3]         # Directory to load parts from
 d_save = None
 if len(sys.argv) > 4:
-    d_save = sys.argv[3]         # Directory to save to
+    d_save = sys.argv[4]         # Directory to save to
 
 # Construct the classification from the existing parts.
 c_name = "psf"+str(seq_nbr)+"_"+str(fnbr)
