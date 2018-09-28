@@ -41,7 +41,7 @@ c = BentFunctionCayleyGraphClassification.from_parts(c_name, directory=d_load)
 c.save_mangled(c_name, directory=d_save)
 
 # Check the saved classification
-c_check = BentFunctionCayleyGraphClassification.load_mangled(c_name)
+c_check = BentFunctionCayleyGraphClassification.load_mangled(c_name, directory=d_save)
 c_check.report()
 if (c.algebraic_normal_form == c_check.algebraic_normal_form and
     c.cayley_graph_class_list == c_check.cayley_graph_class_list and
