@@ -21,10 +21,6 @@ PARTS_FILES="BentFunctionCayleyGraphClassPart__psf${QSUB_SEQ_NBR}_${QSUB_FNBR}_*
 
 date
 
-rsync -av ${BCG_PARTS_DIR}/${PARTS_FILES} ${SAVE_DIR}
-
-date
-
 sage -python save_psf_from_parts.py $QSUB_SEQ_NBR $QSUB_FNBR $BCG_PARTS_DIR $BCG_CLASS_DIR
 STATUS=$?
 echo "Exit status is $STATUS"
