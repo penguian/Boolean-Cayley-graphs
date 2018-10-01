@@ -24,7 +24,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-
 import dash
 import dash_core_components as dcc
 import dash.dependencies as dd
@@ -35,6 +34,7 @@ import sqlite3
 import sys
 
 from cStringIO import StringIO
+from flask import Flask
 from pandas import DataFrame
 
 import sage.all
@@ -43,10 +43,15 @@ import boolean_cayley_graphs.classification_database_sqlite3 as cdb
 from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
 
-app = dash.Dash()
+# From https://github.com/mbkupfer/dash-with-flask/blob/master/dash_app.py
+server = Flask(__name__)
+app = dash.Dash(__name__, server = server)
+
+app.config.requests_pathname_prefix = ''
+
 conn = None
 
-app.config['suppress_callback_exceptions']=True
+app.config['suppress_callback_exceptions'] = True
 
 app.layout = html.Div([
     html.H2('Bent function Cayley graph dashboard'),
@@ -87,12 +92,44 @@ app.layout = html.Div([
     )
 ])
 
+cast128_names = [
+    'cast128_' + str(s_box) + '_' + str(fnbr)
+    for s_box in range(1,9)
+    for fnbr in range(32)]
+
+
+# From https://github.com/mbkupfer/dash-with-flask/blob/master/dash_app.py
+@server.route('/')
+def bfcgd():
+    return app
+
+
+def bent_function_filter(options):
+    return [
+        html.H3('Choose a bent function'),
+        dcc.Dropdown(
+            options=options,
+            value=None,
+            id='bent-function-filter'
+        )
+    ]
+
 
 @app.callback(
     dd.Output('bent-function-filter-div', 'children'),
     [dd.Input('database-filter', 'value')])
 def set_bent_function_options(selected_database):
-    print(selected_database)
+
+    if selected_database == 'cast128':
+        options=[
+            {
+                'label': opt,
+                'value': opt
+            }
+            for opt in cast128_names
+        ]
+        return bent_function_filter(options)
+
     global conn
 
     try:
@@ -106,20 +143,14 @@ def set_bent_function_options(selected_database):
         FROM bent_function
         ''',
         conn)
-    return [
-        html.H3('Choose a bent function'),
-        dcc.Dropdown(
-            options=[
-                {
-                    'label': opt[0],
-                    'value': opt[0]
-                }
-                for opt in bent_function_names.values
-            ],
-            value=None,
-            id='bent-function-filter'
-        )
+    options=[
+        {
+            'label': opt[0],
+            'value': opt[0]
+        }
+        for opt in bent_function_names.values
     ]
+    return bent_function_filter(options)
 
 
 class Capturing(list):
@@ -168,9 +199,14 @@ def matrix_figure(matrix, colorscale='Earth'):
 def select_bent_function(bentf_name):
     if bentf_name is None:
         return []
-    bentf_c = cdb.select_classification_where_name(
-        conn,
-        bentf_name)
+    if bentf_name.startswith('cast128'):
+        bentf_c = BentFunctionCayleyGraphClassification.load_mangled(
+            bentf_name,
+            directory='/data/sobj')
+    else:
+        bentf_c = cdb.select_classification_where_name(
+            conn,
+            bentf_name)
     with Capturing() as report:
         bentf_c.report()
     wc_matrix = bentf_c.weight_class_matrix
@@ -240,4 +276,4 @@ def select_bent_function(bentf_name):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=False,port=8051)
+    app.run_server(debug=False,host="0.0.0.0",port=8051)
