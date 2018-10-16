@@ -111,6 +111,18 @@ def bfcgd():
     return app
 
 
+
+def connect_to_database(
+    selected_database,
+    auth):
+    conn = cdb.connect_to_database(
+        selected_database,
+        user=auth["user"],
+        password=auth["password"],
+        host=auth["host"])
+    return conn
+    
+
 def bent_function_filter(options):
     return [
         html.H3('Choose a bent function'),
@@ -127,14 +139,10 @@ def bent_function_filter(options):
     [dd.Input('database-filter', 'value')])
 def set_bent_function_options(selected_database):
 
-    global conn
-
     try:
-        conn = cdb.connect_to_database(
+        conn = connect_to_database(
             selected_database,
-        user=auth["user"],
-        password=auth["password"],
-        host=auth["host"])
+            auth)
     except IOError:
         print('Cannot connect to database {}.'.format(selected_database))
         return
@@ -144,6 +152,7 @@ def set_bent_function_options(selected_database):
         FROM bent_function
         ''',
         conn)
+    conn.close()
     options=[
         {
             'label': opt[0],
@@ -196,8 +205,16 @@ def matrix_figure(matrix, colorscale='Earth'):
 
 @app.callback(
     dd.Output('report-output-div', 'children'),
-    [dd.Input('bent-function-filter', 'value')])
-def select_bent_function(bentf_name):
+    [dd.Input('bent-function-filter', 'value')],
+    [dd.State('database-filter', 'value')])
+def select_bent_function(bentf_name, selected_database):
+    try:
+        conn = connect_to_database(
+            selected_database,
+            auth)
+    except IOError:
+        return ['Cannot connect to database {}.'.format(selected_database)]
+
     if bentf_name is None:
         return []
     bentf_c = cdb.select_classification_where_name(
