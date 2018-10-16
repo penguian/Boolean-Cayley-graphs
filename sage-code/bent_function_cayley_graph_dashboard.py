@@ -28,9 +28,10 @@ import dash
 import dash_core_components as dcc
 import dash.dependencies as dd
 import dash_html_components as html
+import json
 import pandas as pd
 import plotly.graph_objs as go
-import sqlite3
+import psycopg2
 import sys
 
 from cStringIO import StringIO
@@ -38,10 +39,13 @@ from flask import Flask
 from pandas import DataFrame
 
 import sage.all
-import boolean_cayley_graphs.classification_database_sqlite3 as cdb
+import boolean_cayley_graphs.classification_database_psycopg2 as cdb
 
 from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+
+with open("BCG-DB.json") as auth_file:
+    auth = json.load(auth_file)
 
 # From https://github.com/mbkupfer/dash-with-flask/blob/master/dash_app.py
 server = Flask(__name__)
@@ -76,7 +80,15 @@ app.layout = html.Div([
                     'value': 'p8'
                 },
                 {
-                    'label': 'CAST-128',
+                    'label': 'sigma functions to 8 dimensions',
+                    'value': 'sigma'
+                },
+                {
+                    'label': 'tau functions to 8 dimensions',
+                    'value': 'tau'
+                },
+                {
+                    'label': 'CAST-128 S-box functions',
                     'value': 'cast128'
                 },
             ],
@@ -91,11 +103,6 @@ app.layout = html.Div([
         id='report-output-div'
     )
 ])
-
-cast128_names = [
-    'cast128_' + str(s_box) + '_' + str(fnbr)
-    for s_box in range(1,9)
-    for fnbr in range(32)]
 
 
 # From https://github.com/mbkupfer/dash-with-flask/blob/master/dash_app.py
@@ -120,20 +127,14 @@ def bent_function_filter(options):
     [dd.Input('database-filter', 'value')])
 def set_bent_function_options(selected_database):
 
-    if selected_database == 'cast128':
-        options=[
-            {
-                'label': opt,
-                'value': opt
-            }
-            for opt in cast128_names
-        ]
-        return bent_function_filter(options)
-
     global conn
 
     try:
-        conn = cdb.connect_to_database(selected_database + '.db')
+        conn = cdb.connect_to_database(
+            selected_database,
+        user=auth["user"],
+        password=auth["password"],
+        host=auth["host"])
     except IOError:
         print('Cannot connect to database {}.'.format(selected_database))
         return
@@ -199,14 +200,9 @@ def matrix_figure(matrix, colorscale='Earth'):
 def select_bent_function(bentf_name):
     if bentf_name is None:
         return []
-    if bentf_name.startswith('cast128'):
-        bentf_c = BentFunctionCayleyGraphClassification.load_mangled(
-            bentf_name,
-            directory='/data/sobj')
-    else:
-        bentf_c = cdb.select_classification_where_name(
-            conn,
-            bentf_name)
+    bentf_c = cdb.select_classification_where_name(
+        conn,
+        bentf_name)
     with Capturing() as report:
         bentf_c.report()
     wc_matrix = bentf_c.weight_class_matrix
