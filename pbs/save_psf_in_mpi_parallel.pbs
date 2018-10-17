@@ -9,7 +9,6 @@
 module load sage/8.0
 module load openmpi/3.0.0
 export PYTHONPATH=${BCG_SITE_DIR}:${PYTHONPATH}
-fnbr_end=$((QSUB_FNBR_BEG + QSUB_NBRF))
 set -o errexit
 cd "${PBS_O_WORKDIR}/../sage-code"
 date
@@ -17,3 +16,4 @@ mpirun -np $QSUB_NCPUS --mca mpi_warn_on_fork 0 \
   sage -python save_psf_in_mpi_parallel.py $QSUB_SEQ_NBR $QSUB_FNBR_BEG $QSUB_C_LEN $BCG_PARTS_DIR
 cd $PBS_O_WORKDIR
 
+./save_many_psf_from_parts.sh $QSUB_SEQ_NBR $QSUB_FNBR_BEG $QSUB_NBRF
