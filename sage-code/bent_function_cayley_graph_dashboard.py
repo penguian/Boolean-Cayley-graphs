@@ -28,10 +28,11 @@ import dash
 import dash_core_components as dcc
 import dash.dependencies as dd
 import dash_html_components as html
-import json
+import flask
+import os
 import pandas as pd
 import plotly.graph_objs as go
-import psycopg2
+import database_interface as db
 import sys
 
 from cStringIO import StringIO
@@ -39,13 +40,9 @@ from flask import Flask
 from pandas import DataFrame
 
 import sage.all
-import boolean_cayley_graphs.classification_database_psycopg2 as cdb
 
 from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
-
-with open("BCG-DB.json") as auth_file:
-    auth = json.load(auth_file)
 
 # From https://github.com/mbkupfer/dash-with-flask/blob/master/dash_app.py
 server = Flask(__name__)
@@ -53,12 +50,22 @@ app = dash.Dash(__name__, server = server)
 
 app.config.requests_pathname_prefix = ''
 
-conn = None
-
 app.config['suppress_callback_exceptions'] = True
 
+output_dir = 'downloads'
+output_files = {
+    '1_bent_function': {
+        'filename': 'download_bent_function.csv',
+        'label':    'Bent function'},
+    '2_cg_class_list': {
+        'filename': 'download_cg_class_list.csv',
+        'label':    'Cayley graph class list'},
+    '3_matrices': {
+        'filename': 'download_matrices.csv',
+        'label':    'Contents of matrices'}}
+
 app.layout = html.Div([
-    html.H2('Bent function Cayley graph dashboard'),
+    html.H2('Bent function--Cayley graph virtual laboratory (prototype)'),
     html.Div([
         html.H3('Choose a database'),
         dcc.RadioItems(
@@ -101,8 +108,22 @@ app.layout = html.Div([
     ),
     html.Div([],
         id='report-output-div'
-    )
-])
+    ),
+    html.Div([
+        html.H3(
+            'Select a CSV file to Download.'),
+        dcc.Dropdown(
+            id='download-dropdown',
+            value=output_files['1_bent_function']['filename'],
+            options=[{
+                    'label': output_files[key]['label'],
+                    'value': output_files[key]['filename']}
+                for key in sorted(output_files.keys())]),
+        html.A(
+            id='download-link',
+            children='Download the CSV file from this link.',
+            style={'padding-bottom': 200})])],
+    style={'font-family': ["Open Sans", "Helvetica", "Arial"]})
 
 
 # From https://github.com/mbkupfer/dash-with-flask/blob/master/dash_app.py
@@ -110,18 +131,6 @@ app.layout = html.Div([
 def bfcgd():
     return app
 
-
-
-def connect_to_database(
-    selected_database,
-    auth):
-    conn = cdb.connect_to_database(
-        selected_database,
-        user=auth["user"],
-        password=auth["password"],
-        host=auth["host"])
-    return conn
-    
 
 def bent_function_filter(options):
     return [
@@ -140,9 +149,8 @@ def bent_function_filter(options):
 def set_bent_function_options(selected_database):
 
     try:
-        conn = connect_to_database(
-            selected_database,
-            auth)
+        conn = db.connect_to_database(
+            selected_database)
     except IOError:
         print('Cannot connect to database {}.'.format(selected_database))
         return
@@ -209,17 +217,18 @@ def matrix_figure(matrix, colorscale='Earth'):
     [dd.State('database-filter', 'value')])
 def select_bent_function(bentf_name, selected_database):
     try:
-        conn = connect_to_database(
-            selected_database,
-            auth)
+        conn = db.connect_to_database(
+            selected_database)
     except IOError:
         return ['Cannot connect to database {}.'.format(selected_database)]
 
     if bentf_name is None:
         return []
-    bentf_c = cdb.select_classification_where_name(
+    bentf_c = db.cdb.select_classification_where_name(
         conn,
         bentf_name)
+    bentf_path = os.path.join(output_dir, 'download')
+    bentf_c.save_as_csv(bentf_path)
     with Capturing() as report:
         bentf_c.report()
     wc_matrix = bentf_c.weight_class_matrix
@@ -287,6 +296,23 @@ def select_bent_function(bentf_name, selected_database):
                     'width': '100%',
                     'display': 'inline-block'})])])]
 
+
+@app.callback(dd.Output('download-link', 'href'),
+              [dd.Input('download-dropdown', 'value')])
+def update_href(output_filename):
+    relative_filename = os.path.join(
+        output_dir,
+        output_filename)
+    return '/' + relative_filename
+
+
+@app.server.route('/downloads/<path:path>')
+def serve_static(path):
+    root_dir = os.getcwd()
+    return flask.send_from_directory(
+        os.path.join(root_dir, output_dir),
+        path,
+        as_attachment=True)
 
 if __name__ == '__main__':
     app.run_server(debug=False,host="0.0.0.0",port=8051)
