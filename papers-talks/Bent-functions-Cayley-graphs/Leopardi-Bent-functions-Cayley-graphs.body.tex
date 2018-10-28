@@ -48,7 +48,7 @@ Third, these theoretical results can improve our understanding of the relationsh
 bent functions, projective two-weight codes, strongly regular graphs, and
 symmetric block designs with the symmetric difference property.
 In what follows, known results are presented as propositions, with references;
-and new results are presented as lemmas or theorems, with proofs.
+and apparently new results are presented as lemmas or theorems, with proofs.
 
 % Two recent papers \cite{Leo14Constructions,Leo15Twin} describe and investigate two infinite sequences of bent functions and their Cayley graphs.
 % The bent function $\sigma_m$ on $\F_2^{2 m}$ is described in the first paper \cite{Leo14Constructions}, on
@@ -187,6 +187,15 @@ as multiplication.
 Any Boolean function $f : \F_2^n \To \F_2$ can be represented as a polynomial in $n$ variables over $F_2$
 \cite{Mul54} \cite[Ch. III, Section 2]{Dil74}.
 This is called the \Emph{algebraic normal form} of $f$.
+
+Example using \verb!sage.crypto.boolean_function! in Sage:
+\begin{sageblock}
+from sage.crypto.boolean_function import BooleanFunction
+f = BooleanFunction([1,1,1,0])
+a = f.algebraic_normal_form()
+\end{sageblock}
+The algebraic normal form of the Boolean function \verb!f! on $\F_2^2$
+with truth table $\sage{[1,1,1,0]}$ and variables $x_0$ and $x_1$ is \verb!a = !$\sage{a}$.
 \begin{Definition}
 \label{def-Reed-Muller-codes}
 \cite{Mul54} \cite[Ch. 13, Section 3]{MacS77} \cite[10.5.2]{Sti07combinatorial}
@@ -197,6 +206,19 @@ Remarks: Some texts use the notation $\mathcal{R}(r,n)$ or $RM(r,2^n)$ for $RM(r
 Each Reed-Muller code $RM(r,n)$ is a linear subspace of the vector space of Boolean functions $f : \F_2^n \To \F_2$.
 The Reed-Muller code $RM(1,n)$ consists of the $2^{n+1}$ affine functions $f(x) = \langle c, x \rangle + \delta$
 for $c \in \F_2^n,\ \delta \in \F_2$ \cite[Ch 14, Section 3]{MacS77} \cite[10.5.2]{Sti07combinatorial}.
+
+Example: $RM(1,2)$ using \verb!sage.coding.reed_muller_code! in Sage:
+\begin{sageblock}
+from sage.coding.reed_muller_code import ReedMullerCode
+C = ReedMullerCode(GF(2),1,2)
+L = C.list()
+\end{sageblock}
+\begin{sagesilent}
+cr = '\n'
+\end{sagesilent}
+This sets the variable \verb!L! to be the list containing the following 8 vectors:
+
+\footnotesize{$\sage{L}$}\normalsize{}
 
 \paragraph*{Bent Boolean functions.}
 Bent Boolean functions can be defined in a number of equivalent ways.
@@ -4875,8 +4897,8 @@ as shown in Figures~\ref{fig:psf_9_5439_bent_cayley_graph_index_matrix} (classes
 
 \newpage
 
-%\bibliographystyle{abbrv-par}
+\bibliographystyle{abbrv-par}
 
-%\bibliography{bib}
+\bibliography{bib}
 
-\input{Leopardi-Bent-functions-Cayley-graphs.bbl}
+%\input{Leopardi-Bent-functions-Cayley-graphs.bbl}
