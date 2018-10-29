@@ -311,6 +311,12 @@ D.~R. Stinson.
   ({V}ersion 7.5)}, (2017).
 \newblock \url{http://www.sagemath.org}.
 
+\bibitem{SageMath8418}
+{The Sage Developers}.
+\newblock {\em {S}ageMath, the {S}age {M}athematics {S}oftware {S}ystem
+  ({V}ersion 8.4)}, (2018).
+\newblock \url{http://www.sagemath.org}.
+
 \bibitem{Tok15bent}
 N.~Tokareva.
 \newblock {\em Bent functions: results and applications to cryptography}.
