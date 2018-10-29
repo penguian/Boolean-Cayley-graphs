@@ -188,37 +188,49 @@ Any Boolean function $f : \F_2^n \To \F_2$ can be represented as a polynomial in
 \cite{Mul54} \cite[Ch. III, Section 2]{Dil74}.
 This is called the \Emph{algebraic normal form} of $f$.
 
-Example using \verb!sage.crypto.boolean_function! in Sage:
+\begin{example}
+Using \verb!sage.crypto.boolean_function! in Sage, define:
 \begin{sageblock}
 from sage.crypto.boolean_function import BooleanFunction
 f = BooleanFunction([1,1,1,0])
 a = f.algebraic_normal_form()
 \end{sageblock}
 The algebraic normal form of the Boolean function \verb!f! on $\F_2^2$
-with truth table $\sage{[1,1,1,0]}$ and variables $x_0$ and $x_1$ is \verb!a = !$\sage{a}$.
+with variables $x_0$ and $x_1$ and truth table $\sage{[1,1,1,0]}$ (in lexicographic order)
+is then \verb!a = !$\sage{a}$
+\cite[Boolean Functions]{SageMath8418}.
+\end{example}
+
 \begin{Definition}
 \label{def-Reed-Muller-codes}
 \cite{Mul54} \cite[Ch. 13, Section 3]{MacS77} \cite[10.5.2]{Sti07combinatorial}
 The \Emph{Reed-Muller code} $RM(r, n)$ consists of those Boolean functions $f : \F_2^n \To \F_2$
 whose algebraic normal form has degree $r$.
 \end{Definition}
-Remarks: Some texts use the notation $\mathcal{R}(r,n)$ or $RM(r,2^n)$ for $RM(r,n)$.
+\begin{remark}
+Some texts use the notation $\mathcal{R}(r,n)$ or $RM(r,2^n)$ for $RM(r,n)$.
+
 Each Reed-Muller code $RM(r,n)$ is a linear subspace of the vector space of Boolean functions $f : \F_2^n \To \F_2$.
+
 The Reed-Muller code $RM(1,n)$ consists of the $2^{n+1}$ affine functions $f(x) = \langle c, x \rangle + \delta$
 for $c \in \F_2^n,\ \delta \in \F_2$ \cite[Ch 14, Section 3]{MacS77} \cite[10.5.2]{Sti07combinatorial}.
+\end{remark}
 
-Example: $RM(1,2)$ using \verb!sage.coding.reed_muller_code! in Sage:
+\begin{example}
+Using \verb!sage.coding.reed_muller_code! in Sage, list the Reed-Muller code $RM(1,2)$:
 \begin{sageblock}
 from sage.coding.reed_muller_code import ReedMullerCode
 C = ReedMullerCode(GF(2),1,2)
 L = C.list()
 \end{sageblock}
-\begin{sagesilent}
-cr = '\n'
-\end{sagesilent}
-This sets the variable \verb!L! to be the list containing the following 8 vectors:
-
-\footnotesize{$\sage{L}$}\normalsize{}
+This sets the variable \verb!L! to be the list of 8 vectors
+\begin{align*}
+[ &\sage{L[0]},\sage{L[1]},\sage{L[2]},\sage{L[3]},
+\\
+  &\sage{L[4]},\sage{L[5]},\sage{L[6]},\sage{L[7]}\,]
+\end{align*}
+\cite[Reed-Muller Code]{SageMath8418}.
+\end{example}
 
 \paragraph*{Bent Boolean functions.}
 Bent Boolean functions can be defined in a number of equivalent ways.
@@ -226,7 +238,7 @@ The definition used here involves the Walsh Hadamard Transform.
 \begin{Definition}
 \label{def-Walsh-Hadamard-transform}
 \cite[Ch. III, Section 2]{Dil74} \cite[Ch. 2, Section 3]{MacS77}
-The Walsh Hadamard transform of
+The Walsh Hada\-mard transform of
 a Boolean function $f : \F_2^n \To \F_2$ is
 \begin{align*}
 W_f(x)
@@ -234,6 +246,26 @@ W_f(x)
 \sum_{y \in \F_2^n} (-1)^{f(y) + \langle x, y \rangle}
 \end{align*}
 \end{Definition}
+\begin{example}
+Using \verb!sage.crypto.boolean_function! in Sage, define:
+\begin{sageblock}
+from sage.crypto.boolean_function import BooleanFunction
+f = BooleanFunction([1,1,1,0])
+w = f.walsh_hadamard_transform()
+\end{sageblock}
+\begin{sagesilent}
+from sage.misc.banner import require_version
+\end{sagesilent}
+
+The Walsh Hada\-mard transform of the Boolean function \verb!f! on $\F_2^2$ is then
+\verb!w =! $\sage{w if require_version(8,2,0) else tuple(-v for v in w)}$
+as a truth table in lexicographic order
+\cite[Boolean Functions]{SageMath8418}.
+\end{example}
+\begin{remark}
+In versions of Sage before 8.2 the \verb!walsh_hadamard_transform! method has an incorrect sign
+[Sage trac ticket \#23931].
+\end{remark}
 
 \begin{Definition}
 \label{def-Bent-function}
@@ -241,6 +273,11 @@ A Boolean function $f : \F_2^{2m} \To \F_2$ is \Emph{bent}
 if and only if its Walsh Hada\-mard transform has constant absolute value $2^{m}$ \cite[p. 74]{Dil74}
 \cite[p. 300]{Rot76}.
 \end{Definition}
+\begin{example}
+The Boolean function \verb!f! in the previous example is bent, since its
+Walsh Hada\-mard transform has constant absolute value $\sage{abs(w[0])}$.
+\end{example}
+
 
 The remainder of this paper refers to bent Boolean functions simply as bent functions.
 
