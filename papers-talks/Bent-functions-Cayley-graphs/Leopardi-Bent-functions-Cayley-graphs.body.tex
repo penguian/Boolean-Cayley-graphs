@@ -5,7 +5,7 @@ Besides the well-known application of bent functions and their generalizations t
 \cite{Ada97} \cite[4.1-4.6]{Tok15bent},
 bent functions have well-studied connections to Hadamard difference sets \cite{Dil74},
 symmetric designs with the symmetric difference property \cite{DilS87block,Kan75symplectic},
-projective two-weight codes \cite{DinD15class} and strongly regular graphs.
+projective two-weight codes \cite{CalK1986,Din2015} and strongly regular graphs.
 
 In two papers, Bernasconi and Codenotti \cite{BerC99}, and then Bernasconi, Codenotti and Vanderkam
 \cite{BerCV01} explored some of the connections
@@ -184,9 +184,9 @@ also known as $GF(2)$. Models of $\F_2$ include integer arithmetic modulo 2
 ($\Z/2\Z$ also known as $\Z_2$) and Boolean algebra with ``exclusive or'' as addition and ``and''
 as multiplication.
 \paragraph*{Boolean functions and Reed-Muller codes.}
-Any Boolean function $f : \F_2^n \To \F_2$ can be represented as a polynomial in $n$ variables over $F_2$
-\cite{Mul54} \cite[Ch. III, Section 2]{Dil74}.
-This is called the \Emph{algebraic normal form} of $f$.
+Any Boolean function $f : \F_2^n \To \F_2$ can be represented as a reduced polynomial in $n$ variables over $F_2$
+\cite{Mul54, Rot76} \cite[Ch. III, Section 2]{Dil74}.
+This is called the \Emph{algebraic normal form} of $f$ \cite[Chapter 5]{Rue1986}.
 
 \begin{example}
 Using \verb!sage.crypto.boolean_function! in Sage, define:
@@ -504,7 +504,7 @@ This is done via the following definitions.
 
 \begin{Definition}
 \label{def-two-weight-codes}
-\cite{BouFFWW2006} \cite{Ton96uniformly}
+\cite{BouFFWW2006, CalK1986, Del72weights, Din2015, Ton96uniformly}
 
 A \Emph{two-weight binary code} with parameters $[n,k,d]$ is a $k$ dimensional subspace of $\F_2^n$
 with
@@ -518,8 +518,6 @@ A linear $[n, k]$ code is called \Emph{projective} if no two columns of a genera
 $G$ are linearly dependent, i.e., if the columns of $G$ are pairwise different points in a
 projective $(k-1)$-dimensional space.''
 
-Remark: In the case of $\F_2$, no two columns are equal.
-
 A \Emph{projective two-weight binary code} with parameters $[n, k, d]$ is thus a
 two-weight binary with these parameters which is also projective as an $[n, k]$ linear code.
 %
@@ -529,27 +527,47 @@ two-weight binary with these parameters which is also projective as an $[n, k]$ 
 %
 \end{Definition}
 
+\begin{remark}
+In the case of $\F_2$, no two columns of the generator matrix of a projective code are equal.
+\end{remark}
+
+
 \paragraph*{From bent function to strongly regular graph via a projective two-weight code.}
 There is a standard method of obtaining a projective two-weight code from a bent function in such a way that
 the code can be used to define a bent function.
 This method uses the following definition.
 \begin{Definition}
 \label{def-bent-two-weight-code}
-\cite[Corollary 10]{DinD15class}
+\cite{Din2015}.
 %\smallcite{Ding 2015, Corollary 10}
+See also \cite[Definition 2A]{CalK1986}
 
+Let $v=2^{2m}$, and let $X$ be the matrix in  $\F_2^{2m \times v}$
+whose columns are the $v$ elements of $\F_2^{2m}$ in lexicographic order.
 For a bent function $f : \F_2^{2m} \To \F_2$,
-define the linear code $C(f)$ by the generator matrix
+let $n=\weight{f}$, and let $Y$ be the matrix in $\F_2^{2m \times n}$
+whose columns are the $n$ elements of $\support{f}$ in lexicographic order.
+Then define the generator matrix
 \begin{align*}
-M_C(f)_{x,y} &\in \F_2^{2^{2m} \times \weight{f}},
+M &= X^T Y \in \F_2^{v \times n},\quad \text{so that}
 \\
-M_C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+M_{i,j} &= \langle x_i, y_j \rangle, \quad \text{for~} i \in \{0,\ldots,v-1\},\ j \in \{0,\ldots,n-1\},
 \end{align*}
-with $x$ in lexicographic order of $\F_2^{2m}$
-and $\support{f}(y)$ in lexicographic order of $\support{f}$.
+with $x_i \in \F_2^{2m}$ being column $i$ of $X$, and $y_j \in \F_2^{2m}$ being column $j$ of $Y$.
 
-The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M_C(f)$.
+The linear code $C(f) \subset \F_2^n$ is then given by the span of the $v$ rows of $M$ within $\F_2^n$,
+considered as row vectors.
 \end{Definition}
+% define the linear code $C(f)$ by the generator matrix
+% \begin{align*}
+% M_C(f)_{x,y} &\in \F_2^{2^{2m} \times \weight{f}},
+% \\
+% M_C(f)_{x,y} &:= \langle x, \support{f}(y) \rangle,
+% \end{align*}
+% with $x$ in lexicographic order of $\F_2^{2m}$
+% and $\support{f}(y)$ in lexicographic order of $\support{f}$.
+%
+% The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M_C(f)$.
 
 The linear code $C(f)$ so obtained has the following properties.
 %\slidecite{Ding 2015, Corollary 10}
@@ -558,7 +576,7 @@ The linear code $C(f)$ so obtained has the following properties.
 % \begin{frame}
 %\frametitle{From bent function to linear code (2)}
 \begin{Proposition}
-\cite[Corollary 10]{DinD15class}
+\cite[Corollary 10]{Din2015}
 %\smallcite{Ding 2015, Corollary 10}
 
 For a bent function $f : \F_2^{2m} \To \F_2$, the linear code $C(f)$

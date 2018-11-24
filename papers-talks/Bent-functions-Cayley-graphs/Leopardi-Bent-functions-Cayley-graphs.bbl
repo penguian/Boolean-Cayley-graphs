@@ -52,6 +52,12 @@ A.~E. Brouwer and C.~A. Van~Eijl.
 \newblock On the p-rank of the adjacency matrices of strongly regular graphs.
 \newblock {\em Journal of Algebraic Combinatorics}, 1(4):329--346, (1992).
 
+\bibitem{CalK1986}
+R.~Calderbank and W.~M. Kantor.
+\newblock The geometry of two-weight codes.
+\newblock {\em Bulletin of the London Mathematical Society}, 18(2):97--122,
+  (1986).
+
 \bibitem{CamVL91}
 P.~J. Cameron and J.~H. Van~Lint.
 \newblock {\em Designs, graphs, codes and their links}, volume~3.
@@ -96,11 +102,10 @@ J.~F. Dillon and J.~R. Schatz.
 \newblock In {\em Proceedings of the NSA Mathematical Sciences Meetings},
   159--164. US Govt. Printing Office Washington, DC, (1987).
 
-\bibitem{DinD15class}
-K.~Ding and C.~Ding.
-\newblock A class of two-weight and three-weight codes and their applications
-  in secret sharing.
-\newblock {\em IEEE Transactions on Information Theory}, 61(11):5835--5842,
+\bibitem{Din2015}
+C.~Ding.
+\newblock Linear codes from some 2-designs.
+\newblock {\em IEEE Transactions on information theory}, 61(6):3265--3275,
   (2015).
 
 \bibitem{FeuSSW2013}
@@ -275,6 +280,11 @@ G.~F. Royle.
   of order 64.
 \newblock {\em Journal of the Australian Mathematical Society},
   85(03):347--351, (2008).
+
+\bibitem{Rue1986}
+R.~Rueppel.
+\newblock {\em Analysis and design of stream ciphers}.
+\newblock Communications and control engineering series. Springer, (1986).
 
 \bibitem{CoCalc}
 {SageMath, Inc.}
