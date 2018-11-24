@@ -579,9 +579,9 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         REFERENCES:
 
-        .. [Car2010]_ Section 8.6.
+        .. Carlet [Car2010]_ Section 8.6.
 
-        .. [DD2015]_ Corollary 10.
+        .. Ding [Ding2015]_ Corollary 10.
 
         """
         dim = self.nvariables()

@@ -65,7 +65,12 @@ def boolean_linear_code(dim, f):
 
     REFERENCES:
 
-    Carlet [Car2010]_, Ding and Ding [DD2015]_ Corollary 10.
+    .. Carlet [Car2010]_.
+
+    .. Calderbank and Kantor [CalK1986]_.
+
+    .. Ding [Din2015]_ Corollary 10.
+
     """
     v = 2 ** dim
     support = [
