@@ -569,13 +569,11 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: bf2.algebraic_normal_form()
             x0*x1*x2*x3 + x0*x1 + x0*x2*x3 + x0 + x1*x3 + x2*x3 + x3
             sage: c2 = bf2.linear_code()
-            sage: c2.basis()
-            [
-            (1, 0, 0, 0, 1),
-            (0, 1, 0, 0, 0),
-            (0, 0, 1, 0, 0),
-            (0, 0, 0, 1, 1)
-            ]
+            sage: c2.generator_matrix().echelon_form()
+            [1 0 0 0 1]
+            [0 1 0 0 0]
+            [0 0 1 0 0]
+            [0 0 0 1 1]
 
         REFERENCES:
 

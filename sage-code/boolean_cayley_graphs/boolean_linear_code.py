@@ -55,13 +55,13 @@ def boolean_linear_code(dim, f):
         sage: dim = bf.nvariables()
         sage: from boolean_cayley_graphs.boolean_linear_code import boolean_linear_code
         sage: bc = boolean_linear_code(dim, bf)
-        sage: bc.basis()
-        [
-        (1, 0, 0, 0, 1),
-        (0, 1, 0, 0, 0),
-        (0, 0, 1, 0, 0),
-        (0, 0, 0, 1, 1)
-        ]
+        sage: bc.characteristic_polynomial()
+        -2/3*x + 2
+        sage: bc.generator_matrix().echelon_form()
+        [1 0 0 0 1]
+        [0 1 0 0 0]
+        [0 0 1 0 0]
+        [0 0 0 1 1]
 
     REFERENCES:
 
@@ -78,9 +78,9 @@ def boolean_linear_code(dim, f):
         for y in xsrange(v)
         if f(y) == 1]
     M = matrix(GF(2), [[
-        inner(x, y)
+        inner(2 ** k, y)
         for y in support]
-        for x in xsrange(v)])
+        for k in xsrange(dim)])
     return LinearCode(M)
 
 
