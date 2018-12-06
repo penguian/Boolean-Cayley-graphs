@@ -102,6 +102,11 @@ J.~D. Comerford.
 \newblock Affine and general linear equivalences of {Boolean} functions.
 \newblock {\em Information and Control}, 45(2):156--169, (1980).
 
+\bibitem{CusS2017}
+T.~W. Cusick and P.~Stanica.
+\newblock {\em Cryptographic Boolean functions and applications}.
+\newblock Academic Press, 2nd edition, (2017).
+
 \bibitem{Del72weights}
 P.~Delsarte.
 \newblock Weights of linear codes and strongly regular normed spaces.

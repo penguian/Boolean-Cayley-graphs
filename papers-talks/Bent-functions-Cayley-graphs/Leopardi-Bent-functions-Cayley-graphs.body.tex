@@ -494,25 +494,23 @@ There is a standard method of obtaining a projective two-weight code from a bent
 the code can be used to define a strongly regular graph.
 This method is equivalent to the following definition.
 \begin{Definition}
-\label{def-bent-two-weight-code}
+\label{def-boolean-linear-code}
 \cite{Din2015}.
 %\smallcite{Ding 2015, Corollary 10}
 See also \cite[Definition 2A]{CalK1986}
 
 Let $v=2^{2m}$, and let $X$ be the matrix in  $\F_2^{2m \times v}$
 whose columns are the $v$ elements of $\F_2^{2m}$ in lexicographic order.
-For a bent function $f : \F_2^{2m} \To \F_2$,
+For a boolean function $f : \F_2^{2m} \To \F_2$,
 let $n=\weight{f}$, and let $Y$ be the matrix in $\F_2^{2m \times n}$
 whose columns are the $n$ elements of $\support{f}$ in lexicographic order.
-Then define the generator matrix
+That is,
 \begin{align*}
-M &= X^T Y \in \F_2^{v \times n},\quad \text{so that}
-\\
-M_{i,j} &= \langle x_i, y_j \rangle, \quad \text{for~} i \in \{0,\ldots,v-1\},\ j \in \{0,\ldots,n-1\},
+Y_{i,j} &= (y_j)_i, \quad \text{for~} i \in \{0,\ldots,v-1\},\ j \in \{0,\ldots,n-1\},
 \end{align*}
-with $x_i \in \F_2^{2m}$ being column $i$ of $X$, and $y_j \in \F_2^{2m}$ being column $j$ of $Y$.
+with $y_j \in \F_2^{2m}$ being an element of $\support{f}$.
 
-The linear code $C(f) \subset \F_2^n$ is then given by the span of the $v$ rows of $M$ within $\F_2^n$,
+The linear code $C(f) \subset \F_2^n$ is then given by the span of the $2 m$ rows of $Y$ within $\F_2^n$,
 considered as row vectors.
 \end{Definition}
 % define the linear code $C(f)$ by the generator matrix
@@ -525,21 +523,59 @@ considered as row vectors.
 % and $\support{f}(y)$ in lexicographic order of $\support{f}$.
 %
 % The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M_C(f)$.
+%
+\begin{remarks}~
 
-The linear code $C(f)$ so obtained has the following properties.
+\begin{enumerate}
+ \item
+The linear span of the rows of $Y$ is given by the set of rows of the matrix
+%
+\begin{align*}
+M &:= X^T Y, \quad \text{where}
+\\
+X &\in \F_2^{2m \times v}
+\end{align*}
+is the matrix whose columns are all $v$ elements of $\F_2^{2m}$ in lexicographic order.
+Thus $M \in \F_2^{v \times n}$.
+ \item
+Definition \ref{def-boolean-linear-code} is not identical to the generic constuction described by
+Ding \cite[Section III]{Din2015} since that definition is for
+subsets $D \subset \F_v$, and uses the trace form, but for the case where $D$ is the support
+of a boolean function $f \colon \F_v \To F_2$, the two definitions are equivalent.
+
+If the bilinear form $\langle x, y \rangle = x^T y$ is replaced in
+the previous remark by a non-degenerate symmetric bilinear form $\langle x, S y \rangle = x^T S y$,
+where $S$ is a non-degenerate symmetric matrix in $\F_2^{2m \times 2m}$,
+then this would produce the same linear code, since the matrix $S$, being invertible,
+produces a bijection on $\F_2^{2m}$ and therefore the matrix $X^T S$ differs from $X^T$ only by a permutation of rows.
+
+Thus by similar arguments to those in Remarks 2 and 3 following Definition \ref{def-Bent-function},
+the generic constuction described by Ding \cite[Section III]{Din2015} is in this case equivalent
+to Definition \ref{def-boolean-linear-code}.
+\end{enumerate}
+\end{remarks}
+
+When $f$ is a bent function, the linear code $C(f)$
+described by Definition \ref{def-boolean-linear-code} has the following properties.
 %\slidecite{Ding 2015, Corollary 10}
 %
 % \end{frame}
 % \begin{frame}
 %\frametitle{From bent function to linear code (2)}
 \begin{Proposition}
+\label{pr-bent-two-weight-code}
 \cite[Corollary 10]{Din2015}
 %\smallcite{Ding 2015, Corollary 10}
 
 For a bent function $f : \F_2^{2m} \To \F_2$, the linear code $C(f)$
-is a projective two-weight binary code.
-%
-%~
+is a projective two-weight binary code, with
+\begin{align*}
+\begin{cases}
+n = \weight{f} = 2^{2m-2} - 2^{m-2}, \quad k = 2m & \text{if~} \weightclass{f}=0.
+\\
+n = \weight{f} = 2^{2m-2} + 2^{m-2}, \quad k = 2m & \text{if~} \weightclass{f}=1.
+\end{cases}
+\end{align*}
 %
 The possible weights of non-zero code words are:
 \begin{align*}
@@ -551,17 +587,96 @@ The possible weights of non-zero code words are:
 \end{align*}
 %
 \end{Proposition}
-%
-\begin{Remark}
-Definition \ref{def-bent-two-weight-code} is not identical to that of Ding \cite{Din2015} since that definition is for
-bent functions defined on $\F_2^{2m}$ and uses the trace form, but the two definitions are equivalent.
-If the bilinear form $\langle x_i, y_j \rangle$ is replaced in Definition \ref{def-bent-two-weight-code} by
-a non-degenerate symmetric bilinear form $\langle x, S y \rangle$,
-where $S$ is a non-degenerate symmetric matrix in $\F_2^{n \times n}$,
-then this would produce the same linear code, since the matrix $S$, being invertible, produces a bijection
-on $\F_2^{2m}$ and therefore the matrix $X^T S$ differs from $X^T$ only by a permutation of rows.
-See also Remarks 2 and 3 following Definition \ref{def-Bent-function}.
-\end{Remark}
+
+\begin{proof}
+We examine $W_f$, the Walsh Hadamard transform of $f$.
+\begin{align*}
+W_f(x)
+&=
+\sum_{y \in \F_2^{2 m}} (-1)^{\langle x, y \rangle + f(y)}
+=
+\sum_{y \in \F_2^{2 m}} (-1)^{\langle x, y \rangle}
+- 2\sum_{f(y)=1} (-1)^{\langle x, y \rangle}.
+\end{align*}
+But
+\begin{align*}
+\sum_{y \in \F_2^{2 m}} (-1)^{\langle x, y \rangle}
+&=
+\begin{cases}
+4^m &(x=0)
+\\
+0 & \text{otherwise},
+\end{cases}
+\end{align*}
+as per the Sylvester Hadamard matrices.
+
+So, for $x \neq 0$,
+\begin{align*}
+W_f(x)
+&=
+- 2\sum_{f(y)=1} (-1)^{\langle x, y \rangle},
+\intertext{so}
+\sum_{f(y)=1} (-1)^{\langle x, y \rangle}
+&=
+\weight{f} - 2 \sum_{\substack{f(y)=1 \\ \langle x, y \rangle =1}} 1
+=
+- W_f(x)/2.
+\intertext{But}
+\sum_{\substack{f(y)=1 \\ \langle x, y \rangle =1}} 1
+&=
+\weight{x^T Y},
+\end{align*}
+the weight of the code word of $C(f)$ corresponding to $x$.
+So
+\begin{align*}
+\weight{f} - 2 \weight{x^T Y}
+&=
+- W_f(x)/2,
+\intertext{and therefore}
+\weight{x^T Y}
+&=
+\weight{f}/2 + W_f(x)/4.
+\end{align*}
+We now examine the two possible weight class numbers of $f$.
+
+If $\weightclass{f} = 0$ then $\weight{f} = 2^{2m-1}-2^{m-1}$.
+For $x \neq 0$ there are two cases, depending on $\dual{f}(x)$:
+
+If $\dual{f}(x) = 0$ then $W_f(x) = 2^m$, so
+\begin{align*}
+\weight{x^T Y}
+&=
+2^{2m-2} - 2^{m-2} + 2^{m-2}
+=
+2^{2m-2}.
+\end{align*}
+
+If $\dual{f}(x) = 1$ then $W_f(x) = -2^m$, so
+\begin{align*}
+\weight{x^T Y}
+&=
+2^{2m-2} - 2^{m-2} - 2^{m-2}
+=
+2^{2m-2} - 2^{m-1}.
+\end{align*}
+
+Similarly, if $\weightclass{f} = 1$ then $\weight{f} = 2^{2m-1}+2^{m-1}$,
+and so for $x \neq 0$
+\begin{align*}
+\weight{x^T Y}
+&=
+\begin{cases}
+2^{2m-2} + 2^{m-1} & (\dual{f}(x)=0)
+\\
+2^{2m-2}           & (\dual{f}(x)=1).
+\end{cases}
+\end{align*}
+As a consequence, all $v = 2^{2m}$ rows of $M = X^T Y$ are distinct,
+since the rows of $M$ consist of every linear combination of the rows of $Y$,
+every linear combination of the rows of $Y$ is given by some $x^T Y$ where $x$ is a column of $X$,
+and for every non-zero $x$, this linear combination has positive weight and is therefore non-zero.
+Thus the dimension of $C(f)$ as a subspace of $F_2^n$ is $k=2m$.
+\end{proof}
 
 %\slidecite{Ding 2015, Corollary 10}
 %
@@ -571,8 +686,8 @@ See also Remarks 2 and 3 following Definition \ref{def-Bent-function}.
 This paper uses the following non-standard definition to obtain a strongly regular graph from a
 projective two-weight code.
 \begin{Definition}
-\label{R-f-def}
-Given $f : \F_2^{2m} \To \F_2$, and linear code $C(f)$ defined as per Definition~\ref{def-bent-two-weight-code},
+\label{def-R-f}
+Given $f : \F_2^{2m} \To \F_2$, and linear code $C(f)$ defined as per Definition~\ref{def-boolean-linear-code},
 define the graph $R(f)$ as follows.
 
 Vertices of $R(f)$ are code words of $C(f)$.
@@ -587,9 +702,17 @@ For code words $v,w \in C(f)$, edge $(u,v) \in R(f)$ if and only if
 \end{align*}
 
 \end{Definition}
+\begin{remarks}~
+
+\begin{enumerate}
+ \item
+The standard definition uses the lower of the two weights in both cases above.
+ \item
 Since $C(f)$ is a projective two-weight binary code,
 $R(f)$ is a strongly regular graph \cite[Theorem 2]{Del72weights} \cite[Theorem 16.22]{CamVL91}.
-The standard definition uses the lower of the two weights in both cases above.
+\end{enumerate}
+\end{remarks}
+
 
 %\slidecite{Delsarte 1972, Theorem 2}
 % \end{frame}
@@ -601,8 +724,8 @@ The standard definition uses the lower of the two weights in both cases above.
 %\subsection{Bent functions, linear codes and strongly regular graphs}
 % \begin{frame}
 \paragraph*{The graph $R(f)$ is the Cayley graph of the extended dual.}
-The strongly regular graph $R(f)$ of bent function $f$, as defined by the non-standard Definition
-\ref{R-f-def} has the following remarkable property.
+The strongly regular graph $R(f)$ of bent function $f$, as per
+\ref{def-R-f} has the following remarkable property.
 
 \begin{Theorem}
 For a bent function $f : \F_2^{2m} \To \F_2$, with $f(0)=0$,
@@ -613,95 +736,37 @@ R(f) \equiv \Cay{\dual{f} + \weightclass{f}}.
 \end{Theorem}
 % \end{frame}
 \begin{proof}
-We examine $W_f$, the Walsh Hadamard transform of $f$.
-\begin{align*}
-W_f(y)
-&=
-\sum_{x \in \F_2^{2 m}} (-1)^{\langle x, y \rangle + f(x)}
-=
-\sum_{x \in \F_2^{2 m}} (-1)^{\langle x, y \rangle}
-- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle}.
-\end{align*}
-But
-\begin{align*}
-\sum_{x \in \F_2^{2 m}} (-1)^{\langle x, y \rangle}
-&=
-\begin{cases}
-4^m &(y=0)
-\\
-0 & \text{otherwise},
-\end{cases}
-\end{align*}
-as per the Sylvester Hadamard matrices.
-
-So, for $y \neq 0$,
-\begin{align*}
-W_f(y)
-&=
-- 2\sum_{f(x)=1} (-1)^{\langle x, y \rangle},
-\intertext{so}
-\sum_{f(x)=1} (-1)^{\langle x, y \rangle}
-&=
-\weight{f} - 2 \sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
-=
-- W_f(y)/2.
-\intertext{But}
-\sum_{\substack{f(x)=1 \\ \langle x, y \rangle =1}} 1
-&=
-\weight{C(f)[y]},
-\end{align*}
-the weight of code $C(f)$ at the point $y$.
-So
-\begin{align*}
-\weight{f} - 2 \weight{C(f)[y]}
-&=
-- W_f(y)/2,
-\intertext{and therefore}
-\weight{C(f)[y]}
-&=
-\weight{f}/2 + W_f(y)/4.
-\end{align*}
-We now examine the two possible weight class numbers of $f$.
-
-If $\weightclass{f} = 0$ then $\weight{f} = 2^{2m-1}-2^{m-1}$.
-For $y \neq 0$ there are two cases, depending on $\dual{f}(y)$:
-
-If $\dual{f}(y) = 0$ then $W_f(y) = 2^m$, so
-\begin{align*}
-\weight{C(f)[y]}
-&=
-2^{2m-2}-2^{m-2} + 2^{m-2}
-=
-2^{2m-2}
-=
-4^{m-1}.
-\end{align*}
-
-If $\dual{f}(y) = 1$ then $W_f(y) = -2^m$, so
-\begin{align*}
-\weight{C(f)[y]}
-&=
-2^{2m-2}-2^{m-2} - 2^{m-2}
-=
-2^{2m-2} - 2^{m-1}
-=
-4^{m-1} - 2^{m-1}.
-\end{align*}
-
-Similarly, if $\weightclass{f} = 1$ then $\weight{f} = 2^{2m-1}+2^{m-1}$,
-and so for $y \neq 0$
-\begin{align*}
-\weight{C(f)[y]}
-&=
-\begin{cases}
-4^{m-1} + 2^{m-1} & (\dual{f}(y)=0)
-\\
-4^{m-1}           & (\dual{f}(y)=1).
-\end{cases}
-\end{align*}
-Also, as a consequence of Lemma \ref{lm-notes-9b}, $\weightclass{f} = \dual{f}(0)$,
-so if $g(y) := \dual{f}(y) + \weightclass{f}$ then $g(0)=0$ and therefore the Cayley graph of $g$
+As a consequence of Lemma~\ref{lm-notes-9b}, $\weightclass{f} = \dual{f}(0)$,
+so if $g(x) := \dual{f}(x) + \weightclass{f}$ then $g(0)=0$ and therefore the Cayley graph of $g$
 is well defined.
+
+From the proof of Proposition~\ref{pr-bent-two-weight-code}:
+
+If $\weightclass{f} = 0$ then for $x \neq 0$
+\begin{align*}
+\weight{x^T Y}
+&=
+\begin{cases}
+2^{2m-2}           & (\dual{f}(x)=0)
+\\
+2^{2m-2} - 2^{m-1} & (\dual{f}(x)=1).
+\end{cases}
+\end{align*}
+Thus for $x \neq 0$, if $\dual{f}(x) + weightclass{f} = 1$ if and only if $\weight{x^T Y} = 2^{2m-2} - 2^{m-1}$.
+
+If $\weightclass{f} = 1$ then for $x \neq 0$
+\begin{align*}
+\weight{x^T Y}
+&=
+\begin{cases}
+2^{2m-2} + 2^{m-1} & (\dual{f}(x)=0)
+\\
+2^{2m-2}           & (\dual{f}(x)=1).
+\end{cases}
+\end{align*}
+Thus for $x \neq 0$, if $\dual{f}(x) + weightclass{f} = 1$ if and only if $\weight{x^T Y} = 2^{2m-2} + 2^{m-1}$.
+
+Thus in both cases, $R(f)$ as per Definition~\ref{def-R-f} is isomorphic to the Cayley graph $\Cay{\dual{f} + \weightclass{f}}$.
 \end{proof}
 
 \section{Equivalence of bent functions}
@@ -750,7 +815,7 @@ that is, the orbits of these functions under $EGA(n, 2)$,
 have the following well known and easily verified properties.
 \begin{enumerate}
  \item
-For a given $f \mid \F_2^n \To \F_2$,
+For a given $f \colon \F_2^n \To \F_2$,
 the $2^{n+1}$ functions $x \mapsto f(x) + \langle c, x \rangle + \delta$ are all distinct.
 Thus the EA equivalence class of $f$ consists of some number of complete cosets of the Reed-Muller code $RM(1,n)$
 described in Section \ref{sec-Boolean-functions}.
@@ -907,7 +972,7 @@ then $f$ is not general linear equivalent to $g$.
 This result immediately leads to another corollary.
 Here, and later in this paper, we make use of the following terminology.
 \begin{Definition}
-A Boolean function $f \mid \F_2^n \To \F_2$ is said to be \Emph{prolific} if
+A Boolean function $f \colon \F_2^n \To \F_2$ is said to be \Emph{prolific} if
 there is no pair $b, c \in \F_2^n$ with $g(x) = f(x+b) + \langle c, x \rangle + f(b)$ such that $f \cong g$.
 Thus the number of extended Cayley classes in the extended translation class of a prolific Boolean function
 is $4^n$.
@@ -915,7 +980,7 @@ is $4^n$.
 
 \begin{Corollary}
  \label{corr-no-Cayley-no-Linear}
-If $f \mid \F^{2m} \To \F_2$ is bent with $f(0)=0$, and $f$ is prolific, then there is no triple
+If $f \colon \F^{2m} \To \F_2$ is bent with $f(0)=0$, and $f$ is prolific, then there is no triple
 $A \in GL(2m,2)$, $b, c \in \F_2^{2m}$ with $f(Ax) = f(x+b) + \langle c, x \rangle + f(b)$.
 \end{Corollary}
 
@@ -1118,7 +1183,7 @@ we call it the \emph{SDP design} of $f$.
 Kantor describes the special case where $f$ is quadratic
 \cite[Section 5]{Kan75symplectic},
 and Dillon and Schatz \cite{DilS87block} describe the general case.
-See also Cameron and van Lint \cite[ppp. 77-78 and Ex. 13, p. 152]{CamVL91}.
+See also Cameron and van Lint \cite[pp. 77-78 and Ex. 13, p. 152]{CamVL91}.
 
 The following properties of SDP designs of bent functions are well known.
 \begin{Proposition}
@@ -1322,7 +1387,10 @@ In late 2017, code was added so that the Cayley graph classifications could be a
 with implementations using Sqlite3 \cite{SQLite} and PostgreSQL \cite{PostgreSQL}.
 Also, parallel versions of the classification functions were written using MPI4Py,
 and used on the NCI Raijin supercomputer to complete the classifications for CAST-128 and compute
-the classifications for the $\mathcal{PS}^{(+)}$ bent functions in dimension 8.
+the classifications of the $\mathcal{PS}^{(+)}$ bent functions in 8 dimensions.
+
+In 2018, the code was continually improved, and computation of the
+classifications of the $\mathcal{PS}^{(+)}$ bent functions in 8 dimensions was begun.
 
 % \begin{itemize}
 %  \item 2015-04 to 2015-05 CoCalc: Cliques-Automorphisms project starts looking at Cayley
@@ -4591,7 +4659,7 @@ The sign-of-square function $\sigma_m : \Z_2^{2 m} \To \Z_2$ is defined as follo
 For $i \in \Z_{2^{2m}},$ $\sigma_m(i) = 1$ if and only if the number of
 1 digits in the base 4 representation of $i$ is odd.
 
-The non-diagonal-symmetry function $\tau_m \mid \Z_{2^{2 m}} \To \Z_2$
+The non-diagonal-symmetry function $\tau_m \colon \Z_{2^{2 m}} \To \Z_2$
 is defined as follows.
 
 For $i$ in $\Z_2^2$:
