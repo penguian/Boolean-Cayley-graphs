@@ -30,7 +30,7 @@ functions also increases at least exponentially with dimension.
 %See also the paper by Jungnickel and Tonchev \cite{JunT1991}.
 
 A 2003 paper by Cameron \cite{Cam2003} considers random strongly regular graphs with given parameters,
-and outlines some prerequisites for a theory of random stronly regular graphs, including that
+and outlines some prerequisites for a theory of random strongly regular graphs, including that
 ``the number of non-isomorphic graphs is superexponential in the number of vertices.''
 
 The goal of the current paper is to further explore the connections between bent functions, their
@@ -501,7 +501,7 @@ See also \cite[Definition 2A]{CalK1986}
 
 Let $v=2^{2m}$, and let $X$ be the matrix in  $\F_2^{2m \times v}$
 whose columns are the $v$ elements of $\F_2^{2m}$ in lexicographic order.
-For a boolean function $f : \F_2^{2m} \To \F_2$,
+For a Boolean function $f : \F_2^{2m} \To \F_2$,
 let $n=\weight{f}$, and let $Y$ be the matrix in $\F_2^{2m \times n}$
 whose columns are the $n$ elements of $\support{f}$ in lexicographic order.
 That is,
@@ -558,10 +558,10 @@ X &\in \F_2^{2m \times v}
 is the matrix whose columns are all $v$ elements of $\F_2^{2m}$ in lexicographic order.
 Thus $M \in \F_2^{v \times n}$.
  \item
-Definition \ref{def-boolean-linear-code} is not identical to the generic constuction described by
+Definition \ref{def-boolean-linear-code} is not identical to the generic construction described by
 Ding \cite[Section III]{Din2015} since that definition is for
 subsets $D \subset \F_v$, and uses the trace form, but for the case where $D$ is the support
-of a boolean function $f \colon \F_v \To F_2$, the two definitions are equivalent.
+of a Boolean function $f \colon \F_v \To F_2$, the two definitions are equivalent.
 
 If the bilinear form $\langle x, y \rangle = x^T y$ is replaced in
 the previous remark by a non-degenerate symmetric bilinear form $\langle x, S y \rangle = x^T S y$,
@@ -570,7 +570,7 @@ then this would produce the same linear code, since the matrix $S$, being invert
 produces a bijection on $\F_2^{2m}$ and therefore the matrix $X^T S$ differs from $X^T$ only by a permutation of rows.
 
 Thus by similar arguments to those in Remarks 2 and 3 following Definition \ref{def-Bent-function},
-the generic constuction described by Ding \cite[Section III]{Din2015} is in this case equivalent
+the generic construction described by Ding \cite[Section III]{Din2015} is in this case equivalent
 to Definition \ref{def-boolean-linear-code}.
 \end{enumerate}
 \end{remarks}
@@ -1404,7 +1404,7 @@ The use of canonical labelling made this possible.
 Further improvements were made in 2017 to enable the classification of any bent function in 8 dimensions or less
 to be computed in a reasonable time on a commodity personal computer.
 In late 2017, code was added so that the Cayley graph classifications could be accessed via a relational database \cite{Leo18Database},
-with implementations using Sqlite3 \cite{SQLite} and PostgreSQL \cite{PostgreSQL}.
+with implementations using SQLite3 \cite{SQLite} and PostgreSQL \cite{PostgreSQL}.
 Also, parallel versions of the classification functions were written using MPI4Py,
 and used on the NCI Raijin supercomputer to complete the classifications for CAST-128 and compute
 the classifications of the $\mathcal{PS}^{(+)}$ bent functions in 8 dimensions.
@@ -2110,10 +2110,21 @@ ET class, starting from 0, as per corresponding table of extended Cayley classes
 Some highlights of the computational results include:
 \begin{enumerate}
 \item Verification of Theorem \ref{th-Quadratic-Classes}: the quadratic bent functions have two Cayley classes
- corresponding to thetwo weight classes.
+ corresponding to the two weight classes.
 \item In 6 dimensions, identification of the Cayley classes corresponding to
 Tonchev's tables of 2-weight codes \cite{Ton96uniformly,Ton07codes}.
 %See also the paper by Jungnickel and Tonchev \cite{JunT1992}.
+\item In 6 and 8 dimensions, extended Cayley equivalence between a quadratic bent function
+and a bent function of degree 3.
+In each case, the isomorphism between Cayley graphs is not a linear function on $\F_2^{2m}$.
+\item In 8 dimensions, the result that two of Braeken's extended affine classes of bent functions of degree
+at most 3 \cite{Bra06thesis, Tok15bent} are actually the same class.
+Thus the list only contains 9 distinct classes and not 10.
+\item In 8 dimensions, 8 of the 256 bent functions used for the S-boxes of the CAST-128 cypher \cite{RFC2144,Ada97}
+are exceptional in the sense that,
+for each of these 8 bent functions, the $65\,536$ bent functions in the extended translation class,
+and their  $65\,536$ duals do not yield $131\,072$ distinct Cayley graphs.
+In contrast, for the remaining 248 bent functions, these $131\,072$ Cayley graphs are all non-isomorphic.
 \end{enumerate}
 
 % \begin{frame}
