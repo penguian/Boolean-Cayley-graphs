@@ -113,7 +113,7 @@ Any Boolean function $f : \F_2^n \To \F_2$ can be represented as a reduced polyn
 This is called the \Emph{algebraic normal form} of $f$ \cite[Chapter 5]{Rue1986}.
 
 \begin{example}
-Using \verb!sage.crypto.boolean_function! in Sage, define:
+In Sage, using \verb!sage.crypto.boolean_function!, define:
 \begin{sageblock}
 from sage.crypto.boolean_function import BooleanFunction
 f = BooleanFunction([1,1,1,0])
@@ -490,7 +490,7 @@ In the case of $\F_2$, no two columns of the generator matrix of a projective co
 
 
 \paragraph*{From bent function to strongly regular graph via a projective two-weight code.}
-There is a standard method of obtaining a projective two-weight code from a bent function in such a way that
+There is a standard construction for obtaining a projective two-weight code from a bent function in such a way that
 the code can be used to define a strongly regular graph.
 This method is equivalent to the following definition.
 \begin{Definition}
@@ -523,7 +523,27 @@ considered as row vectors.
 % and $\support{f}(y)$ in lexicographic order of $\support{f}$.
 %
 % The $4^m$ words of the code $C(f)$ are the rows of the generator matrix $M_C(f)$.
-%
+
+\begin{example}
+In Sage, using \verb!sage.crypto.boolean_function! and
+\newline
+\verb!boolean_cayley_graphs.boolean_linear_code!, define:
+\begin{sageblock}
+from sage.crypto.boolean_function import BooleanFunction
+from boolean_cayley_graphs.boolean_linear_code import (
+     boolean_linear_code)
+f = BooleanFunction([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
+dim = f.nvariables()
+Cf = boolean_linear_code(dim, f)
+\end{sageblock}
+The linear code $Cf := C(f)$ of the Boolean function \verb!f! on $\F_2^4$ then has the following
+generator matrix in echelon form:
+\begin{align*}
+\sage{Cf.generator_matrix().echelon_form()}.
+\end{align*}
+\cite{Leo16GitHub} \cite[Boolean Functions]{SageMath8418}.
+\end{example}
+
 \begin{remarks}~
 
 \begin{enumerate}
