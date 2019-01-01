@@ -1380,7 +1380,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                     lc = bent_fbc.linear_code()
                     print lc
                     print "Generator matrix:"
-                    print lc.generator_matrix()
+                    print lc.generator_matrix().echelon_form()
                     print "Linear code",
                     print "is" if lc.is_projective() else "is not",
                     print "projective."

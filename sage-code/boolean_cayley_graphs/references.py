@@ -57,6 +57,15 @@ bibitem["BFFWW2006"] = ("""I. Bouyukliev, V. Fack, W. Willems, and J. Winne.
 Designs, Codes and Cryptography, 41(1):59--78, (2006).
 """)
 
+"""
+Notes:
+7.3 1, p 74. SDP designs. [35,6,16]_2 PTW codes and 2-(64,28,12) SDP designs,
+ref [23] is [Ton1996]_.
+
+pp. 74-75 *two* constructions of SRGs, from [Del1972]_ and
+from [9] Calderbank and Kantor.
+"""
+
 bibitem["Bra2006"] = ("""A. Braeken.
 *Cryptographic Properties of Boolean Functions and S-Boxes*.
 Phd thesis, Katholieke Universiteit Leuven, Leuven-Heverlee, Belgium,
@@ -72,6 +81,11 @@ Modern Surveys in Mathematics. Springer London, (2011).
 bibitem["BV1992"] = ("""A. E. Brouwer and C. A. Van Eijl.
 "On the p-rank of the adjacency matrices of strongly regular graphs".
 Journal of Algebraic Combinatorics, 1(4):329--346, (1992).
+""")
+
+bibitem["CalK1986"] = ("""R. Calderbank and W. M. Kantor.
+"The geometry of two-weight codes".
+Bulletin of the London Mathematical Society, 18(2):97--122, (1986).
 """)
 
 bibitem["Car2010"] = ("""C. Carlet.
@@ -105,6 +119,11 @@ bibitem["DS1987"] = ("""J. F. Dillon and J. R. Schatz.
 "Block designs with the symmetric difference property".
 In Proceedings of the NSA Mathematical Sciences Meetings,
 159--164. US Govt. Printing Office Washington, DC, (1987).
+""")
+
+bibitem["Din2015"] = ("""C. Ding.
+"Linear codes from some 2-designs".
+IEEE Transactions on information theory, 61(6):3265--3275, (2015).
 """)
 
 bibitem["DD2015"] = ("""K. Ding and C. Ding.

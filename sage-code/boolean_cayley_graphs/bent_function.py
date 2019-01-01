@@ -24,7 +24,8 @@ EXAMPLES:
 
 REFERENCES:
 
-Dillon [Dil1974]_, Rothaus [Rot1976]_, Tokareva [Tok2015]_.
+.. Dillon [Dil1974]_, Rothaus [Rot1976]_, Tokareva [Tok2015]_.
+
 """
 #*****************************************************************************
 #       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
@@ -181,7 +182,7 @@ class BentFunction(BooleanFunctionImproved):
         OUTPUT:
 
         The graph of the linear code corresponding to ``self``.
-        This is a strongly regular graph [Car2010]_, [Del1972]_, [DD2015].
+        This is a strongly regular graph [Car2010]_, [Del1972]_, [Din2015].
 
         EXAMPLES:
 
@@ -197,11 +198,11 @@ class BentFunction(BooleanFunctionImproved):
 
         REFERENCES:
 
-        .. [Car2010]_ Section 8.6 Proposition 8.29.
+        .. Carlet [Car2010]_ Section 8.6 Proposition 8.29.
 
-        .. [Del1972]_.
+        .. Delsarte [Del1972]_.
 
-        .. [DD2015]_ Corollary 10.
+        .. Ding [Din2015]_ Corollary 10.
 
         """
         L = self.linear_code()
@@ -255,9 +256,7 @@ class BentFunction(BooleanFunctionImproved):
 
         REFERENCES:
 
-        .. [DS1987]_.
-
-        .. [Kan1975]_.
+        .. Dillon and Schatz [DS1987]_, Kantor [Kan1975]_.
 
         """
         dim = self.nvariables()

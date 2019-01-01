@@ -23,6 +23,12 @@ A.~Bernasconi, B.~Codenotti, and J.~M. VanderKam.
   graphs.
 \newblock {\em IEEE Transactions on Computers}, 50(9):984--985, (2001).
 
+\bibitem{BorD2008}
+J.~Borwein and K.~Devlin.
+\newblock {\em The computer as crucible: An introduction to experimental
+  mathematics}.
+\newblock AK Peters/CRC Press, (2008).
+
 \bibitem{Bos63}
 R.~C. Bose.
 \newblock Strongly regular graphs, partial geometries and partially balanced
@@ -52,6 +58,18 @@ A.~E. Brouwer and C.~A. Van~Eijl.
 \newblock On the p-rank of the adjacency matrices of strongly regular graphs.
 \newblock {\em Journal of Algebraic Combinatorics}, 1(4):329--346, (1992).
 
+\bibitem{CalK1986}
+R.~Calderbank and W.~M. Kantor.
+\newblock The geometry of two-weight codes.
+\newblock {\em Bulletin of the London Mathematical Society}, 18(2):97--122,
+  (1986).
+
+\bibitem{Cam2003}
+P.~J. Cameron.
+\newblock Random strongly regular graphs?
+\newblock {\em Discrete Mathematics}, 273(1):103--114, (2003).
+\newblock EuroComb'01.
+
 \bibitem{CamVL91}
 P.~J. Cameron and J.~H. Van~Lint.
 \newblock {\em Designs, graphs, codes and their links}, volume~3.
@@ -69,6 +87,11 @@ C.~Carlet, L.~E. Danielsen, M.~G. Parker, and P.~Sol{\'e}.
 \newblock {\em International Journal of Information and Coding Theory},
   1(4):384--399, (2010).
 
+\bibitem{CarM2016four}
+C.~Carlet and S.~Mesnager.
+\newblock Four decades of research on bent functions.
+\newblock {\em Designs, Codes and Cryptography}, 78(1):5--50, (2016).
+
 \bibitem{CheTZ11}
 Y.~M. Chee, Y.~Tan, and X.~D. Zhang.
 \newblock Strongly regular graphs constructed from p-ary bent functions.
@@ -78,6 +101,11 @@ Y.~M. Chee, Y.~Tan, and X.~D. Zhang.
 J.~D. Comerford.
 \newblock Affine and general linear equivalences of {Boolean} functions.
 \newblock {\em Information and Control}, 45(2):156--169, (1980).
+
+\bibitem{CusS2017}
+T.~W. Cusick and P.~Stanica.
+\newblock {\em Cryptographic Boolean functions and applications}.
+\newblock Academic Press, 2nd edition, (2017).
 
 \bibitem{Del72weights}
 P.~Delsarte.
@@ -96,12 +124,17 @@ J.~F. Dillon and J.~R. Schatz.
 \newblock In {\em Proceedings of the NSA Mathematical Sciences Meetings},
   159--164. US Govt. Printing Office Washington, DC, (1987).
 
-\bibitem{DinD15class}
-K.~Ding and C.~Ding.
-\newblock A class of two-weight and three-weight codes and their applications
-  in secret sharing.
-\newblock {\em IEEE Transactions on Information Theory}, 61(11):5835--5842,
+\bibitem{Din2015}
+C.~Ding.
+\newblock Linear codes from some 2-designs.
+\newblock {\em IEEE Transactions on information theory}, 61(6):3265--3275,
   (2015).
+
+\bibitem{DinMTX2018cyclic}
+C.~Ding, S.~Mesnager, C.~Tang, and M.~Xiong.
+\newblock Cyclic bent functions and their applications in codes, codebooks,
+  designs, {MUBs} and sequences.
+\newblock {\em arXiv preprint arXiv:1811.07725}, (2018).
 
 \bibitem{FeuSSW2013}
 T.~Feulner, L.~Sok, P.~Sol{\'e}, and A.~Wassermann.
@@ -126,6 +159,12 @@ T.~Huang and K.-H. You.
 \newblock Strongly regular graphs associated with bent functions.
 \newblock In {\em 7th International Symposium on Parallel Architectures,
   Algorithms and Networks, 2004. Proceedings.},  380--383, May 2004.
+
+\bibitem{Jac64}
+N.~Jacobson.
+\newblock {\em Lectures in Abstract Algebra: III. Theory of Fields and Galois
+  Theory (Graduate Texts in Mathematics)}.
+\newblock Van Nostrand, (1964).
 
 \bibitem{JoyEtAl13Sage}
 D.~Joyner, O.~Geil, C.~Thomsen, C.~Munuera, I.~M{\'a}rquez-Corbella,
@@ -188,6 +227,12 @@ P.~Langevin, G.~Leander, and G.~McGuire.
   Applications, July 9-13, 2007, Melbourne, Australia},  187--198. American
   Mathematical Society, (2008).
 
+\bibitem{Lem1975matrix}
+A.~Lempel.
+\newblock Matrix factorization over gf(2) and trace-orthogonal bases of
+  gf(2\^{}n).
+\newblock {\em SIAM Journal on Computing}, 4(2):175--186, (1975).
+
 \bibitem{Leo18Database}
 P.~Leopardi.
 \newblock A database of {Cayley} graphs of bent {Boolean} functions.
@@ -246,6 +291,11 @@ W.~Meier and O.~Staffelbach.
   Cryptographic Techniques}, volume 434 of {\em Lecture Notes in Computer
   Science},  549--562, Berlin, Heidelberg, (1990). Springer.
 
+\bibitem{Mes2016}
+S.~Mesnager.
+\newblock {\em Bent functions}.
+\newblock Springer, (2016).
+
 \bibitem{Mul54}
 D.~E. Muller.
 \newblock Application of {Boolean} algebra to switching circuit design and to
@@ -257,6 +307,12 @@ D.~E. Muller.
 T.~Neumann.
 \newblock {\em Bent functions}.
 \newblock PhD thesis, University of Kaiserslautern, (2006).
+
+\bibitem{OlSW1975}
+J.~Olsen, R.~Scholtz, and L.~Welch.
+\newblock Bent-function sequences.
+\newblock {\em IEEE Transactions on Information Theory}, 28(6):858--864,
+  November 1982.
 
 \bibitem{PostgreSQL}
 {PostgreSQL Global Development Group}.
@@ -275,6 +331,11 @@ G.~F. Royle.
   of order 64.
 \newblock {\em Journal of the Australian Mathematical Society},
   85(03):347--351, (2008).
+
+\bibitem{Rue1986}
+R.~Rueppel.
+\newblock {\em Analysis and design of stream ciphers}.
+\newblock Communications and control engineering series. Springer, (1986).
 
 \bibitem{CoCalc}
 {SageMath, Inc.}
@@ -309,6 +370,12 @@ D.~R. Stinson.
 {The Sage Developers}.
 \newblock {\em {S}ageMath, the {S}age {M}athematics {S}oftware {S}ystem
   ({V}ersion 7.5)}, (2017).
+\newblock \url{http://www.sagemath.org}.
+
+\bibitem{SageMath8418}
+{The Sage Developers}.
+\newblock {\em {S}ageMath, the {S}age {M}athematics {S}oftware {S}ystem
+  ({V}ersion 8.4)}, (2018).
 \newblock \url{http://www.sagemath.org}.
 
 \bibitem{Tok15bent}
