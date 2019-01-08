@@ -1,0 +1,256 @@
+p2 :
+2019-01-08 11:07:33.810539 1
+Algebraic normal form of Boolean function: x0*x1
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:33.849296
+p4 :
+2019-01-08 11:07:33.855991 1
+Algebraic normal form of Boolean function: x0*x1 + x2*x3
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 16, 6, 2))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:33.880840
+p6 :
+2019-01-08 11:07:33.887346 1
+Algebraic normal form of Boolean function: x0*x1 + x2*x3 + x4*x5
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 64, 28, 12))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:33.978822 2
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x3 + x1*x4 + x2*x5
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 64, 28, 12))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 3 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:34.070055 3
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x1 + x0*x3 + x1*x3*x4 + x1*x5 + x2*x4 + x3*x4
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 64, 28, 12))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 4 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:34.160952 4
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x3 + x1*x3*x4 + x1*x5 + x2*x3*x5 + x2*x3 + x2*x4 + x2*x5 + x3*x4 + x3*x5
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 64, 28, 12))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 3 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:34.248185
+p8 :
+2019-01-08 11:07:34.254558 01
+Algebraic normal form of Boolean function: x0*x1 + x2*x3 + x4*x5 + x6*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:35.877980 02
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x3 + x1*x4 + x2*x5 + x6*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 4 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:37.511129 03
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x6 + x1*x3*x4 + x1*x5 + x2*x3 + x4*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 6 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:39.147685 04
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x2 + x0*x4 + x1*x3*x4 + x1*x5 + x2*x3 + x6*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 6 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:40.797471 05
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x6 + x1*x3*x4 + x1*x4 + x1*x5 + x2*x3*x5 + x2*x4 + x3*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 9 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:42.467867 06
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x2 + x0*x3 + x1*x3*x4 + x1*x6 + x2*x3*x5 + x2*x4 + x5*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 9 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:44.127249 07
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x1 + x0*x2 + x0*x3 + x1*x3*x4 + x1*x4 + x1*x5 + x2*x3*x5 + x2*x4 + x6*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 6 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:45.771158 08
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x5 + x1*x3*x4 + x1*x6 + x2*x3*x5 + x2*x4 + x3*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 6 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:47.431062 09
+Algebraic normal form of Boolean function: x0*x1*x6 + x0*x3 + x1*x4 + x2*x3*x6 + x2*x5 + x3*x4 + x4*x5*x6 + x6*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals differ in matrices of indexes:
+
+There are 8 extended Cayley classes in the extended translation class.
+There are 8 extended Cayley classes of dual bent functions in the extended translation class,
+and 8 extended Cayley classes in the union of the two.
+2019-01-08 11:07:49.076328 10
+Algebraic normal form of Boolean function: x0*x1*x2 + x0*x3*x6 + x0*x4 + x0*x5 + x1*x3*x4 + x1*x6 + x2*x3*x5 + x2*x4 + x3*x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals differ in matrices of indexes:
+
+There are 10 extended Cayley classes in the extended translation class.
+There are 10 extended Cayley classes of dual bent functions in the extended translation class,
+and 10 extended Cayley classes in the union of the two.
+2019-01-08 11:07:50.721869
+sigma :
+2019-01-08 11:07:50.730900 1
+Algebraic normal form of Boolean function: x0*x1 + x0
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:50.748401 2
+Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3 + x2
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 16, 6, 2))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:50.767423 3
+Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3 + x2 + x4*x5 + x4
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 64, 28, 12))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:50.857765 4
+Algebraic normal form of Boolean function: x0*x1 + x0 + x2*x3 + x2 + x4*x5 + x4 + x6*x7 + x6
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:52.483848
+tau :
+2019-01-08 11:07:52.490673 1
+Algebraic normal form of Boolean function: x0*x1 + x1
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (1, 4, 1, 1))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:52.507268 2
+Algebraic normal form of Boolean function: x0*x1 + x0*x2 + x0*x3 + x1*x2 + x1*x3 + x1 + x2*x3 + x3
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 16, 6, 2))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 2 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:52.525489 3
+Algebraic normal form of Boolean function: x0*x1 + x0*x2*x4 + x0*x2*x5 + x0*x2 + x0*x3*x4 + x0*x3*x5 + x0*x3 + x0*x4 + x0*x5 + x1*x2*x4 + x1*x2*x5 + x1*x2 + x1*x3*x4 + x1*x3*x5 + x1*x3 + x1*x4 + x1*x5 + x1 + x2*x3 + x2*x4 + x2*x5 + x3*x4 + x3*x5 + x3 + x4*x5 + x5
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 64, 28, 12))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 3 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:52.615613 4
+Algebraic normal form of Boolean function: x0*x1 + x0*x2*x4*x6 + x0*x2*x4*x7 + x0*x2*x4 + x0*x2*x5*x6 + x0*x2*x5*x7 + x0*x2*x5 + x0*x2*x6 + x0*x2*x7 + x0*x2 + x0*x3*x4*x6 + x0*x3*x4*x7 + x0*x3*x4 + x0*x3*x5*x6 + x0*x3*x5*x7 + x0*x3*x5 + x0*x3*x6 + x0*x3*x7 + x0*x3 + x0*x4*x6 + x0*x4*x7 + x0*x4 + x0*x5*x6 + x0*x5*x7 + x0*x5 + x0*x6 + x0*x7 + x1*x2*x4*x6 + x1*x2*x4*x7 + x1*x2*x4 + x1*x2*x5*x6 + x1*x2*x5*x7 + x1*x2*x5 + x1*x2*x6 + x1*x2*x7 + x1*x2 + x1*x3*x4*x6 + x1*x3*x4*x7 + x1*x3*x4 + x1*x3*x5*x6 + x1*x3*x5*x7 + x1*x3*x5 + x1*x3*x6 + x1*x3*x7 + x1*x3 + x1*x4*x6 + x1*x4*x7 + x1*x4 + x1*x5*x6 + x1*x5*x7 + x1*x5 + x1*x6 + x1*x7 + x1 + x2*x3 + x2*x4*x6 + x2*x4*x7 + x2*x4 + x2*x5*x6 + x2*x5*x7 + x2*x5 + x2*x6 + x2*x7 + x3*x4*x6 + x3*x4*x7 + x3*x4 + x3*x5*x6 + x3*x5*x7 + x3*x5 + x3*x6 + x3*x7 + x3 + x4*x5 + x4*x6 + x4*x7 + x5*x6 + x5*x7 + x5 + x6*x7 + x7
+Function is bent.
+
+
+SDP design incidence structure t-design parameters: (True, (2, 256, 120, 56))
+
+Classification of Cayley graphs and classification of Cayley graphs of duals are the same:
+
+There are 5 extended Cayley classes in the extended translation class.
+2019-01-08 11:07:54.242398
