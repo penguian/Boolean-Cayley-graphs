@@ -43,7 +43,7 @@ class Saveable(object):
 
 
     @classmethod
-    def mangled_name(cls, name, directory=None):
+    def mangled_name(cls, name, dir=None):
         r"""
         Convert a name for an object into a standardized name.
 
@@ -51,7 +51,7 @@ class Saveable(object):
 
         - ``cls`` -- The current class.
         - ``name`` -- The name for the object.
-        - ``directory`` -- (Optional, default=None)
+        - ``dir`` -- (Optional, default=None)
             The directory name to be used for the file name of the object.
             The default value of None means the current directory.
 
@@ -70,18 +70,18 @@ class Saveable(object):
             ....:
             sage: ListSaveable.mangled_name('a')
             'ListSaveable__a'
-            sage: ListSaveable.mangled_name('a', directory='b')
+            sage: ListSaveable.mangled_name('a', dir='b')
             'b/ListSaveable__a'
         """
         standardized_name = cls.__name__ + "__" + name
-        if directory == None:
+        if dir == None:
             return standardized_name
         else:
-            return os.path.join(directory, standardized_name)
+            return os.path.join(dir, standardized_name)
 
 
     @classmethod
-    def load_mangled(cls, name, directory=None):
+    def load_mangled(cls, name, dir=None):
         r"""
         Load an object based on its standardized name.
 
@@ -90,7 +90,7 @@ class Saveable(object):
         - ``cls`` -- the class object.
         - ``name`` -- string: the file name suffix (without ".obj")
           part of the standardized name.
-        - ``directory`` -- string, optional. The directory where the object
+        - ``dir`` -- string, optional. The directory where the object
           was saved. Default is None, meaning the current directory.
 
         OUTPUT:
@@ -106,18 +106,18 @@ class Saveable(object):
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved as BFI
             sage: a = BFI([0,1,0,0])
             sage: d = tmp_dir()
-            sage: a.save_mangled("a", directory=d)
-            sage: b = BFI.load_mangled("a", directory=d)
+            sage: a.save_mangled("a", dir=d)
+            sage: b = BFI.load_mangled("a", dir=d)
             sage: a == b
             True
-            sage: BFI.remove_mangled("a", directory=d)
+            sage: BFI.remove_mangled("a", dir=d)
             sage: os.rmdir(d)
         """
-        return cls(load(cls.mangled_name(name, directory=directory)))
+        return cls(load(cls.mangled_name(name, dir=dir)))
 
 
     @classmethod
-    def remove_mangled(cls, name, directory=None):
+    def remove_mangled(cls, name, dir=None):
         r"""
         Remove a saved object based on its standardized name.
 
@@ -126,7 +126,7 @@ class Saveable(object):
         - ``cls`` -- the class object.
         - ``name`` -- string: the file name suffix (without ".obj")
           part of the standardized name.
-        - ``directory`` -- string, optional. The directory where the object
+        - ``dir`` -- string, optional. The directory where the object
           was saved. Default is None, meaning the current directory.
 
         OUTPUT:
@@ -144,21 +144,21 @@ class Saveable(object):
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved as BFI
             sage: a = BFI([0,1,0,0])
             sage: d = tmp_dir()
-            sage: a.save_mangled("a", directory=d)
-            sage: file_name = BFI.mangled_name("a.sobj", directory=d)
+            sage: a.save_mangled("a", dir=d)
+            sage: file_name = BFI.mangled_name("a.sobj", dir=d)
             sage: os.path.isfile(file_name)
             True
-            sage: BFI.remove_mangled("a", directory=d)
+            sage: BFI.remove_mangled("a", dir=d)
             sage: os.path.isfile(file_name)
             False
             sage: os.rmdir(d)
         """
-        file_name = cls.mangled_name(name + ".sobj", directory=directory)
+        file_name = cls.mangled_name(name + ".sobj", dir=dir)
         if os.path.isfile(file_name):
             os.remove(file_name)
 
 
-    def save_mangled(self, name, directory=None):
+    def save_mangled(self, name, dir=None):
         r"""
         Save an object using its standardized name.
 
@@ -167,7 +167,7 @@ class Saveable(object):
         - ``self`` -- the current object.
         - ``name`` -- string: the file name suffix (without ".obj")
           part of the standardized name.
-        - ``directory`` -- string, optional. The directory where the object
+        - ``dir`` -- string, optional. The directory where the object
           is to be saved. Default is None, meaning the current directory.
 
         OUTPUT:
@@ -185,13 +185,13 @@ class Saveable(object):
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved as BFI
             sage: a = BFI([0,1,0,0])
             sage: d = tmp_dir()
-            sage: a.save_mangled("a", directory=d)
-            sage: file_name = BFI.mangled_name("a.sobj", directory=d)
+            sage: a.save_mangled("a", dir=d)
+            sage: file_name = BFI.mangled_name("a.sobj", dir=d)
             sage: os.path.isfile(file_name)
             True
-            sage: BFI.remove_mangled("a", directory=d)
+            sage: BFI.remove_mangled("a", dir=d)
             sage: os.rmdir(d)
         """
         save(self, self.__class__.mangled_name(
             name,
-            directory=directory))
+            dir=dir))
