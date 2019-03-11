@@ -896,7 +896,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
     def from_parts(
         cls,
         prefix_basename,
-        directory=None,
+        dir=None,
         limited_memory=False):
         """
         Constructor from saved class parts.
@@ -905,7 +905,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         - ``prefix_basename`` -- string. The prefix to use with mangled_name()
           to obtain the file names of the saved class parts.
-        - ``directory`` -- string, optional. The directory where the parts
+        - ``dir`` -- string, optional. The directory where the parts
           are located. Default is None, meaning the current directory.
         - ``limited_memory`` -- boolean, default is False.
           A flag indicating whether the classification might be too large to
@@ -938,10 +938,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             ....:     part_prefix = prefix_basename + "_" + str(row)
             ....:     c.save_mangled(
             ....:         part_prefix,
-            ....:         directory=prefix_dirname)
+            ....:         dir=prefix_dirname)
             sage: cl1 = BentFunctionCGC.from_parts(
             ....:    prefix_basename,
-            ....:    directory=prefix_dirname)
+            ....:    dir=prefix_dirname)
             sage: cl1.report(report_on_matrix_details=True)
             Algebraic normal form of Boolean function: x0*x1 + x0 + x1
             Function is bent.
@@ -967,11 +967,11 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             ....:     part_prefix = prefix_basename + "_" + str(row)
             ....:     BentFunctionCGCPart.remove_mangled(
             ....:         part_prefix,
-            ....:         directory=prefix_dirname)
+            ....:         dir=prefix_dirname)
         """
         mangled_part_prefix = BentFunctionCayleyGraphClassPart.mangled_name(
             prefix_basename,
-            directory=directory)
+            dir=dir)
         file_name_list = glob.glob(mangled_part_prefix + "_[0-9]*.sobj")
         file_name_list.sort()
 

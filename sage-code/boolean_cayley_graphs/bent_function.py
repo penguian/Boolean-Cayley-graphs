@@ -65,15 +65,15 @@ class BentFunction(BooleanFunctionImproved):
         sage: bentf.algebraic_normal_form()
         x0*x1
         sage: d = tmp_dir()
-        sage: bentf.save_mangled('example', directory=d)
-        sage: ex = BentFunction.load_mangled('example', directory=d)
+        sage: bentf.save_mangled('example', dir=d)
+        sage: ex = BentFunction.load_mangled('example', dir=d)
         sage: type(ex)
         <class 'boolean_cayley_graphs.bent_function.BentFunction'>
         sage: ex is bentf
         False
         sage: ex == bentf
         True
-        sage: BentFunction.remove_mangled('example', directory=d)
+        sage: BentFunction.remove_mangled('example', dir=d)
         sage: os.rmdir(d)
 
     TESTS:

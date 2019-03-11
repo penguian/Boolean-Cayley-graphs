@@ -35,13 +35,13 @@ if len(sys.argv) > 4:
 
 # Construct the classification from the existing parts.
 c_name = "psf"+str(seq_nbr)+"_"+str(fnbr)
-c = BentFunctionCayleyGraphClassification.from_parts(c_name, directory=d_load)
+c = BentFunctionCayleyGraphClassification.from_parts(c_name, dir=d_load)
 
 # Save the classification.
-c.save_mangled(c_name, directory=d_save)
+c.save_mangled(c_name, dir=d_save)
 
 # Check the saved classification
-c_check = BentFunctionCayleyGraphClassification.load_mangled(c_name, directory=d_save)
+c_check = BentFunctionCayleyGraphClassification.load_mangled(c_name, dir=d_save)
 c_check.report()
 if (c.algebraic_normal_form == c_check.algebraic_normal_form and
     c.cayley_graph_class_list == c_check.cayley_graph_class_list and

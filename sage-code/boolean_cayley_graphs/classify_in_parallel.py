@@ -165,7 +165,7 @@ def classify_in_parallel(
 def save_one_classification(
     name,
     form,
-    directory=None):
+    dir=None):
     r"""
     Given an algebraic normal form of a bent function,
     construct and save the corresponding Cayley graph classification.
@@ -174,7 +174,7 @@ def save_one_classification(
 
     - ``name`` -- String. Name to use with ``save_mangled`` to save the classification.
     - ``form`` -- A Boolean function or an algebraic normal form.
-    - ``directory`` -- string, optional. The directory where the object
+    - ``dir`` -- string, optional. The directory where the object
       is to be saved. Default is None, meaning the current directory.
 
     OUTPUT: A copy of the string ``name``.
@@ -194,8 +194,8 @@ def save_one_classification(
         sage: f = BentFunction(p)
         sage: name = 'test_save_one_classification'
         sage: d = tmp_dir()
-        sage: s = save_one_classification(name, f, directory=d)
-        sage: c = BFC.load_mangled(name, directory=d)
+        sage: s = save_one_classification(name, f, dir=d)
+        sage: c = BFC.load_mangled(name, dir=d)
         sage: c.report()
         Algebraic normal form of Boolean function: x0*x1 + x0 + x1
         Function is bent.
@@ -208,14 +208,14 @@ def save_one_classification(
         There are 2 extended Cayley classes in the extended translation class.
         sage: print(BFC.mangled_name(name))
         BentFunctionCayleyGraphClassification__test_save_one_classification
-        sage: BFC.remove_mangled(name, directory=d)
+        sage: BFC.remove_mangled(name, dir=d)
         sage: os.rmdir(d)
         """
     c = BentFunctionCayleyGraphClassification.from_function(
         BentFunction(form))
     c.save_mangled(
         name,
-        directory=directory)
+        dir=dir)
     return name
 
 
@@ -225,7 +225,7 @@ def save_classifications_in_parallel(
     start=0,
     stop=None,
     ncpus=4,
-    directory=None):
+    dir=None):
     r"""
     In parallel, construct and save a number of Cayley graph classifications
     corresponding to a list of bent functions.
@@ -237,7 +237,7 @@ def save_classifications_in_parallel(
     - ``start`` -- Integer. Default=0. Index of start position in the list.
     - ``stop`` -- Integer. Default=None. Index after end position, or ``None`` if whole remaining list.
     - ``ncpus`` -- Integer. Default=4. The number of cpus to use in parallel.
-    - ``directory`` -- string, optional. The directory where the object
+    - ``dir`` -- string, optional. The directory where the object
       is to be saved. Default is None, meaning the current directory.
 
     OUTPUT:
@@ -260,9 +260,9 @@ def save_classifications_in_parallel(
         x0*x1 + x1
         sage: name_prefix = 'test_save_classifications_in_parallel'
         sage: d = tmp_dir()
-        sage: names = save_classifications_in_parallel(name_prefix, [bentf0,bentf1], ncpus=2, directory=d)
+        sage: names = save_classifications_in_parallel(name_prefix, [bentf0,bentf1], ncpus=2, dir=d)
         sage: name_1 = name_prefix + '_1'
-        sage: c = BFC.load_mangled(name_1, directory=d)
+        sage: c = BFC.load_mangled(name_1, dir=d)
         sage: c.report()
         Algebraic normal form of Boolean function: x0*x1 + x1
         Function is bent.
@@ -276,7 +276,7 @@ def save_classifications_in_parallel(
         sage: for n in range(2):
         ....:     name = name_prefix + '_' + str(n)
         ....:     print(BFC.mangled_name(name))
-        ....:     BFC.remove_mangled(name, directory=d)
+        ....:     BFC.remove_mangled(name, dir=d)
         ....:
         BentFunctionCayleyGraphClassification__test_save_classifications_in_parallel_0
         BentFunctionCayleyGraphClassification__test_save_classifications_in_parallel_1
@@ -285,7 +285,7 @@ def save_classifications_in_parallel(
     if stop == None:
         stop = len(list_of_f)
     list_of_tuples = [
-        ((name_prefix + '_' + str(n), list_of_f[n], directory))
+        ((name_prefix + '_' + str(n), list_of_f[n], dir))
         for n in range(start, stop)]
     return call_in_parallel(
         save_one_classification,
@@ -298,7 +298,7 @@ def save_one_class_part(
     bentf,
     c_start,
     c_stop,
-    directory=None):
+    dir=None):
     r"""
     Construct and save a partial Cayley graph classification
     corresponding to a given bent function.
@@ -312,7 +312,7 @@ def save_one_class_part(
     - ``c_stop`` -- one more than largest value of `c`
         to use for extended translates. Integer.
         Default is ``None``, meaning use all remaining values.
-    - ``directory`` -- string, optional. The directory where the object
+    - ``dir`` -- string, optional. The directory where the object
       is to be saved. Default is None, meaning the current directory.
 
     OUTPUT: A copy of the string ``name``.
@@ -332,8 +332,8 @@ def save_one_class_part(
         sage: f = BentFunction(p)
         sage: name = 'test_save_one_class_part'
         sage: d = tmp_dir()
-        sage: s = save_one_class_part(name, f, c_start=1, c_stop=2, directory=d)
-        sage: p1 = BFCP.load_mangled(name, directory=d)
+        sage: s = save_one_class_part(name, f, c_start=1, c_stop=2, dir=d)
+        sage: p1 = BFCP.load_mangled(name, dir=d)
         sage: p1.__dict__
         {'algebraic_normal_form': x0*x1 + x0 + x1,
         'bent_cayley_graph_index_matrix': [0 0 1 0],
@@ -343,7 +343,7 @@ def save_one_class_part(
         'weight_class_matrix': [0 0 1 0]}
         sage: print(BFCP.mangled_name(name))
         BentFunctionCayleyGraphClassPart__test_save_one_class_part
-        sage: BFCP.remove_mangled(name, directory=d)
+        sage: BFCP.remove_mangled(name, dir=d)
         sage: os.rmdir(d)
     """
     p = BentFunctionCayleyGraphClassPart.from_function(
@@ -352,7 +352,7 @@ def save_one_class_part(
         c_stop=c_stop)
     p.save_mangled(
         name,
-        directory=directory)
+        dir=dir)
     return name
 
 
@@ -361,7 +361,7 @@ def save_class_parts_in_parallel(
     form,
     c_len=1,
     ncpus=4,
-    directory=None):
+    dir=None):
     r"""
     In parallel, construct a complete list of the partial Cayley graph classifications
     corresponding to a given bent function or algebraic normal form.
@@ -372,7 +372,7 @@ def save_class_parts_in_parallel(
     - ``form`` -- A bent function or an algebraic normal form.
     - ``c_len`` -- Integer. Default=1. The number of values of `c` to use in each class part.
     - ``ncpus`` -- Integer. Default=4. The number of cpus to use in parallel.
-    - ``directory`` -- string, optional. The directory where the object
+    - ``dir`` -- string, optional. The directory where the object
       is to be saved. Default is None, meaning the current directory.
 
     OUTPUT: A list containing tuples, with names.
@@ -393,8 +393,8 @@ def save_class_parts_in_parallel(
         sage: f = BentFunction(p)
         sage: name_prefix = 'test_save_class_parts_in_parallel'
         sage: d = tmp_dir()
-        sage: s = save_class_parts_in_parallel(name_prefix, f, directory=d)
-        sage: p1=BFCP.load_mangled(name_prefix + '_1', directory=d)
+        sage: s = save_class_parts_in_parallel(name_prefix, f, dir=d)
+        sage: p1=BFCP.load_mangled(name_prefix + '_1', dir=d)
         sage: p1.__dict__
         {'algebraic_normal_form': x0*x1 + x0 + x1,
         'bent_cayley_graph_index_matrix': [0 0 1 0],
@@ -405,7 +405,7 @@ def save_class_parts_in_parallel(
         sage: for n in range(4):
         ....:     name = name_prefix + '_' + str(n)
         ....:     print(BFCP.mangled_name(name))
-        ....:     BFCP.remove_mangled(name, directory=d)
+        ....:     BFCP.remove_mangled(name, dir=d)
         ....:
         BentFunctionCayleyGraphClassPart__test_save_class_parts_in_parallel_0
         BentFunctionCayleyGraphClassPart__test_save_class_parts_in_parallel_1
@@ -419,7 +419,7 @@ def save_class_parts_in_parallel(
     ceil = Function_ceil()
     nbr_parts = ceil(v * 1.0 / c_len)
     list_of_tuples = [
-        ((name_prefix + '_' + str(n), bentf, c_len * n, c_len * (n+1), directory))
+        ((name_prefix + '_' + str(n), bentf, c_len * n, c_len * (n+1), dir))
         for n in range(nbr_parts)]
     return call_in_parallel(
         save_one_class_part,

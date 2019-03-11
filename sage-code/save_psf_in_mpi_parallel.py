@@ -72,5 +72,5 @@ save_class_parts_in_parallel(
     "psf"+str(seq_nbr)+"_"+str(fnbr),
     bentf,
     c_len=c_len,
-    directory=d)
+    dir=d)
 sys.exit(0)
