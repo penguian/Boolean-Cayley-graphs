@@ -1,4 +1,4 @@
 #!/bin/bash
-export SAGE_PATH=$(pwd)/sage-code
+export SAGE_PATH=$(pwd)/sage-code:$(pwd)
 export PYTHONPATH=$SAGE_PATH:$PYTHONPATH
-sage --coverage sage-code/boolean_cayley_graphs/*.py
+sage --coverage boolean_cayley_graphs/*.py

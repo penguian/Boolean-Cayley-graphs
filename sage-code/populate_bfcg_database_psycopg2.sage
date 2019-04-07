@@ -20,7 +20,7 @@ from boolean_cayley_graphs.bent_function_cayley_graph_classification import Bent
 from boolean_cayley_graphs.classification_database_psycopg2 import *
 
 def populate_bfcg_database(dbname, nbr_f):
-    
+
     print dbname, ":"
     conn = create_classification_tables(
         dbname,
@@ -29,16 +29,16 @@ def populate_bfcg_database(dbname, nbr_f):
         host=auth["host"])
 
     for i in range(1, nbr_f + 1):
-        stri = ("%01d" if nbr_f < 10 else "%02d") % i 
+        stri = ("%01d" if nbr_f < 10 else "%02d") % i
         sobj_name = dbname + "_" + str(i) + ".sobj"
         name = dbname + "_" + stri
         cgc = BentFunctionCayleyGraphClassification.load_mangled(
             sobj_name,
-            directory="./sobj")
+            directory="../sobj")
         print datetime.datetime.now(), stri
         insert_classification(
-            conn, 
-            cgc, 
+            conn,
+            cgc,
             name)
         cgc_check = select_classification_where_name(
             conn,

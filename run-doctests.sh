@@ -1,8 +1,8 @@
 #!/bin/bash
-export SAGE_PATH=$(pwd)/sage-code
+export SAGE_PATH=$(pwd)/sage-code:$(pwd)
 export PYTHONPATH=$SAGE_PATH:$PYTHONPATH
-PACKAGE_DIR="sage-code/boolean_cayley_graphs"
-POSTGRES_MODULE="sage-code/boolean_cayley_graphs/classification_database_psycopg2.py"
+PACKAGE_DIR="boolean_cayley_graphs"
+POSTGRES_MODULE="boolean_cayley_graphs/classification_database_psycopg2.py"
 WHOLE_PACKAGE="$PACKAGE_DIR/*.py"
 PACKAGE_EXCEPT_POSTGRES=$(echo ${WHOLE_PACKAGE} | sed "s?$POSTGRES_MODULE ??")
 IS_POSTGRES_RUNNING="
