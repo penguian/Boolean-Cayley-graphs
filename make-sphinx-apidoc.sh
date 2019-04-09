@@ -7,20 +7,18 @@
 #
 source ./bcg_version.sh
 
-# Create doc/references.rst from sage-code/boolean_cayley_graphs/references.py
-pushd sage-code
+# Create doc/references.rst from boolean_cayley_graphs/references.py
 sage<<EOF
 from boolean_cayley_graphs.references import print_sage_references_index_rst
-ref_file = open("../doc/references.rst","w")
+ref_file = open("doc/references.rst","w")
 print_sage_references_index_rst(file=ref_file)
 quit
 EOF
-popd
 pushd doc
 
-# Use sphinx-apidoc to re-create the documentation from the Python files in ../sage-code/boolean_cayley_graphs
+# Use sphinx-apidoc to re-create the documentation from the Python files in ../boolean_cayley_graphs
 sphinx-apidoc -e -H "Boolean-Cayley-graphs" -A "Paul Leopardi" \
     -V ${BCG_VERSION} -R ${BCG_RELEASE} \
-    -o . ../sage-code/boolean_cayley_graphs
+    -o . ../boolean_cayley_graphs
 make html
 popd
