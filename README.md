@@ -1,12 +1,37 @@
 # Boolean-Cayley-graphs
+
 Investigations of Boolean functions, their Cayley graphs, and associated structures.
+
+The project enables the experimental mathematics that underpins recent and ongoing investigation into the classification of bent functions by their Cayley graphs.
 
 This project originally began with the idea of refactoring the [bent-functions-duals-Cayley-graphs-public.sagews](https://cloud.sagemath.com/projects/80f4c9e7-8a37-4f59-82e7-aa179ec0b652/files/public/bent-functions-duals-Cayley-graphs-public.sagews)
 worksheet, because it is too long, poorly structured, and takes so long to run that CoCalc cannot run it successfully.
+It has since evolved into a Python package `boolean_cayley_graphs`, and associated scripts, Sage code, Jupyter notebooks and code that allows the results
+of paper [4] below to be fully reproduced.
 
-The project enables the experimental mathematics that underpins my recent and ongoing investigation into the classification of bent functions by their Cayley graphs.
+## Project URLs
 
-### References
+[CoCalc](https://cocalc.com/projects/80f4c9e7-8a37-4f59-82e7-aa179ec0b652/files/Boolean-Cayley-graphs/?session=default): public folder of worksheets, source code and data files.
+
+[GitHub](https://github.com/penguian/Boolean-Cayley-graphs): Git repository of source code, data and papers.
+
+[PyPI](https://pypi.org/project/boolean-cayley-graphs): Installable Python package.
+
+[SourceForge](https://boolean-cayley-graphs.sourceforge.io/): Documentation of Python modules in HTML format.
+
+[NeCTAR](http://vm-130-56-248-117.nci.org.au/bfcg/): Virtual laboratory prototype .
+
+## Installation
+
+```
+$ sage -pip install boolean_cayley_graphs --user
+```
+
+## Usage
+
+See [SourceForge](https://boolean-cayley-graphs.sourceforge.io/): Documentation of Python modules in HTML format.
+
+## References
 
 1. Paul Leopardi, ["Constructions for Hadamard matrices, Clifford algebras, and their relation to amicability - anti-amicability graphs"](http://ajc.maths.uq.edu.au/pdf/58/ajc_v58_p214.pdf),
 Australasian Journal of Combinatorics, Volume 58(2) (2014), pp. 214–248.
@@ -25,15 +50,7 @@ Australasian Journal of Combinatorics, Volume 58(2) (2014), pp. 214–248.
 
    Uses a theorem of Radon to prove that the corresponding graphs in the two sequences of strongly regular graphs considered in [1] and [2] are not isomorphic, except in the first 3 cases.
 
-4. Paul Leopardi, [Classifying bent functions by their Cayley graphs](https://sites.google.com/site/paulleopardi/Leopardi-ACCMCC-2015-talk-revised.pdf), 39 ACCMCC, 2015.
-
-   Starts to examine some of the properties of equivalence classes of Bent functions defined by isomorphism of Cayley graphs.
-
-5. Paul Leopardi, [Classifying bent functions by their Cayley graphs](https://drive.google.com/open?id=0BynZQtPnxGf-LUtic2llclRMQnM), 2 MCGTC, 2017.
-
-   A more comprehensive examination of the relationships between Bent functions, their Cayley graphs, linear codes, and block designs.
-
-6. Paul Leopardi, "Classifying bent functions by their Cayley graphs", DRAFT ONLY, May 2017.
+4. Paul Leopardi, "Classifying bent functions by their Cayley graphs", v6, December 2018.
 
    Preprint: [arXiv:1705.04507 \[math.CO\]](http://arxiv.org/abs/1705.04507).
 
