@@ -28,6 +28,8 @@ from sage.rings.integer import Integer
 from boolean_cayley_graphs.integer_bits import base2
 from boolean_cayley_graphs.saveable import Saveable
 
+default_algorithm = "sage"
+
 
 class BooleanGraph(Graph, Saveable):
     """
@@ -95,7 +97,11 @@ class BooleanGraph(Graph, Saveable):
             raise ValueError
 
 
-    def is_linear_isomorphic(self, other, certificate=False):
+    def is_linear_isomorphic(
+        self, 
+        other, 
+        certificate=False,
+        algorithm=default_algorithm):
         r"""
         Check that the two BooleanGraphs ``self`` and ``other`` are isomorphic
         and that the isomorphism is given by a GF(2) linear mapping on the
@@ -137,7 +143,7 @@ class BooleanGraph(Graph, Saveable):
 
         # Check the isomorphism via canonical labels.
         # This is to work around the slow speed of is_isomorphic in some cases.
-        if self.canonical_label() != other.canonical_label():
+        if self.canonical_label(algorithm=algorithm) != other.canonical_label(algorithm=algorithm):
             return (False, None)
 
         # Obtain the mapping that defines the isomorphism.
