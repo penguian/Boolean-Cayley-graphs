@@ -1,4 +1,7 @@
 r"""
+Classification of bent functions by their weight
+================================================
+
 The ``weight_class`` module defines the ``weight_class`` function,
 which returns the weight class corresponding to a weight.
 

@@ -1,4 +1,7 @@
 r"""
+Classification in parallel using MPI
+====================================
+
 The ``classify_in_mpi_parallel`` module defines functions that
 use MPI to save Cayley graph classifications or partial classifications in parallel.
 

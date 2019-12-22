@@ -1,4 +1,7 @@
 r"""
+Cayley graph of a Boolean function
+==================================
+
 The ``boolean_cayley_graph`` module defines
 a function that contructs the Cayley graph of a Boolean function.
 

@@ -1,4 +1,7 @@
 r"""
+Interface to a classification database using sqlite3
+====================================================
+
 The ``classification_databasepsqlite3`` module defines interfaces
 to manipulate an SQLite3 database of Cayley graph classifications.
 

@@ -1,4 +1,7 @@
 r"""
+Bent Boolean functions
+======================
+
 The ``bent_function`` module defines
 the ``BentFunction`` class,
 which represents a bent Boolean function and some of its properties.
