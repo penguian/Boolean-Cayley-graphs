@@ -1,4 +1,7 @@
 r"""
+Classification of  bent functions by their Cayley graphs
+========================================================
+
 The ``bent_function_cayley_graph_classification`` module defines:
 
  * the ``BentFunctionCayleyGraphClassification`` class;

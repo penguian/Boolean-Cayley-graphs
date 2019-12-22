@@ -1,4 +1,7 @@
 r"""
+Strongly regular graphs
+=======================
+
 The ``strongly_regular_graph`` module defines the
 ``StronglyRegularGraph`` class, which represents
 a strongly regular graph, with some of its properties,

@@ -1,4 +1,7 @@
 r"""
+The Royle X graph
+=================
+
 The ``royle_x_graph`` module defines the
 ``royle_x_graph`` function,
 which returns a strongly regular graph, as described by Royle [Roy2008]_.

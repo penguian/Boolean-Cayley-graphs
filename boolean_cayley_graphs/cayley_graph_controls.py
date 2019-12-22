@@ -1,4 +1,7 @@
 r"""
+Controls for checking, timing and tracing
+==========================================
+
 The ``cayley_graph_controls`` module defines controls for checking, timing and tracing
 that can be set and used anywhere they are imported.
 

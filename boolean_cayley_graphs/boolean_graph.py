@@ -1,4 +1,7 @@
 r"""
+Boolean graphs
+==============
+
 The ``boolean_graph`` module defines
 the ``BooleanGraph``  class,
 which represents a Graph whose order is a power of 2.

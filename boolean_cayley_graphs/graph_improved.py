@@ -1,4 +1,7 @@
 r"""
+An improved Graph class
+=======================
+
 The ``graph_improved`` module defines
 the ``GraphImproved`` class, which represents
 a Graph and some of its computed properties, such as its clique polynomial.

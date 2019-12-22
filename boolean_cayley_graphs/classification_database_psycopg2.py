@@ -1,4 +1,7 @@
 r"""
+Interface to a classification database using psycopg2
+=====================================================
+
 The ``classification_database_psycopg2`` module defines interfaces
 to manipulate a PostgreSQL database of Cayley graph classifications.
 

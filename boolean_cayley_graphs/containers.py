@@ -1,4 +1,7 @@
 r"""
+Improved container classes
+==========================
+
 The ``containers`` module defines improved container classes, such as lists:
 
  * `List`: a subclass of the builtin ``list`` class,  with added methods, such as ``index_append``;

@@ -1,4 +1,7 @@
 r"""
+Load and save Sage objects with standardized names
+==================================================
+
 The ``saveable`` module defines the ``Savable`` class:
 a mixin class with methods that load and save Sage objects with standardized names.
 

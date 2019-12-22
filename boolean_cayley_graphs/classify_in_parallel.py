@@ -1,4 +1,7 @@
 r"""
+Classification in parallel using fork
+=====================================
+
 The ``classify_in_parallel`` module defines functions that use ``sage.parallel`` and ``fork``
 to save Cayley graph classifications or partial classifications in parallel.
 
