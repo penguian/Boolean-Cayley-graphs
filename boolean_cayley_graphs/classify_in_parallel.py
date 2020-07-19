@@ -140,7 +140,8 @@ def classify_in_parallel(
         sage: bentf1.algebraic_normal_form()
         x0*x1 + x1
         sage: classes = classify_in_parallel([bentf0,bentf1],ncpus=2)
-        sage: classes[0][1].report()
+        sage: cl = classes[0][1] if classes[0][0][0][0] == 0 else classes[1][1]
+        sage: cl.report()
         Algebraic normal form of Boolean function: x0*x1
         Function is bent.
         <BLANKLINE>
