@@ -1,4 +1,7 @@
 r"""
+Boolean linear codes
+====================
+
 The ``boolean_linear_code`` module defines the functions:
 
  * ``boolean_linear_code_graph``;

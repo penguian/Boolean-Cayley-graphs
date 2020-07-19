@@ -1,4 +1,7 @@
 r"""
+Classification of bent functions by their Cayley graphs
+=======================================================
+
 The ``bent_function_cayley_graph_classification`` module defines:
 
  * the ``BentFunctionCayleyGraphClassification`` class;
@@ -89,6 +92,8 @@ from boolean_cayley_graphs.weight_class import weight_class
 import boolean_cayley_graphs.cayley_graph_controls as controls
 import csv
 import os.path
+
+default_algorithm = "sage"
 
 
 class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
@@ -235,23 +240,26 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         list_dual_graphs=True,
         c_start=0,
         c_stop=None,
-        limited_memory=False):
+        limited_memory=False,
+        algorithm=default_algorithm):
         r"""
         Constructor from the ``BentFunction`` ``bentf``.
 
         INPUT:
 
-        - ``bentf`` -- an object of class `BentFunction`.
-        - ``list_dual_graphs`` -- boolean. A flag indicating
-          whether to list dual graphs. Default is True.
-        - ``c_start`` -- smallest value of `c` to use for
-          extended translates. Integer. Default is 0.
-        - ``c_stop`` -- one more than largest value of `c`
-          to use for extended translates. Integer.
-          Default is ``None``, meaning use all remaining values.
-        - ``limited_memory`` -- boolean. A flag indicating
-          whether the classification might be too large
-          to fit into memory. Default is False.
+        - ``bentf`` -- an object of class ``BentFunction``.
+        - ``list_dual_graphs`` -- boolean (default: ``True``). 
+          A flag indicating whether to list dual graphs.
+        - ``c_start`` -- integer (default: 0).
+          The smallest value of `c` to use for extended translates.
+        - ``c_stop`` -- integer (default: ``None``).
+          One more than largest value of `c` to use for extended
+          translates. ``None`` means use all remaining values.
+        - ``limited_memory`` -- boolean (default: ``False``).
+          A flag indicating whether the classification might be
+          too large to fit into memory.
+        - ``algorithm`` -- string (default: ``default_algorithm``). 
+          The algorithm used for canonical labelling.
 
         OUTPUT:
 
@@ -267,11 +275,11 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
           into ``cayley_graph_class_list`` corresponding to these bent functions,
         - ``dual_cayley_graph_index_matrix`` is set to ``None``
           if ``list_dual_graphs`` is ``False``, otherwise it is set to
-          a matrix of indices into `cayley_graph_class_list` corresponding
+          a matrix of indices into ``cayley_graph_class_list`` corresponding
           to the duals of these bent functions, and
         - ``weight_class_matrix`` is set to the 0-1 matrix of weight classes
           corresponding to ``bent_cayley_graph_index_matrix``,
-        - ``c_start`` is set to smallest value of c used for extended translates.
+        - ``c_start`` is set to smallest value of `c` used for extended translates.
 
         Each entry ``bent_cayley_graph_index_matrix[c-c_start,b]`` corresponds to
         the Cayley graph of the bent function
@@ -362,7 +370,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             fb = f(b)
             for c in xsrange(c_start, c_stop):
                 fbc = bentf.extended_translate(b, c, fb)
-                cg = boolean_cayley_graph(dim, fbc).canonical_label()
+                cg = boolean_cayley_graph(dim, fbc).canonical_label(algorithm=algorithm)
                 cg_index = cayley_graph_class_bijection.index_append(cg.graph6_string())
                 bent_cayley_graph_index_matrix[c - c_start, b] = cg_index
 
@@ -379,16 +387,16 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
                     bentfbc = BentFunction([fbc(x) for x in xsrange(v)])
 
                     dual_fbc = bentfbc.walsh_hadamard_dual().extended_translate(d=wc)
-                    dg = boolean_cayley_graph(dim, dual_fbc).canonical_label()
+                    dg = boolean_cayley_graph(dim, dual_fbc).canonical_label(algorithm=algorithm)
                     dg_index = cayley_graph_class_bijection.index_append(dg.graph6_string())
                     dual_cayley_graph_index_matrix[c - c_start, b] = dg_index
 
                     if checking and dim > 2:
                         blcg = boolean_linear_code_graph(dim, fbc)
                         lg = (
-                            blcg.canonical_label()
+                            blcg.canonical_label(algorithm=algorithm)
                             if wc == 0 else
-                            blcg.complement().canonical_label())
+                            blcg.complement().canonical_label(algorithm=algorithm))
                         if lg != dg:
                             raise ValueError, (
                                 "Cayley graph of dual does not match"
@@ -799,7 +807,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         INPUT:
 
-        - ``bentf`` -- an object of class `BentFunction`.
+        - ``bentf`` -- an object of class ``BentFunction``.
         - ``list_dual_graphs`` -- boolean. a flag indicating
           whether to list dual graphs.
         - ``limited_memory`` -- boolean. A flag indicating
@@ -820,7 +828,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
           into ``cayley_graph_class_list`` corresponding to these bent functions,
         - ``dual_cayley_graph_index_matrix`` is set to ``None``
           if ``list_dual_graphs`` is ``False``, otherwise it is set to
-          a matrix of indices into `cayley_graph_class_list` corresponding
+          a matrix of indices into ``cayley_graph_class_list`` corresponding
           to the duals of these bent functions, and
         - ``weight_class_matrix`` is set to the 0-1 matrix of weight classes
           corresponding to ``bent_cayley_graph_index_matrix``.
@@ -1093,7 +1101,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         A list of tuples `(i_n,j_n)`, each of which is the first index into
         the matrix `self.bent_cayley_graph_index_matrix` that contains the entry `n`.
-        The first index is determined by `argwhere`.
+        The first index is determined by ``argwhere``.
 
         EXAMPLES:
 
@@ -1137,9 +1145,9 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         INPUT:
 
         - ``self`` -- the current object.
-        - ``report_on_matrix_details`` -- optional, Boolean (default: False).
+        - ``report_on_matrix_details`` -- Boolean (default: False).
            If True, print each matrix.
-        - ``report_on_graph_details`` -- optional, Boolean (default: False).
+        - ``report_on_graph_details`` -- Boolean (default: False).
            If True, produce a detailed report for each Cayley graph.
 
         OUTPUT:
@@ -1155,7 +1163,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
              (only if this is not ``None`` and is different from ``bent_cayley_graph_index_matrix``)
            - ``weight_class_matrix``
         - If report_on_graph_details is ``True``:
-        details of each graph in ``cayley_graph_class_list``.
+          details of each graph in ``cayley_graph_class_list``.
 
         EXAMPLES:
 
@@ -1463,8 +1471,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         - ``self`` -- the current object.
         - ``width`` -- integer (default: 40): the table width.
-        - ``rows_per_table`` -- integer (default: 6): the number of rows to
-          include before starting a new table.
+        - ``rows_per_table`` -- integer (default: 6). 
+          The number of rows to include before starting a new table.
 
         OUTPUT:
 
@@ -1567,7 +1575,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         print_latex_footer()
 
 
-    def print_latex_table_of_tonchev_graphs(self, width=40):
+    def print_latex_table_of_tonchev_graphs(
+        self,
+        width=40,
+        algorithm=default_algorithm):
         r"""
         Print a table comparing Cayley graphs with graphs from Tonchev's codes.
 
@@ -1578,6 +1589,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         - ``self`` -- the current object.
         - ``width`` -- integer (default: 40): the table width.
+        - ``algorithm`` -- string (default: ``default_algorithm``).
+          Algorithm used for canonical labelling.
 
         OUTPUT:
 
@@ -1642,7 +1655,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             linear_code_from_code_gens(tw)
             for tw in tw_155]
         sr_155 = [
-            strongly_regular_from_two_weight_code(lc).canonical_label().graph6_string()
+            strongly_regular_from_two_weight_code(lc).canonical_label(algorithm=algorithm).graph6_string()
             for lc in lc_155]
 
         tw_156 = binary_projective_two_weight_35_6_16()
@@ -1650,7 +1663,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             linear_code_from_code_gens(tw)
             for tw in tw_156]
         sr_156 = [
-            strongly_regular_from_two_weight_code(lc).complement().canonical_label().graph6_string()
+            strongly_regular_from_two_weight_code(lc).complement().canonical_label(algorithm=algorithm).graph6_string()
             for lc in lc_156]
 
         cg_list = self.cayley_graph_class_list
@@ -1678,7 +1691,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         print "\\end{align*}"
 
 
-    def save_matrix_plots(self, figure_name, cmap='gist_stern'):
+    def save_matrix_plots(
+        self,
+        figure_name,
+        cmap='gist_stern'):
         r"""
         Plot the matrix attributes to figure files.
 
@@ -1689,10 +1705,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         INPUT:
 
         - ``self`` -- the current object.
-        - ``figure_name`` -- string: the prefix to use in the file names for
-          the figures.
-        - ``cmap`` -- string (default: 'gist_stern'): the colormap to use with
-          ``matrixplot``.
+        - ``figure_name`` -- string. 
+          The prefix to use in the file names for the figures.
+        - ``cmap`` -- string (default: ``'gist_stern'``). 
+          The colormap to use with ``matrixplot``.
 
         OUTPUT:
 
@@ -1741,7 +1757,9 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             graphic.save(figure_name + "_" + name + ".png")
 
 
-    def save_cg_class_list_as_csv(self, file_name):
+    def save_cg_class_list_as_csv(
+        self,
+        file_name):
         """
         Save the Cayley graph class list to a csv file.
 
@@ -1787,7 +1805,9 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                             cg_list[n]})
 
 
-    def save_matrices_as_csv(self, file_name):
+    def save_matrices_as_csv(
+        self,
+        file_name):
         """
         Save the matrices bent_cayley_graph_index_matrix,
         dual_cayley_graph_index_matrix and weight_class_matrix to a csv file.
@@ -1882,7 +1902,9 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                     writer.writerow(row_dict)
 
 
-    def save_as_csv(self, file_name_prefix):
+    def save_as_csv(
+        self,
+        file_name_prefix):
         """
         Save the classification as three csv files with a common prefix.
 

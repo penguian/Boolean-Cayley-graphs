@@ -1,4 +1,7 @@
 r"""
+An improved Boolean function class
+==================================
+
 The ``boolean_function_improved`` module defines
 the ``BooleanFunctionImproved`` class,
 which is a subclass of BooleanFunction that adds extra methods.

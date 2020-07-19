@@ -1,4 +1,7 @@
 r"""
+Some binary projective two-weight codes
+=======================================
+
 The ``binary_projective_two_weight_codes`` module defines
 functions that construct two types of binary projective two-weight codes
 as published by Tonchev [Ton1996]_ [Ton2007]_.

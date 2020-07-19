@@ -1,4 +1,7 @@
 r"""
+Interface to a classification database using psycopg2
+=====================================================
+
 The ``classification_database_psycopg2`` module defines interfaces
 to manipulate a PostgreSQL database of Cayley graph classifications.
 
@@ -27,7 +30,7 @@ from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
 
 from boolean_cayley_graphs.bent_function import BentFunction
-from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
+from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification, default_algorithm
 from boolean_cayley_graphs.weight_class import weight_class
 
 
@@ -274,9 +277,9 @@ def create_classification_tables(
         ....:     for x in row:
         ....:         print(x)
         ....:
-        graph
         bent_function
         cayley_graph
+        graph
         matrices
         sage: conn.close()
         sage: drop_database(dbname)
@@ -580,7 +583,8 @@ def select_classification_where_bent_function(
 
 def select_classification_where_bent_function_cayley_graph(
     conn,
-    bentf):
+    bentf,
+    algorithm=default_algorithm):
     """
     Given a bent function ``bentf``, retrieve all classifications that
     contain a Cayley graph isomorphic to the Cayley graph of ``bentf``.
@@ -589,6 +593,8 @@ def select_classification_where_bent_function_cayley_graph(
 
     - ``conn`` -- a connection object for the database.
     - ``bentf`` -- class BentFunction. A bent function.
+    - ``algorithm`` -- string (default: BentFunctionCayleyGraphClassification.default_algorithm). 
+      Algorithm used for canonical labelling.
 
     OUTPUT:
 
@@ -663,7 +669,7 @@ def select_classification_where_bent_function_cayley_graph(
         sage: drop_database(dbname)
     """
     cayley_graph = bentf.extended_cayley_graph()
-    cgcl = cayley_graph.canonical_label().graph6_string()
+    cgcl = cayley_graph.canonical_label(algorithm=algorithm).graph6_string()
     cgcl_hash = canonical_label_hash(cgcl)
 
     curs = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)

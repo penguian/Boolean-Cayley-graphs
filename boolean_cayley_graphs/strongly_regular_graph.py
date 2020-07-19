@@ -1,4 +1,7 @@
 r"""
+Strongly regular graphs
+=======================
+
 The ``strongly_regular_graph`` module defines the
 ``StronglyRegularGraph`` class, which represents
 a strongly regular graph, with some of its properties,
@@ -64,22 +67,11 @@ class StronglyRegularGraph(GraphImproved):
         sage: latex(srg)
         \begin{tikzpicture}
         \definecolor{cv0}{rgb}{0.0,0.0,0.0}
-        \definecolor{cfv0}{rgb}{1.0,1.0,1.0}
-        \definecolor{clv0}{rgb}{0.0,0.0,0.0}
         ...
-        \definecolor{cv58v63}{rgb}{0.0,0.0,0.0}
-        \definecolor{cv59v62}{rgb}{0.0,0.0,0.0}
-        \definecolor{cv60v61}{rgb}{0.0,0.0,0.0}
-        %
-        ...
-        %
         \Edge[lw=0.1cm,style={color=cv0v1,},](v0)(v1)
-        \Edge[lw=0.1cm,style={color=cv0v2,},](v0)(v2)
-        \Edge[lw=0.1cm,style={color=cv0v3,},](v0)(v3)
         ...
         \Edge[lw=0.1cm,style={color=cv58v63,},](v58)(v63)
-        \Edge[lw=0.1cm,style={color=cv59v62,},](v59)(v62)
-        \Edge[lw=0.1cm,style={color=cv60v61,},](v60)(v61)
+        ...
         %
         \end{tikzpicture}
     """
@@ -191,8 +183,9 @@ class StronglyRegularGraph(GraphImproved):
             sage: g = royle_x_graph()
             sage: from boolean_cayley_graphs.strongly_regular_graph import StronglyRegularGraph
             sage: srg = StronglyRegularGraph(g)
-            sage: srg.automorphism_group
-            Permutation Group with generators [(11,21)(12,22)(13,23)(14,24)(15,25)(16,26)(17,27)(18,28)(19,29)(20,30)(36,37)(44,49)(45,50)(46,51)(47,52)(48,53), (5,11)(6,12)(7,13)(8,14)(9,15)(10,16)(27,31)(28,32)(29,33)(30,34)(37,38)(43,44)(50,54)(51,55)(52,56)(53,57), (3,4)(6,7)(8,9)(12,13)(14,15)(17,18)(22,23)(24,25)(27,28)(31,32)(41,42)(47,48)(52,53)(56,57)(59,60)(61,62), (2,3)(5,6)(9,10)(11,12)(15,16)(18,19)(21,22)(25,26)(28,29)(32,33)(40,41)(46,47)(51,52)(55,56)(58,59)(62,63), (2,5)(3,6)(4,7)(14,17)(15,18)(16,19)(24,27)(25,28)(26,29)(34,35)(38,39)(44,45)(49,50)(55,58)(56,59)(57,60), (1,2)(6,8)(7,9)(12,14)(13,15)(19,20)(22,24)(23,25)(29,30)(33,34)(39,40)(45,46)(50,51)(54,55)(59,61)(60,62), (1,20)(2,19)(3,18)(4,17)(5,16)(6,15)(7,14)(8,13)(9,12)(10,11)(37,43)(38,44)(39,45)(40,46)(41,47)(42,48), (0,1)(2,38,4,36)(3,37)(5,57,23,46)(6,53,22,51)(7,48,21,55)(8,17,26,33)(9,27,25,29)(10,31,24,19)(11,56,13,47)(12,52)(14,18,16,32)(15,28)(20,58,34,60)(30,59)(35,39)(40,43,42,49)(41,44)(45,63,54,61)(50,62)]
+            sage: srg.automorphism_group.as_finitely_presented_group()
+            Finitely presented group < a, b, c, d, e, f, g, h | a^2, d^2, f^2, c^2, b^2, e^2, g^2, h^2, (h*d)^2, (h*a)^2, c*e*a*e, (c*a)^2, (c*d)^2, (b*d)^2, (b*g)^2, (g*a)^2, (d*a)^2, (b*a)^2, (b*f)^2, d*f*a*f, (e*f)^2, h*e*h*f*e, h*c*h*f*c*f, (g*c)^3, (b*c)^3, (h*g)^4, (g*e)^4, (b*e)^4, h*b*h*(c*f*b)^2*c, g*e*a*f*c*g*d*e*f*d, g*e*g*f*g*c*e*g*d*c*e*d, (h*g*e*g)^3, b*c*e*b*c*f*c*b*e*c*b*(c*f*a)^2 >
+
         """
         return Graph.automorphism_group(self)
 

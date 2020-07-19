@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+
 r"""
+Reference generation
+====================
+
 The ``references`` module defines
 functions that generate and organize the bibliographic references for this project.
 
