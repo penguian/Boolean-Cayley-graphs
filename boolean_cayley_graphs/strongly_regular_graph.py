@@ -179,12 +179,17 @@ class StronglyRegularGraph(GraphImproved):
 
         ::
 
+            sage: from sage.graphs.graph import Graph
             sage: from boolean_cayley_graphs.royle_x_graph import royle_x_graph
             sage: g = royle_x_graph()
             sage: from boolean_cayley_graphs.strongly_regular_graph import StronglyRegularGraph
             sage: srg = StronglyRegularGraph(g)
-            sage: srg.automorphism_group.as_finitely_presented_group()
-            Finitely presented group < a, b, c, d, e, f, g, h | a^2, d^2, f^2, c^2, b^2, e^2, g^2, h^2, (h*d)^2, (h*a)^2, c*e*a*e, (c*a)^2, (c*d)^2, (b*d)^2, (b*g)^2, (g*a)^2, (d*a)^2, (b*a)^2, (b*f)^2, d*f*a*f, (e*f)^2, h*e*h*f*e, h*c*h*f*c*f, (g*c)^3, (b*c)^3, (h*g)^4, (g*e)^4, (b*e)^4, h*b*h*(c*f*b)^2*c, g*e*a*f*c*g*d*e*f*d, g*e*g*f*g*c*e*g*d*c*e*d, (h*g*e*g)^3, b*c*e*b*c*f*c*b*e*c*b*(c*f*a)^2 >
+            sage: sag = srg.automorphism_group 
+            sage: gag = Graph.automorphism_group(g)
+            sage: sag == gag
+            True
+            sage: sag.order()
+            2580480
 
         """
         return Graph.automorphism_group(self)
