@@ -49,6 +49,7 @@ from boolean_cayley_graphs.boolean_linear_code import boolean_linear_code
 from boolean_cayley_graphs.integer_bits import base2, inner
 from boolean_cayley_graphs.saveable import Saveable
 
+encoding = "UTF-8"
 
 class BooleanFunctionImproved(BooleanFunction, Saveable):
     r"""
@@ -125,7 +126,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: bf3 == bf3_test
             True
         """
-        tt_hex = binascii.b2a_hex(tt_buffer)
+        tt_hex = str(binascii.b2a_hex(tt_buffer), encoding)
         return cls.from_tt_hex(dim, tt_hex)
 
 
@@ -227,7 +228,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         """
         with open(csv_file_name) as csv_file:
             reader = csv.DictReader(csv_file)
-            row = reader.next()
+            row = next(reader)
             return BooleanFunctionImproved.from_tt_hex(
                 int(row["nvariables"]),
                 row["tt_hex"])
@@ -655,8 +656,9 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: bf2 = BooleanFunctionImproved([0,1,0,0])
             sage: buff_bf2 = bf2.tt_buffer()
             sage: type(buff_bf2)
-            <type 'buffer'>
-            sage: print(binascii.b2a_hex(buff_bf2))
+            <type 'bytes'>
+            sage: encoding = "UTF-8"
+            sage: print(str(binascii.b2a_hex(buff_bf2), encoding))
             02
 
         TESTS:
@@ -666,8 +668,9 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: bf3 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
             sage: buff_bf3 = bf3.tt_buffer()
             sage: type(buff_bf3)
-            <type 'buffer'>
-            sage: print(binascii.b2a_hex(buff_bf3))
+            <type 'bytes'>
+            sage: encoding = "UTF-8"
+            sage: print(str(binascii.b2a_hex(buff_bf3), encoding))
             c122
             sage: from_buff_bf3 = BooleanFunctionImproved.from_tt_buffer(3, buff_bf3)
             sage: from_buff_bf3 == buff_bf3
@@ -680,7 +683,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: from_buff_bf6 = BooleanFunctionImproved.from_tt_buffer(6, buff_bf6)
             sage: from_buff_bf6 == bf6
             True
-            sage: binascii.b2a_hex(buff_bf6) == hex_str6
+            sage: str(binascii.b2a_hex(buff_bf6), encoding) == hex_str6
             True
         """
         dim = self.nvariables()
@@ -693,7 +696,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             if len(tt_hex) < 2
             else
                 tt_hex)
-        return buffer(binascii.a2b_hex(tt_string))
+        return binascii.a2b_hex(tt_string)
 
 
     def tt_hex(self):

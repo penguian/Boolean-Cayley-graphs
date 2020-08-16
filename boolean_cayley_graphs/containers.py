@@ -25,6 +25,7 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import range
 import glob
 import os
 import shelve
@@ -123,7 +124,7 @@ class BijectiveList(SageObject, Saveable):
         sage: BL = BijectiveList(["1","2","3"])
         sage: BL.get_list()
         ['1', '2', '3']
-        sage: BL.get_dict()
+        sage: dict(sorted(BL.get_dict().items()))
         {'1': 0, '2': 1, '3': 2}
         sage: del BL
 
@@ -169,7 +170,7 @@ class BijectiveList(SageObject, Saveable):
             sage: BL = BijectiveList(["1","2","6"])
             sage: BL.get_list()
             ['1', '2', '6']
-            sage: BL.get_dict()
+            sage: dict(sorted(BL.get_dict().items()))
             {'1': 0, '2': 1, '6': 2}
             sage: del BL
         """
@@ -263,7 +264,7 @@ class BijectiveList(SageObject, Saveable):
 
             sage: from boolean_cayley_graphs.containers import BijectiveList
             sage: BL = BijectiveList([1,2,5])
-            sage: BL.get_dict()
+            sage: dict(sorted(BL.get_dict().items()))
             {1: 0, 2: 1, 5: 2}
             sage: del BL
         """
@@ -318,7 +319,7 @@ class BijectiveList(SageObject, Saveable):
             1
             sage: BL.get_list()
             [1, 2, 4]
-            sage: BL.get_dict()
+            sage: dict(sorted(BL.get_dict().items()))
             {1: 0, 2: 1, 4: 2}
             sage: del BL
 
@@ -378,7 +379,7 @@ class BijectiveList(SageObject, Saveable):
             3
             sage: BL.get_list()
             [1, 2, 4, 3]
-            sage: BL.get_dict()
+            sage: dict(sorted(BL.get_dict().items()))
             {1: 0, 2: 1, 3: 3, 4: 2}
             sage: del BL
         """
@@ -500,7 +501,7 @@ class ShelveBijectiveList(BijectiveList):
         sage: SBL = ShelveBijectiveList(["1","2","4"])
         sage: SBL.get_list()
         ['1', '2', '4']
-        sage: SBL.get_dict()
+        sage: dict(sorted(SBL.get_dict().items()))
         {'1': 0, '2': 1, '4': 2}
         sage: del SBL
 
@@ -532,7 +533,7 @@ class ShelveBijectiveList(BijectiveList):
             sage: SBL = ShelveBijectiveList()
             sage: SBL.get_list()
             []
-            sage: SBL.get_dict()
+            sage: dict(SBL.get_dict())
             {}
             sage: del SBL
 
@@ -546,7 +547,7 @@ class ShelveBijectiveList(BijectiveList):
             sage: SBL = ShelveBijectiveList(["1","2","6"])
             sage: SBL.get_list()
             ['1', '2', '6']
-            sage: SBL.get_dict()
+            sage: dict(sorted(SBL.get_dict().items()))
             {'1': 0, '2': 1, '6': 2}
             sage: del SBL
         """

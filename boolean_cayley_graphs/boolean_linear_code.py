@@ -25,6 +25,7 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import str
 from sage.arith.srange import xsrange
 from sage.coding.linear_code import LinearCode
 from sage.matrix.constructor import matrix
@@ -151,7 +152,7 @@ def print_latex_code_parameters(c):
         sage: print_latex_code_parameters(c)
         [5,4,1]
     """
-    print (
+    print((
         "[" + str(c.length()) +
         "," + str(c.dimension()) +
-        "," + str(c.minimum_distance()) + "]"),
+        "," + str(c.minimum_distance()) + "]"), end=' ')

@@ -19,6 +19,8 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import str
+from builtins import range
 from sage.functions.other import Function_ceil
 from sage.parallel.decorate import parallel
 
@@ -338,7 +340,7 @@ def save_one_class_part(
         sage: d = tmp_dir()
         sage: s = save_one_class_part(name, f, c_start=1, c_stop=2, dir=d)
         sage: p1 = BFCP.load_mangled(name, dir=d)
-        sage: p1.__dict__
+        sage: dict(sorted(p1.__dict__.items()))
         {'algebraic_normal_form': x0*x1 + x0 + x1,
         'bent_cayley_graph_index_matrix': [0 0 1 0],
         'c_start': 1,
@@ -399,7 +401,7 @@ def save_class_parts_in_parallel(
         sage: d = tmp_dir()
         sage: s = save_class_parts_in_parallel(name_prefix, f, dir=d)
         sage: p1=BFCP.load_mangled(name_prefix + '_1', dir=d)
-        sage: p1.__dict__
+        sage: dict(sorted(p1.__dict__.items()))
         {'algebraic_normal_form': x0*x1 + x0 + x1,
         'bent_cayley_graph_index_matrix': [0 0 1 0],
         'c_start': 1,

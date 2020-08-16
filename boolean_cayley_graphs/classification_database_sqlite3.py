@@ -20,11 +20,13 @@ AUTHORS:
 #*****************************************************************************
 
 
+from builtins import str
+from builtins import range
 import hashlib
 import os
 import sqlite3
 
-from exceptions import OSError
+#from exceptions import OSError
 from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
 
@@ -215,7 +217,10 @@ def create_classification_tables(db_name):
     return conn
 
 
-canonical_label_hash = lambda g: buffer(hashlib.sha256(g).digest())
+def canonical_label_hash(g):
+    encoding = "UTF-8"
+    bytes_g = bytes(g, encoding)
+    return hashlib.sha256(bytes_g).digest()
 
 
 def insert_classification(

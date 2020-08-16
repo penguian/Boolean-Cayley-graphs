@@ -26,7 +26,7 @@ EXAMPLES:
     sage: p = x2+x1*x2
     sage: f = BentFunction(p)
     sage: c = BentFunctionCGC.from_function(f)
-    sage: c.__dict__
+    sage: dict(sorted(c.__dict__.items()))
     {'algebraic_normal_form': x0*x1 + x1,
      'bent_cayley_graph_index_matrix': [0 0 1 0]
      [1 0 0 0]
@@ -57,6 +57,8 @@ of a bent function are defined by Leopardi [Leo2017]_.
 #*****************************************************************************
 
 
+from builtins import str
+from builtins import range
 from datetime import datetime
 from numpy import array, argwhere
 from sage.arith.srange import xsrange
@@ -300,7 +302,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
             sage: c1 = BentFunctionCGCPart.from_function(f,c_start=2,c_stop=4)
-            sage: c1.__dict__
+            sage: dict(sorted(c1.__dict__.items()))
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 0 0]
             [0 0 0 1],
@@ -322,7 +324,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
             sage: c2 = BentFunctionCGCPart.from_function(f,list_dual_graphs=False,c_start=0,c_stop=2)
-            sage: c2.__dict__
+            sage: dict(sorted(c2.__dict__.items()))
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 1 1]
             [1 1 0 1],
@@ -363,8 +365,8 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
 
         for b in xsrange(v):
             if timing:
-                print datetime.now(), b,
-                print len(cayley_graph_class_bijection)
+                print(datetime.now(), b, end=' ')
+                print(len(cayley_graph_class_bijection))
                 stdout.flush()
 
             fb = f(b)
@@ -380,7 +382,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
 
                 if checking:
                     if wc != 0 and wc != 1:
-                        raise ValueError, (
+                        raise ValueError(
                             "Weight class is "
                             + str(wc))
                 if list_dual_graphs:
@@ -398,7 +400,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
                             if wc == 0 else
                             blcg.complement().canonical_label(algorithm=algorithm))
                         if lg != dg:
-                            raise ValueError, (
+                            raise ValueError(
                                 "Cayley graph of dual does not match"
                                 + "graph from linear code at "
                                 + str(b) + ","
@@ -414,7 +416,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         if checking:
             sdp_design_matrix = bentf.sdp_design_matrix()
             if weight_class_matrix != sdp_design_matrix:
-                raise ValueError, (
+                raise ValueError(
                     "weight_class_matrix != sdp_design_matrix"
                     + "\n"
                     + str(weight_class_matrix)
@@ -422,7 +424,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
                     + str(sdp_design_matrix))
 
         if timing:
-            print datetime.now()
+            print(datetime.now())
             stdout.flush()
 
         return cls(
@@ -851,7 +853,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
             sage: c3 = BentFunctionCGC.from_function(f)
-            sage: c3.__dict__
+            sage: dict(sorted(c3.__dict__.items()))
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 1 1]
             [1 1 0 1]
@@ -880,7 +882,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: p = x1+x2+x1*x2
             sage: f = BentFunction(p)
             sage: c4 = BentFunctionCGC.from_function(f,list_dual_graphs=False)
-            sage: c4.__dict__
+            sage: dict(sorted(c4.__dict__.items()))
             {'algebraic_normal_form': x0*x1 + x0 + x1,
             'bent_cayley_graph_index_matrix': [0 1 1 1]
             [1 1 0 1]
@@ -1278,56 +1280,56 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             """
             def print_compare(verb, a, b):
 
-                print (
+                print((
                     verb + " the same."
                     if a == b
-                    else a),
+                    else a), end=' ')
 
 
             verbose = controls.verbose
 
             nbr_bent_cayley_graph_classes = len(
                 np.unique(bent_cayley_graph_index_matrix))
-            print ""
-            print "There are", nbr_bent_cayley_graph_classes,
-            print "extended Cayley classes in the extended translation class."
+            print("")
+            print("There are", nbr_bent_cayley_graph_classes, end=' ')
+            print("extended Cayley classes in the extended translation class.")
 
             tot_cayley_graph_classes = len(cayley_graph_class_list)
 
             if dual_cayley_graph_index_matrix != None:
                 nbr_dual_cayley_graph_classes = len(
                     np.unique(dual_cayley_graph_index_matrix))
-                print "There are", nbr_dual_cayley_graph_classes,
-                print "extended Cayley classes of dual bent functions",
-                print "in the extended translation class,"
-                print "and", tot_cayley_graph_classes,
-                print "extended Cayley classes in the union of the two."
+                print("There are", nbr_dual_cayley_graph_classes, end=' ')
+                print("extended Cayley classes of dual bent functions", end=' ')
+                print("in the extended translation class,")
+                print("and", tot_cayley_graph_classes, end=' ')
+                print("extended Cayley classes in the union of the two.")
 
             if report_on_matrix_details:
-                print ""
-                print "Matrix of indices of Cayley graphs:"
-                print bent_cayley_graph_index_matrix
+                print("")
+                print("Matrix of indices of Cayley graphs:")
+                print(bent_cayley_graph_index_matrix)
 
                 if dual_cayley_graph_index_matrix != None:
-                    print "Matrix of indices of Cayley graphs",
-                    print "of dual bent functions:"
-                    print dual_cayley_graph_index_matrix
+                    print("Matrix of indices of Cayley graphs", end=' ')
+                    print("of dual bent functions:")
+                    print(dual_cayley_graph_index_matrix)
 
             if not report_on_graph_details:
                 return
 
-            print ""
-            print "For each extended Cayley class in the extended translation class:"
-            print "Clique polynomial, strongly regular parameters,",
-            print "rank, and order of a representative graph; and"
-            print "linear code and generator matrix for a representative bent function:"
+            print("")
+            print("For each extended Cayley class in the extended translation class:")
+            print("Clique polynomial, strongly regular parameters,", end=' ')
+            print("rank, and order of a representative graph; and")
+            print("linear code and generator matrix for a representative bent function:")
 
             for index in xsrange(tot_cayley_graph_classes):
-                print ""
-                print "EC class", index, ":"
+                print("")
+                print("EC class", index, ":")
                 c_b = pair_c_b_list[index]
                 if c_b == None:
-                    print "No such representative graph."
+                    print("No such representative graph.")
                 else:
                     c = Integer(c_b[0])
                     b = Integer(c_b[1])
@@ -1335,97 +1337,97 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                     fbc = bentf.extended_translate(b, c, fb)
                     bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
                     p = bent_fbc.algebraic_normal_form()
-                    print "Algebraic normal form of representative:", p
+                    print("Algebraic normal form of representative:", p)
                     g = Graph(cayley_graph_class_list[index])
                     s = StronglyRegularGraph(g)
-                    print "Clique polynomial:",
-                    print s.stored_clique_polynomial
-                    print "Strongly regular parameters:",
-                    print s.strongly_regular_parameters
-                    print "Rank:", s.rank,
-                    print "Order:", s.group_order
+                    print("Clique polynomial:", end=' ')
+                    print(s.stored_clique_polynomial)
+                    print("Strongly regular parameters:", end=' ')
+                    print(s.strongly_regular_parameters)
+                    print("Rank:", s.rank, end=' ')
+                    print("Order:", s.group_order)
 
                     if dual_cayley_graph_index_matrix != None:
                         dual_index = dual_cayley_graph_index_matrix[c, b]
                         if dual_index != index:
-                            print "Cayley graph of dual of representative differs:"
-                            print "Index is", dual_index
+                            print("Cayley graph of dual of representative differs:")
+                            print("Index is", dual_index)
                             dual_g = Graph(cayley_graph_class_list[dual_index])
                             dual_s = StronglyRegularGraph(dual_g)
-                            print "Clique polynomial",
+                            print("Clique polynomial", end=' ')
                             print_compare(
                                 "is",
                                 dual_s.stored_clique_polynomial,
                                 s.stored_clique_polynomial)
-                            print ""
-                            print "Strongly regular parameters",
+                            print("")
+                            print("Strongly regular parameters", end=' ')
                             print_compare (
                                 "are",
                                 dual_s.strongly_regular_parameters,
                                 s.strongly_regular_parameters)
-                            print ""
-                            print "Rank",
+                            print("")
+                            print("Rank", end=' ')
                             print_compare ("is", dual_s.rank, s.rank)
-                            print "Order",
+                            print("Order", end=' ')
                             print_compare (
                                 "is", dual_s.group_order, s.group_order)
-                            print ""
+                            print("")
                             if verbose:
                                 if log(s.group_order, Integer(2)).is_integer():
-                                    print "Order is a power of 2."
+                                    print("Order is a power of 2.")
                                 else:
-                                    print ""
-                                    print "Automorphism group",
+                                    print("")
+                                    print("Automorphism group", end=' ')
                                     dual_a = dual_s.automorphism_group
-                                    print (
+                                    print((
                                         "is"
                                         if dual_a.is_isomorphic(s.automorphism_group)
-                                        else "is not"),
-                                    print "isomorphic."
+                                        else "is not"), end=' ')
+                                    print("isomorphic.")
 
-                    print ""
-                    print "Linear code from representative:"
+                    print("")
+                    print("Linear code from representative:")
                     lc = bent_fbc.linear_code()
-                    print lc
-                    print "Generator matrix:"
-                    print lc.generator_matrix().echelon_form()
-                    print "Linear code",
-                    print "is" if lc.is_projective() else "is not",
-                    print "projective."
-                    print "Weight distribution:",
+                    print(lc)
+                    print("Generator matrix:")
+                    print(lc.generator_matrix().echelon_form())
+                    print("Linear code", end=' ')
+                    print("is" if lc.is_projective() else "is not", end=' ')
+                    print("projective.")
+                    print("Weight distribution:", end=' ')
                     wd = lc.weight_distribution()
-                    print dict([
-                        (w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0])
+                    print(dict([
+                        (w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0]))
 
 
         p = self.algebraic_normal_form
-        print "Algebraic normal form of Boolean function:", p
+        print("Algebraic normal form of Boolean function:", p)
         bentf = BentFunction(p)
         f = bentf.extended_translate()
 
         dim = bentf.nvariables()
         v = 2 ** dim
 
-        print "Function", ("is" if bentf.is_bent() else "is not"), "bent."
-        print ""
+        print("Function", ("is" if bentf.is_bent() else "is not"), "bent.")
+        print("")
         D = self.weight_class_matrix
         if report_on_matrix_details:
-            print "Weight class matrix:"
-            print D
+            print("Weight class matrix:")
+            print(D)
 
-        print ""
-        print "SDP design incidence structure t-design parameters:",
+        print("")
+        print("SDP design incidence structure t-design parameters:", end=' ')
         I = IncidenceStructure(D)
-        print I.is_t_design(return_parameters=True)
+        print(I.is_t_design(return_parameters=True))
 
         cg_list   = self.cayley_graph_class_list
         ci_matrix = self.bent_cayley_graph_index_matrix
         di_matrix = self.dual_cayley_graph_index_matrix
         cb_list   = self.first_matrix_index_list()
 
-        print ""
+        print("")
         if di_matrix == None:
-            print "Classification of Cayley graphs:"
+            print("Classification of Cayley graphs:")
 
             graph_and_linear_code_report(
                 bentf,
@@ -1435,10 +1437,10 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                 cb_list,
                 ci_matrix)
         else:
-            print "Classification of Cayley graphs and",
-            print "classification of Cayley graphs of duals",
+            print("Classification of Cayley graphs and", end=' ')
+            print("classification of Cayley graphs of duals", end=' ')
             if ci_matrix == di_matrix:
-                print "are the same:"
+                print("are the same:")
 
                 graph_and_linear_code_report(
                     bentf,
@@ -1448,7 +1450,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                     cb_list,
                     ci_matrix)
             else:
-                print "differ in matrices of indexes:"
+                print("differ in matrices of indexes:")
 
                 graph_and_linear_code_report(
                     bentf,
@@ -1525,60 +1527,57 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             \end{align*}
         """
         def print_latex_header():
-            print "\\small{}"
-            print "\\begin{align*}"
-            print "\\def\\arraystretch{1.2}"
-            print "\\begin{array}{|cccl|}"
-            print "\\hline"
-            print "\\text{Class} &"
-            print "\\text{Parameters} &"
-            print "\\text{2-rank} &"
-            print "\\text{Clique polynomial}"
-            print "\\\\"
-            print "\\hline"
+            print("\\small{}")
+            print("\\begin{align*}")
+            print("\\def\\arraystretch{1.2}")
+            print("\\begin{array}{|cccl|}")
+            print("\\hline")
+            print("\\text{Class} &")
+            print("\\text{Parameters} &")
+            print("\\text{2-rank} &")
+            print("\\text{Clique polynomial}")
+            print("\\\\")
+            print("\\hline")
 
 
         def print_latex_footer():
-            print "\\hline"
-            print "\\end{array}"
-            print "\\end{align*}"
+            print("\\hline")
+            print("\\end{array}")
+            print("\\end{align*}")
 
         print_latex_header()
         cg_list = self.cayley_graph_class_list
         for n in xsrange(len(cg_list)):
             if n > 0 and n % rows_per_table == 0:
                 print_latex_footer()
-                print "\\newpage"
+                print("\\newpage")
                 print_latex_header()
 
-            print n, "&"
+            print(n, "&")
             g = Graph(cg_list[n])
             srg = StronglyRegularGraph(g)
-            print srg.strongly_regular_parameters, "&"
-            print srg.rank, "&"
+            print(srg.strongly_regular_parameters, "&")
+            print(srg.rank, "&")
             cp = srg.stored_clique_polynomial
-            print "\\begin{array}{l}"
+            print("\\begin{array}{l}")
             lf = latex(cp)
             cut = 0
             while cut >= 0 and len(lf) > width:
                 cut = lf.rfind('+', 0, width)
                 if cut > 0:
-                    print lf[:cut]
+                    print(lf[:cut])
                 if cut >= 0 and cut < len(lf):
-                    print "\\,+"
-                    print "\\\\"
+                    print("\\,+")
+                    print("\\\\")
                 lf = lf[cut + 1:]
-            print lf
-            print "\\end{array}"
-            print "\\\\"
+            print(lf)
+            print("\\end{array}")
+            print("\\\\")
 
         print_latex_footer()
 
 
-    def print_latex_table_of_tonchev_graphs(
-        self,
-        width=40,
-        algorithm=default_algorithm):
+    def print_latex_table_of_tonchev_graphs(self, width=40):
         r"""
         Print a table comparing Cayley graphs with graphs from Tonchev's codes.
 
@@ -1640,15 +1639,15 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         - [Ton2007]_.
         """
-        print "\\begin{align*}"
-        print "\\def\\arraystretch{1.2}"
-        print "\\begin{array}{|ccl|}"
-        print "\\hline"
-        print "\\text{Class} &"
-        print "\\text{Parameters} &"
-        print "\\text{Reference}"
-        print "\\\\"
-        print "\\hline"
+        print("\\begin{align*}")
+        print("\\def\\arraystretch{1.2}")
+        print("\\begin{array}{|ccl|}")
+        print("\\hline")
+        print("\\text{Class} &")
+        print("\\text{Parameters} &")
+        print("\\text{Reference}")
+        print("\\\\")
+        print("\\hline")
 
         tw_155 = binary_projective_two_weight_27_6_12()
         lc_155 = [
@@ -1671,24 +1670,24 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             cg = cg_list[n]
             for k in xsrange(len(sr_155)):
                 if cg == sr_155[k]:
-                    print n, "&",
+                    print(n, "&", end=' ')
                     print_latex_code_parameters(lc_155[k])
-                    print "& \\text{Table 1.155",
-                    print k + 1,
-                    print "}"
-                    print "\\\\"
+                    print("& \\text{Table 1.155", end=' ')
+                    print(k + 1, end=' ')
+                    print("}")
+                    print("\\\\")
             for k in xsrange(len(sr_156)):
                 if cg == sr_156[k]:
-                    print n, "&",
+                    print(n, "&", end=' ')
                     print_latex_code_parameters(lc_156[k])
-                    print "& \\text{Table 1.156",
-                    print k + 1,
-                    print "(complement)}"
-                    print "\\\\"
+                    print("& \\text{Table 1.156", end=' ')
+                    print(k + 1, end=' ')
+                    print("(complement)}")
+                    print("\\\\")
 
-        print "\\hline"
-        print "\\end{array}"
-        print "\\end{align*}"
+        print("\\hline")
+        print("\\end{array}")
+        print("\\end{align*}")
 
 
     def save_matrix_plots(

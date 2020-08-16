@@ -19,6 +19,8 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import str
+from builtins import range
 from math import log
 from sage.crypto.boolean_function import BooleanFunction
 from sage.functions.other import Function_ceil

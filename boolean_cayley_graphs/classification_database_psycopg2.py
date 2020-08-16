@@ -19,6 +19,9 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import str
+from builtins import range
+from builtins import object
 import binascii
 import hashlib
 import psycopg2
@@ -32,6 +35,9 @@ from sage.matrix.constructor import matrix
 from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification, default_algorithm
 from boolean_cayley_graphs.weight_class import weight_class
+
+
+encoding = "UTF-8"
 
 
 class Psycopg2Default(object):
@@ -272,7 +278,8 @@ def create_classification_tables(
         sage: curs.execute(
         ....:     "SELECT table_name " +
         ....:     "FROM information_schema.tables " +
-        ....:     "WHERE table_schema='public' AND table_type='BASE TABLE'")
+        ....:     "WHERE table_schema='public' AND table_type='BASE TABLE' " +
+        ....:     "ORDER BY table_name")
         sage: for row in curs:
         ....:     for x in row:
         ....:         print(x)
@@ -352,7 +359,9 @@ def canonical_label_hash(canonical_label):
         sage: type(clh)
         <type 'psycopg2.extensions.Binary'>
     """
-    return psycopg2.Binary(buffer(hashlib.sha256(canonical_label).digest()))
+    # return psycopg2.Binary(buffer(hashlib.sha256(canonical_label).digest()))
+    encoded_canonical_label = canonical_label.encode(encoding)
+    return psycopg2.Binary(hashlib.sha256(encoded_canonical_label).digest())
 
 
 def insert_classification(

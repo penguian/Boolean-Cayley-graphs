@@ -27,8 +27,8 @@ AUTHORS:
 
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 
-from boolean_linear_code import boolean_linear_code
-from boolean_linear_code import linear_code_from_code_gens
+from .boolean_linear_code import boolean_linear_code
+from .boolean_linear_code import linear_code_from_code_gens
 
 
 def boolean_linear_code_graph(dim, f):
