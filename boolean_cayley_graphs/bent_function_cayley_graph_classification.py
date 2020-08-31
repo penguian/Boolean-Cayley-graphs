@@ -58,10 +58,8 @@ of a bent function are defined by Leopardi [Leo2017]_.
 
 
 from builtins import str
-from builtins import range
 from datetime import datetime
 from numpy import array, argwhere
-from sage.arith.srange import xsrange
 from sage.coding.linear_code import LinearCode
 from sage.combinat.designs.incidence_structures import IncidenceStructure
 from sage.functions.log import log
@@ -363,20 +361,20 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
         dual_bentf = bentf.walsh_hadamard_dual()
         dual_f = dual_bentf.extended_translate()
 
-        for b in xsrange(v):
+        for b in range(v):
             if timing:
                 print(datetime.now(), b, end=' ')
                 print(len(cayley_graph_class_bijection))
                 stdout.flush()
 
             fb = f(b)
-            for c in xsrange(c_start, c_stop):
+            for c in range(c_start, c_stop):
                 fbc = bentf.extended_translate(b, c, fb)
                 cg = boolean_cayley_graph(dim, fbc).canonical_label(algorithm=algorithm)
                 cg_index = cayley_graph_class_bijection.index_append(cg.graph6_string())
                 bent_cayley_graph_index_matrix[c - c_start, b] = cg_index
 
-                weight = sum(fbc(x) for x in xsrange(v))
+                weight = sum(fbc(x) for x in range(v))
                 wc = weight_class(v, weight)
                 weight_class_matrix[c - c_start, b] = wc
 
@@ -386,7 +384,7 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
                             "Weight class is "
                             + str(wc))
                 if list_dual_graphs:
-                    bentfbc = BentFunction([fbc(x) for x in xsrange(v)])
+                    bentfbc = BentFunction([fbc(x) for x in range(v)])
 
                     dual_fbc = bentfbc.walsh_hadamard_dual().extended_translate(d=wc)
                     dg = boolean_cayley_graph(dim, dual_fbc).canonical_label(algorithm=algorithm)
@@ -945,7 +943,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: prefix = tmp_filename()
             sage: prefix_dirname = os.path.dirname(prefix)
             sage: prefix_basename = os.path.basename(prefix)
-            sage: for row in xsrange(4):
+            sage: for row in range(4):
             ....:     c = BentFunctionCGCPart.from_function(f, c_start=row,c_stop=row+1)
             ....:     part_prefix = prefix_basename + "_" + str(row)
             ....:     c.save_mangled(
@@ -975,7 +973,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             [1 1 0 1]
             [1 0 1 1]
             [1 1 1 0]
-            sage: for row in xsrange(4):
+            sage: for row in range(4):
             ....:     part_prefix = prefix_basename + "_" + str(row)
             ....:     BentFunctionCGCPart.remove_mangled(
             ....:         part_prefix,
@@ -1130,12 +1128,12 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
         ci_array  = array(ci_matrix)
         ci_where  = [
             argwhere(ci_array == index)
-            for index in xsrange(tot_cayley_graph_classes)]
+            for index in range(tot_cayley_graph_classes)]
         cb_list = [
             (None
             if ci_where[index].shape[0] == 0
             else tuple(ci_where[index][0,:]))
-            for index in xsrange(tot_cayley_graph_classes)]
+            for index in range(tot_cayley_graph_classes)]
         return cb_list
 
 
@@ -1328,7 +1326,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             print("rank, and order of a representative graph; and")
             print("linear code and generator matrix for a representative bent function:")
 
-            for index in xsrange(tot_cayley_graph_classes):
+            for index in range(tot_cayley_graph_classes):
                 print("")
                 print("EC class", index, ":")
                 c_b = pair_c_b_list[index]
@@ -1339,7 +1337,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                     b = Integer(c_b[1])
                     fb = f(b)
                     fbc = bentf.extended_translate(b, c, fb)
-                    bent_fbc = BentFunction([fbc(x) for x in xsrange(v)])
+                    bent_fbc = BentFunction([fbc(x) for x in range(v)])
                     p = bent_fbc.algebraic_normal_form()
                     print("Algebraic normal form of representative:", p)
                     g = Graph(cayley_graph_class_list[index])
@@ -1401,7 +1399,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                     print("Weight distribution:", end=' ')
                     wd = lc.weight_distribution()
                     print(dict([
-                        (w,wd[w]) for w in xsrange(len(wd)) if wd[w] > 0]))
+                        (w,wd[w]) for w in range(len(wd)) if wd[w] > 0]))
 
 
         p = self.algebraic_normal_form
@@ -1551,7 +1549,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
 
         print_latex_header()
         cg_list = self.cayley_graph_class_list
-        for n in xsrange(len(cg_list)):
+        for n in range(len(cg_list)):
             if n > 0 and n % rows_per_table == 0:
                 print_latex_footer()
                 print("\\newpage")
@@ -1670,9 +1668,9 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             for lc in lc_156]
 
         cg_list = self.cayley_graph_class_list
-        for n in xsrange(len(cg_list)):
+        for n in range(len(cg_list)):
             cg = cg_list[n]
-            for k in xsrange(len(sr_155)):
+            for k in range(len(sr_155)):
                 if cg == sr_155[k]:
                     print(n, "&", end=' ')
                     print_latex_code_parameters(lc_155[k])
@@ -1680,7 +1678,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                     print(k + 1, end=' ')
                     print("}")
                     print("\\\\")
-            for k in xsrange(len(sr_156)):
+            for k in range(len(sr_156)):
                 if cg == sr_156[k]:
                     print(n, "&", end=' ')
                     print_latex_code_parameters(lc_156[k])
@@ -1800,7 +1798,7 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                 cg_class_file,
                 fieldnames=fieldnames)
             writer.writeheader()
-            for n in xsrange(len(cg_list)):
+            for n in range(len(cg_list)):
                     writer.writerow({
                         "cayley_graph_index":
                             n,
@@ -1888,8 +1886,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
                 fieldnames=fieldnames)
             writer.writeheader()
 
-            for c in xsrange(v):
-                for b in xsrange(v):
+            for c in range(v):
+                for b in range(v):
                     row_dict = {
                         "b":
                             b,

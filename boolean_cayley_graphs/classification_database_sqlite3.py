@@ -21,13 +21,11 @@ AUTHORS:
 
 
 from builtins import str
-from builtins import range
 import hashlib
 import os
 import sqlite3
 
 #from exceptions import OSError
-from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
 
 from boolean_cayley_graphs.bent_function import BentFunction

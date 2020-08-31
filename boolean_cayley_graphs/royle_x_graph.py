@@ -20,7 +20,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from sage.arith.srange import xsrange
 from sage.combinat.combination import Combinations
 from sage.graphs.graph import Graph
 from sage.modules.vector_integer_dense import vector
@@ -58,16 +57,16 @@ def royle_x_graph():
     order = 64
 
     vecs = [vector([1]*n)]
-    for a in Combinations(xsrange(1, n), 4):
+    for a in Combinations(range(1, n), 4):
         vecs.append(vector([
             -1 if x in a else 1
-               for x in xsrange(n)]))
-    for b in Combinations(xsrange(n), 2):
+               for x in range(n)]))
+    for b in Combinations(range(n), 2):
         vecs.append(vector([
             -1 if x in b else 1
-               for x in xsrange(n)]))
+               for x in range(n)]))
 
     return Graph([
-        (i,j) for i in xsrange(order)
-              for j in xsrange(i+1, order)
+        (i,j) for i in range(order)
+              for j in range(i+1, order)
               if vecs[i]*vecs[j] == 0])

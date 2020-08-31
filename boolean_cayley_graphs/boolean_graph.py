@@ -22,7 +22,6 @@ AUTHORS:
 
 from math import log
 
-from sage.arith.srange import xsrange
 from sage.graphs.graph import Graph
 from sage.matrix.constructor import matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
@@ -158,8 +157,8 @@ class BooleanGraph(Graph, Saveable):
 
         # Check that the mapping is linear on each pair of basis vectors.
         dim = Integer(log(self.order(), 2))
-        for a in xsrange(dim):
-            for b in xsrange(a + 1, dim):
+        for a in range(dim):
+            for b in range(a + 1, dim):
                 if mapping[2**a] ^ mapping[2**b] != mapping[(2**a) ^ (2**b)]:
                     return (False,None) if certificate else False
 
@@ -171,6 +170,6 @@ class BooleanGraph(Graph, Saveable):
         # Create the G(2) matrix corresponding to the mapping.
         mapping_matrix = matrix(GF(2), [
             base2(dim, Integer(mapping[2**a]))
-            for a in xsrange(dim)]).transpose()
+            for a in range(dim)]).transpose()
         return (True, mapping_matrix)
 

@@ -26,7 +26,6 @@ AUTHORS:
 #*****************************************************************************
 
 from builtins import str
-from sage.arith.srange import xsrange
 from sage.coding.linear_code import LinearCode
 from sage.matrix.constructor import matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
@@ -79,12 +78,12 @@ def boolean_linear_code(dim, f):
     v = 2 ** dim
     support = [
         y
-        for y in xsrange(v)
+        for y in range(v)
         if f(y) == 1]
     M = matrix(GF(2), [[
         inner(2 ** k, y)
         for y in support]
-        for k in xsrange(dim)])
+        for k in range(dim)])
     return LinearCode(M)
 
 

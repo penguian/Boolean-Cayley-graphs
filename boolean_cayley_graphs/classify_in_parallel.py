@@ -20,7 +20,6 @@ AUTHORS:
 #*****************************************************************************
 
 from builtins import str
-from builtins import range
 from sage.functions.other import Function_ceil
 from sage.parallel.decorate import parallel
 

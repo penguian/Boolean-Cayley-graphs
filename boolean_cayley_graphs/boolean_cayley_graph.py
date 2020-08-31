@@ -38,7 +38,6 @@ Bernasconi and Codenotti [BC1999]_.
 #*****************************************************************************
 
 
-from sage.arith.srange import srange
 from sage.graphs.graph import Graph
 
 
@@ -82,6 +81,6 @@ def boolean_cayley_graph(dim, f):
         [1 0 1 0]
 
     """
-    return Graph([srange(2 ** dim), lambda i, j: f(i ^ j)],
+    return Graph([range(2 ** dim), lambda i, j: f(i ^ j)],
                  format="rule",
                  immutable=True)

@@ -25,7 +25,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from builtins import range
 import glob
 import os
 import shelve

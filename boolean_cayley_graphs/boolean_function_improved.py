@@ -36,7 +36,6 @@ EXAMPLES:
 import binascii
 import csv
 
-from sage.arith.srange import xsrange
 from sage.crypto.boolean_function import BooleanFunction
 from sage.modules.vector_mod2_dense import vector
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
@@ -544,7 +543,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             return (False, None) if certificate else False
         self_et = self.extended_translate()
         v = 2 ** dim
-        for ix in xsrange(v):
+        for ix in range(v):
             x = vector(GF(2),base2(dim, ix))
             if Integer(other(list(M * x))) != self_et(ix):
                 return (False, None) if certificate else False

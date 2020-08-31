@@ -39,8 +39,6 @@ REFERENCES:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from builtins import range
-from sage.arith.srange import xsrange
 from sage.graphs.graph import Graph
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.misc.banner import require_version
@@ -268,9 +266,9 @@ class BentFunction(BooleanFunctionImproved):
         result = matrix(v, v)
         dual_self = self.walsh_hadamard_dual()
         dual_f = dual_self.extended_translate()
-        for c in xsrange(v):
+        for c in range(v):
             result[c,:] = matrix([self.extended_translate(0, c, dual_f(c))(x)
-                                for x in xsrange(v)])
+                                for x in range(v)])
         return result
 
 

@@ -20,7 +20,6 @@ AUTHORS:
 #*****************************************************************************
 
 from builtins import str
-from builtins import range
 from builtins import object
 import binascii
 import hashlib
@@ -29,7 +28,6 @@ import psycopg2.extras
 
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT, quote_ident
 
-from sage.arith.srange import xsrange
 from sage.matrix.constructor import matrix
 
 from boolean_cayley_graphs.bent_function import BentFunction
