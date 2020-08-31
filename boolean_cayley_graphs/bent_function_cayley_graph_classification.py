@@ -57,7 +57,6 @@ of a bent function are defined by Leopardi [Leo2017]_.
 #*****************************************************************************
 
 
-from builtins import str
 from datetime import datetime
 from numpy import array, argwhere
 from sage.coding.linear_code import LinearCode

@@ -19,7 +19,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from builtins import str
 from sage.functions.other import Function_ceil
 from sage.parallel.decorate import parallel
 

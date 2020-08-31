@@ -25,7 +25,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from builtins import str
 from sage.coding.linear_code import LinearCode
 from sage.matrix.constructor import matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF

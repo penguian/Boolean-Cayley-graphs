@@ -20,7 +20,6 @@ AUTHORS:
 #*****************************************************************************
 
 
-from builtins import str
 import hashlib
 import os
 import sqlite3

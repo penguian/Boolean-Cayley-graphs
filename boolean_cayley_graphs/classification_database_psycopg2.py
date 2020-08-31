@@ -19,7 +19,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from builtins import str
 from builtins import object
 import binascii
 import hashlib
