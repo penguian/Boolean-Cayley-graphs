@@ -469,6 +469,8 @@ class BentFunctionCayleyGraphClassPart(SageObject, Saveable):
             sage: print(c1 == c2)
             True
         """
+        if other is None:
+            return False
         return (
             self.algebraic_normal_form == other.algebraic_normal_form and
             self.cayley_graph_class_list == other.cayley_graph_class_list and
@@ -1083,6 +1085,8 @@ class BentFunctionCayleyGraphClassification(BentFunctionCayleyGraphClassPart):
             sage: print(c1 == c2)
             True
         """
+        if other is None:
+            return False
         return (
             self.algebraic_normal_form == other.algebraic_normal_form and
             self.cayley_graph_class_list == other.cayley_graph_class_list and
