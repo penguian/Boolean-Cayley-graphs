@@ -1,5 +1,6 @@
 r"""
 """
+from __future__ import print_function
 #*****************************************************************************
 #       Copyright (C) 2017 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -9,6 +10,7 @@ r"""
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import str
 import sys
 
 from mpi4py import MPI
@@ -20,7 +22,7 @@ r"""
 """
 # Check that the correct number of arguments exist.
 if len(sys.argv) != 4:
-    print "Usage: save_dim_in_mpi_parallel dim fnbr c_len"
+    print("Usage: save_dim_in_mpi_parallel dim fnbr c_len")
     sys.exit(1)
 
 # Convert the arguments to int.

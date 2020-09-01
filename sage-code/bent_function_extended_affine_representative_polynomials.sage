@@ -12,6 +12,7 @@ of bent functions.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import range
 from sage.crypto.boolean_function import BooleanFunction
 
 
@@ -117,33 +118,33 @@ def print_latex_table_of_representative_polynomials(
     \end{array}
 
     """
-    print "\\def\\arraystretch{1.2}"
-    print "\\begin{array}{|cl|}"
-    print "\\hline"
-    print "\\text{Class} &"
-    print "\\text{Representative}"
-    print "\\\\"
-    print "\\hline"
+    print("\\def\\arraystretch{1.2}")
+    print("\\begin{array}{|cl|}")
+    print("\\hline")
+    print("\\text{Class} &")
+    print("\\text{Representative}")
+    print("\\\\")
+    print("\\hline")
 
     p = bent_function_extended_affine_representative_polynomials(dimension)
 
-    for n in xrange(start, len(p)):
+    for n in range(start, len(p)):
         boolf = BooleanFunction(p[n])
         f = boolf.algebraic_normal_form()
-        print "\\,[f_{",dimension,",",n,"}] & f_{",dimension,",",n,"} :="
-        print "\\begin{array}{l}"
+        print("\\,[f_{",dimension,",",n,"}] & f_{",dimension,",",n,"} :=")
+        print("\\begin{array}{l}")
         lf = latex(f)
         cut = 0
         while cut >= 0 and len(lf) > width:
             cut = lf.rfind('+', 0, width)
             if cut > 0:
-                print lf[:cut]
+                print(lf[:cut])
             if cut >= 0 and cut < len(lf):
-                print "\\\\"
-                print "+\\,",
+                print("\\\\")
+                print("+\\,", end=' ')
             lf = lf[cut + 1:]
-        print lf
-        print "\\end{array}"
-        print "\\\\"
-    print "\\hline"
-    print "\\end{array}"
+        print(lf)
+        print("\\end{array}")
+        print("\\\\")
+    print("\\hline")
+    print("\\end{array}")

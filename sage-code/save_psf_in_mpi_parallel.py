@@ -1,5 +1,6 @@
 r"""
 """
+from __future__ import print_function
 #*****************************************************************************
 #       Copyright (C) 2017 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -9,6 +10,7 @@ r"""
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import str
 import sys
 
 from mpi4py import MPI
@@ -21,7 +23,7 @@ r"""
 """
 # Check that the correct number of arguments exist.
 if len(sys.argv) < 4:
-    print "Usage: save_psf_in_mpi_parallel psf_seq bnbr fnbr c_len [dir]"
+    print("Usage: save_psf_in_mpi_parallel psf_seq bnbr fnbr c_len [dir]")
     sys.exit(1)
 
 # Convert the arguments to int.
@@ -52,14 +54,14 @@ v = 2 ** dim
 # the Integer v // c_len, and the remainder v % c_len must be 0.
 nbr_parts_per_bentf, remainder_v = divmod(v, c_len)
 if remainder_v != 0:
-    print "c_len is not a factor of 2 ** dim. Remainder is", remainder_v
+    print("c_len is not a factor of 2 ** dim. Remainder is", remainder_v)
     exit(1)
 
 # This script also assumes that size is an integer multiple of
 # the number of parts per bent function.
 remainder_s = size % nbr_parts_per_bentf
 if remainder_s != 0:
-    print "nbr_parts_per_bentf is not a factor of size. Remainder is", remainder_s
+    print("nbr_parts_per_bentf is not a factor of size. Remainder is", remainder_s)
     exit(1)
 
 # Obtain the correct bent function for this rank

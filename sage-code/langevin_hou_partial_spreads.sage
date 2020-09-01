@@ -12,6 +12,7 @@ r"""
 
 import re
 
+encoding = 'UTF-8'
 
 def read_langevin_hou_anf_list(anf_file):
     r"""
@@ -30,7 +31,7 @@ def read_langevin_hou_anf_list(anf_file):
     anf_list = [None]
     line = None
     while line != '':
-        line = anf_file.readline()
+        line = anf_file.readline().decode(encoding)
         match = re.match('anf=(.*)', line)
 
         if match != None:

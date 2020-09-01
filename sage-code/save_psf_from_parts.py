@@ -1,5 +1,6 @@
 r"""
 """
+from __future__ import print_function
 #*****************************************************************************
 #       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -9,6 +10,7 @@ r"""
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
+from builtins import str
 import sys
 
 from sage.all_cmdline import *
@@ -20,7 +22,7 @@ r"""
 """
 # Check that the correct number arguments exist.
 if len(sys.argv) < 3:
-    print "Usage: save_psf_from_parts seq_nbr fnbr [dir]"
+    print("Usage: save_psf_from_parts seq_nbr fnbr [dir]")
     sys.exit(1)
 
 # Convert the arguments to int.
@@ -48,9 +50,9 @@ if (c.algebraic_normal_form == c_check.algebraic_normal_form and
     c.bent_cayley_graph_index_matrix == c_check.bent_cayley_graph_index_matrix and
     c.dual_cayley_graph_index_matrix == c_check.dual_cayley_graph_index_matrix and
     c.weight_class_matrix == c_check.weight_class_matrix):
-    print "Check succeeded."
+    print("Check succeeded.")
 else:
-    print "Check failed."
+    print("Check failed.")
     sys.exit(1)
 
 quit
