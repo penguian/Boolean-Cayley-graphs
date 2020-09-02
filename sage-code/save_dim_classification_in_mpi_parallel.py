@@ -1,6 +1,5 @@
 r"""
 """
-from __future__ import print_function
 #*****************************************************************************
 #       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -10,7 +9,6 @@ from __future__ import print_function
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from builtins import str
 import sys
 
 from mpi4py import MPI
