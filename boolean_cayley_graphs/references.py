@@ -21,7 +21,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from __future__ import print_function
 
 from collections import OrderedDict
 from string import ascii_uppercase
@@ -290,7 +289,7 @@ Integers: Electronic Journal Of Combinatorial Number Theory,
 
 bibitem["Sti2007"] = ("""D. R. Stinson.
 *Combinatorial designs: constructions and analysis*.
-Springer Science \& Business Media, (2007).
+Springer Science \\& Business Media, (2007).
 """)
 
 bibitem["SageMath7517"] = ("""The Sage Developers.
@@ -405,7 +404,7 @@ def print_sage_references():
                     combinatorial designs*, chapter VII.1,  677--701. CRC press, second edition,
                     (2007).
     """
-    for citation in bibitem.iterkeys():
+    for citation in bibitem.keys():
         print(sage_reference(citation))
         print()
 
@@ -461,7 +460,7 @@ def print_sage_references_index_rst(file=stdout):
     citations_starting_with = dict()
     for letter in ascii_uppercase:
         citations_starting_with[letter] = [
-            cite for cite in bibitem.iterkeys() if cite[0] == letter]
+            cite for cite in bibitem.keys() if cite[0] == letter]
         if len(citations_starting_with[letter]) > 0:
             print(":ref:`"+letter+" <ref-"+letter+">`", file=file)
     print("", file=file)

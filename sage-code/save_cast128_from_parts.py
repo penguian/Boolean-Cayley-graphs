@@ -20,7 +20,7 @@ r"""
 """
 # Check that the correct number arguments exist.
 if len(sys.argv) != 3:
-    print "Usage: save_cast128_from_parts bnbr fnbr"
+    print("Usage: save_cast128_from_parts bnbr fnbr")
     sys.exit(1)
 
 # Convert the arguments to int.
@@ -47,9 +47,9 @@ if (c.algebraic_normal_form == c_check.algebraic_normal_form and
     c.bent_cayley_graph_index_matrix == c_check.bent_cayley_graph_index_matrix and
     c.dual_cayley_graph_index_matrix == c_check.dual_cayley_graph_index_matrix and
     c.weight_class_matrix == c_check.weight_class_matrix):
-    print "Check succeeded."
+    print("Check succeeded.")
 else:
-    print "Check failed."
+    print("Check failed.")
     sys.exit(1)
 
 quit

@@ -1,4 +1,5 @@
 #!/bin/bash
+export SAGE_PKGS=$HOME/.sage
 export SAGE_PATH=$(pwd)/sage-code:$(pwd)
 export PYTHONPATH=$SAGE_PATH:$PYTHONPATH
 PACKAGE_DIR="boolean_cayley_graphs"
@@ -13,7 +14,7 @@ try:
 except:
     sys.exit(1)
 "
-if python -c "${IS_POSTGRES_RUNNING}"
+if python3 -c "${IS_POSTGRES_RUNNING}"
 then
     sage -t ${WHOLE_PACKAGE}
 else

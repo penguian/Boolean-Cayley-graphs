@@ -26,7 +26,7 @@ from sage.matrix.constructor import matrix
 from sage.misc.lazy_attribute import lazy_attribute
 from sage.rings.finite_rings.finite_field_constructor import GF
 
-from graph_improved import GraphImproved
+from .graph_improved import GraphImproved
 
 
 class StronglyRegularGraph(GraphImproved):
@@ -70,9 +70,6 @@ class StronglyRegularGraph(GraphImproved):
         ...
         \Edge[lw=0.1cm,style={color=cv0v1,},](v0)(v1)
         ...
-        \Edge[lw=0.1cm,style={color=cv58v63,},](v58)(v63)
-        ...
-        %
         \end{tikzpicture}
     """
     def __init__(self, graph=None, **kwargs):
@@ -179,18 +176,12 @@ class StronglyRegularGraph(GraphImproved):
 
         ::
 
-            sage: from sage.graphs.graph import Graph
             sage: from boolean_cayley_graphs.royle_x_graph import royle_x_graph
             sage: g = royle_x_graph()
             sage: from boolean_cayley_graphs.strongly_regular_graph import StronglyRegularGraph
             sage: srg = StronglyRegularGraph(g)
-            sage: sag = srg.automorphism_group 
-            sage: gag = Graph.automorphism_group(g)
-            sage: sag == gag
-            True
-            sage: sag.order()
-            2580480
-
+            sage: srg.automorphism_group.structure_description()
+            '(C2 x C2 x C2 x C2 x C2 x C2) : S8'
         """
         return Graph.automorphism_group(self)
 

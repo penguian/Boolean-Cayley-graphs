@@ -31,7 +31,7 @@ REFERENCES:
 
 """
 #*****************************************************************************
-#       Copyright (C) 2016-2017 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2020 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -39,7 +39,6 @@ REFERENCES:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from sage.arith.srange import xsrange
 from sage.graphs.graph import Graph
 from sage.graphs.strongly_regular_db import strongly_regular_from_two_weight_code
 from sage.misc.banner import require_version
@@ -131,7 +130,7 @@ class BentFunction(BooleanFunctionImproved):
             (True, [{7, 11, 12}, {3, 13, 14}])
         """
         dim = self.nvariables()
-        reqd_clique_size = 2 ** (dim / 2)
+        reqd_clique_size = 2 ** (dim // 2)
         cayley = self.cayley_graph()
         cliques_0 = cayley.cliques_containing_vertex(0)
         reqd_cliques = [
@@ -267,9 +266,9 @@ class BentFunction(BooleanFunctionImproved):
         result = matrix(v, v)
         dual_self = self.walsh_hadamard_dual()
         dual_f = dual_self.extended_translate()
-        for c in xsrange(v):
+        for c in range(v):
             result[c,:] = matrix([self.extended_translate(0, c, dual_f(c))(x)
-                                for x in xsrange(v)])
+                                for x in range(v)])
         return result
 
 
@@ -309,18 +308,18 @@ class BentFunction(BooleanFunctionImproved):
             Versions of Sage before 8.2 had an incorrect sign in
             ``BooleanFunction.walsh_hadamard_transform(self)``.
             See [Sage trac ticket #23931](https://trac.sagemath.org/ticket/23931)
-            Previous versions of this method had ``1 + x/scale`` to compensate for
+            Previous versions of this method had ``1 + x // scale`` to compensate for
             an incorrect sign in ``BooleanFunction.walsh_hadamard_transform(self)``.
             [Since this has now been fixed in Sage 8.2](https://trac.sagemath.org/ticket/23931)
-            this is now changed to ``1 - x/scale``.
+            this is now changed to ``1 - x // scale``.
         """
         dim = self.nvariables()
-        scale = 2 ** (dim/2)
+        scale = 2 ** (dim // 2)
         coefficient = lambda x: (
-                (1 - x/scale)/2
+                (1 - x // scale) // 2
             if require_version(8,2,0)
             else
-                (1 + x/scale)/2)
+                (1 + x // scale) // 2)
         return BentFunction([coefficient(x) for x in self.walsh_hadamard_transform()])
 
 

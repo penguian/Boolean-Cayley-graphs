@@ -20,7 +20,7 @@ r"""
 """
 # Check that the correct number of arguments exist.
 if len(sys.argv) != 4:
-    print "Usage: save_dim_in_mpi_parallel dim fnbr c_len"
+    print("Usage: save_dim_in_mpi_parallel dim fnbr c_len")
     sys.exit(1)
 
 # Convert the arguments to int.

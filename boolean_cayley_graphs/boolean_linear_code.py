@@ -25,7 +25,6 @@ AUTHORS:
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from sage.arith.srange import xsrange
 from sage.coding.linear_code import LinearCode
 from sage.matrix.constructor import matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
@@ -78,12 +77,12 @@ def boolean_linear_code(dim, f):
     v = 2 ** dim
     support = [
         y
-        for y in xsrange(v)
+        for y in range(v)
         if f(y) == 1]
     M = matrix(GF(2), [[
         inner(2 ** k, y)
         for y in support]
-        for k in xsrange(dim)])
+        for k in range(dim)])
     return LinearCode(M)
 
 
@@ -151,7 +150,7 @@ def print_latex_code_parameters(c):
         sage: print_latex_code_parameters(c)
         [5,4,1]
     """
-    print (
+    print((
         "[" + str(c.length()) +
         "," + str(c.dimension()) +
-        "," + str(c.minimum_distance()) + "]"),
+        "," + str(c.minimum_distance()) + "]"), end=' ')
