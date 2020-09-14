@@ -14,7 +14,6 @@ AUTHORS:
 - Paul Leopardi (2018-06-17): initial version
 
 """
-from __future__ import print_function
 
 #*****************************************************************************
 #       Copyright (C) 2018 Paul Leopardi paul.leopardi@gmail.com
@@ -27,7 +26,6 @@ from __future__ import print_function
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import range
 import dash
 import dash_core_components as dcc
 import dash.dependencies as dd
