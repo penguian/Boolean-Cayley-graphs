@@ -24,7 +24,7 @@ setuptools.setup(
     install_requires=["numpy","psycopg2","sagemath"],
     dependency_links=["https://pypi.org/project/"],
     classifiers=[
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.7",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],
