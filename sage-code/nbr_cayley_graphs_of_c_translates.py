@@ -26,7 +26,7 @@ def nbr_cayley_graphs_of_c_translates(anf_list, n):
     """
 
     if controls.verbose and controls.timing:
-        print n
+        print(n)
 
     anf = anf_list[n]
     bentf = BentFunction(anf)
@@ -34,7 +34,7 @@ def nbr_cayley_graphs_of_c_translates(anf_list, n):
     len_cg_list = len(cg_list)
 
     if controls.verbose:
-        print n, ":", len_cg_list
+        print(n, ":", len_cg_list)
 
     return len_cg_list
 

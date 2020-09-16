@@ -21,7 +21,7 @@ from boolean_cayley_graphs.classification_database_psycopg2 import *
 
 def populate_bfcg_database(dbname, nbr_f):
 
-    print dbname, ":"
+    print(dbname, ":")
     conn = create_classification_tables(
         dbname,
         user=auth["user"],
@@ -35,7 +35,7 @@ def populate_bfcg_database(dbname, nbr_f):
         cgc = BentFunctionCayleyGraphClassification.load_mangled(
             sobj_name,
             directory="../sobj")
-        print datetime.datetime.now(), stri
+        print(datetime.datetime.now(), stri)
         insert_classification(
             conn,
             cgc,
@@ -46,7 +46,7 @@ def populate_bfcg_database(dbname, nbr_f):
         cgc_check.report()
 
     conn.close()
-    print datetime.datetime.now()
+    print(datetime.datetime.now())
 
 
 with open("postgresql-auth.json") as auth_file:

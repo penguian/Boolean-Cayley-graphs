@@ -37,24 +37,24 @@ for i in range(1,9):
         cgc = BentFunctionCayleyGraphClassification.load_mangled(
             sobj_name,
             directory="/data/sobj")
-        print datetime.datetime.now(), stri, strj
+        print(datetime.datetime.now(), stri, strj)
         insert_classification(conn, cgc, name)
-print datetime.datetime.now()
+print(datetime.datetime.now())
 
 curs = conn.cursor()
-print datetime.datetime.now(), "before"
+print(datetime.datetime.now(), "before")
 curs.execute("SELECT COUNT(*) FROM cayley_graph")
-print datetime.datetime.now(), "after"
+print(datetime.datetime.now(), "after")
 for row in curs:
     for x in row:
-        print x
+        print(x)
 
-print datetime.datetime.now(), "before"
+print(datetime.datetime.now(), "before")
 curs.execute("SELECT COUNT(*) FROM graph")
-print datetime.datetime.now(), "after"
+print(datetime.datetime.now(), "after")
 for row in curs:
     for x in row:
-        print x
+        print(x)
 
 cgc1 = select_classification_where_name(
     conn,

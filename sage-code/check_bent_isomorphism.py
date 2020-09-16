@@ -33,8 +33,8 @@ def check_bent_isomorphism(dim, k, certify=False):
     """
     v = 2 ** dim
     nbent = 0
-    for a in Combinations(xrange(1, v), k):
-        t = [1 if x in a else 0 for x in xrange(v)]
+    for a in Combinations(range(1, v), k):
+        t = [1 if x in a else 0 for x in range(v)]
         f = BooleanFunctionImproved(t)
         f_is_bent = f.is_bent()
         if f_is_bent:
@@ -42,17 +42,17 @@ def check_bent_isomorphism(dim, k, certify=False):
             g = f.cayley_graph()
             if nbent == 1:
                 g0 = g
-                print g.is_strongly_regular(parameters=True)
+                print(g.is_strongly_regular(parameters=True))
                 if certify:
-                    print t
+                    print(t)
             else:
                 if certify:
                     g_is_iso, iso = g.is_isomorphic(g0, certify=True)
                 else:
                     g_is_iso = g.is_isomorphic(g0)
                 if not g_is_iso:
-                    print a
+                    print(a)
                     return nbent
                 elif certify:
-                    print t, iso
+                    print(t, iso)
     return nbent

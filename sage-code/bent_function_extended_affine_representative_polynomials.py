@@ -12,7 +12,6 @@ of bent functions.
 #                  http://www.gnu.org/licenses/
 #*****************************************************************************
 
-from builtins import range
 from sage.crypto.boolean_function import BooleanFunction
 
 
