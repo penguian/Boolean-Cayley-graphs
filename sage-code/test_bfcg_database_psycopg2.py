@@ -21,7 +21,7 @@ from boolean_cayley_graphs.classification_database_psycopg2 import *
 
 def check_bfcg_database(auth, dbname, nbr_f):
     
-    print dbname, ":"
+    print(dbname, ":")
     conn = connect_to_database(
         dbname,
         user=auth["user"],
@@ -31,14 +31,14 @@ def check_bfcg_database(auth, dbname, nbr_f):
     for i in range(1, nbr_f + 1):
         stri = ("%01d" if nbr_f < 10 else "%02d") % i 
         name = dbname + "_" + stri
-        print datetime.datetime.now(), stri
+        print(datetime.datetime.now(), stri)
         cgc_check = select_classification_where_name(
             conn,
             name)
         cgc_check.report()
 
     conn.close()
-    print datetime.datetime.now()
+    print(datetime.datetime.now())
 
 
 with open("postgresql-auth.json") as auth_file:

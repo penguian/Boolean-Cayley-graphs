@@ -19,7 +19,7 @@ def list_to_int(blist):
     """
     Given the list `blist` representing the binary expansion of a positive integer $n$, the function `list_to_int` returns $n$.
     """
-    return sum([blist[k] * 2 ** k for k in xrange(len(blist))])
+    return sum([blist[k] * 2 ** k for k in range(len(blist))])
 
 def enumerate_linear_maps(boolf, certify=False):
     """
@@ -33,10 +33,10 @@ def enumerate_linear_maps(boolf, certify=False):
     v = 2 ** m
     mapped_ittdict = {}
     if certify:
-        for b in xrange(v):
-            for c in xrange(v):
+        for b in range(v):
+            for c in range(v):
                 mapped_f = mapf(boolf, b, c, boolf(b))
-                mapped_tt = [mapped_f(x) for x in xrange(v)]
+                mapped_tt = [mapped_f(x) for x in range(v)]
                 mapped_itt = list_to_int(mapped_tt)
                 if mapped_itt in mapped_ittdict:
                     mapped_ittdict[mapped_itt].append((b,c))
@@ -46,14 +46,14 @@ def enumerate_linear_maps(boolf, certify=False):
     ittset = set()
     ttlist = []
     for A in G.list():
-        tt = [int(linear_mapf(boolf, A)(x)) for x in xrange(v)]
+        tt = [int(linear_mapf(boolf, A)(x)) for x in range(v)]
         itt = list_to_int(tt)
         if not itt in ittset:
             ittset.add(itt)
             ttlist.append(tt)
             if certify:
                 if itt in mapped_ittdict:
-                    print mapped_ittdict[itt], ':'
-                    print A
+                    print(mapped_ittdict[itt], ':')
+                    print(A)
                     sys.stdout.flush()
     return ttlist

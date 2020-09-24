@@ -19,7 +19,7 @@ from boolean_cayley_graphs.bent_function import BentFunction
 from boolean_cayley_graphs.bent_function_cayley_graph_classification import BentFunctionCayleyGraphClassification
 from boolean_cayley_graphs.classification_database_psycopg2 import *
 
-print "Checking the Cayley graph classifications of bent functions from the CAST-128 S-boxes."
+print("Checking the Cayley graph classifications of bent functions from the CAST-128 S-boxes.")
 
 with open("postgresql-auth.json") as auth_file:
     auth = json.load(auth_file)
@@ -31,23 +31,23 @@ conn = connect_to_database(
     host=auth["host"])
 
 curs = conn.cursor()
-print datetime.datetime.now(), "before"
+print(datetime.datetime.now(), "before")
 curs.execute("SELECT COUNT(*) FROM cayley_graph")
-print datetime.datetime.now(), "after"
-print "Number of Cayley graphs of bent functions:"
+print(datetime.datetime.now(), "after")
+print("Number of Cayley graphs of bent functions:")
 for row in curs:
     for x in row:
-        print x
+        print(x)
 
-print datetime.datetime.now(), "before"
+print(datetime.datetime.now(), "before")
 curs.execute("SELECT COUNT(*) FROM graph")
-print datetime.datetime.now(), "after"
-print "Number of non-isomorphic graphs:"
+print(datetime.datetime.now(), "after")
+print("Number of non-isomorphic graphs:")
 for row in curs:
     for x in row:
-        print x
+        print(x)
 
-print "Checking cast128_8_31 by name in database:"
+print("Checking cast128_8_31 by name in database:")
 cgc1 = select_classification_where_name(
     conn,
     "cast128_8_31")
@@ -58,16 +58,16 @@ cgc2 = BentFunctionCayleyGraphClassification.load_mangled(
     directory="/data/sobj")
 bentf = BentFunction(cgc2.algebraic_normal_form)
 
-print "Checking cast128_8_31 by bent function in database:"
+print("Checking cast128_8_31 by bent function in database:")
 cgc3 = select_classification_where_bent_function(
     conn,
     bentf)
 cgc3.report()
 
-print ""
-print "Checking for graphs occuring as the Cayley graph of more than 1 bent function."
+print("")
+print("Checking for graphs occuring as the Cayley graph of more than 1 bent function.")
 curs = conn.cursor()
-print datetime.datetime.now(), "before"
+print(datetime.datetime.now(), "before")
 curs.execute("""
 select name, cayley_graph_index, graph_id, count(*)
 from matrices, (
@@ -85,12 +85,12 @@ and matrices.bent_cayley_graph_index = repeats_with_counts.cayley_graph_index
 group by name, cayley_graph_index, graph_id
 order by graph_id
 """)
-print datetime.datetime.now(), "after"
-print "Repeated graphs:"
+print(datetime.datetime.now(), "after")
+print("Repeated graphs:")
 for row in curs:
     for x in row:
-        print x,
-    print ""
+        print(x, end=' ')
+    print("")
 
 conn.close()
 

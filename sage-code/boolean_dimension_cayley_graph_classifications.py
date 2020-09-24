@@ -1,4 +1,3 @@
-
 #*****************************************************************************
 #       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
 #
@@ -33,11 +32,11 @@ def save_boolean_dimension_cayley_graph_classifications(
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    if stop == None:
+    if stop is None:
         stop = len(p)
-    for n in xrange(start, stop):
+    for n in range(start, stop):
         if verbose:
-            print 'Function', n, ':'
+            print('Function', n, ':')
         f = BentFunction(p[n])
         c[n] = BentFunctionCayleyGraphClassification.from_function(f)
         name_n = 'p'+str(dim)+'_'+str(n)
@@ -63,11 +62,11 @@ def load_boolean_dimension_cayley_graph_classifications(
 
     p = bent_function_extended_affine_representative_polynomials(dim)
     c = [None]*len(p)
-    if stop == None:
+    if stop is None:
         stop = len(p)
-    for n in xrange(start, stop):
+    for n in range(start, stop):
         if verbose:
-            print 'Function', n, ':'
+            print('Function', n, ':')
         name_n = 'p'+str(dim)+'_'+str(n)
         c[n] = BentFunctionCayleyGraphClassification.load_mangled(
             name_n,
@@ -93,10 +92,10 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
         c = self.classification_list
         self.reclassification_table = [None]*len(c)
         r = self.reclassification_table
-        for n in xsrange(len(c)):
-            if c[n] != None:
+        for n in range(len(c)):
+            if c[n] is not None:
                 if verbose:
-                    print n, ':'
+                    print(n, ':')
                 if self.dim == 0:
                     p = c[n].algebraic_normal_form
                     bentf = BentFunction(p)
@@ -109,12 +108,12 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
                 r[n] = matrix(5, len(cg_class_list))
 
                 c_class_counts = np.histogram(cg_index_matrix,
-                                              range(len(cg_class_list) + 1))[0]
+                                              list(range(len(cg_class_list) + 1)))[0]
                 d_class_counts = np.histogram(dg_index_matrix,
-                                              range(len(cg_class_list) + 1))[0]
+                                              list(range(len(cg_class_list) + 1)))[0]
 
                 new_cg_index_matrix = cg_index_matrix.copy()
-                for i in xrange(len(cg_class_list)):
+                for i in range(len(cg_class_list)):
                     g = cg_class_list[i]
                     reclass_index = cayley_graph_class_bijection.index_append(g)
                     r[n][0, i] = reclass_index
@@ -133,7 +132,7 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
                 c[n].bent_cayley_graph_index_matrix = new_cg_index_matrix
 
                 new_dg_index_matrix = dg_index_matrix.copy()
-                for i in xrange(len(cg_class_list)):
+                for i in range(len(cg_class_list)):
                     reclass_index = r[n][0, i]
                     new_dg_index_matrix = np.where(dg_index_matrix == i,
                                                    reclass_index,
@@ -141,7 +140,7 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
                 c[n].dual_cayley_graph_index_matrix = new_dg_index_matrix
 
                 if verbose:
-                    print r[n]
+                    print(r[n])
 
         # Get the list part of the BijectiveList.
         self.cayley_graph_class_list = cayley_graph_class_bijection.get_list()
@@ -151,7 +150,7 @@ class BooleanDimensionCayleyGraphReclassification(SageObject):
         r"""
         """
         c = self.classification_list
-        for n in xrange(len(c)):
-            if c[n] != None:
+        for n in range(len(c)):
+            if c[n] is not None:
                 figure_name = prefix + str(self.dim) + '_' + str(n)
                 c[n].save_matrix_plots(figure_name, cmap=cmap)

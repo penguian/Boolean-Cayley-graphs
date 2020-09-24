@@ -34,7 +34,7 @@ def check_graph_class_list(g_list):
     """
     result = True
     n = len(g_list)
-    for i in xrange(n):
-        for j in xrange(i + 1, n):
+    for i in range(n):
+        for j in range(i + 1, n):
             result &= not graphs_are_isomorphic(g_list[i], g_list[j])
     return result
