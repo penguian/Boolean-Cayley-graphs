@@ -214,6 +214,30 @@ def create_classification_tables(db_name):
 
 
 def canonical_label_hash(g):
+    """
+    Hash a graph canonical label.
+    
+    INPUT:
+    
+    - ``g`` -- a graph canonical label.
+    
+    OUTPUT: A hash digest as a bytes object.
+    
+    EXAMPLE:
+    
+    ::
+        
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: cayley_graph = bentf.extended_cayley_graph()
+        sage: cgcl = cayley_graph.canonical_label().graph6_string()
+        sage: cgcl_hash = canonical_label_hash(cgcl)
+        sage: print(type(cgcl_hash))
+        <class 'bytes'>
+        sage: print(len(cgcl_hash))
+        32
+    """
     encoding = "UTF-8"
     bytes_g = bytes(g, encoding)
     return hashlib.sha256(bytes_g).digest()
