@@ -179,9 +179,10 @@ def create_classification_tables(db_name):
         PRIMARY KEY(nvariables, bent_function))""")
     curs.execute("""
         CREATE TABLE graph(
-        canonical_label_hash BLOB,
+        graph_id INTEGER,
+        canonical_label_hash BLOB UNIQUE,
         canonical_label TEXT,
-        PRIMARY KEY(canonical_label_hash))""")
+        PRIMARY KEY(graph_id))""")
     curs.execute("""
         CREATE TABLE cayley_graph(
         nvariables INTEGER,
@@ -306,11 +307,11 @@ def insert_classification(
         canonical_label_hash(cgc)
         for cgc in cgcl]
     graph_param_list = [
-        (cgc_hash_list[n], cgcl[n])
+        (None, cgc_hash_list[n], cgcl[n])
         for n in range(cgcl_len)]
     curs.executemany("""
         INSERT OR IGNORE INTO graph
-        VALUES (?,?)""",
+        VALUES (?,?,?)""",
         graph_param_list)
 
     cayley_graph_param_list = [
