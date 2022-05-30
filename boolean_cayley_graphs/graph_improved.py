@@ -104,4 +104,4 @@ class GraphImproved(Graph, Saveable):
             40*t^2 + 16*t + 1
         """
         Graph.__init__(self, graph, **kwargs)
-        self.stored_clique_polynomial = graph.clique_polynomial()
+        self.stored_clique_polynomial = self.clique_polynomial()

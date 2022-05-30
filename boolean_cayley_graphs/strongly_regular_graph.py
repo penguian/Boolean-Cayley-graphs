@@ -26,7 +26,7 @@ from sage.matrix.constructor import matrix
 from sage.misc.lazy_attribute import lazy_attribute
 from sage.rings.finite_rings.finite_field_constructor import GF
 
-from .graph_improved import GraphImproved
+from boolean_cayley_graphs.graph_improved import GraphImproved
 
 
 class StronglyRegularGraph(GraphImproved):

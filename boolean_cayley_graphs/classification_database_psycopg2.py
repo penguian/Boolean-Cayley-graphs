@@ -124,7 +124,7 @@ def create_database(
         sage: drop_database(dbname)
         sage: conn = create_database(dbname)
         sage: type(conn)
-        <type 'psycopg2.extensions.connection'>
+        <class 'psycopg2.extensions.connection'>
         sage: conn.close()
         sage: drop_database(dbname)
     """
@@ -176,7 +176,7 @@ def connect_to_database(
         sage: conn.close()
         sage: con2 = connect_to_database(dbname)
         sage: type(con2)
-        <type 'psycopg2.extensions.connection'>
+        <class 'psycopg2.extensions.connection'>
         sage: con2.close()
         sage: drop_database(dbname)
     """
@@ -218,7 +218,7 @@ def drop_database(
         sage: drop_database(dbname)
         sage: conn = create_database(dbname)
         sage: type(conn)
-        <type 'psycopg2.extensions.connection'>
+        <class 'psycopg2.extensions.connection'>
         sage: conn.close()
         sage: drop_database(dbname)
         sage: drop_database(dbname)
@@ -354,7 +354,7 @@ def canonical_label_hash(canonical_label):
         sage: from boolean_cayley_graphs.classification_database_psycopg2 import *
         sage: clh = canonical_label_hash("Arbitrary string")
         sage: type(clh)
-        <type 'psycopg2.extensions.Binary'>
+        <class 'psycopg2.extensions.Binary'>
     """
     # return psycopg2.Binary(buffer(hashlib.sha256(canonical_label).digest()))
     encoded_canonical_label = canonical_label.encode(encoding)
@@ -641,7 +641,7 @@ def select_classification_where_bent_function_cayley_graph(
         sage: insert_classification(conn, bfcgc1, 'bentf1')
         sage: result = select_classification_where_bent_function_cayley_graph(conn, bentf1)
         sage: type(result)
-        <type 'list'>
+        <class 'list'>
         sage: len(result)
         2
         sage: sorted_result = sorted(result, key=lambda c: str(c.algebraic_normal_form))

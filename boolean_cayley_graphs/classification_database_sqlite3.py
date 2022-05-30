@@ -53,7 +53,7 @@ def create_database(db_name):
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
         sage: conn = create_database(db_name)
         sage: type(conn)
-        <type 'sqlite3.Connection'>
+        <class 'sqlite3.Connection'>
         sage: drop_database(db_name)
     """
     conn = sqlite3.connect(db_name)
@@ -84,7 +84,7 @@ def connect_to_database(db_name):
         sage: conn = create_database(db_name)
         sage: con2 = connect_to_database(db_name)
         sage: type(con2)
-        <type 'sqlite3.Connection'>
+        <class 'sqlite3.Connection'>
         sage: drop_database(db_name)
     """
     if os.path.isfile(db_name):
@@ -512,7 +512,7 @@ def select_classification_where_bent_function_cayley_graph(
         sage: insert_classification(conn, bfcgc1, 'bentf1')
         sage: result = select_classification_where_bent_function_cayley_graph(conn, bentf1)
         sage: type(result)
-        <type 'list'>
+        <class 'list'>
         sage: len(result)
         2
         sage: sorted_result = sorted(result, key=lambda c: str(c.algebraic_normal_form))
