@@ -53,7 +53,7 @@ def create_database(db_name):
         sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
         sage: conn = create_database(db_name)
         sage: type(conn)
-        <type 'sqlite3.Connection'>
+        <class 'sqlite3.Connection'>
         sage: drop_database(db_name)
     """
     conn = sqlite3.connect(db_name)
@@ -84,7 +84,7 @@ def connect_to_database(db_name):
         sage: conn = create_database(db_name)
         sage: con2 = connect_to_database(db_name)
         sage: type(con2)
-        <type 'sqlite3.Connection'>
+        <class 'sqlite3.Connection'>
         sage: drop_database(db_name)
     """
     if os.path.isfile(db_name):
@@ -188,12 +188,12 @@ def create_classification_tables(db_name):
         nvariables INTEGER,
         bent_function BLOB,
         cayley_graph_index INTEGER,
-        graph_id INTEGER,
+        canonical_label_hash BLOB,
         FOREIGN KEY(nvariables, bent_function)
             REFERENCES bent_function(nvariables, bent_function),
-        FOREIGN KEY(graph_id)
-            REFERENCES graph(graph_id),
-        PRIMARY KEY(bent_function, cayley_graph_index))""")
+        FOREIGN KEY(canonical_label_hash)
+            REFERENCES graph(canonical_label_hash),
+        PRIMARY KEY(nvariables, bent_function, cayley_graph_index))""")
     curs.execute("""
         CREATE TABLE matrices(
         nvariables INTEGER,
@@ -205,19 +205,46 @@ def create_classification_tables(db_name):
         weight_class INTEGER,
         FOREIGN KEY(nvariables, bent_function)
             REFERENCES bent_function(nvariables, bent_function),
-        FOREIGN KEY(bent_function, bent_cayley_graph_index)
-            REFERENCES cayley_graph(bent_function, cayley_graph_index),
-        FOREIGN KEY(bent_function, dual_cayley_graph_index)
-            REFERENCES cayley_graph(bent_function, cayley_graph_index),
-        PRIMARY KEY(bent_function, b, c))""")
+        FOREIGN KEY(nvariables, bent_function, bent_cayley_graph_index)
+            REFERENCES cayley_graph(nvariables, bent_function, cayley_graph_index),
+        FOREIGN KEY(nvariables, bent_function, dual_cayley_graph_index)
+            REFERENCES cayley_graph(nvariables, bent_function, cayley_graph_index),
+        PRIMARY KEY(nvariables, bent_function, b, c))""")
     conn.commit()
     return conn
 
 
 def canonical_label_hash(g):
+    """
+    Hash a graph canonical label.
+    
+    INPUT:
+    
+    - ``g`` -- a graph canonical label.
+    
+    OUTPUT: A hash digest as a bytes object.
+    
+    EXAMPLE:
+    
+    ::
+        
+        sage: from boolean_cayley_graphs.classification_database_sqlite3 import *
+        sage: from boolean_cayley_graphs.bent_function import BentFunction
+        sage: bentf = BentFunction([0,0,0,1])
+        sage: cayley_graph = bentf.extended_cayley_graph()
+        sage: cgcl = cayley_graph.canonical_label().graph6_string()
+        sage: cgcl_hash = canonical_label_hash(cgcl)
+        sage: print(type(cgcl_hash))
+        <class 'bytes'>
+        sage: print(len(cgcl_hash))
+        32
+    """
     encoding = "UTF-8"
     bytes_g = bytes(g, encoding)
     return hashlib.sha256(bytes_g).digest()
+
+
+flatten = lambda t: [item for sublist in t for item in sublist]
 
 
 def insert_classification(
@@ -274,44 +301,42 @@ def insert_classification(
         INSERT INTO bent_function
         VALUES (?,?,?)""",
         (nvar, bftt, name))
-    for n in range(len(cgcl)):
-        cgc = cgcl[n]
-        cgc_hash = canonical_label_hash(cgc)
-        curs.execute("""
-            INSERT OR IGNORE INTO graph
-            VALUES (?,?,?)""",
-            (None, cgc_hash, cgc))
+    
+    cgcl_len = len(cgcl)
+    cgc_hash_list = [
+        canonical_label_hash(cgc)
+        for cgc in cgcl]
+    graph_param_list = [
+        (None, cgc_hash_list[n], cgcl[n])
+        for n in range(cgcl_len)]
+    curs.executemany("""
+        INSERT OR IGNORE INTO graph
+        VALUES (?,?,?)""",
+        graph_param_list)
 
-        curs.execute("""
-            SELECT graph_id
-            FROM graph
-            WHERE canonical_label_hash = (?)""",
-            (cgc_hash,))
-
-        row = curs.fetchone()
-        graph_id = row["graph_id"]
-
-        curs.execute("""
-            INSERT INTO cayley_graph
-            VALUES (?,?,?,?)""",
-            (nvar, bftt, n, graph_id))
+    cayley_graph_param_list = [
+        (nvar, bftt, n, cgc_hash_list[n])
+        for n in range(cgcl_len)]
+    curs.executemany("""
+        INSERT INTO cayley_graph
+        VALUES (?,?,?,?)""",
+        cayley_graph_param_list)
 
     v = 2 ** dim
-    for b in range(v):
-        matrices_b_rows = (
-            (
-                nvar,
-                bftt,
-                b,
-                c,
-                int(bcim[c,b]),
-                int(dcim[c,b]),
-                int(wcm[c,b]))
-            for c in range(v))
-        curs.executemany("""
-            INSERT INTO matrices
-            VALUES (?,?,?,?,?,?,?)""",
-            matrices_b_rows)
+    matrices_param_list = flatten([[(
+            nvar,
+            bftt,
+            b,
+            c,
+            int(bcim[c,b]),
+            int(dcim[c,b]),
+            int(wcm[c,b]))
+        for c in range(v)]
+        for b in range(v)])
+    curs.executemany("""
+        INSERT INTO matrices
+        VALUES (?,?,?,?,?,?,?)""",
+        matrices_param_list)
     conn.commit()
 
 
@@ -397,7 +422,7 @@ def select_classification_where_bent_function(
         FROM cayley_graph, graph
         WHERE nvariables = (?)
         AND bent_function = (?)
-        AND cayley_graph.graph_id = graph.graph_id""",
+        AND cayley_graph.canonical_label_hash = graph.canonical_label_hash""",
         (nvar, bftt))
     for row in curs:
         cayley_graph_index = row["cayley_graph_index"]
@@ -488,7 +513,7 @@ def select_classification_where_bent_function_cayley_graph(
         sage: insert_classification(conn, bfcgc1, 'bentf1')
         sage: result = select_classification_where_bent_function_cayley_graph(conn, bentf1)
         sage: type(result)
-        <type 'list'>
+        <class 'list'>
         sage: len(result)
         2
         sage: sorted_result = sorted(result, key=lambda c: str(c.algebraic_normal_form))
@@ -521,32 +546,30 @@ def select_classification_where_bent_function_cayley_graph(
         sage: conn.close()
         sage: drop_database(db_name)
     """
+    # The result is a list of classifications.
+    result = []
+
     cayley_graph = bentf.extended_cayley_graph()
     cgcl = cayley_graph.canonical_label(algorithm=algorithm).graph6_string()
     cgcl_hash = canonical_label_hash(cgcl)
 
+    # Check for a hash collision -- very unlikely.
     curs = conn.cursor()
     curs.execute("""
-        SELECT graph_id, canonical_label
+        SELECT canonical_label
         FROM graph
         WHERE canonical_label_hash = (?)""",
         (cgcl_hash,))
-
     row = curs.fetchone()
-    graph_id = row["graph_id"]
     canonical_label = row["canonical_label"]
-
-    # The result is a list of classifications.
-    result = []
-    # Check for a hash collision -- very unlikely.
     if canonical_label != cgcl:
         return result
 
     curs.execute("""
         SELECT DISTINCT nvariables, bent_function
         FROM cayley_graph
-        WHERE graph_id = (?)""",
-        (graph_id,))
+        WHERE canonical_label_hash = (?)""",
+        (cgcl_hash,))
 
     for row in curs:
         nvar = row["nvariables"]

@@ -655,7 +655,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: bf2 = BooleanFunctionImproved([0,1,0,0])
             sage: buff_bf2 = bf2.tt_buffer()
             sage: type(buff_bf2)
-            <type 'bytes'>
+            <class 'bytes'>
             sage: encoding = "UTF-8"
             sage: print(str(binascii.b2a_hex(buff_bf2), encoding))
             02
@@ -667,7 +667,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: bf3 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
             sage: buff_bf3 = bf3.tt_buffer()
             sage: type(buff_bf3)
-            <type 'bytes'>
+            <class 'bytes'>
             sage: encoding = "UTF-8"
             sage: print(str(binascii.b2a_hex(buff_bf3), encoding))
             c122
@@ -719,7 +719,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             sage: bf2 = BooleanFunctionImproved([0,1,0,0])
             sage: str_bf2 = bf2.tt_hex()
             sage: type(str_bf2)
-            <type 'str'>
+            <class 'str'>
             sage: print(str_bf2)
             2
             sage: bf3 = BooleanFunctionImproved([0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1])
