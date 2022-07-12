@@ -5,7 +5,7 @@ Paul Leopardi.
 """
 
 #*****************************************************************************
-#       Copyright (C) 2016 Paul Leopardi paul.leopardi@gmail.com
+#       Copyright (C) 2016-2022 Paul Leopardi paul.leopardi@gmail.com
 #
 #  Distributed under the terms of the GNU General Public License (GPL)
 #  as published by the Free Software Foundation; either version 2 of
@@ -14,6 +14,7 @@ Paul Leopardi.
 #*****************************************************************************
 
 from boolean_cayley_graphs.bent_function import BentFunction
+from sage.rings.integer import Integer
 
 base4 = lambda length, num: num.digits(4, padto=length)
 
@@ -28,7 +29,7 @@ def sigma_tau(which, m, x):
     defined via the properties of real monomial representation matrices
     of real Clifford algebras.
     """
-    xbase4 = base4(m, x)
+    xbase4 = base4(Integer(m), Integer(x))
     nbr1 = xbase4.count(1)
     nbr2 = xbase4.count(2)
     return 0 if nbr1 + nbr2 == 0 else (nbr1 + which) % 2
@@ -40,12 +41,12 @@ clifford_non_diag_symmetry_tau = lambda m, x: sigma_tau(1, m, x)
 
 power_4_truth_table = lambda m, f: [
     f(m, x)
-    for x in sxrange(4 ** m)]
+    for x in range(4 ** m)]
 
 
 sigma_list = lambda n: [
     BentFunction(power_4_truth_table(m, clifford_sign_of_square_sigma))
-    for m in sxrange(n)]
+    for m in range(n)]
 r"""
 The list `sigma_list(n)` contains each `BentFunction`
 corresponding to $\sigma_m$ for $m$ from 0 to n-1.
@@ -54,7 +55,7 @@ corresponding to $\sigma_m$ for $m$ from 0 to n-1.
 
 tau_list = lambda n: [
     BentFunction(power_4_truth_table(m, clifford_non_diag_symmetry_tau))
-    for m in sxrange(n)]
+    for m in range(n)]
 r"""
 The list `tau_list(n)` contains each `BentFunction`
 corresponding to $\tau_m$ for $m$ from 0 to n-1.
