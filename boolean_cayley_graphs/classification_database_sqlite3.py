@@ -297,6 +297,7 @@ def insert_classification(
     wcm  = bfcgc.weight_class_matrix
 
     curs = conn.cursor()
+    curs.execute("BEGIN")
     curs.execute("""
         INSERT INTO bent_function
         VALUES (?,?,?)""",
