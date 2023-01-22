@@ -2,7 +2,7 @@ r"""
 Interface to a classification database using sqlite3
 ====================================================
 
-The ``classification_databasepsqlite3`` module defines interfaces
+The ``classification_database_sqlite3`` module defines interfaces
 to manipulate an SQLite3 database of Cayley graph classifications.
 
 AUTHORS:
@@ -297,6 +297,7 @@ def insert_classification(
     wcm  = bfcgc.weight_class_matrix
 
     curs = conn.cursor()
+    curs.execute("BEGIN")
     curs.execute("""
         INSERT INTO bent_function
         VALUES (?,?,?)""",
