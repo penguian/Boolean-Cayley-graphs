@@ -28,6 +28,7 @@ from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
 from sage.rings.integer import Integer
 
 from boolean_cayley_graphs.integer_bits import base2
+from boolean_cayley_graphs.linear import is_linear
 from boolean_cayley_graphs.saveable import Saveable
 
 default_algorithm = "sage"
@@ -119,34 +120,49 @@ class BooleanGraph(Graph, Saveable):
 
 
         """
-
-        # Check the isomorphism via canonical labels.
+        # Check the isomorphism between self and other via canonical labels.
         # This is to work around the slow speed of is_isomorphic in some cases.
-        if self.canonical_label(algorithm=algorithm) != other.canonical_label(algorithm=algorithm):
-            return (False, None)
+        if self.canonical_label() != other.canonical_label():
+            return (False, None) if certificate else False
 
         # Obtain the mapping that defines the isomorphism.
-        is_isomorphic, mapping = self.is_isomorphic(other, certificate=True)
+        is_isomorphic, mapping_dict = self.is_isomorphic(other, certificate=True)
 
-        # If self is not isomorphic to other, it is not linear isomorphic.
+        # If self is not isomorphic to other, it is not linear equivalent.
         if not is_isomorphic:
-            return (False,None) if certificate else False
+            return (False, None) if certificate else False
 
-        # Check that the mapping is linear on each pair of basis vectors.
-        dim = Integer(log(self.order(), 2))
-        for a in range(dim):
-            for b in range(a + 1, dim):
-                if mapping[2**a] ^ mapping[2**b] != mapping[(2**a) ^ (2**b)]:
-                    return (False,None) if certificate else False
+        mapping = lambda x: mapping_dict[x]
 
-        # The mapping is linear.
-        # If the caller does not want a certificate, just return True.
-        if not certificate:
-            return True
+        v = self.order()
+        dim = Integer(log(v, 2))
 
-        # Create the G(2) matrix corresponding to the mapping.
-        mapping_matrix = matrix(GF(2), [
-            base2(dim, Integer(mapping[2**a]))
-            for a in range(dim)]).transpose()
-        return (True, mapping_matrix)
+        # Check that mapping is linear.
+        if certificate:
+            linear, mapping_matrix = is_linear(dim, mapping, certificate)
+        else:
+            linear = is_linear(dim, mapping)
+        if linear:
+            return (True, mapping_matrix) if certificate else True
 
+        # For each permutation p in the automorphism group of self,
+        # check that the permuted mapping is linear.
+        auto_group = self.automorphism_group()
+        test_group = auto_group.stabilizer(0) if mapping(0) == 0 else auto_group
+        linear = False
+        for p in test_group:
+            p_mapping = lambda x: p(mapping(x))
+
+            # Check that p_mapping is linear.
+            if certificate:
+                linear, mapping_matrix = is_linear(dim, p_mapping, certificate)
+            else:
+                linear = is_linear(dim, p_mapping)
+            # We only need to find one linear p_mapping that preserves other.
+            if linear:
+                break
+
+        if certificate:
+            return (True, mapping_matrix) if linear else (False, None)
+        else:
+            return linear
