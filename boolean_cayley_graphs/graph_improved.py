@@ -54,13 +54,13 @@ class GraphImproved(Graph, Saveable):
 
     ::
 
-        sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+        sage: from boolean_cayley_graphs.graph_improved import GraphImproved
         sage: P = graphs.PetersenGraph()
         sage: PI = GraphImproved(P)
         sage: print(PI)
         Petersen graph
 
-        sage: from boolean_cayley_graphs.boolean_graph import BooleanGraph
+        sage: from boolean_cayley_graphs.graph_improved import GraphImproved
         sage: P = graphs.PetersenGraph()
         sage: PI = GraphImproved(P)
         sage: latex(PI)

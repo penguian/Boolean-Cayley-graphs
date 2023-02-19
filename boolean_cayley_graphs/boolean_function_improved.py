@@ -36,19 +36,24 @@ EXAMPLES:
 import binascii
 import csv
 
+from datetime import datetime
 from sage.crypto.boolean_function import BooleanFunction
-from sage.modules.vector_mod2_dense import vector
+from sage.matrix.constructor import Matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
 from sage.rings.integer import Integer
 from sage.rings.integer_ring import ZZ
+from sys import stdout
 
 from boolean_cayley_graphs.boolean_cayley_graph import boolean_cayley_graph
-from boolean_cayley_graphs.boolean_graph import BooleanGraph
 from boolean_cayley_graphs.boolean_linear_code import boolean_linear_code
 from boolean_cayley_graphs.integer_bits import base2, inner
+from boolean_cayley_graphs.linear import is_linear
 from boolean_cayley_graphs.saveable import Saveable
 
+import boolean_cayley_graphs.cayley_graph_controls as controls
+
 encoding = "UTF-8"
+
 
 class BooleanFunctionImproved(BooleanFunction, Saveable):
     r"""
@@ -376,6 +381,30 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         return type(self)(bf_self | other)
 
 
+    def __hash__(self):
+        r"""
+        Return the hash of ``self``.
+        This makes the class hashable.
+
+
+        INPUT:
+
+        - ``self`` -- the current object.
+
+        OUTPUT:
+
+        The hash of ``self``.
+
+        EXAMPLES::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf1 = BooleanFunctionImproved([0,1,0,0])
+            sage: hash(bf1) == hash(bf1.tt_hex())
+            True
+        """
+        return hash(self.tt_hex())
+
+
     def cayley_graph(self):
         r"""
         Return the Cayley graph of ``self``.
@@ -454,7 +483,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         :math:`x \mapsto \mathtt{self}(x + b) + \langle c, x \rangle + d`,
 
-        as decribed below.
+        as described below.
 
         INPUT:
 
@@ -477,8 +506,8 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         .. NOTE::
 
-            While ``self`` is a ``BooleanFunction``, the result of
-            ``extended_translate`` is *not* a ``BooleanFunction``,
+            While ``self`` is a ``BooleanFunctionImproved``, the result of
+            ``extended_translate`` is *not* a ``BooleanFunctionImproved``,
             but rather a Python function that takes an ``Integer`` argument.
 
         EXAMPLES:
@@ -493,6 +522,52 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         """
         dim = self.nvariables()
         return lambda x: self(base2(dim, x ^ b)) ^ (0 if c == 0 else inner(c, x)) ^ d
+
+
+    def zero_translate(self, b=0, c=0):
+        r"""
+        Return an extended translation equivalent function of ``self`` that is 0 at 0.
+
+        Given `self` and the non-negative numbers `b` and `c`, the function
+        `zero_translate` returns the Python function
+
+        :math:`x \mapsto \mathtt{bf}(x + b) + \langle c, x \rangle + \mathtt{bf}(b)`,
+
+        as described below.
+
+        INPUT:
+
+        - ``self`` -- the current object.
+        - ``b`` -- non-negative integer (default: 0).
+        - ``c`` -- non-negative integer (default: 0).
+
+        OUTPUT:
+
+        The Python function
+
+        :math:`x \mapsto \mathtt{self}(x + b) + \langle c, x \rangle + \mathtt{bf(b)}`,
+
+        where `b` and `c` are mapped to :math:`\mathbb{F}_2^{dim}` by the
+        lexicographical ordering implied by the ``base2`` function, and
+        where ``dim`` is the number of variables of ``self`` as a ``BooleanFunction.``
+
+        .. NOTE::
+
+            While ``self`` is a ``BooleanFunctionImproved``, the result of
+            ``zero_translate`` is *not* a ``BooleanFunctionImproved``,
+            but rather a Python function that takes an ``Integer`` argument.
+
+        EXAMPLES:
+
+        ::
+
+            sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
+            sage: bf1 = BooleanFunctionImproved([0,1,0,0])
+            sage: f001 = bf1.zero_translate(b=0,c=0)
+            sage: [f001(x) for x in range(4)]
+            [0, 1, 0, 0]
+        """
+        return self.extended_translate(b, c, self.extended_translate()(b))
 
 
     def is_linear_equivalent(self, other, certificate=False):
@@ -532,22 +607,79 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             )
 
         """
-        dim = self.nvariables()
-
-        self_bg  = BooleanGraph(self.cayley_graph())
-        other_bg = BooleanGraph(other.cayley_graph())
-        is_linear_isomorphic, M = self_bg.is_linear_isomorphic(
-            other_bg,
-            certificate=True)
-        if not is_linear_isomorphic:
+        self_cg  = self.cayley_graph()
+        try:
+            other_cg = other.cayley_graph()
+        except AttributeError:
             return (False, None) if certificate else False
-        self_et = self.extended_translate()
+
+        # Check the isomorphism between self_cg and other_cg via canonical labels.
+        # This is to work around the slow speed of is_isomorphic in some cases.
+        if self_cg.canonical_label() != other_cg.canonical_label():
+            return (False, None) if certificate else False
+
+        # Obtain the mapping that defines the isomorphism.
+        is_isomorphic, mapping_dict = self_cg.is_isomorphic(other_cg, certificate=True)
+
+        # If self_cg is not isomorphic to other_cg, it is not linear equivalent.
+        if not is_isomorphic:
+            return (False, None) if certificate else False
+
+        mapping = lambda x: mapping_dict[x]
+
+        dim = self.nvariables()
         v = 2 ** dim
-        for ix in range(v):
-            x = vector(GF(2),base2(dim, ix))
-            if Integer(other(list(M * x))) != self_et(ix):
-                return (False, None) if certificate else False
-            return (True, M) if certificate else True
+
+        # Check that mapping is linear.
+        if certificate:
+            linear, mapping_matrix = is_linear(dim, mapping, certificate)
+        else:
+            linear = is_linear(dim, mapping)
+        if linear:
+            return (True, mapping_matrix) if certificate else True
+
+        # For each permutation p in the automorphism group of self_cg,
+        # check that the permuted mapping:
+        # 1. preserves the value of other, and
+        # 2. is linear.
+        self_et = self.extended_translate()
+        other_et = other.extended_translate()
+        auto_group = self_cg.automorphism_group()
+        test_group = auto_group.stabilizer(0) if mapping(0) == 0 else auto_group
+        linear = False
+        for p in test_group:
+            p_mapping = lambda x: p(mapping(x))
+            # Check that p_mapping preserves other.
+            preserved = True
+            # Check the basis elements
+            for a in range(dim):
+                if other_et(p_mapping(2**a)) != self_et(2**a):
+                    preserved = False
+                    break
+            if not preserved:
+                continue
+
+            # Check all elements
+            for x in range(v):
+                if other_et(p_mapping(x)) != self_et(x):
+                    preserved = False
+                    break
+            if not preserved:
+                continue
+
+            # Check that p_mapping is linear.
+            if certificate:
+                linear, mapping_matrix = is_linear(dim, p_mapping, certificate)
+            else:
+                linear = is_linear(dim, p_mapping)
+            # We only need to find one linear p_mapping that preserves other.
+            if linear:
+                break
+
+        if certificate:
+            return (True, mapping_matrix) if linear else (False, None)
+        else:
+            return linear
 
 
     def linear_code(self):

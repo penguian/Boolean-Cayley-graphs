@@ -26,11 +26,17 @@ Classifications of bent functions
 * :doc:`Classification of bent functions by their Cayley graphs <boolean_cayley_graphs.bent_function_cayley_graph_classification>`
 * :doc:`Classification of bent functions by their weight <boolean_cayley_graphs.weight_class>`
 
+Classification of boolean functions
+-----------------------------------
+
+* :doc:`Classification of boolean functions within an extended translation class <boolean_cayley_graphs.boolean_function_extended_translate_classification>`
+
 Boolean functions
 -----------------
 
-* :doc:`An improved Boolean function class <boolean_cayley_graphs.boolean_function_improved>`
-* :doc:`Bent Boolean functions <boolean_cayley_graphs.bent_function>`
+* :doc:`An improved boolean function class <boolean_cayley_graphs.boolean_function_improved>`
+* :doc:`A general linear equivalence class of boolean functions <boolean_cayley_graphs.boolean_function_general_linear_class>`
+* :doc:`Bent boolean functions <boolean_cayley_graphs.bent_function>`
 
 Graphs
 ------
@@ -38,7 +44,7 @@ Graphs
 * :doc:`An improved Graph class <boolean_cayley_graphs.graph_improved>`
 * :doc:`Boolean graphs <boolean_cayley_graphs.boolean_graph>`
 * :doc:`Boolean linear code graphs <boolean_cayley_graphs.boolean_linear_code_graph>`
-* :doc:`Cayley graph of a Boolean function <boolean_cayley_graphs.boolean_cayley_graph>`
+* :doc:`Cayley graph of a boolean function <boolean_cayley_graphs.boolean_cayley_graph>`
 * :doc:`Strongly regular graphs <boolean_cayley_graphs.strongly_regular_graph>`
 * :doc:`The Royle X graph <boolean_cayley_graphs.royle_x_graph>`
 
@@ -66,6 +72,7 @@ Utilities
 * :doc:`Bit-level properties of integers <boolean_cayley_graphs.integer_bits>`
 * :doc:`Controls for timing and tracing <boolean_cayley_graphs.cayley_graph_controls>`
 * :doc:`Improved container classes <boolean_cayley_graphs.containers>`
+* :doc:`Tests for GF(2) linear algebra <boolean_cayley_graphs.linear>`
 * :doc:`Load and save Sage objects with standardized names <boolean_cayley_graphs.saveable>`
 
 References
