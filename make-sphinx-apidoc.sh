@@ -23,6 +23,7 @@ pushd doc
 # Use sphinx-apidoc to re-create the documentation from the Python files in ../boolean_cayley_graphs
 sphinx-apidoc -e -E -H "Boolean-Cayley-graphs" -A "Paul Leopardi" \
     -V ${BCG_VERSION} -R ${BCG_RELEASE} \
+    -t doc/_templates \
     -o . ../boolean_cayley_graphs
 make html
 popd
