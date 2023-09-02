@@ -1070,7 +1070,7 @@ weight classes.
 \begin{Theorem}
 \label{th-Quadratic-GL-Classes}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
-$q : \F_2^{2m} \To \F_2$ contains exactly two general linear equivalence classes,
+$q : \F_2^{2m} \To \F_2$ contains members of exactly two general linear equivalence classes,
 corresponding to the two possible weight classes of
 $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
 \end{Theorem}
@@ -1080,7 +1080,7 @@ As a consequence of Theorem \ref{th-Linear-Cayley} the following corollary holds
 \begin{Corollary}
 \label{th-Quadratic-Classes}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
-$q : \F_2^{2m} \To \F_2$ contains exactly two extended Cayley equivalence classes,
+$q : \F_2^{2m} \To \F_2$ contains members of exactly two extended Cayley equivalence classes,
 corresponding to the two possible weight classes of
 $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
 \end{Corollary}
@@ -2068,8 +2068,12 @@ Thus the smallest number is coloured black and the largest number is coloured wh
 The plotted matrices all contain non-negative integers.
 The weight class matrices are defined by Definition~\ref{def-weight-class-matrix}, and are $\{0,1\}$ matrices,
 so their matrix plots are therefore black and white, with black representing 0 and white representing 1.
-The other matrices record the number of the Cayley class within the
+The Cayley class matrices record the number of the Cayley class within the
 ET class, starting from 0, as per corresponding table of extended Cayley classes.
+The matrix plots corresponding to these matrices have black representing 0,
+and white representing the largest number in the corresponding table.
+Thus the colours are only relevant with in each ET class,
+and there is no relationship between the colours used for in the matrix plots for different ET classes.
 
 Some highlights of the computational results include:
 \begin{enumerate}
