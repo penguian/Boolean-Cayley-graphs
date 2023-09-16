@@ -1064,18 +1064,26 @@ This cuts down the required search space considerably.
 
 % \end{frame}
 
-\paragraph*{Quadratic bent functions have only two extended Cayley classes.}
+\paragraph*{The extended translation class of a quadratic bent function}
 Finally, in the case of quadratic bent functions, there is a complete classification in terms of
 weight classes.
 \begin{Theorem}
-\label{th-Quadratic-Classes}
+\label{th-Quadratic-GL-Classes}
 For each $m>0$, the extended affine equivalence class of quadratic bent functions
-$q : \F_2^{2m} \To \F_2$ contains exactly two extended Cayley equivalence classes,
+$q : \F_2^{2m} \To \F_2$ contains members of exactly two general linear equivalence classes,
 corresponding to the two possible weight classes of
 $x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
 \end{Theorem}
 
 The proof of this theorem is given in Appendix~\ref{app-proof-of}.
+As a consequence of Theorem \ref{th-Linear-Cayley} the following corollary holds.
+\begin{Corollary}
+\label{th-Quadratic-Classes}
+For each $m>0$, the extended affine equivalence class of quadratic bent functions
+$q : \F_2^{2m} \To \F_2$ contains members of exactly two extended Cayley equivalence classes,
+corresponding to the two possible weight classes of
+$x \mapsto q(x+b) + \langle c, x \rangle + q(b)$.
+\end{Corollary}
 
 \subsection{Relationships between duality of bent functions and different concepts of equivalence}
 
@@ -1497,30 +1505,16 @@ without which I would not have been able to conduct this research.
 
 \appendix
 
-\section{Proof of Theorem \ref{th-Quadratic-Classes}}
+\section{Proof of Theorem \ref{th-Quadratic-GL-Classes}}
 \label{app-proof-of}
 
-The proof of Theorem \ref{th-Quadratic-Classes} relies on a number of supporting lemmas,
+The proof of Theorem \ref{th-Quadratic-GL-Classes} relies on a number of supporting lemmas,
 which are stated and proved here.
 \begin{Lemma}
 \label{lm-notes-5}
-Let $q(x) := x^T L x$ where $L \in \F_2^{2 m \times 2 m}$,
-\begin{align*}
-L
-&:=
-\left[
-\begin{array}{cc}
-0 & I
-\\
-0 & 0
-\end{array}
-\right],
-\intertext{so that}
-q(x) &= \sum_{k=0}^{m-1} x_k x_{m+k}.
-\end{align*}
-
-Let $f(x) := q(x+b) + \langle c,x \rangle + q(b)$.
-Then there exists $c' \in \F_2^{2m}$ such that
+Let $q(x) := x^T M x$ and
+$f(x) := q(x+b) + \langle c,x \rangle + q(b)$, where $M \in \F_2^{2 m \times 2 m}$ and $b, c \in \F_2^{2m}$.
+Then $c' := (M+M^T) b + c$ satifies
 \begin{align*}
 f(x)
 &=
@@ -1531,18 +1525,18 @@ q(x) + \langle c',x \rangle.
 
 \begin{proof}
 \begin{align*}
-q(x) = x^T L x, \quad \text{so~}
+q(x) = x^T M x, \quad \text{so~}
 q(x+b)
 &=
-(x^T+b^T) L (x+b)
+(x^T+b^T) M (x+b)
 \\
-&= q(x) + x^T L b + b^T L x + q(b)
+&= q(x) + x^T M b + b^T M x + q(b)
 \\
-&= q(x) + \langle (L + L^T) b, x \rangle + q(b),
+&= q(x) + \langle (M + M^T) b, x \rangle + q(b),
 \intertext{and therefore}
 q(x+b) + \langle c, x \rangle + q(b)
 &=
-q(x) + \langle (L+L^T) b + c, x \rangle.
+q(x) + \langle (M+M^T) b + c, x \rangle.
 \end{align*}
 
 \end{proof}
@@ -1560,28 +1554,22 @@ for all $x \in \F_2^{2 m}$.
 
 \begin{proof}
 Let $Z$, $x$ be as above.
+Because $Z$ is symmetric with zero diagonal, there exists a stricly upper triangular $U \in \F_2^{2 m \times 2 m}$
+with $Z = U + U^T$.
 Then
 \begin{align*}
 x^T Z x
 &=
-\sum_{i=0}^{2m-1} \sum_{j=0}^{2m-1} x_i Z_{i,j} x_j
-\\
-&=
-\sum_{i=0}^{2m-1} \sum_{j<i} x_i Z_{i,j} x_j\, +
-\sum_{i=0}^{2m-1} x_i Z_{i,i} x_i\, +
-\sum_{i=0}^{2m-1} \sum_{j>i} x_i Z_{i,j} x_j
-\\
-&=
-\sum_{i=0}^{2m-1} \sum_{j<i} x_i (Z_{i,j} + Z_{j,i})
-= 0.
-\intertext{Therefore}
+x^T (U + U^T) x = x^T U x + x^T U^T x = x^T U x + x^T U x = 0.
+\intertext{Therefore by the distributive law}
 x^T (M + Z) x  &= x^T M x + x^T Z x = x^T M x.
 \end{align*}
 \end{proof}
 
 \begin{Lemma}
 \label{lm-notes-4}
-Let $q$ be defined as per Lemma \ref{lm-notes-5}.
+For $x \in \in Z_2^{2 m}$ let $q(x) := \sum_{k=0}^{m-1} x_k x_{m+k}$.
+
 Then for all $c \in Z_2^{2 m}$ with $q(c)=0$, there exists $A \in GL(2 m, 2)$ such that
 \begin{align*}
 q(A x) &= q(x) + \langle c, x \rangle.
@@ -1589,16 +1577,29 @@ q(A x) &= q(x) + \langle c, x \rangle.
 \end{Lemma}
 
 \begin{proof}
-Let $C \in \F_2^{2 m \times 2 m}$ be such that $C_{i,j} = \delta_{i,j} c_i$, where $\delta$ is the
+We have $q(x) = x^T L x$ where $L \in \F_2^{2 m \times 2 m}$ is defined by
+\begin{align*}
+L
+&:=
+\left[
+\begin{array}{cc}
+0 & I
+\\
+0 & 0
+\end{array}
+\right],
+\end{align*}
+where $I$ is the identity matrix in $\F_2^{m \times m}$.
+
+Let $C \in \F_2^{2 m \times 2 m}$ be defined by $C_{i,j} := \delta_{i,j} c_i$, where $\delta$ is the
 \Emph{Dirac delta}: $\delta_{i,j}=1$ if $i=j$ and $0$ otherwise.
-In other words $\diag{C} = c$.
+Therefore $\diag{C} = c$.
 Then
 \begin{align*}
 \langle c, x \rangle
 &=
 \sum_{i=0}^{2m-1} c_i x_i
-\\
-&=
+=
 \sum_{i=0}^{2m-1} x_i c_i x_i
 =
 x^T C x.
@@ -1609,26 +1610,27 @@ q(x) + \langle c, x \rangle
 &=
 x^T (L + Z + C) x,
 \end{align*}
-where $Z \in \F_2^{2 m \times 2 m}$ is symmetric with zero diagonal.
+for any $Z \in \F_2^{2 m \times 2 m}$ that is symmetric with zero diagonal.
 
-For such $Z$, let $S := Z + C$.
 We want to find $A \in \F_2^{2 m \times 2 m}$ such that $q(A x) = q(x) + \langle c, x \rangle.$
 In other words,
-\begin{align*}
+\begin{align}
 q(A x)
 &=
 (A x)^T L (A x)
 =
 x^T A^T L A x
 =
-x^T (L + S) x.
-\end{align*}
-This will be true if $A^T L A = L + S.$
+x^T (L + Z + C) x
+\label{eq-q-A-x}
+\end{align}
+for some $Z$ as above.
+This will be true if $A^T L A = L + Z + C.$
 
-Let
+Deecompose $A$, $Z$ and $C$ into $\F_2^{m \times m}$ block matrices as follows.
 \begin{align*}
 A
-&:=
+&=:
 \left[
 \begin{array}{cc}
 A_{0,0} & A_{0,1}
@@ -1637,24 +1639,27 @@ A_{1,0} & A_{1,1}
 \end{array}
 \right],
 \quad
-S
-&:=
-\left[
-\begin{array}{cc}
-S_{0,0} & S_{0,1}
-\\
-S_{0,1}^T & S_{1,1}
-\end{array}
-\right]
+Z
 =:
 \left[
 \begin{array}{cc}
-Z_{0,0} + C_{0,0} & Z_{0,1}
+Z_{0,0} & Z_{0,1}
 \\
-Z_{0,1}^T & Z_{1,1} + C_{1,1}
+Z_{0,1}^T & Z_{1,1}
+\end{array}
+\right],
+\quad
+C
+=:
+\left[
+\begin{array}{cc}
+C_{0,0} & 0
+\\
+0 & C_{1,1}
 \end{array}
 \right].
 \end{align*}
+
 Since
 \begin{align*}
 L A
@@ -1682,7 +1687,7 @@ A_{1,0} & A_{1,1}
 \end{array}
 \right],
 \end{align*}
-we require that
+we therefore want to find $A$ and $Z$ as above that satisfy
 \begin{align*}
 A^T L A
 &=
@@ -1700,8 +1705,7 @@ A_{1,0} & A_{1,1}
 0 & 0
 \end{array}
 \right]
-\\
-&=
+=
 \left[
 \begin{array}{cc}
 A_{0,0}^T A_{1,0} & A_{0,0}^T A_{1,1}
@@ -1711,91 +1715,24 @@ A_{0,1}^T A_{1,0} & A_{0,1}^T A_{1,1}
 \right]
 \\
 &=
-L + S
+L + Z + C
 =
 \left[
 \begin{array}{cc}
-S_{0,0} & I + S_{0,1}
+Z_{0,0} + C_{0,0} & I + Z_{0,1}
 \\
-S_{0,1}^T & S_{1,1}
-\end{array}
-\right],
-\end{align*}
-and therefore
-\begin{align*}
-A_{0,0}^T A_{1,0}
-&=
-S_{0,0},
-\quad
-A_{0,0}^T A_{1,1}
-=
-I + S_{0,1},
-\\
-A_{0,1}^T A_{1,0}
-&=
-S_{0,1}^T,
-\quad
-A_{0,1}^T A_{1,1}
-=
-S_{1,1}.
-\end{align*}
-If $S_{0,1}=0$ and $A_{0,0}=I$ then
-$A_{1,0}=S_{0,0}$, $A_{1,1}=I$ and $A_{0,1}=S_{1,1}$.
-In this case, we have $A_{0,1}^T A_{1,0} = S_{0,1}^T = 0$,
-i.e. $S_{1,1} S_{0,0} = 0$, and
-\begin{align*}
-A
-&=
-\left[
-\begin{array}{cc}
-I & S_{1,1}
-\\
-S_{0,0} & I
-\end{array}
-\right],
-\intertext{so that}
-A^T L A
-&=
-\left[
-\begin{array}{cc}
-I & S_{0,0}
-\\
-S_{1,1} & I
-\end{array}
-\right]
-\left[
-\begin{array}{cc}
-S_{0,0} & I
-\\
-0 & 0
-\end{array}
-\right]
-\\
-&=
-\left[
-\begin{array}{cc}
-S_{0,0} & I
-\\
-0 & S_{1,1}
-\end{array}
-\right]
-\\
-&=
-L + S.
-\end{align*}
-
-Also
-\begin{align*}
-S
-&=
-\left[
-\begin{array}{cc}
-Z_{0,0} + C_{0,0} & 0
-\\
-0 & Z_{1,1} + C_{1,1}
+Z_{0,1}^T & Z_{1,1} + C_{1,1}
 \end{array}
 \right].
 \end{align*}
+
+If $A_{0,0}=I$ and $Z_{0,1}=0$ then $A$ and $Z$ need to satisfy
+$A_{1,0}=Z_{0,0}+C_{0,0}$, $A_{1,1}=I$, $A_{0,1}=Z_{1,1}+C_{1,1}$, and $A_{0,1}^T A_{1,0} = Z_{0,1}^T = 0$.
+Therefore $Z$ also needs to satisfy
+\begin{align}
+(Z_{1,1}+C_{1,1})(Z_{0,0}+C_{0,0}) &= 0.
+\label{eq-Z-C}
+\end{align}
 
 Since $q(c)=0$ we have
 \begin{align*}
@@ -1807,37 +1744,58 @@ q(c)
 \end{align*}
 Let $K := \{ k \mid c_k c_{m+k} = 1 \}$.
 Then we must have $\abs{K} = 2 r$ for some integer $r \geqslant 0$, i.e. $\abs{K}$ is even.
-We therefore arbitrarily group the elements of $K$ into pairs $(i_p, j_p)$ for $p=0,\ldots,r-1$,
-and define the matrix $T \in \F_2^{m \times m}$ by
+We therefore define two sequences $(i_0,i_1,\ldots,i_{r-1})$ and $(j_0,j_1,\ldots,j_{r-1})$
+with $i_p, j_p \in K$ for $p \in \{0,\ldots,p-1\}$ such that
 \begin{align*}
-T_{i,j}
-&:=
-\sum_{p=0}^{r-1} (\delta_{i,i_p} \delta_{j,j_p} + \delta_{i,j_p} \delta_{j,i_p}),
+i_0 &<i_1<\ldots<i_{p-1}<j_0<j_1<\ldots<j_{p-1}
 \end{align*}
+and define the matrix $U \in \F_2^{m \times m}$ by
+\begin{align}
+U_{i,j}
+&:=
+\sum_{p=0}^{r-1} \delta_{i,i_p} \delta_{j,j_p},
+\label{eq-U-def}
+\end{align}
+
 so that
 \begin{align*}
 \begin{cases}
-T_{i_p,j_p}
-=
-T_{j_p,i_p}
+U_{i_p,j_p}
 =
 1
 &\text{for~} p \in \{0,\ldots,r-1\},
 \\
-T_{i,j} = 0
+U_{i,j} = 0
 &\text{otherwise.}
 \end{cases}
 \end{align*}
-Since the $r$ pairs $(i_p, j_p)$ partition the set $K$,
-the matrix $T$ has at most one non-zero in each row and column.
+Since the sequences $(i_p)$, $(j_p)$ for $p \in \{0,\ldots,p-1\}$ are strictly increasing with $i_{p-1} < j_0$,
+the matrix $U$ is strictly upper triangular with at most one non-zero in each row and each column.
 
-Recalling that
+Let $X := U+U^T$. Then
+\begin{align}
+X_{i,j}
+&:=
+\sum_{p=0}^{r-1} (\delta_{i,i_p} \delta_{j,j_p} + \delta_{j,i_p} \delta_{i,j_p})
+\label{eq-X-def}
+\end{align}
+and $X$ is symmetric with zero diagonal and has at most one non-zero in each row and each column.
+
+Consider
 \begin{align*}
-(T^2)_{i,j}
+(X^2)_{i,j}
 &=
-\sum_{k=0}^{m-1} T_{i,k} T_{k,j},
+\sum_{k=0}^{m-1} X_{i,k} X_{k,j}
+\\
+&=
+\sum_{k=0}^{m-1}
+\sum_{p=0}^{r-1} (\delta_{i,i_p} \delta_{k,j_p} + \delta_{k,i_p} \delta_{i,j_p})
+\sum_{q=0}^{r-1} (\delta_{k,i_q} \delta_{j,j_q} + \delta_{j,i_q} \delta_{k,j_q})
+\\
+&=
+\sum_{p=0}^{r-1} (\delta_{i,i_p}\delta_{j,i_p} + \delta_{i,j_p}\delta_{j,j_p}).
 \end{align*}
-we see that the general term $T_{i,k} T_{k,j}$ of this sum is non-zero only if either
+The general term $X_{i,k} X_{k,j}$ of this sum is non-zero only if either
 \begin{align*}
 \begin{cases}
 i = j = i_p,&\text{and}\ k=j_p,\ \text{or}
@@ -1846,48 +1804,66 @@ i = j = j_p,&\text{and}\ k=i_p,
 \end{cases}
 \end{align*}
 for some $p \in \{0,\ldots,r-1\}$, with all $2r$ of these cases being mutually exclusive.
-So $T^2$ is diagonal with $2r$ non-zeros at the elements of $K$.
+So $X^2$ is diagonal with $2r$ ones at the elements of $K$ and zeros elsewhere.
 
-But $C_{1,1} C_{0,0}$ is diagonal, and $(C_{1,1} C_{0,0})_{i,i} = c_{m+i} c_i$.
-Therefore
+But $C_{1,1} C_{0,0}$ is also diagonal, and $(C_{1,1} C_{0,0})_{i,i} = c_{m+i} c_i$,
+with $2r$ ones at the elements of $K$ and zeros elsewhere.
+Therefore $X^2 = C_{1,1} C_{0,0}$
+and for this choice of $X$ we have
+\begin{align*}
+(X+C_{1,1})(X+C_{0,0})
+&
+= X^2 + C_{1,1} X + X C_{0,0} + C_{1,1} C_{0,0}
+= C_{1,1} X + X C_{0,0}.
+\end{align*}
+
+Now consider the product $U C_{0,0}$ where $U$ is defined by \eqref{eq-U-def}.
+We have
+\begin{align*}
+(U C_{0,0})_{i,j}
+&
+= \sum_{k=0}^{m-1} U_{i,k} (C_{0,0})_{k,j}
+= U_{i,j}(C_{0,0})_{j,j}
+= U_{i,j} c_j
+\\
+&=
+\begin{cases}
+c_{j_p} &\text{when}\ i=i_p,j=j_p,\ \text{and}\ j_p < m
+\\
+0,&\text{otherwise.}
+\end{cases}
+\end{align*}
+But $c_{j_p} = 1$ when $j_p < m$ since $j_p \in K,$ so $U C_{0,0} = U.$
+
+Similarly, $U^T C_{0,0} = U^T$, so $X C_{0,0} = X.$
+
+By the same reasoning $C_{1,1} X = X$, and therefore
 \begin{align}
-T^2 &= C_{1,1} C_{0,0}.
-\label{eq-t-2}
+(X+C_{1,1})(X+C_{0,0}) &= C_{1,1} X + X C_{0,0} = 0.
+\label{eq-X-C-1-1-X-C-0-0}
 \end{align}
+Similarly, $(X+C_{0,0})(X+C_{1,1}) = 0.$
 
-Now, let $Z_{0,0}=Z_{1,1}=T$. Then $S_{0,0} = T + C_{0,0}$, $S_{1,1} = T + C_{1,1}$, and
-\begin{align*}
-S_{1,1} S_{0,0}
-&=
-(T + C_{1,1})(T + C_{0,0})
-=
-T^2 + T C_{0,0} + C_{1,1} T + C_{1,1} C_{0,0}
-\\
-&=
-T C_{0,0} + C_{1,1} T,
-\end{align*}
-where in the last step, we have used \eqref{eq-t-2}.
+Therefore $Z_{0,0}=Z_{1,1}:=X,$ where is is defined by \eqref{eq-X-def}, satisfies \eqref{eq-Z-C}.
 
-Now,
-\begin{align*}
-(T C_{0,0} + C_{1,1} T)_{i,j}
-&=
-\sum_{k=0}^{m-1} T_{i,k} (C_{0,0})_{k,j} + (C_{1,1})_{i,k} T_{k,j}
+Let
+\begin{align}
+A
+&:=
+\left[
+\begin{array}{cc}
+I & X + C_{0,0}
 \\
-&=
-T_{i,j} (C_{0,0})_{j,j} + (C_{1,1})_{i,i} T_{i,j}
-\\
-&=
-T_{i,j} \left( c_j + c_{m+i} \right).
-\end{align*}
-As above, $T_{i,j}$ is non-zero only when $(i,j)=(i_p,j_p)$ or $(i,j)=(j_p,i_p)$
-for some $p \in \{0,\ldots,r-1\}$, but in all those cases $c_j=c_{m+j}=1$.
+X + C_{1,1} & I
+\end{array}
+\right],
+\label{eq-A-def}
+\end{align}
+and let $S_{0,0}:=X+C_{0,0}$, $S_{1,1}:=X+C_{1,1}$
+where $X$ is defined by \eqref{eq-X-def}.
 
-Therefore
-\begin{align*}
-S_{1,1} S_{0,0} &= T C_{0,0} + C_{1,1} T = 0.
-\end{align*}
-Similarly, $S_{0,0} S_{1,1} = 0$, and therefore
+We therefore have $S_{1,1} S_{0,0} = S_{0,0} S_{1,1} = 0,$
+so that
 \begin{align*}
 A^2
 &=
@@ -1924,35 +1900,23 @@ I & 0
 \right].
 \end{align*}
 
-We have therefore shown that
-\begin{align}
-A
+We have therefore shown that the matrix $A$ as defined by \eqref{eq-A-def} and the matrix $Z$ as defined by
+\begin{align*}
+Z
 &:=
 \left[
 \begin{array}{cc}
-I & T + C_{1,1}
+X & 0
 \\
-T + C_{0,0} & I
+0 & X
 \end{array}
 \right],
-\quad
-S
-:=
-\left[
-\begin{array}{cc}
-T + C_{0,0} & 0
-\\
-0 & T + C_{1,1}
-\end{array}
-\right]
-\label{eq-a-s-def}
-\end{align}
-is a solution to $A^T L A = L + S$ with $A \in GL(2 m, 2)$.
+\end{align*}
+where $X$ is defined by \eqref{eq-X-def}, satisfy $A^T L A = L + Z + C$ with $A \in GL(2m,2)$.
 
-Finally, given $c$ with $q(c)=0$, the matrix $A$ as defined by \eqref{eq-a-s-def} is such that
+Finally, given $c$ with $q(c)=0$, the matrix $A$ as defined by \eqref{eq-A-def} is such that $A \in GL(2m,2)$ and
 $q(A x) = q(x) + \langle c, x \rangle$.
 \end{proof}
-% \end{frame}
 
 \begin{Lemma}
 \label{lm-notes-6}
@@ -1963,7 +1927,7 @@ e_i^{(k)} &:= \delta_{i,k} + \delta_{i,m+k}
 \end{align}
 for $i \in \{0,\ldots,2 m - 1\}$.
 
-Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
+Let $h(x) := q(x) + \langle e^{(0)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-4}.
 Then for any $c'$ such that $q(c')=1$, there exists $B \in GL(2 m, 2)$ such that
 \begin{align}
 h(B x) &= q(x) + \langle c',x \rangle.
@@ -1993,16 +1957,16 @@ for $A$ given by the proof of Lemma \ref{lm-notes-4}.
 If we let $K := \{ k \mid c_k c_{m+k} = 1 \}$, we see that $K = K' \setminus \{\ell\}$.
 Applying the other definitions and techniques used in the proof of Lemma \ref{lm-notes-4},
 we see that since $c_{\ell} = c_{m+\ell} = 0$ and $K$ does not contain $\ell$,
-column $\ell$ of each of $S_{0,0} := T + C_{0,0}$
-and $S_{1,1} := T + C_{1,1}$ is $0$, and therefore columns $\ell$ and $m + \ell$ of
+column $\ell$ of each of $S_{0,0} := X + C_{0,0}$
+and $S_{1,1} := X + C_{1,1}$ is $0$, and therefore columns $\ell$ and $m + \ell$ of
 \begin{align*}
 A^T + I
 &:=
 \left[
 \begin{array}{cc}
-I & T + C_{0,0}
+0 & X + C_{1,1}
 \\
-T + C_{1,1} & I
+X + C_{0,0} & 0
 \end{array}
 \right]
 \end{align*}
@@ -2020,7 +1984,7 @@ q(x) + \langle c', x \rangle.
 \label{lm-notes-6-b}
 For distinct $k,\ell \in \{0,\ldots,m-1\}$ let $e^{(k)}, e^{(\ell)}$ be defined as per Lemma
 \ref{lm-notes-6}.
-Let $h(x) := q(x) + \langle e^{(k)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-5}.
+Let $h(x) := q(x) + \langle e^{(k)}, x \rangle$, where $q$ is defined as per Lemma \ref{lm-notes-4}.
 Then there exists $A \in GL(2 m, 2)$ such that
 \begin{align}
 h(A x)
@@ -2036,7 +2000,7 @@ using cycle notation.)
 
 \begin{Lemma}
 \label{lm-notes-7}
-Let $q$ be defined as per Lemma \ref{lm-notes-5}.
+Let $q$ be defined as per Lemma \ref{lm-notes-4}.
 Then for all $c, c' \in Z_2^{2 m}$ with $q(c)=q(c')=1$, there exists $A \in GL(2 m, 2)$ such that
 if $h(x) := q(x) + \langle c, x \rangle$, then
 \begin{align*}
@@ -2048,24 +2012,24 @@ h(A x) &= q(x) + \langle c', x \rangle.
 This is a consequence of Lemmas \ref{lm-notes-6} and \ref{lm-notes-6-b}.
 \end{proof}
 
-\begin{proofof}{Theorem \ref{th-Quadratic-Classes}}
+\begin{proofof}{Theorem \ref{th-Quadratic-GL-Classes}}
 It is well known that all quadratic bent functions are contained in one Extended Affine equivalence
 class.
 As a consequence of Corollary \ref{corr-Affine-Translate-Cayley}, without loss of generality, we need
 only examine
 the Extended Translation equivalence class of the quadratic function $q$ as defined in Lemma
-\ref{lm-notes-5}.
+\ref{lm-notes-4}.
 
 As a result of Lemma \ref{lm-notes-5}, we actually need only examine functions of the form
 $f(x) = q(x) + \langle c,x \rangle$
 for some $c \in \F_2^{2m}$.
-Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are Cayley equivalent to
+Lemma \ref{lm-notes-4} implies that all such functions for which $q(c)=0$ are general linear equivalent to
 $q$.
-Lemma \ref{lm-notes-7} implies that any two such functions $q(x) + \langle c, x \rangle$ and $q(x)\, +
+Lemma \ref{lm-notes-7} implies that any two functions $q(x) + \langle c, x \rangle$ and $q(x)\, +
 \langle c', x \rangle$
-with $q(c)=q(c')=1$ are Cayley equivalent to each other.
+with $q(c)=q(c')=1$ are general linear equivalent to each other.
 
-The functions where $q(c)=0$ are not Cayley equivalent to the functions where $q(c)=1$ because
+The functions where $q(c)=0$ are not general linear equivalent to the functions where $q(c)=1$ because
 Lemma \ref{lm-notes-9b} implies that
 \begin{align*}
 \weightclass{x \mapsto q(x) + \langle c,x \rangle}
@@ -2075,7 +2039,7 @@ Lemma \ref{lm-notes-9b} implies that
 since $q$ is self-dual.
 \end{proofof}
 
-%\newpage
+\newpage
 
 \section{Computational results for low dimensions}
 \label{sec-Empirical}
@@ -2104,8 +2068,12 @@ Thus the smallest number is coloured black and the largest number is coloured wh
 The plotted matrices all contain non-negative integers.
 The weight class matrices are defined by Definition~\ref{def-weight-class-matrix}, and are $\{0,1\}$ matrices,
 so their matrix plots are therefore black and white, with black representing 0 and white representing 1.
-The other matrices record the number of the Cayley class within the
+The Cayley class matrices record the number of the Cayley class within the
 ET class, starting from 0, as per corresponding table of extended Cayley classes.
+The matrix plots corresponding to these matrices have black representing 0,
+and white representing the largest number in the corresponding table.
+Thus the colours are only relevant with in each ET class,
+and there is no relationship between the colours used for in the matrix plots for different ET classes.
 
 Some highlights of the computational results include:
 \begin{enumerate}
