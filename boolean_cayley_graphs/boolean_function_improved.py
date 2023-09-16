@@ -36,7 +36,6 @@ EXAMPLES:
 import binascii
 import csv
 
-from datetime import datetime
 from sage.crypto.boolean_function import BooleanFunction
 from sage.matrix.constructor import Matrix
 from sage.rings.finite_rings.finite_field_constructor import FiniteField as GF
@@ -607,6 +606,25 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
             )
 
         """
+
+        def is_preserved(self_f, other_f, p_mapping):
+            """
+            Check that p_mapping preserves other_f.
+            """
+            dim = self.nvariables()
+            # Check the basis elements
+            for a in range(dim):
+                if other_f(p_mapping(2**a)) != self_f(2**a):
+                    return False
+
+            # Check all elements
+            v = 2 ** dim
+            for x in range(v):
+                if other_f(p_mapping(x)) != self_f(x):
+                    return False
+            return True
+
+
         self_cg  = self.cayley_graph()
         try:
             other_cg = other.cayley_graph()
@@ -642,31 +660,20 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         # check that the permuted mapping:
         # 1. preserves the value of other, and
         # 2. is linear.
-        self_et = self.extended_translate()
-        other_et = other.extended_translate()
+        self_f = self.extended_translate()
+        other_f = other.extended_translate()
         auto_group = self_cg.automorphism_group()
         test_group = auto_group.stabilizer(0) if mapping(0) == 0 else auto_group
+        test_group_gens = test_group.gens()
+
         linear = False
-        for p in test_group:
+
+        # Test the group generators.
+        for p in test_group_gens:
             p_mapping = lambda x: p(mapping(x))
             # Check that p_mapping preserves other.
-            preserved = True
-            # Check the basis elements
-            for a in range(dim):
-                if other_et(p_mapping(2**a)) != self_et(2**a):
-                    preserved = False
-                    break
-            if not preserved:
+            if not is_preserved(self_f, other_f, p_mapping):
                 continue
-
-            # Check all elements
-            for x in range(v):
-                if other_et(p_mapping(x)) != self_et(x):
-                    preserved = False
-                    break
-            if not preserved:
-                continue
-
             # Check that p_mapping is linear.
             if certificate:
                 linear, mapping_matrix = is_linear(dim, p_mapping, certificate)
@@ -674,12 +681,27 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
                 linear = is_linear(dim, p_mapping)
             # We only need to find one linear p_mapping that preserves other.
             if linear:
-                break
+                return (True, mapping_matrix) if certificate else True
 
-        if certificate:
-            return (True, mapping_matrix) if linear else (False, None)
-        else:
-            return linear
+        # Test all other group elements.
+        for p in test_group:
+            if p in test_group_gens:
+                continue
+
+            p_mapping = lambda x: p(mapping(x))
+            # Check that p_mapping preserves other.
+            if not is_preserved(self_f, other_f, p_mapping):
+                continue
+            # Check that p_mapping is linear.
+            if certificate:
+                linear, mapping_matrix = is_linear(dim, p_mapping, certificate)
+            else:
+                linear = is_linear(dim, p_mapping)
+            # We only need to find one linear p_mapping that preserves other.
+            if linear:
+                return (True, mapping_matrix) if certificate else True
+
+        return (False, None) if certificate else False
 
 
     def linear_code(self):
