@@ -73,27 +73,22 @@ def is_linear(dim, perm, certificate=False):
         return (False, None) if certificate else False
 
     # Check that perm is linear on each pair of basis vectors.
-    possibly_linear = True
     for a in range(dim):
         for b in range(a + 1, dim):
             if perm(2**a) ^ perm(2**b) != perm((2**a) ^ (2**b)):
-                possibly_linear = False
-                break
-        if not possibly_linear:
-            break
-    if not possibly_linear:
-        return (False, None) if certificate else False
+                # Not linear on this pair, therefore not linear.
+                return (False, None) if certificate else False
 
     # Create the GF(2) matrix corresponding to perm, assuming linearity.
-    perm_matrix = Matrix(GF(2), [
+    perm_m = Matrix(GF(2), [
         base2(dim, Integer(perm(2**a)))
-        for a in range(dim)]).transpose()
+        for a in range(dim)])
     # Check for each vector that the matrix gives the same result as perm.
-    vm = Matrix(GF(2), [
-         base2(dim, Integer(x))
-         for x in range(v)]).transpose()
-    linear = perm_matrix * vm == vm[:, [perm(x) for x in range(v)]]
-    if certificate:
-        return (True, perm_matrix) if linear else (False, None)
-    else:
-        return linear
+    v_m = Matrix(GF(2), [
+              base2(dim, Integer(x))
+              for x in range(v)])
+    linear = v_m * perm_m == v_m[[perm(x) for x in range(v)], :]
+    return (
+         ((True, perm_m.transpose()) if linear else (False, None))
+         if certificate
+         else linear)

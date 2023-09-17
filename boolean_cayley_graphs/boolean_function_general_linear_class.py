@@ -231,7 +231,7 @@ class BooleanFunctionGeneralLinearClass(BooleanFunctionImproved, Saveable):
 
     def __eq__(self, other):
         """
-        Test for equality between extended translation equivalence classes.
+        Test for equality between general linear equivalence classes.
 
         WARNING:
 
@@ -239,7 +239,7 @@ class BooleanFunctionGeneralLinearClass(BooleanFunctionImproved, Saveable):
 
         INPUT:
 
-        - ``other`` - BooleanFunctionExtendedTranslateClassification: another equivalence class.
+        - ``other`` - BooleanFunctionGeneralLinearClass: another equivalence class.
 
         OUTPUT:
 
@@ -250,18 +250,40 @@ class BooleanFunctionGeneralLinearClass(BooleanFunctionImproved, Saveable):
         ::
 
             sage: from boolean_cayley_graphs.boolean_function_improved import BooleanFunctionImproved
-            sage: from boolean_cayley_graphs.boolean_function_extended_translate_classification import (
-            ....:     BooleanFunctionExtendedTranslateClassification as BooleanFunctionETC)
+            sage: from boolean_cayley_graphs.boolean_function_general_linear_class import BooleanFunctionGeneralLinearClass
             sage: R2.<x0,x1> = BooleanPolynomialRing(2)
             sage: p = x0*x1
-            sage: f1 =BooleanFunctionImproved(p)
-            sage: c1 = BooleanFunctionETC.from_function(f1)
-            sage: f2 =BooleanFunctionImproved([0,0,0,1])
-            sage: c2 = BooleanFunctionETC.from_function(f2)
-            sage: print(c2.algebraic_normal_form)
-            x0*x1
+            sage: c1 = BooleanFunctionGeneralLinearClass(p)
+            sage: c2 = BooleanFunctionGeneralLinearClass([0,1,0,0])
+            sage: print(c2.algebraic_normal_form())
+            x0*x1 + x0
+            sage: print(c1.cayley_graph().canonical_label() == c2.cayley_graph().canonical_label())
+            True
+            sage: print(c1.is_linear_equivalent(c2))
+            True
             sage: print(c1 == c2)
             True
+
+        TESTS:
+
+        ::
+
+            sage: c3 = BooleanFunctionGeneralLinearClass([0,0,0,1])
+            sage: print(c3.algebraic_normal_form())
+            x0*x1
+            sage: print(c1.cayley_graph() == c3.cayley_graph())
+            True
+            sage: print(c1 == c3)
+            True
+            sage: c4 = BooleanFunctionGeneralLinearClass([0,1,1,1])
+            sage: print(c4.algebraic_normal_form())
+            x0*x1 + x0 + x1
+            sage: print(c1.cayley_graph() == c4.cayley_graph())
+            False
+            sage: print(c1.is_linear_equivalent(c4))
+            False
+            sage: print(c1 == c4)
+            False
         """
         return self.is_linear_equivalent(other)
 
