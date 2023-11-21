@@ -607,22 +607,21 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
         """
 
-        def is_preserved(self_f, other_f, p_mapping):
-            """
-            Check that p_mapping preserves other_f.
-            """
-            dim = self.nvariables()
-            # Check the basis elements
-            for a in range(dim):
-                if other_f(p_mapping(2**a)) != self_f(2**a):
-                    return False
 
+        def is_preserved(other, p_mapping):
+            """
+            Check that p_mapping preserves other.
+            """
+            # Check the basis elements
+            dim = self.nvariables()
+            for a in range(dim):
+                if other(p_mapping(2 ** a)) != self(2 ** a):
+                    return False
             # Check all elements
             v = 2 ** dim
-            for x in range(v):
-                if other_f(p_mapping(x)) != self_f(x):
-                    return False
-            return True
+            return (
+                tuple((other(p_mapping(x)) for x in range(v))) ==
+                self.truth_table())
 
 
         self_cg  = self.cayley_graph()
@@ -660,8 +659,6 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         # check that the permuted mapping:
         # 1. preserves the value of other, and
         # 2. is linear.
-        self_f = self.extended_translate()
-        other_f = other.extended_translate()
         auto_group = self_cg.automorphism_group()
         test_group = auto_group.stabilizer(0) if mapping(0) == 0 else auto_group
         test_group_gens = test_group.gens()
@@ -672,7 +669,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
         for p in test_group_gens:
             p_mapping = lambda x: p(mapping(x))
             # Check that p_mapping preserves other.
-            if not is_preserved(self_f, other_f, p_mapping):
+            if not is_preserved(other, p_mapping):
                 continue
             # Check that p_mapping is linear.
             if certificate:
@@ -690,7 +687,7 @@ class BooleanFunctionImproved(BooleanFunction, Saveable):
 
             p_mapping = lambda x: p(mapping(x))
             # Check that p_mapping preserves other.
-            if not is_preserved(self_f, other_f, p_mapping):
+            if not is_preserved(other, p_mapping):
                 continue
             # Check that p_mapping is linear.
             if certificate:
