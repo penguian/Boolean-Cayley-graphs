@@ -72,22 +72,51 @@ def is_linear(dim, perm, certificate=False):
     if perm(0) != 0:
         return (False, None) if certificate else False
 
-    # Check that perm is linear on each pair of basis vectors.
-    for a in range(dim):
-        for b in range(a + 1, dim):
-            if perm(2**a) ^ perm(2**b) != perm((2**a) ^ (2**b)):
-                # Not linear on this pair, therefore not linear.
-                return (False, None) if certificate else False
+    # Define the basis of the vector space.
+    basis = [2**a for a in range(dim)]
 
     # Create the GF(2) matrix corresponding to perm, assuming linearity.
     perm_m = Matrix(GF(2), [
-        base2(dim, Integer(perm(2**a)))
-        for a in range(dim)])
-    # Check for each vector that the matrix gives the same result as perm.
+            base2(dim, Integer(perm(x)))
+            for x in basis])
+
+    # If dim == 1, the permutation must be the identity.
+    if dim == 1:
+        return (
+            (True, perm_m.transpose())
+            if certificate
+            else True)
+
+    # Define some subsets of range(v)
+    pairs = [2**a ^ 2**b for a in range(dim) for b in range(a+1, dim)]
+    remnant = [x for x in range(1, v) if x not in basis and x not in pairs]
+
+    # Check that perm is linear on each pair of basis vectors.
     v_m = Matrix(GF(2), [
-              base2(dim, Integer(x))
-              for x in range(v)])
-    linear = v_m * perm_m == v_m[[perm(x) for x in range(v)], :]
+            base2(dim, Integer(x))
+            for x in pairs])
+    permv_m = Matrix(GF(2), [
+            base2(dim, Integer(x))
+            for x in [perm(y) for y in pairs]])
+    linear_on_pairs = Matrix(v_m) * Matrix(perm_m) == permv_m
+    if not linear_on_pairs:
+        return (False, None) if certificate else False
+
+    # if len(remnant) == 0 then there are no vectors left to test.
+    if len(remnant) == 0:
+        return (
+            (True, perm_m.transpose())
+            if certificate
+            else True)
+
+    # Check that perm is linear on all remaining vectors.
+    v_m = Matrix(GF(2), [
+            base2(dim, Integer(x))
+            for x in remnant])
+    permv_m = Matrix(GF(2), [
+            base2(dim, Integer(x))
+            for x in [perm(y) for y in remnant]])
+    linear = Matrix(v_m) * Matrix(perm_m) == permv_m
     return (
          ((True, perm_m.transpose()) if linear else (False, None))
          if certificate
