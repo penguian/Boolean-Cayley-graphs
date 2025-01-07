@@ -22,7 +22,7 @@ AUTHORS:
 
 from sage.combinat.combination import Combinations
 from sage.graphs.graph import Graph
-from sage.modules.vector_integer_dense import vector
+from sage.modules.free_module_element import vector
 
 
 def royle_x_graph():
