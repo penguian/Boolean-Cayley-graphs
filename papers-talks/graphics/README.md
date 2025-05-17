@@ -1,0 +1,27 @@
+## Attributions for the third party graphics files included in this directory
+- `ACCESS-NRI*`
+  - ACCESS-NRI
+  - https://www.access-nri.org.au
+- `ATLAS-open-data.jpg`
+  - ATLAS open data 2024 (https://atlas.cern/sites/default/files/2024-07/ATLAS-open-data.jpg)
+  - https://atlas.cern/Updates/News/Open-Data-Research 2024 
+- `CSIRO_ScienceImage_2161_Close_up_of_a_radio_astronomy_telescope_with_several_more_in_the_background.jpg`
+  - CSIRO: Antennas of CSIRO's ASKAP telescope at the Murchison Radio-astronomy Observatory in Western Australia.
+  - https://www.skao.int/en/explore/big-data 2024
+- `DiscreteZoo-6.jpg`, `DiscreteZoo-6.webp`
+  - DiscreteZoo search box 2020
+  - Ber\v{c}i\v{c} and Vidali 2020
+- `ESGF-federation.png`
+  - ESGF nodes 2018 (https://e3sm.org/wp-content/uploads/2018/03/ESGF-federation.png)
+  - Hoffmann et al. 2023
+  - https://www.climatemodeling.org/~forrest/presentations/Hoffman\_WCRP-OSC-ESGF\_20231023.pdf 2023
+- `Historical-price-of-storage.png`
+  - Historical price of computer memory and storage.
+  - Data source: John C. McCallum (2023); U.S. Bureau of Labor Statistics (2024)
+  - (https://ourworldindata.org/grapher/historical-cost-of-computer-memory-and-storage)
+- `LMFDB.png`
+  - The LMFDB universe 2024
+  - The LMFDB Collaboration 2024; Combes et al. 2024
+- `use-cases-lmfdb-mediator.svg`
+  - Math in the Middle mediator, OpenDreamKit Project 2019
+  - OpenDreamKit Project 2015-2019; Bercic, Kohlhase and Rabe 2020
